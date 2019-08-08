@@ -29,6 +29,9 @@ public class DatasourceConfig {
 
   public Map<String, String> props = new HashMap<String, String>();
 
+  public DatasourceConfig(){
+
+  }
   public DatasourceConfig(Map<String, String> properties) {
     for (Map.Entry<String, String> e : properties.entrySet()) {
       String key = e.getKey();
@@ -44,6 +47,8 @@ public class DatasourceConfig {
           this.name = v;
           break;
         case "driver":
+          this.driver = v;
+          break;
         case "catalog":
         case "schema":
           break;

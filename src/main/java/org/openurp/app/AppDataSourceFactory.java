@@ -25,9 +25,14 @@ import org.beangle.commons.io.StringBuilderWriter;
 import org.beangle.commons.lang.Charsets;
 import org.beangle.commons.lang.Strings;
 import org.beangle.commons.web.util.HttpUtils;
+import org.dom4j.Document;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 import org.openurp.app.util.DataSourceUtils;
 import org.openurp.app.util.DatasourceConfig;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 
 import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
@@ -37,9 +42,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializing, Disposable {
+public class AppDataSourceFactory implements FactoryBean<DataSource>, InitializingBean, DisposableBean {
   private String url;
   private String user;
   private String password;
@@ -71,7 +78,7 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
   }
 
   @Override
-  public void init() {
+  public void afterPropertiesSet() throws Exception {
     if (null == name) name = "default";
     try {
       this.url = UrpApp.getUrpAppFile().getCanonicalPath();
@@ -93,22 +100,54 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
       } else if (url.startsWith("http")) {
         String text = HttpUtils.getResponseText(url);
         InputStream is = new ByteArrayInputStream(text.getBytes());
-        merge(readConf(is, isXML));
+        merge(readConf(is, this.name, isXML));
       } else {
         File f = new java.io.File(url);
         try {
           URL urlAddr = f.exists() ? f.toURI().toURL() : new URL(url);
-          merge(readConf(urlAddr.openStream(), isXML));
+          merge(readConf(urlAddr.openStream(), this.name, isXML));
         } catch (Exception e) {
         }
       }
     }
   }
 
-  private DatasourceConfig readConf(InputStream is, boolean isXML) {
+  public static DatasourceConfig readConf(InputStream is, String dsname, boolean isXML) {
     DatasourceConfig conf = null;
     if (isXML) {
-      throw new RuntimeException("Only support json format");
+      try {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(is);
+        List nodes = document.selectNodes("/app/resources/datasource");
+        Set<String> predefined = Set.of("user", "password", "driver", "props");
+        for (Object o : nodes) {
+          if (o instanceof Node) {
+            Node node = (Node) o;
+            String name = node.valueOf("@name");
+            if (name.equals(dsname)) {
+              conf = new DatasourceConfig();
+              conf.user = node.selectSingleNode("user").getText();
+              conf.password = node.selectSingleNode("password").getText();
+              conf.driver = node.selectSingleNode("driver").getText();
+              conf.name = name;
+              List propNodes = node.selectNodes("props/prop");
+              for (Object po : propNodes) {
+                Node pn = (Node) po;
+                conf.props.put(pn.valueOf("@name"), pn.valueOf("@value"));
+              }
+              List children = node.selectNodes("*");
+              for (Object o1 : children) {
+                Node node1 = (Node) o1;
+                if (!predefined.contains(node1.getName())) {
+                  conf.props.put(node1.getName(), node1.getText());
+                }
+              }
+            }
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     } else {
       StringBuilderWriter sw = new StringBuilderWriter();
       Charset charset = Charsets.UTF_8;

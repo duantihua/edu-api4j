@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<app secret="openurp-app-webapp">
+  <resources>
+    <datasource name="default">
+      <serverName>localhost</serverName>
+      <databaseName>openurp</databaseName>
+      <driver>postgresql</driver>
+      <user>openurp</user>
+      <password>openurp</password>
+      <maximumPoolSize>2</maximumPoolSize>
+      <props>
+        <prop name="p1" value="v1"/>
+      </props>
+      <p2>v2</p2>
+    </datasource>
+  </resources>
+</app>

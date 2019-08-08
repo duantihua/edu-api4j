@@ -87,7 +87,7 @@ public class UrpApp {
   }
 
   public static File getUrpAppFile() {
-    File a = new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".json");
+    File a = new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".xml");
     if (!a.exists()) {
       throw new RuntimeException("Cannot find " + a.getAbsolutePath());
     }
