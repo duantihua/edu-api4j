@@ -18,14 +18,16 @@
  */
 package org.openurp.app;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.lang.ClassLoaders;
+import org.beangle.commons.lang.Strings;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.lang.ClassLoaders;
 
 public class UrpApp {
 
@@ -75,5 +77,20 @@ public class UrpApp {
     } else {
       throw new RuntimeException("cannot find META-INF/openurp/app.properties");
     }
+  }
+
+  public String getPath() {
+    //app path starts with /
+    String appPath = Strings.replace(name, "-", "/");
+    appPath = "/" + Strings.replace(appPath, ".", "/");
+    return appPath;
+  }
+
+  public static File getUrpAppFile() {
+    File a = new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".json");
+    if (!a.exists()) {
+      throw new RuntimeException("Cannot find " + a.getAbsolutePath());
+    }
+    return a;
   }
 }
