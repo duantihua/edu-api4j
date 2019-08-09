@@ -28,5 +28,7 @@ public class AppDataSourceTest {
     InputStream is = ClassLoaders.getResourceAsStream("app.xml", AppDataSourceTest.class);
     DatasourceConfig conf = AppDataSourceFactory.readConf(is, "default", true);
     System.out.println(conf.props.size());
+    System.out.println(conf.password);
+
   }
 }

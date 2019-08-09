@@ -35,7 +35,7 @@ public class DaoModule extends AbstractBindModule {
       props("hibernate.max_fetch_depth=1", "hibernate.default_batch_fetch_size=800",
         "hibernate.batch_fetch_style=dynamic", "hibernate.jdbc.fetch_size=800",
         "hibernate.jdbc.batch_size=100", "hibernate.jdbc.batch_versioned_data=true",
-        "hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect",
+        "hibernate.dialect=" + getDialect(),
         "hibernate.temp.use_jdbc_metadata_defaults=false",
         "hibernate.jdbc.use_streams_for_binary=true", "hibernate.jdbc.use_get_generated_keys=true",
         "hibernate.cache.region.factory_class=org.hibernate.cache.EhCacheRegionFactory",
@@ -70,4 +70,13 @@ public class DaoModule extends AbstractBindModule {
     bind(DefaultLobHandler.class).shortName();
   }
 
+  private String getDialect() {
+    AppDataSourceFactory factory = new AppDataSourceFactory();
+    factory.fetchConf();
+    String dialect = "org.hibernate.dialect.PostgreSQL82Dialect";
+    if (factory.getDriver().equals("oracle")) {
+      dialect = "org.hibernate.dialect.Oracle10gDialect";
+    }
+    return dialect;
+  }
 }

@@ -18,8 +18,6 @@
  */
 package org.openurp.app;
 
-import org.beangle.commons.bean.Disposable;
-import org.beangle.commons.bean.Initializing;
 import org.beangle.commons.io.IOs;
 import org.beangle.commons.io.StringBuilderWriter;
 import org.beangle.commons.lang.Charsets;
@@ -28,6 +26,7 @@ import org.beangle.commons.web.util.HttpUtils;
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+import org.openurp.app.util.AesEncryptor;
 import org.openurp.app.util.DataSourceUtils;
 import org.openurp.app.util.DatasourceConfig;
 import org.springframework.beans.factory.DisposableBean;
@@ -56,7 +55,6 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
 
   private DataSource _result;
 
-
   @Override
   public DataSource getObject() {
     return _result;
@@ -77,19 +75,29 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
     return true;
   }
 
-  @Override
-  public void afterPropertiesSet() throws Exception {
+  public void fetchConf() {
     if (null == name) name = "default";
+    File appFile = UrpApp.getUrpAppFile();
+    if (appFile.exists()) {
+      this.url = UrpApp.getUrpAppFile().getAbsolutePath();
+    } else {
+      this.url =
+        Urp.getInstance().getApi() + "/platform/config/datasources/" + UrpApp.getName() + "/" + this.name + ".json?secret=" + UrpApp.Instance.getSecret();
+    }
     try {
-      this.url = UrpApp.getUrpAppFile().getCanonicalPath();
       postInit();
-      _result = DataSourceUtils.build(driver, user, password, props);
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
-  public void postInit() {
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    fetchConf();
+    _result = DataSourceUtils.build(driver, user, password, props);
+  }
+
+  public void postInit() throws Exception {
     if (null != url) {
       boolean isXML = url.endsWith(".xml");
       if (url.startsWith("jdbc:")) {
@@ -99,16 +107,18 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
         }
       } else if (url.startsWith("http")) {
         String text = HttpUtils.getResponseText(url);
-        InputStream is = new ByteArrayInputStream(text.getBytes());
-        merge(readConf(is, this.name, isXML));
+        if (Strings.isNotBlank(text)) {
+          InputStream is = new ByteArrayInputStream(text.getBytes());
+          merge(readConf(is, this.name, isXML));
+        }
       } else {
         File f = new java.io.File(url);
-        try {
-          URL urlAddr = f.exists() ? f.toURI().toURL() : new URL(url);
-          merge(readConf(urlAddr.openStream(), this.name, isXML));
-        } catch (Exception e) {
-        }
+        URL urlAddr = f.exists() ? f.toURI().toURL() : new URL(url);
+        merge(readConf(urlAddr.openStream(), this.name, isXML));
       }
+    }
+    if (password != null && password.startsWith("?")) {
+      this.password = new AesEncryptor(UrpApp.Instance.getSecret()).decrypt(password.substring(1));
     }
   }
 

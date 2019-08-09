@@ -86,11 +86,17 @@ public class UrpApp {
     return appPath;
   }
 
+  public String getSecret() {
+    String secret = properties.get("secret");
+    if (null == secret) return name;
+    else return secret;
+  }
+
   public static File getUrpAppFile() {
-    File a = new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".xml");
-    if (!a.exists()) {
-      throw new RuntimeException("Cannot find " + a.getAbsolutePath());
+    File file= new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".xml");
+    if(!file.exists()){
+      file= new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".json");
     }
-    return a;
+    return file;
   }
 }
