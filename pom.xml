@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-java-parent</artifactId>
-    <version>0.2.29</version>
+    <version>0.3.1</version>
   </parent>
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.9.5-SNAPSHOT</version>
+  <version>0.9.5</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
@@ -60,6 +60,10 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
     </dependency>
   </dependencies>
 </project>

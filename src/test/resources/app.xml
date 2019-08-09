@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<app secret="edu-grade-adminapp">
+  <resources>
+    <datasource name="default">
+      <serverName>localhost</serverName>
+      <databaseName>openurp</databaseName>
+      <driver>postgresql</driver>
+      <user>openurp</user>
+      <password>?ca4a589f7d6e6f9947037f9c1b4bc84b</password>
+      <maximumPoolSize>2</maximumPoolSize>
+      <props>
+        <prop name="p1" value="v1"/>
+      </props>
+      <p2>v2</p2>
+    </datasource>
+  </resources>
+</app>
