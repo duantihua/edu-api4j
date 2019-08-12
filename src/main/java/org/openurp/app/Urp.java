@@ -50,6 +50,8 @@ public class Urp {
 
   private final String cdn;
 
+  private final String key;
+
   private final Map<String, String> properties;
 
   public Urp(String home, Map<String, String> properties) {
@@ -67,6 +69,8 @@ public class Urp {
     this.webapp = readBase("openurp.webapp");
     this.portal = readBase("openurp.portal");
     this.cdn = readBase("openurp.static");
+
+    this.key = properties.getOrDefault("openurp.key", "openurp");
   }
 
   private String processUrl(String b) {
@@ -129,6 +133,10 @@ public class Urp {
 
   public String getStatic() {
     return cdn;
+  }
+
+  public String getKey() {
+    return key;
   }
 
   public static Urp getInstance() {

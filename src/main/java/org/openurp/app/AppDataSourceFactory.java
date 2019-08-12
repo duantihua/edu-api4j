@@ -118,7 +118,7 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
       }
     }
     if (password != null && password.startsWith("?")) {
-      this.password = new AesEncryptor(UrpApp.Instance.getSecret()).decrypt(password.substring(1));
+      this.password = new AesEncryptor(Urp.Instance.getKey()).decrypt(password.substring(1));
     }
   }
 
