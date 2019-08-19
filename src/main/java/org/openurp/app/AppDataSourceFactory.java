@@ -18,14 +18,8 @@
  */
 package org.openurp.app;
 
-import org.beangle.commons.io.IOs;
-import org.beangle.commons.io.StringBuilderWriter;
-import org.beangle.commons.lang.Charsets;
 import org.beangle.commons.lang.Strings;
 import org.beangle.commons.web.util.HttpUtils;
-import org.dom4j.Document;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
 import org.openurp.app.util.AesEncryptor;
 import org.openurp.app.util.DataSourceUtils;
 import org.openurp.app.util.DatasourceConfig;
@@ -37,13 +31,9 @@ import javax.sql.DataSource;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class AppDataSourceFactory implements FactoryBean<DataSource>, InitializingBean, DisposableBean {
   private String url;
@@ -125,48 +115,9 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
   public static DatasourceConfig readConf(InputStream is, String dsname, boolean isXML) {
     DatasourceConfig conf = null;
     if (isXML) {
-      try {
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(is);
-        List nodes = document.selectNodes("/app/resources/datasource");
-        Set<String> predefined = Set.of("user", "password", "driver", "props");
-        for (Object o : nodes) {
-          if (o instanceof Node) {
-            Node node = (Node) o;
-            String name = node.valueOf("@name");
-            if (name.equals(dsname)) {
-              conf = new DatasourceConfig();
-              conf.user = node.selectSingleNode("user").getText();
-              conf.password = node.selectSingleNode("password").getText();
-              conf.driver = node.selectSingleNode("driver").getText();
-              conf.name = name;
-              List propNodes = node.selectNodes("props/prop");
-              for (Object po : propNodes) {
-                Node pn = (Node) po;
-                conf.props.put(pn.valueOf("@name"), pn.valueOf("@value"));
-              }
-              List children = node.selectNodes("*");
-              for (Object o1 : children) {
-                Node node1 = (Node) o1;
-                if (!predefined.contains(node1.getName())) {
-                  conf.props.put(node1.getName(), node1.getText());
-                }
-              }
-            }
-          }
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      conf = DataSourceUtils.parseXml(is, dsname);
     } else {
-      StringBuilderWriter sw = new StringBuilderWriter();
-      Charset charset = Charsets.UTF_8;
-      try {
-        IOs.copy(new InputStreamReader(is, charset.name()), sw);
-        conf = new DatasourceConfig(DataSourceUtils.parseJson(sw.toString()));
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      conf = DataSourceUtils.parseJson(is);
     }
     return conf;
   }

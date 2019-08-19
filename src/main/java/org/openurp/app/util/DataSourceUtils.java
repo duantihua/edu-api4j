@@ -21,11 +21,20 @@ package org.openurp.app.util;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.beangle.commons.bean.PropertyUtils;
+import org.beangle.commons.io.IOs;
+import org.beangle.commons.io.StringBuilderWriter;
+import org.beangle.commons.lang.Charsets;
+import org.dom4j.Document;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.sql.DataSource;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class DataSourceUtils {
@@ -88,7 +97,56 @@ public class DataSourceUtils {
     }
   }
 
-  public static Map<String, String> parseJson(String string) {
+  public static DatasourceConfig parseXml(InputStream is, String dsname) {
+    DatasourceConfig conf = null;
+    try {
+      SAXReader reader = new SAXReader();
+      Document document = reader.read(is);
+      List nodes = document.selectNodes("/app/resources/datasource");
+      Set<String> predefined = Set.of("user", "password", "driver", "props");
+      for (Object o : nodes) {
+        if (o instanceof Node) {
+          Node node = (Node) o;
+          String name = node.valueOf("@name");
+          if (name.equals(dsname)) {
+            conf = new DatasourceConfig();
+            conf.user = node.selectSingleNode("user").getText();
+            conf.password = node.selectSingleNode("password").getText();
+            conf.driver = node.selectSingleNode("driver").getText();
+            conf.name = name;
+            List propNodes = node.selectNodes("props/prop");
+            for (Object po : propNodes) {
+              Node pn = (Node) po;
+              conf.props.put(pn.valueOf("@name"), pn.valueOf("@value"));
+            }
+            List children = node.selectNodes("*");
+            for (Object o1 : children) {
+              Node node1 = (Node) o1;
+              if (!predefined.contains(node1.getName())) {
+                conf.props.put(node1.getName(), node1.getText());
+              }
+            }
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return conf;
+  }
+
+  public static DatasourceConfig parseJson(InputStream is) {
+    StringBuilderWriter sw = new StringBuilderWriter();
+    Charset charset = Charsets.UTF_8;
+    String string = null;
+    try {
+      IOs.copy(new InputStreamReader(is, charset.name()), sw);
+      string = sw.toString();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+
     ScriptEngineManager sem = new ScriptEngineManager();
     ScriptEngine engine = sem.getEngineByName("javascript");
     Map<String, String> result = new HashMap<String, String>();
@@ -111,10 +169,10 @@ public class DataSourceUtils {
       } else {
         value = one.getValue().toString();
       }
-      String key = (one.getKey().toString().equals("maxActive")) ? "maxTotal" : one.getKey().toString();
+      String key = one.getKey().toString();
       result.put(key, value);
     }
-    return result;
+    return new DatasourceConfig(result);
   }
 }
 
