@@ -63,11 +63,13 @@ public class StdAlterationItem extends LongIdObject {
     super(id);
   }
 
-  public StdAlterationItem(PropertyMeta property, String oldvalue, String newvalue) {
+  public StdAlterationItem(PropertyMeta property, String oldvalue, String newvalue, String oldtext, String newtext) {
     super();
     this.meta = property;
     this.oldvalue = oldvalue;
     this.newvalue = newvalue;
+    this.oldtext = oldtext;
+    this.newtext = newtext;
   }
 
   public StdAlteration getAlteration() {
