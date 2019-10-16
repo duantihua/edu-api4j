@@ -23,8 +23,12 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.beangle.commons.lang.Objects;
+import org.beangle.commons.lang.time.WeekState;
 import org.hibernate.annotations.Target;
+import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
+import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
 
 /**
@@ -41,6 +45,16 @@ public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePla
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseGroup group;
 
+  /**
+   * <pre>
+   * 建议修读学期，该字段只在培养计划是完全学分制时才有用。
+   * 和{@link #getTerms()}不同，{@link #getTerms()}指导开课，本字段指导学生修读
+   * </pre>
+   */
+  @NotNull
+  @Type(type = "org.openurp.base.time.hibernate.TermsType")
+  protected Terms suggestTerms = Terms.Empty;
+
   /** 开课部门 */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
@@ -49,13 +63,9 @@ public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePla
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
 
-  public CourseGroup getGroup() {
-    return group;
-  }
-
-  public void setGroup(CourseGroup group) {
-    this.group = group;
-  }
+  @NotNull
+  @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
+  private WeekState weekstate = WeekState.Zero;
 
   public Department getDepartment() {
     return department;
@@ -71,6 +81,44 @@ public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePla
 
   public void setExamMode(ExamMode examMode) {
     this.examMode = examMode;
+  }
+
+  public Terms getSuggestTerms() {
+    return suggestTerms;
+  }
+
+  public void setSuggestTerms(Terms suggestTerms) {
+    this.suggestTerms = suggestTerms;
+  }
+
+  public WeekState getWeekstate() {
+    return weekstate;
+  }
+
+  public void setWeekstate(WeekState weekstate) {
+    this.weekstate = weekstate;
+  }
+
+  public CourseGroup getGroup() {
+    return group;
+  }
+
+  public void setGroup(CourseGroup group) {
+    this.group = group;
+  }
+
+  public boolean isSame(Object object) {
+    if (!(object instanceof OriginalPlanCourse)) { return false; }
+    OriginalPlanCourse rhs = (OriginalPlanCourse) object;
+    return Objects.equalsBuilder().add(terms, rhs.terms).add(remark, rhs.remark)
+        .add(department.getId(), rhs.department.getId()).add(course.getId(), rhs.course.getId())
+        .add(id, rhs.id).isEquals();
+  }
+
+  @Override
+  public String toString() {
+    return "OriginalPlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
+        + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 
 }
