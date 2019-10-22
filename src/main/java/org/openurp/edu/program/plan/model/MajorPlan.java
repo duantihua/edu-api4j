@@ -35,6 +35,9 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.model.Campus;
+import org.openurp.base.model.Department;
+import org.openurp.edu.base.code.model.StdType;
 import org.openurp.edu.base.model.Program;
 
 /**
@@ -96,6 +99,44 @@ public class MajorPlan extends AbstractCoursePlan {
 
   /** 结束日期 结束日期包括在有效期内 */
   private Date endOn;
+
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Campus campus;
+
+  /** 部门 */
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Department department;
+
+  /** 学生类别 */
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private StdType stdType;
+
+  public Campus getCampus() {
+    return campus;
+  }
+
+  public void setCampus(Campus campus) {
+    this.campus = campus;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  public StdType getStdType() {
+    return stdType;
+  }
+
+  public void setStdType(StdType stdType) {
+    this.stdType = stdType;
+  }
 
   public Date getBeginOn() {
     return beginOn;

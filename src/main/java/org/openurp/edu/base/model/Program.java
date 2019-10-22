@@ -62,12 +62,12 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
-  @NotNull
+
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
   /** 部门 */
-  @NotNull
+
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
@@ -76,7 +76,7 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   private EducationLevel level;
 
   /** 学生类别 */
-  @NotNull
+
   @ManyToOne(fetch = FetchType.LAZY)
   private StdType stdType;
 
