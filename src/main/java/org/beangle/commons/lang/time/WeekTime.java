@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,10 @@ package org.beangle.commons.lang.time;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -35,6 +37,8 @@ import org.hibernate.annotations.Type;
 @Embeddable
 public class WeekTime implements Component, Comparable<WeekTime>, Serializable {
   private static final long serialVersionUID = -2024647580747669114L;
+
+  public static final int FIRST_WEEK_FROM = 2;
 
   private java.sql.Date startOn;
 

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,8 @@ import java.util.Date;
 import javax.persistence.MappedSuperclass;
 
 import org.beangle.commons.entity.Entity;
-import org.openurp.code.edu.model.GradeType;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.GradeType;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 
 /**
  * 成绩状态表<br>
@@ -36,6 +36,8 @@ import org.openurp.code.edu.model.GradingMode;
  * 3)各种成绩的确认状态,
  * 4)各种成绩的发布状态
  * </pre>
+ *
+ *
  */
 @MappedSuperclass
 public interface GradeState extends Entity<Long> {
@@ -51,14 +53,14 @@ public interface GradeState extends Entity<Long> {
    *
    * @return
    */
-  public GradingMode getGradingMode();
+  public ScoreMarkStyle getMarkStyle();
 
   /**
    * 设置记录方式
    *
-   * @param gradingMode
+   * @param markStyle
    */
-  public void setGradingMode(GradingMode gradingMode);
+  public void setMarkStyle(ScoreMarkStyle scoreMarkStyle);
 
   /**
    * 返回保留小数位

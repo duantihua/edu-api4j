@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,10 +33,10 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
-import org.openurp.code.edu.model.ExamType;
+import org.openurp.base.model.Semester;
+import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
 
 @Entity(name = "org.openurp.edu.exam.model.ExamGroup")
 public class ExamGroup extends LongIdObject {
@@ -48,7 +48,7 @@ public class ExamGroup extends LongIdObject {
   /** 考试类别 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private ExamType examType;
+  private ExamType examType = new ExamType();
 
   /** 项目 */
   @NotNull
@@ -66,7 +66,7 @@ public class ExamGroup extends LongIdObject {
   /** 考试结束日期 */
   private java.sql.Date endOn;
 
-  /** 允许随堂考试 */
+  /**允许随堂考试*/
   private boolean allowInClass;
 
   /** 最小学生上课冲突人数 */
@@ -80,7 +80,7 @@ public class ExamGroup extends LongIdObject {
 
   /** 组内场次 */
   @OneToMany(mappedBy = "group", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<ExamTurn> turns = CollectUtils.newArrayList();
+  private List<DateTurn> turns = CollectUtils.newArrayList();
 
   /** 任务 */
   @OneToMany(mappedBy = "group")
@@ -153,11 +153,11 @@ public class ExamGroup extends LongIdObject {
     this.state = state;
   }
 
-  public List<ExamTurn> getTurns() {
+  public List<DateTurn> getTurns() {
     return turns;
   }
 
-  public void setTurns(List<ExamTurn> turns) {
+  public void setTurns(List<DateTurn> turns) {
     this.turns = turns;
   }
 
@@ -193,29 +193,32 @@ public class ExamGroup extends LongIdObject {
     this.maxCourseConflictRatio = maxCourseConflictRatio;
   }
 
-  public List<TurnOfDay> getTurnOfDays() {
-    Set<TurnOfDay> eturns = CollectUtils.newHashSet();
-    for (ExamTurn t : getTurns()) {
-      TurnOfDay et = new TurnOfDay();
-      et.setBeginAt(t.getBeginAt());
-      et.setEndAt(t.getEndAt());
-      eturns.add(et);
+  public List<ExamTurn> getExamTurns() {
+    Set<ExamTurn> eturns = CollectUtils.newHashSet();
+    for (DateTurn t : getTurns()) {
+      ExamTurn et = new ExamTurn();
+      et.setId(new Long(t.getBeginAt().value * 10000 + t.getEndAt().value));
+      if (!eturns.contains(et)) {
+        et.setBeginAt(t.getBeginAt());
+        et.setEndAt(t.getEndAt());
+        eturns.add(et);
+      }
     }
-    List<TurnOfDay> turnList = CollectUtils.newArrayList(eturns);
+    List<ExamTurn> turnList = CollectUtils.newArrayList(eturns);
     Collections.sort(turnList);
     return turnList;
   }
 
   public boolean turnExists(java.sql.Date date, HourMinute beginAt, HourMinute endAt) {
-    for (ExamTurn t : getTurns()) {
+    for (DateTurn t : getTurns()) {
       if (t.getExamOn().equals(date) && t.getBeginAt().equals(beginAt) && t.getEndAt().equals(endAt))
         return true;
     }
     return false;
   }
 
-  public ExamTurn getTurn(java.sql.Date date, HourMinute beginAt, HourMinute endAt) {
-    for (ExamTurn t : getTurns()) {
+  public DateTurn getDateTurn(java.sql.Date date, HourMinute beginAt, HourMinute endAt) {
+    for (DateTurn t : getTurns()) {
       if (t.getExamOn().equals(date) && t.getBeginAt().equals(beginAt) && t.getEndAt().equals(endAt))
         return t;
     }
@@ -224,7 +227,7 @@ public class ExamGroup extends LongIdObject {
 
   public List<java.sql.Date> getDates() {
     Set<java.sql.Date> dates = CollectUtils.newHashSet();
-    for (ExamTurn t : getTurns()) {
+    for (DateTurn t : getTurns()) {
       dates.add(t.getExamOn());
     }
     List<java.sql.Date> dateList = CollectUtils.newArrayList(dates);

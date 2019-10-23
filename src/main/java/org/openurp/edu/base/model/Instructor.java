@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ import org.openurp.base.model.User;
  */
 @Entity(name = "org.openurp.edu.base.model.Instructor")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Instructor extends NumberIdTimeObject<Long> {
 
   /** 人员信息 */

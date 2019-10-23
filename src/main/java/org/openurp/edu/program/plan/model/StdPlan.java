@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,6 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.edu.base.model.AuditState;
-import org.openurp.edu.base.model.Program;
 import org.openurp.edu.base.model.Student;
 
 /**

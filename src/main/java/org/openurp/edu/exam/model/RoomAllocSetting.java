@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.code.edu.model.ExamType;
+import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Project;
 
 @Entity(name = "org.openurp.edu.exam.model.RoomAllocSetting")

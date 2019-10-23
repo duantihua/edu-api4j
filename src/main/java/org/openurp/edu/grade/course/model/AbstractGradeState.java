@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,11 +27,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.grade.Grade;
 
 /**
  * 成绩状态抽象基类
+ *
+ *
  */
 @MappedSuperclass
 public abstract class AbstractGradeState extends LongIdObject implements GradeState {
@@ -41,10 +43,10 @@ public abstract class AbstractGradeState extends LongIdObject implements GradeSt
   /** 成绩记录方式 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected GradingMode gradingMode;
+  protected ScoreMarkStyle markStyle;
 
   /** 成绩录入状态 */
-  protected int status = Grade.Status.New;
+  protected int status = Grade.Status.NEW;
 
   /** * 小数点后保留几位 */
   protected transient int precision = 0;
@@ -84,19 +86,19 @@ public abstract class AbstractGradeState extends LongIdObject implements GradeSt
    * 确认的和发布的全部算作确认过的
    */
   public boolean isConfirmed() {
-    return status >= Grade.Status.Confirmed;
+    return status >= Grade.Status.CONFIRMED;
   }
 
-  public GradingMode getGradingMode() {
-    return gradingMode;
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
   }
 
-  public void setGradingMode(GradingMode gradingMode) {
-    this.gradingMode = gradingMode;
+  public void setMarkStyle(ScoreMarkStyle scoreMarkStyle) {
+    this.markStyle = scoreMarkStyle;
   }
 
   public boolean isPublished() {
-    return status == Grade.Status.Published;
+    return status == Grade.Status.PUBLISHED;
   }
 
   public String getOperator() {

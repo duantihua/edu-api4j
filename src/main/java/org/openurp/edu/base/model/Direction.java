@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ import org.openurp.base.model.NumberIdTimeObject;
  */
 @Entity(name = "org.openurp.edu.base.model.Direction")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Direction extends NumberIdTimeObject<Integer> {
 
   private static final long serialVersionUID = -5678184739078006225L;
@@ -92,7 +92,7 @@ public class Direction extends NumberIdTimeObject<Integer> {
 
   /** 部门 */
   @OneToMany(mappedBy = "direction", cascade = { CascadeType.ALL }, orphanRemoval = true)
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<DirectionJournal> departs = CollectUtils.newArrayList();
 
   public Direction() {

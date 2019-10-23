@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,24 +27,29 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 课程类别
+ * 课程种类
+ * （一般、体育、挂牌、双语）
  *
- * @since 2005-9-7
+ *
+ * @since 2005-11-17
  */
 @Entity(name = "org.openurp.edu.base.code.model.CourseCategory")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
 public class CourseCategory extends Code<Integer> {
 
-  private static final long serialVersionUID = 8232522018765348618L;
+  private static final long serialVersionUID = -5222035080300439182L;
 
   public CourseCategory() {
-    super();
+  }
+
+  public CourseCategory(String code) {
+    super(Integer.valueOf(code));
+    setCode(code);
   }
 
   public CourseCategory(Integer id) {
     super(id);
   }
-
 }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,14 +37,16 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.edu.base.code.model.Education;
 
 /**
  * 专业
+ *
+ *
  */
 @Entity(name = "org.openurp.edu.base.model.Major")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Major extends NumberIdTimeObject<Integer> {
 
   private static final long serialVersionUID = 7360406731828210066L;
@@ -85,13 +87,8 @@ public class Major extends NumberIdTimeObject<Integer> {
 
   /** 部门 */
   @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<MajorJournal> journals = CollectUtils.newArrayList();
-
-  /** 部门 */
-  @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<MajorDiscipline> disciplines = CollectUtils.newArrayList();
 
   /** 简称 */
   @Size(max = 30)
@@ -136,12 +133,12 @@ public class Major extends NumberIdTimeObject<Integer> {
     this.journals = journals;
   }
 
-  public List<EducationLevel> getLevels() {
-    Set<EducationLevel> educations = new java.util.HashSet<EducationLevel>();
+  public List<Education> getEducations() {
+    Set<Education> educations = new java.util.HashSet<Education>();
     for (MajorJournal j : journals) {
-      educations.add(j.getLevel());
+      educations.add(j.getEducation());
     }
-    return new java.util.ArrayList<EducationLevel>(educations);
+    return new java.util.ArrayList<Education>(educations);
   }
 
   public String getCode() {
@@ -192,13 +189,6 @@ public class Major extends NumberIdTimeObject<Integer> {
     this.endOn = endOn;
   }
 
-  public String getDisciplineCode(java.sql.Date endOn) {
-    for (MajorDiscipline md : disciplines) {
-      if (md.isMatchIn(endOn)) { return md.getDisciplineCode(); }
-    }
-    return "";
-  }
-
   public Set<Department> getDepartments() {
     Set<Department> departs = CollectUtils.newHashSet();
     for (MajorJournal md : getJournals()) {
@@ -236,14 +226,6 @@ public class Major extends NumberIdTimeObject<Integer> {
 
   public void setShortName(String shortName) {
     this.shortName = shortName;
-  }
-
-  public List<MajorDiscipline> getDisciplines() {
-    return disciplines;
-  }
-
-  public void setDisciplines(List<MajorDiscipline> disciplines) {
-    this.disciplines = disciplines;
   }
 
 }

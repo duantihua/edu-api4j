@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,10 @@ import org.beangle.commons.dao.query.builder.Condition;
 import org.beangle.commons.dao.query.builder.Conditions;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
+import org.beangle.security.core.AuthenticationException;
+import org.beangle.security.core.context.SecurityContext;
+import org.beangle.security.core.session.Session;
+import org.beangle.security.core.userdetail.Account;
 import org.beangle.security.data.Permission;
 import org.beangle.security.data.Profile;
 

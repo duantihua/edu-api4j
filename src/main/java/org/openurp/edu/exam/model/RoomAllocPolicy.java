@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ package org.openurp.edu.exam.model;
 public enum RoomAllocPolicy {
 
   SameTask("只有一个任务", true, true, true), SameCourse("只有一个课程", false, true, true), SameDepart("只有一个开课院系", false,
-      false, true), Any("任意安排", false, false, false);
+      false, true);
 
   private RoomAllocPolicy(String name, boolean sameTask, boolean sameCourse, boolean sameDepart) {
     this.name = name;

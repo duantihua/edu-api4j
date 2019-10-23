@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.User;
 import org.openurp.edu.base.model.Teacher;
 
 /**
@@ -42,18 +41,18 @@ public class Invigilation extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamRoom examRoom;
 
+  /** 监考老师 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Teacher teacher;
+
   /** 监考院系 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Department department;
 
-  /** 监考老师 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected User invigilator;
-
   /** 自定义监考 */
   @Size(max = 50)
-  protected String invigilatorName;
+  protected String teacherName;
 
   /** 是否是第一监考 */
   private boolean chief;
@@ -67,15 +66,15 @@ public class Invigilation extends LongIdObject {
   public Invigilation() {
   }
 
-  public Invigilation(ExamRoom examRoom, User user, Department department) {
-    this.invigilator = user;
+  public Invigilation(ExamRoom examRoom, Teacher teacher, Department department) {
+    this.teacher = teacher;
     this.examRoom = examRoom;
     this.department = department;
     this.updatedAt = new java.util.Date(System.currentTimeMillis());
   }
 
   public Invigilation(ExamRoom examRoom, String teacherName, Department department) {
-    this.invigilatorName = teacherName;
+    this.teacherName = teacherName;
     this.examRoom = examRoom;
     this.department = department;
     this.updatedAt = new java.util.Date(System.currentTimeMillis());
@@ -90,8 +89,8 @@ public class Invigilation extends LongIdObject {
   }
 
   public boolean isSameMonitor(Invigilation other) {
-    return getDepartment().equals(other.getDepartment())
-        && this.getInvigilator().equals(other.getInvigilator());
+    boolean isSame = getDepartment().equals(other.getDepartment()) && getTeacher().equals(other.getTeacher());
+    return isSame;
   }
 
   public Department getDepartment() {
@@ -102,20 +101,20 @@ public class Invigilation extends LongIdObject {
     this.department = department;
   }
 
-  public User getInvigilator() {
-    return invigilator;
+  public Teacher getTeacher() {
+    return teacher;
   }
 
-  public void setInvigilator(User invigilator) {
-    this.invigilator = invigilator;
+  public void setTeacher(Teacher teacher) {
+    this.teacher = teacher;
   }
 
-  public String getInvigilatorName() {
-    return invigilatorName;
+  public String getTeacherName() {
+    return teacherName;
   }
 
-  public void setInvigilatorName(String invigilatorName) {
-    this.invigilatorName = invigilatorName;
+  public void setTeacherName(String teacherName) {
+    this.teacherName = teacherName;
   }
 
   public boolean isChief() {

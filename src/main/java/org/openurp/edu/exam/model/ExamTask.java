@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,13 +40,15 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Building;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
+import org.openurp.base.model.Semester;
 import org.openurp.code.edu.model.ClassroomType;
-import org.openurp.code.edu.model.ExamType;
+import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.lesson.model.ExamTaker;
+import org.openurp.edu.lesson.model.Lesson;
+
 /**
  * 排考任务
  */
@@ -84,7 +86,7 @@ public class ExamTask extends LongIdObject {
 
   @OneToMany(mappedBy = "task")
   @OrderBy("stdCount DESC")
-  private List<ExamClazz> examClazzes = CollectUtils.newArrayList();
+  private List<ExamLesson> examLessons = CollectUtils.newArrayList();
 
   /** 考试日期 */
   private java.sql.Date examOn;
@@ -152,12 +154,12 @@ public class ExamTask extends LongIdObject {
    */
   public Map<Campus, Integer> getCampusStdCounts() {
     Map<Campus, Integer> counts = CollectUtils.newHashMap();
-    for (ExamClazz el : examClazzes) {
-      Integer c = counts.get(el.getClazz().getCampus());
+    for (ExamLesson el : examLessons) {
+      Integer c = counts.get(el.getLesson().getCampus());
       if (null == c) {
-        counts.put(el.getClazz().getCampus(), el.getStdCount());
+        counts.put(el.getLesson().getCampus(), el.getStdCount());
       } else {
-        counts.put(el.getClazz().getCampus(), el.getStdCount() + c.intValue());
+        counts.put(el.getLesson().getCampus(), el.getStdCount() + c.intValue());
       }
     }
     return counts;
@@ -165,7 +167,7 @@ public class ExamTask extends LongIdObject {
 
   public void calcStdCount() {
     int a = 0;
-    for (ExamClazz el : examClazzes) {
+    for (ExamLesson el : examLessons) {
       a += el.getStdCount();
     }
     this.stdCount = a;
@@ -175,28 +177,28 @@ public class ExamTask extends LongIdObject {
     this.code = getCourseCodes();
   }
 
-//  public List<ExamTaker> getExamTakers() {
-//    List<ExamTaker> takers = CollectUtils.newArrayList();
-//    for (ExamClazz el : examClazzes) {
-//      takers.addAll(el.getExamTakers());
-//    }
-//    return takers;
-//  }
-
-  public List<Clazz> getClazzes() {
-    List<Clazz> clazzes = CollectUtils.newArrayList();
-    for (ExamClazz el : examClazzes) {
-      clazzes.add(el.getClazz());
+  public List<ExamTaker> getExamTakers() {
+    List<ExamTaker> takers = CollectUtils.newArrayList();
+    for (ExamLesson el : examLessons) {
+      takers.addAll(el.getExamTakers());
     }
-    return clazzes;
+    return takers;
   }
 
-  public List<ExamClazz> getExamClazzes() {
-    return examClazzes;
+  public List<Lesson> getLessons() {
+    List<Lesson> lessons = CollectUtils.newArrayList();
+    for (ExamLesson el : examLessons) {
+      lessons.add(el.getLesson());
+    }
+    return lessons;
   }
 
-  public void setExamClazzes(List<ExamClazz> examClazzes) {
-    this.examClazzes = examClazzes;
+  public List<ExamLesson> getExamLessons() {
+    return examLessons;
+  }
+
+  public void setExamLessons(List<ExamLesson> examLessons) {
+    this.examLessons = examLessons;
   }
 
   public int getStdCount() {
@@ -318,8 +320,8 @@ public class ExamTask extends LongIdObject {
 
   public Set<Course> getCourses() {
     Set<Course> cs = CollectUtils.newHashSet();
-    for (ExamClazz el : examClazzes) {
-      cs.add(el.getClazz().getCourse());
+    for (ExamLesson el : examLessons) {
+      cs.add(el.getLesson().getCourse());
     }
     return cs;
   }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.sin.model.BookCategory;
 import org.openurp.code.sin.model.Press;
 import org.openurp.edu.base.code.model.BookAwardType;
 import org.openurp.edu.base.code.model.BookType;
@@ -41,14 +40,10 @@ import org.openurp.edu.base.code.model.BookType;
  */
 @Entity(name = "org.openurp.edu.base.model.Textbook")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class Textbook extends LongIdObject {
 
   private static final long serialVersionUID = 6059248193975178607L;
-
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Project project;
 
   /** isbn号 */
   @Column(unique = true)
@@ -70,7 +65,7 @@ public class Textbook extends LongIdObject {
   private Press press;
 
   /** 版本 */
-  private String edition;
+  private String version;
 
   /** 价格 */
   private Integer price = 0;
@@ -91,23 +86,12 @@ public class Textbook extends LongIdObject {
   /** 出版年月 */
   private Date publishedOn;
 
-  /** 分类 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private BookCategory category;
-
   /** 获奖等级 */
   @ManyToOne(fetch = FetchType.LAZY)
   private BookAwardType awardType;
 
-  /** 奖项授予单位 */
-  private String awardOrg;
-
-  private String series;
-
-  private String translator;
-
-  /** 是否自编 */
-  private boolean madeInSchool = true;
+  /** 是否出版教材 */
+  private boolean published = true;
 
   /** 生效时间 */
   @NotNull
@@ -148,12 +132,12 @@ public class Textbook extends LongIdObject {
     this.press = press;
   }
 
-  public String getEdition() {
-    return edition;
+  public String getVersion() {
+    return version;
   }
 
-  public void setEdition(String edition) {
-    this.edition = edition;
+  public void setVersion(String version) {
+    this.version = version;
   }
 
   public Integer getPrice() {
@@ -204,12 +188,12 @@ public class Textbook extends LongIdObject {
     this.awardType = awardType;
   }
 
-  public boolean isMadeInSchool() {
-    return madeInSchool;
+  public boolean isPublished() {
+    return published;
   }
 
-  public void setMadeInSchool(boolean madeInSchool) {
-    this.madeInSchool = madeInSchool;
+  public void setPublished(boolean published) {
+    this.published = published;
   }
 
   public java.sql.Date getBeginOn() {
@@ -226,46 +210,6 @@ public class Textbook extends LongIdObject {
 
   public void setEndOn(java.sql.Date endOn) {
     this.endOn = endOn;
-  }
-
-  public Project getProject() {
-    return project;
-  }
-
-  public void setProject(Project project) {
-    this.project = project;
-  }
-
-  public BookCategory getCategory() {
-    return category;
-  }
-
-  public void setCategory(BookCategory category) {
-    this.category = category;
-  }
-
-  public String getAwardOrg() {
-    return awardOrg;
-  }
-
-  public void setAwardOrg(String awardOrg) {
-    this.awardOrg = awardOrg;
-  }
-
-  public String getSeries() {
-    return series;
-  }
-
-  public void setSeries(String series) {
-    this.series = series;
-  }
-
-  public String getTranslator() {
-    return translator;
-  }
-
-  public void setTranslator(String translator) {
-    this.translator = translator;
   }
 
 }

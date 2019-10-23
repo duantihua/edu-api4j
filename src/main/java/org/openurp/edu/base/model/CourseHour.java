@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,10 +31,12 @@ import org.openurp.edu.base.code.model.CourseHourType;
 
 /**
  * 课程分类课时信息
+ *
+ *
  */
 @Entity(name = "org.openurp.edu.base.model.CourseHour")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class CourseHour extends LongIdObject {
 
   private static final long serialVersionUID = 4265945906585570325L;
@@ -46,10 +48,13 @@ public class CourseHour extends LongIdObject {
 
   /** 学时/总课时 */
   @NotNull
-  private int creditHours;
+  private int period;
+
+  /** 周课时 */
+  private Integer weekHour;
 
   /** 周数 */
-  private int weeks;
+  private Integer weeks;
 
   /** 课程 */
   @NotNull
@@ -72,16 +77,20 @@ public class CourseHour extends LongIdObject {
     this.hourType = type;
   }
 
-  public int getCreditHours() {
-    return creditHours;
+  public int getPeriod() {
+    return period;
   }
 
-  public void setCreditHours(int creditHours) {
-    this.creditHours = creditHours;
+  public void setPeriod(int period) {
+    this.period = period;
   }
 
-  public void setWeeks(int weeks) {
-    this.weeks = weeks;
+  public Integer getWeekHour() {
+    return weekHour;
+  }
+
+  public void setWeekHour(Integer weekHour) {
+    this.weekHour = weekHour;
   }
 
   public Integer getWeeks() {

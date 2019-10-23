@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,11 +36,12 @@ import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.HourMinute;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.ExamType;
+import org.openurp.base.model.Semester;
+import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.base.model.Teacher;
+import org.openurp.edu.lesson.model.Lesson;
 
 /**
  * 考场
@@ -83,6 +84,14 @@ public class ExamRoom extends LongIdObject {
   /** 考生数量 */
   private int stdCount;
 
+  /** 主考教师 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Teacher examiner;
+
+  /** 主考教师院系 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Department department;
+
   /** 考试活动 */
   @ManyToMany(mappedBy = "rooms")
   private Set<ExamActivity> activities = CollectUtils.newHashSet();
@@ -92,8 +101,11 @@ public class ExamRoom extends LongIdObject {
   private Set<Invigilation> invigilations = CollectUtils.newHashSet();
 
   /** 应考学生记录 */
-  @OneToMany(mappedBy = "examRoom", targetEntity = ExamTaker.class)
-  private Set<ExamTaker> examTakers = CollectUtils.newHashSet();
+  @OneToMany(mappedBy = "examRoom", targetEntity = ExamStudent.class)
+  private Set<ExamStudent> examStudents = CollectUtils.newHashSet();
+
+  /** 教室申请流水号 */
+  private Long roomApplyId;
 
   public ExamRoom() {
     super();
@@ -102,7 +114,7 @@ public class ExamRoom extends LongIdObject {
   public ExamRoom(ExamActivity activity, Classroom room) {
     super();
     this.semester = activity.getSemester();
-    this.teachDepart = activity.getClazz().getTeachDepart();
+    this.teachDepart = activity.getLesson().getTeachDepart();
     this.examOn = activity.getExamOn();
     this.beginAt = activity.getBeginAt();
     this.endAt = activity.getEndAt();
@@ -111,11 +123,11 @@ public class ExamRoom extends LongIdObject {
     activity.getRooms().add(this);
   }
 
-  public Map<Course, List<ExamTaker>> getCourseStds() {
-    Map<Course, List<ExamTaker>> courseStds = CollectUtils.newHashMap();
-    for (ExamTaker es : getExamTakers()) {
-      Course c = es.getClazz().getCourse();
-      List<ExamTaker> stdList = courseStds.get(c);
+  public Map<Course, List<ExamStudent>> getCourseStds() {
+    Map<Course, List<ExamStudent>> courseStds = CollectUtils.newHashMap();
+    for (ExamStudent es : getExamStudents()) {
+      Course c = es.getTaker().getLesson().getCourse();
+      List<ExamStudent> stdList = courseStds.get(c);
       if (null == stdList) {
         stdList = CollectUtils.newArrayList();
         courseStds.put(c, stdList);
@@ -143,7 +155,11 @@ public class ExamRoom extends LongIdObject {
    *          是否考虑教室
    * @return
    */
-  public boolean isSameExcept(ExamRoom other, boolean room) {
+  public boolean isSameExcept(ExamRoom other, boolean teacher, boolean room) {
+    if (teacher) {
+      boolean sameTeacher = getExaminer().equals(other.getExaminer());
+      if (!sameTeacher) return false;
+    }
     if (room) {
       boolean sameRoom = Objects.equals(getRoom(), other.getRoom());
       if (!sameRoom) return false;
@@ -208,6 +224,22 @@ public class ExamRoom extends LongIdObject {
     this.room = room;
   }
 
+  public Teacher getExaminer() {
+    return examiner;
+  }
+
+  public void setExaminer(Teacher examiner) {
+    this.examiner = examiner;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
   public Set<ExamActivity> getActivities() {
     return activities;
   }
@@ -224,17 +256,17 @@ public class ExamRoom extends LongIdObject {
     this.invigilations = invigilations;
   }
 
-  public Set<ExamTaker> getExamTakers() {
-    return examTakers;
+  public Set<ExamStudent> getExamStudents() {
+    return examStudents;
   }
 
-  public void setExamTakers(Set<ExamTaker> examTakers) {
-    this.examTakers = examTakers;
+  public void setExamStudents(Set<ExamStudent> examStudents) {
+    this.examStudents = examStudents;
   }
 
-  public void addExamTaker(ExamTaker taker) {
+  public void addExamStudent(ExamStudent taker) {
     taker.setExamRoom(this);
-    getExamTakers().add(taker);
+    getExamStudents().add(taker);
   }
 
   /**
@@ -250,12 +282,20 @@ public class ExamRoom extends LongIdObject {
     return activity;
   }
 
-  public Set<Clazz> getClazzes() {
-    Set<Clazz> clazzes = CollectUtils.newHashSet();
+  public Set<Lesson> getLessons() {
+    Set<Lesson> lessons = CollectUtils.newHashSet();
     for (ExamActivity ea : activities) {
-      clazzes.add(ea.getClazz());
+      lessons.add(ea.getLesson());
     }
-    return clazzes;
+    return lessons;
+  }
+
+  public Long getRoomApplyId() {
+    return roomApplyId;
+  }
+
+  public void setRoomApplyId(Long roomApplyId) {
+    this.roomApplyId = roomApplyId;
   }
 
 }

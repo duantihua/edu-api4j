@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.edu.base.code.model.Education;
 import org.openurp.edu.base.code.model.StdType;
 
 /**
@@ -51,7 +51,7 @@ public class StudentScope implements Component {
 
   /** 培养层次集合 */
   @ManyToMany
-  private Set<EducationLevel> levels = new HashSet<EducationLevel>();
+  private Set<Education> educations = new HashSet<Education>();
 
   /** 学生类别集合 */
   @ManyToMany
@@ -117,12 +117,12 @@ public class StudentScope implements Component {
     this.stdTypes = stdTypes;
   }
 
-  public Set<EducationLevel> getLevels() {
-    return levels;
+  public Set<Education> getEducations() {
+    return educations;
   }
 
-  public void setLevels(Set<EducationLevel> levels) {
-    this.levels = levels;
+  public void setEducations(Set<Education> educations) {
+    this.educations = educations;
   }
 
   /**
@@ -132,7 +132,7 @@ public class StudentScope implements Component {
   public boolean overlappedWith(StudentScope scope) {
     return scope.getProject().equals(this.project)
         && CollectUtils.intersection(scope.getStdTypes(), this.stdTypes).size() > 0
-        && CollectUtils.intersection(scope.getLevels(), this.levels).size() > 0;
+        && CollectUtils.intersection(scope.getEducations(), this.educations).size() > 0;
   }
 
 }

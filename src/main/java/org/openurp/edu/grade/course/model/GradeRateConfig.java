@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Project;
 
 /**
@@ -46,7 +46,7 @@ public class GradeRateConfig extends LongIdObject {
   @NaturalId
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GradingMode gradingMode;
+  private ScoreMarkStyle markStyle;
 
   /** 对应培养类型(默认為空) */
   @NaturalId
@@ -75,21 +75,24 @@ public class GradeRateConfig extends LongIdObject {
    * 空成绩将转换成null
    *
    * @param score
+   * @param markStyle
    * @return
    */
   public String convert(Float score) {
     if (null == score) return "";
-    if (gradingMode.isNumerical()) return NumberFormat.getInstance().format(score.floatValue());
+    if (markStyle.isNumStyle()) return NumberFormat.getInstance().format(score.floatValue());
     for (GradeRateItem item : items) {
       if (item.contains(score)) { return item.getGrade(); }
     }
     return "";
   }
 
-  @Override
-  public String toString() {
-    return "GradeRateConfig [gradingMode=" + gradingMode + ", project=" + project + ", items=" + items
-        + ", passScore=" + passScore + "]";
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
+  }
+
+  public void setMarkStyle(ScoreMarkStyle scoreMarkStyle) {
+    this.markStyle = scoreMarkStyle;
   }
 
   public List<GradeRateItem> getItems() {
@@ -107,13 +110,4 @@ public class GradeRateConfig extends LongIdObject {
   public final void setProject(Project project) {
     this.project = project;
   }
-
-  public GradingMode getGradingMode() {
-    return gradingMode;
-  }
-
-  public void setGradingMode(GradingMode gradingMode) {
-    this.gradingMode = gradingMode;
-  }
-
 }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ public class HourMinute implements Serializable, Comparable<HourMinute> {
   }
 
   public int interval(HourMinute other) {
-    return Math.abs(this.toMinutes() - other.toMinutes());
+    return this.toMinutes() - other.toMinutes();
   }
 
   public boolean gt(HourMinute other) {
@@ -109,11 +109,6 @@ public class HourMinute implements Serializable, Comparable<HourMinute> {
     Assert.isTrue((toInt(time.substring(0, index)) < 60 && toInt(time.substring(index + 1, index + 3)) < 60),
         "illegal time " + time + ",it should within 60:60.");
     return new HourMinute((short) toInt(time.substring(0, index) + time.substring(index + 1, index + 3)));
-  }
-
-  @Override
-  public int hashCode() {
-    return value;
   }
 
   @Override

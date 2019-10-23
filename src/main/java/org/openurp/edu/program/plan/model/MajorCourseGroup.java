@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ import org.openurp.edu.base.model.Direction;
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorCourseGroup")
 @Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = -6804554057069134031L;
@@ -82,13 +82,13 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   @OneToMany(targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
   @JoinColumn(name = "parent_id", nullable = true)
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> children = CollectUtils.newArrayList();
 
   /** 计划课程列表 */
   @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
       CascadeType.ALL })
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<PlanCourse> planCourses = CollectUtils.newArrayList();
 
   public void setPlanCourses(List<PlanCourse> planCourses) {

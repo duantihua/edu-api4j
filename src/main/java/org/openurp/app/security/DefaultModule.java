@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,6 @@ import org.beangle.security.ids.SecurityFilterChain;
 import org.beangle.security.ids.WebSecurityContextBuilder;
 import org.beangle.security.ids.access.DefaultAccessDeniedHandler;
 import org.beangle.security.ids.session.CookieSessionIdReader;
-import org.openurp.app.Urp;
 import org.openurp.app.security.service.ActionRequestConvertor;
 import org.openurp.app.security.service.CacheableAuthorityManager;
 import org.openurp.app.security.service.CasHttpSessionRepo;
@@ -42,9 +41,7 @@ public class DefaultModule extends AbstractBindModule {
 
     bind("securityFilterChain", SecurityFilterChain.class);
 
-    bind(CasConfig.class).property("casServer", Urp.getInstance().getCas());
-
-    bind(CasEntryPoint.class).shortName();
+    bind(CasConfig.class, CasEntryPoint.class).shortName();
 
     bind(CacheableAuthorityManager.class).property("ignores", set("/index.do"));
 

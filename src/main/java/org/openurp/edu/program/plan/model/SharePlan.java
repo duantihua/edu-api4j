@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.openurp.code.edu.model.AcademicLevel;
+import org.openurp.edu.base.code.model.Education;
 import org.openurp.edu.base.model.Project;
 
 /**
@@ -65,7 +65,7 @@ public class SharePlan extends AbstractCoursePlan implements Cloneable {
 
   /** 培养层次 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private AcademicLevel level;
+  private Education education;
 
   /** 共享课程组 */
   @OneToMany(mappedBy = "plan", targetEntity = ShareCourseGroup.class)
@@ -116,12 +116,12 @@ public class SharePlan extends AbstractCoursePlan implements Cloneable {
     this.name = name;
   }
 
-  public AcademicLevel getLevel() {
-    return level;
+  public Education getEducation() {
+    return education;
   }
 
-  public void setLevel(AcademicLevel level) {
-    this.level = level;
+  public void setEducation(Education education) {
+    this.education = education;
   }
 
   public List<CourseGroup> getGroups() {

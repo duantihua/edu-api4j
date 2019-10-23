@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.grade.course.model;
 
-import static org.openurp.edu.grade.Grade.Status.Confirmed;
-import static org.openurp.edu.grade.Grade.Status.Published;
+import static org.openurp.edu.grade.Grade.Status.CONFIRMED;
+import static org.openurp.edu.grade.Grade.Status.PUBLISHED;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,9 +29,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.code.edu.model.ExamStatus;
-import org.openurp.code.edu.model.GradeType;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.ExamStatus;
+import org.openurp.edu.base.code.model.GradeType;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Student;
 import org.openurp.edu.grade.Grade;
 
@@ -52,7 +52,7 @@ public class ExamGrade extends NumberIdTimeObject<Long> implements Grade {
   /** 成绩记录方式 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GradingMode gradingMode;
+  private ScoreMarkStyle markStyle;
 
   /** 考试情况 */
   @NotNull
@@ -80,8 +80,6 @@ public class ExamGrade extends NumberIdTimeObject<Long> implements Grade {
   /** 操作者 */
   @Size(max = 50)
   private String operator;
-
-  private java.util.Date createdAt;
 
   /**
    * 百分比描述<br>
@@ -135,11 +133,11 @@ public class ExamGrade extends NumberIdTimeObject<Long> implements Grade {
   }
 
   public boolean isPublished() {
-    return getStatus() == Published;
+    return getStatus() == PUBLISHED;
   }
 
   public boolean isConfirmed() {
-    return getStatus() >= Confirmed;
+    return getStatus() >= CONFIRMED;
   }
 
   public int getStatus() {
@@ -173,12 +171,12 @@ public class ExamGrade extends NumberIdTimeObject<Long> implements Grade {
     this.examStatus = examStatus;
   }
 
-  public GradingMode getGradingMode() {
-    return gradingMode;
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
   }
 
-  public void setGradingMode(GradingMode gradingMode) {
-    this.gradingMode = gradingMode;
+  public void setMarkStyle(ScoreMarkStyle markStyle) {
+    this.markStyle = markStyle;
   }
 
   public String getOperator() {
@@ -200,14 +198,6 @@ public class ExamGrade extends NumberIdTimeObject<Long> implements Grade {
   @Override
   public Student getStd() {
     return (null == courseGrade) ? null : courseGrade.getStd();
-  }
-
-  public java.util.Date getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(java.util.Date createdAt) {
-    this.createdAt = createdAt;
   }
 
 }

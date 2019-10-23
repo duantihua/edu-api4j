@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Campus;
 import org.openurp.base.time.Terms;
-import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.edu.base.code.model.Education;
 
 /**
  * 专业与校区对应
@@ -40,7 +40,7 @@ import org.openurp.code.edu.model.EducationLevel;
  */
 @Entity(name = "org.openurp.edu.base.model.MajorCampus")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class MajorCampus extends IntegerIdObject implements Cloneable {
 
   private static final long serialVersionUID = -1991362950215673917L;
@@ -62,7 +62,7 @@ public class MajorCampus extends IntegerIdObject implements Cloneable {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private EducationLevel level;
+  private Education education;
 
   public String getGrade() {
     return grade;
@@ -101,12 +101,12 @@ public class MajorCampus extends IntegerIdObject implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
-  public EducationLevel getLevel() {
-    return level;
+  public Education getEducation() {
+    return education;
   }
 
-  public void setLevel(EducationLevel level) {
-    this.level = level;
+  public void setEducation(Education education) {
+    this.education = education;
   }
 
 }

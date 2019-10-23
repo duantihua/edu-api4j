@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,17 +34,17 @@ import org.openurp.code.industry;
  */
 @Entity(name = "org.openurp.code.edu.model.ActivityType")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @industry
 public class ActivityType extends Code<Integer> {
 
   private static final long serialVersionUID = 790888757923982582L;
 
   /** 排课 */
-  public static final int Course = 1;
+  public static final int COURSE = 1;
 
   /** 排考 */
-  public static final int Exam = 2;
+  public static final int EXAM = 2;
 
   public ActivityType() {
     super();

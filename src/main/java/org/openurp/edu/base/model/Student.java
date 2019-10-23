@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,6 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Person;
 import org.openurp.base.model.TemporalEntity;
 import org.openurp.base.model.User;
 import org.openurp.code.edu.model.StudyType;
@@ -43,13 +42,14 @@ import org.openurp.code.person.model.Gender;
 import org.openurp.edu.base.code.model.StdLabel;
 import org.openurp.edu.base.code.model.StdLabelType;
 import org.openurp.edu.base.code.model.StdType;
+import org.openurp.people.base.model.Person;
 import org.springframework.util.CollectionUtils;
 
 /**
  * 学籍信息实现
  */
 @Entity(name = "org.openurp.edu.base.model.Student")
-public class Student extends EduLevelBasedObject<Long> implements TemporalEntity {
+public class Student extends EducationBasedObject<Long> implements TemporalEntity {
 
   private static final long serialVersionUID = -1973115982366299767L;
   /** 用户 */
@@ -94,14 +94,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
   @NotNull
   protected java.sql.Date endOn;
 
-  /** 入学日期 */
-  @NotNull
-  protected java.sql.Date studyOn;
-
-  /** 预计毕业日期 */
-  @NotNull
-  protected java.sql.Date graduateOn;
-
   /** 学习形式 全日制/业余/函授 */
   @ManyToOne(fetch = FetchType.LAZY)
   protected StudyType studyType;
@@ -110,9 +102,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
   @ManyToOne(fetch = FetchType.LAZY)
   protected Teacher tutor;
 
-  /** 专业培养方案 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected Program program;
   /** 备注 */
   @Size(max = 2000)
   protected String remark;
@@ -126,8 +115,8 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
     this.setId(id);
   }
 
-  public Squad getSquad() {
-    return state.getSquad();
+  public Adminclass getAdminclass() {
+    return state.getAdminclass();
   }
 
   public Department getDepartment() {
@@ -256,12 +245,11 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
     if (CollectionUtils.isEmpty(states)) { throw new IllegalArgumentException("states is empty!!!"); }
     SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
     long now = Long.valueOf(f.format(new java.sql.Date(System.currentTimeMillis())));
-    java.sql.Date nowDate = new java.sql.Date(System.currentTimeMillis());
+    java.sql.Date nowDate= new java.sql.Date(System.currentTimeMillis());
     long distance = Long.MAX_VALUE;
     StudentState last = null;
     for (StudentState state : states) {
-      if (nowDate.getTime() >= state.getBeginOn().getTime()
-          && nowDate.getTime() <= state.getEndOn().getTime()) {
+      if (nowDate.getTime()>= state.getBeginOn().getTime() && nowDate.getTime() <= state.getEndOn().getTime()) {
         last = state;
         break;
       }
@@ -317,11 +305,7 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
   }
 
   public Program getProgram() {
-    return program;
-  }
-
-  public void setProgram(Program program) {
-    this.program = program;
+    return state.getProgram();
   }
 
   public User getUser() {
@@ -330,22 +314,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
 
   public void setUser(User user) {
     this.user = user;
-  }
-
-  public java.sql.Date getStudyOn() {
-    return studyOn;
-  }
-
-  public void setStudyOn(java.sql.Date studyOn) {
-    this.studyOn = studyOn;
-  }
-
-  public java.sql.Date getGraduateOn() {
-    return graduateOn;
-  }
-
-  public void setGraduateOn(java.sql.Date graduateOn) {
-    this.graduateOn = graduateOn;
   }
 
 }

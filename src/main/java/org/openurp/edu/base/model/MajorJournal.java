@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,14 +29,16 @@ import org.beangle.commons.entity.pojo.NumberIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.edu.base.code.model.Education;
 
 /**
  * 专业建设过程
+ *
+ *
  */
 @Entity(name = "org.openurp.edu.base.model.MajorJournal")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorJournal extends NumberIdObject<Integer> {
 
   private static final long serialVersionUID = 6945987326647765057L;
@@ -53,7 +55,7 @@ public class MajorJournal extends NumberIdObject<Integer> {
   /** 培养层次 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private EducationLevel level;
+  private Education education;
 
   /** 部门 */
   @NotNull
@@ -71,12 +73,12 @@ public class MajorJournal extends NumberIdObject<Integer> {
   @Size(max = 255)
   private String remark;
 
-  public EducationLevel getLevel() {
-    return level;
+  public Education getEducation() {
+    return education;
   }
 
-  public void setLevel(EducationLevel level) {
-    this.level = level;
+  public void setEducation(Education education) {
+    this.education = education;
   }
 
   public Major getMajor() {

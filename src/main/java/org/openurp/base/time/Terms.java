@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,10 +91,6 @@ public class Terms implements Serializable, Comparable<Terms> {
 
   @Override
   public int hashCode() {
-    return value;
-  }
-
-  public int getValue() {
     return value;
   }
 

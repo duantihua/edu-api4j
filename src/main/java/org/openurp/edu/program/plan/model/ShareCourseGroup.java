@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,11 +96,11 @@ public class ShareCourseGroup extends AbstractCourseGroup {
 
   public Object cloneToMajorCourseGroup() {
     MajorCourseGroup courseGroup = Model.newInstance(MajorCourseGroup.class);
-    courseGroup.setCourseCount(getCourseCount());
+    courseGroup.setCourseNum(getCourseNum());
     courseGroup.setCourseType(getCourseType());
     courseGroup.setCredits(getCredits());
     courseGroup.setIndexno(getIndexno());
-    // courseGroup.setLimitRequiredCount(getLimitRequiredCount());
+    // courseGroup.setLimitCourseNum(getLimitCourseNum());
     // courseGroup.setLimitCredits(getLimitCredits());
     courseGroup.setTermCredits(getTermCredits());
     courseGroup.setRemark(getRemark());

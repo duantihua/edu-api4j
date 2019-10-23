@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ public class CasHttpSessionRepo extends HttpSessionRepo implements Initializing 
   @Override
   public void init() {
     this.setGeturl(config.getCasServer() + "/session/{id}?format=application/x-protobuf");
-    this.setAccessUrl(config.getCasServer() + "/session/{id}/access?time={time}");
+    this.setAccessUrl(config.getCasServer() + "/session/{id}/access/{time}");
     super.init();
   }
 

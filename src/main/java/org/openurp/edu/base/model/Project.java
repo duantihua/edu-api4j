@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,13 +39,15 @@ import org.beangle.commons.entity.TimeEntity;
 import org.beangle.commons.lang.functor.Predicate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.model.Calendar;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.base.model.School;
+import org.openurp.base.model.Semester;
 import org.openurp.base.model.TemporalEntity;
-import org.openurp.code.edu.model.EduCategory;
-import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.base.model.TimeSetting;
+import org.openurp.edu.base.code.model.Education;
 import org.openurp.edu.base.code.model.StdLabel;
 import org.openurp.edu.base.code.model.StdType;
 
@@ -54,7 +56,7 @@ import org.openurp.edu.base.code.model.StdType;
  */
 @Entity(name = "org.openurp.edu.base.model.Project")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, TemporalEntity {
   private static final long serialVersionUID = 1905920232617502052L;
 
@@ -83,39 +85,44 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
   /** 校区列表 */
   @ManyToMany
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<Campus> campuses = CollectUtils.newArrayList();
 
   /** 部门列表 */
   @ManyToMany(targetEntity = Department.class)
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  @OrderColumn(name = "idx")
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @OrderColumn(name = "index_no")
   private List<Department> departments = CollectUtils.newArrayList();
 
   /** 培养层次列表 */
   @ManyToMany
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<EducationLevel> levels = CollectUtils.newArrayList();
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  private List<Education> educations = CollectUtils.newArrayList();
 
   /** 学生分类列表 */
   @ManyToMany
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<StdLabel> stdLabels = CollectUtils.newArrayList();
 
   /** 学生类别列表 */
   @ManyToMany
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<StdType> stdTypes = CollectUtils.newArrayList();
 
   /** 使用校历 */
   @ManyToMany
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.core", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<Calendar> calendars = CollectUtils.newArrayList();
+
+  /** 小节设置 */
+  @ManyToMany
+  @NotNull
+  private List<TimeSetting> timeSettings = CollectUtils.newArrayList();
 
   /** 描述 */
   @Size(max = 500)
@@ -125,10 +132,6 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
   @NotNull
   private boolean minor;
 
-  /**教育类别*/
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private EduCategory category;
   /** 生效时间 */
   @NotNull
   protected java.sql.Date beginOn;
@@ -169,12 +172,12 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
     this.name = name;
   }
 
-  public List<EducationLevel> getLevels() {
-    return levels;
+  public List<Education> getEducations() {
+    return educations;
   }
 
-  public void setLevels(List<EducationLevel> levels) {
-    this.levels = levels;
+  public void setEducations(List<Education> educations) {
+    this.educations = educations;
   }
 
   public List<Calendar> getCalendars() {
@@ -257,6 +260,14 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
     this.school = school;
   }
 
+  public List<TimeSetting> getTimeSettings() {
+    return timeSettings;
+  }
+
+  public void setTimeSettings(List<TimeSetting> timeSettings) {
+    this.timeSettings = timeSettings;
+  }
+
   public List<Department> getTeachingDeparts() {
     return CollectUtils.select(this.departments, TEACHING);
   }
@@ -279,14 +290,6 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
 
   public void setCode(String code) {
     this.code = code;
-  }
-
-  public EduCategory getCategory() {
-    return category;
-  }
-
-  public void setCategory(EduCategory category) {
-    this.category = category;
   }
 
 }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,8 +43,10 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
 
   private static final long serialVersionUID = 1347767253840431206L;
 
-  /** 要求完成组数 */
-  protected short subCount;
+  /**
+   * 要求完成组数
+   */
+  protected short groupNum;
 
   /** 课程类别 */
   @NotNull
@@ -55,7 +57,7 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   private float credits;
 
   /** 要求门数 */
-  private short courseCount;
+  private int courseNum;
 
   /** 备注 */
   @Size(max = 2000)
@@ -86,7 +88,7 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
 
     boolean isCompulsory = true;
     if (CollectUtils.isNotEmpty(getChildren()) && getChildren().size() > 1) {
-      isCompulsory &= (getChildren().size() == subCount);
+      isCompulsory &= (getChildren().size() == groupNum);
     }
 
     if (!isCompulsory) { return isCompulsory; }
@@ -100,12 +102,12 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
     return isCompulsory;
   }
 
-  public short getSubCount() {
-    return subCount;
+  public short getGroupNum() {
+    return groupNum;
   }
 
-  public void setSubCount(short subCount) {
-    this.subCount = subCount;
+  public void setGroupNum(short groupNum) {
+    this.groupNum = groupNum;
   }
 
   public void addChildGroup(CourseGroup group) {
@@ -169,12 +171,12 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
     this.credits = credits;
   }
 
-  public short getCourseCount() {
-    return courseCount;
+  public int getCourseNum() {
+    return courseNum;
   }
 
-  public void setCourseCount(short courseCount) {
-    this.courseCount = courseCount;
+  public void setCourseNum(int courseNum) {
+    this.courseNum = courseNum;
   }
 
   public String getTermCredits() {

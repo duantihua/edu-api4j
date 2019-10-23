@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 package org.openurp.edu.grade.course.model;
 
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.GradeType;
+import org.openurp.edu.base.code.model.GradeType;
 
 public class GradeStateStat {
 

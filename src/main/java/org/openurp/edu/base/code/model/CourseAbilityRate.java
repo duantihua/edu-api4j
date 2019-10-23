@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,28 +33,29 @@ import org.openurp.code.school;
  */
 @Entity(name = "org.openurp.edu.base.code.model.CourseAbilityRate")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
 public class CourseAbilityRate extends Code<Integer> {
 
   private static final long serialVersionUID = 478622629471793724L;
 
-  public int getRate() {
-    return rate;
-  }
-
-  public void setRate(int rate) {
-    this.rate = rate;
-  }
-
-  public boolean sameLevel(int rate) {
-    return this.rate == rate;
+  public boolean sameLevel(int value) {
+    return this.value == value;
   }
 
   public boolean sameLevel(CourseAbilityRate o) {
-    if (null != o) return rate == o.getRate();
+    if (null != o) return value == o.getValue();
     else return false;
   }
 
-  private int rate;
+  private int value;
+
+  public int getValue() {
+    return value;
+  }
+
+  public void setValue(int value) {
+    this.value = value;
+  }
+
 }

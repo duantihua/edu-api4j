@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +37,11 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
-import org.openurp.code.edu.model.ExamType;
+import org.openurp.base.model.Semester;
+import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.base.model.Teacher;
+import org.openurp.edu.lesson.model.Lesson;
 
 /**
  * 排考活动
@@ -54,7 +55,7 @@ public class ExamActivity extends LongIdObject {
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   @NaturalId
-  protected Clazz clazz;
+  protected Lesson lesson;
 
   /** 学年学期 */
   @NotNull
@@ -95,8 +96,8 @@ public class ExamActivity extends LongIdObject {
   private PublishState state = PublishState.None;
 
   /** 应考学生记录 */
-  @OneToMany(mappedBy = "activity", targetEntity = ExamTaker.class)
-  private List<ExamTaker> examTakers = CollectUtils.newArrayList();
+  @OneToMany(mappedBy = "activity", targetEntity = ExamStudent.class)
+  private List<ExamStudent> examStudents = CollectUtils.newArrayList();
 
   public Semester getSemester() {
     return semester;
@@ -106,8 +107,8 @@ public class ExamActivity extends LongIdObject {
     this.semester = semester;
   }
 
-  public Clazz getClazz() {
-    return clazz;
+  public Lesson getLesson() {
+    return lesson;
   }
 
   /**
@@ -120,7 +121,7 @@ public class ExamActivity extends LongIdObject {
     activity.setBeginAt(getBeginAt());
     activity.setEndAt(getEndAt());
     activity.setExamType(getExamType());
-    activity.setClazz(getClazz());
+    activity.setLesson(getLesson());
     activity.setSemester(getSemester());
     activity.setRemark(getRemark());
     activity.setState(getState());
@@ -149,19 +150,19 @@ public class ExamActivity extends LongIdObject {
     this.remark = remark;
   }
 
-  public void setClazz(Clazz clazz) {
-    this.clazz = clazz;
+  public void setLesson(Lesson lesson) {
+    this.lesson = lesson;
   }
 
-  public void setExamTakers(List<ExamTaker> examTakers) {
-    this.examTakers = examTakers;
+  public void setExamStudents(List<ExamStudent> examStudents) {
+    this.examStudents = examStudents;
   }
 
   /**
    * 得到类型和学期一致的考试的名单
    */
-  public List<ExamTaker> getExamTakers() {
-    return examTakers;
+  public List<ExamStudent> getExamStudents() {
+    return examStudents;
   }
 
   public List<Classroom> getClassrooms() {
@@ -171,6 +172,19 @@ public class ExamActivity extends LongIdObject {
       for (ExamRoom er : getRooms())
         classrooms.add(er.getRoom());
       return classrooms;
+    }
+  }
+
+  /**
+   * 返回主考老师
+   */
+  public List<Teacher> getExaminers() {
+    if (null == rooms || rooms.isEmpty()) return Collections.emptyList();
+    else {
+      Set<Teacher> teachers = CollectUtils.newHashSet();
+      for (ExamRoom er : getRooms())
+        if (null != er.getExaminer()) teachers.add(er.getExaminer());
+      return CollectUtils.newArrayList(teachers);
     }
   }
 

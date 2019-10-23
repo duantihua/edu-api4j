@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,8 +36,6 @@ public class User extends LongIdObject {
   private String code;
 
   private String name;
-
-  private String enName;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
@@ -82,14 +80,6 @@ public class User extends LongIdObject {
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getEnName() {
-    return enName;
-  }
-
-  public void setEnName(String enName) {
-    this.enName = enName;
   }
 
   public Department getDepartment() {
@@ -149,6 +139,6 @@ public class User extends LongIdObject {
   }
 
   public boolean isCategory(int categoryId) {
-    return category.getId().intValue() == categoryId;
+    return category.getId().intValue()==categoryId;
   }
 }

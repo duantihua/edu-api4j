@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,9 +87,9 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
    */
   public void setChildren(List<CourseGroup> children);
 
-  public short getSubCount();
+  public short getGroupNum();
 
-  public void setSubCount(short subCount);
+  public void setGroupNum(short groupNum);
 
   /**
    * 获得课程类别.
@@ -126,15 +126,15 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
    *
    * @return 组内要求门数
    */
-  public short getCourseCount();
+  public int getCourseNum();
 
   /**
    * 设置组内要求门数
    *
-   * @param requiredCount
+   * @param courseNum
    *          组内要求门数
    */
-  public void setCourseCount(short requiredCount);
+  public void setCourseNum(int courseNum);
 
   public List<PlanCourse> getPlanCourses();
 

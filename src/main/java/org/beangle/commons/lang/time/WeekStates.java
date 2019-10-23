@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
  */
 package org.beangle.commons.lang.time;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,6 +27,7 @@ import java.util.List;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Numbers;
 import org.beangle.commons.lang.Strings;
+import org.openurp.base.model.Semester;
 import org.openurp.base.time.NumberRangeDigestor;
 import org.openurp.base.time.NumberSequence;
 
@@ -85,14 +87,14 @@ public final class WeekStates {
     return (gregorianCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY);
   }
 
-  // private static int getStartYear(Semester semester) {
-  // if (null != semester.getBeginOn()) {
-  // GregorianCalendar gc = new GregorianCalendar();
-  // gc.setTime(semester.getBeginOn());
-  // return gc.get(Calendar.YEAR);
-  // }
-  // return 0;
-  // }
+  private static int getStartYear(Semester semester) {
+    if (null != semester.getBeginOn()) {
+      GregorianCalendar gc = new GregorianCalendar();
+      gc.setTime(semester.getBeginOn());
+      return gc.get(Calendar.YEAR);
+    }
+    return 0;
+  }
 
   public static String digest(WeekState state) {
     if (null == state) return "";
@@ -102,4 +104,31 @@ public final class WeekStates {
         .replace("number.range.even", "双");
   }
 
+  /**
+   * 这个方法都是在ftl里使用的
+   *
+   * @param state
+   * @return
+   */
+  public static String digestWeekTime(WeekTime time, Semester semester) {
+    if (null == time) return "";
+    LocalDate beginOn =  semester.getBeginOn().toLocalDate();
+    int firstWeekday = beginOn.getDayOfWeek().getValue();
+    LocalDate timeBeginOn = time.getStartOn().toLocalDate();
+    while (timeBeginOn.getDayOfWeek().getValue() != firstWeekday) {
+      timeBeginOn = timeBeginOn.plusDays(-1);
+    }
+    int weeksDistance = Weeks.between(beginOn, timeBeginOn);
+    long weekstate = time.getWeekstate().getValue();
+    if (weeksDistance < 0) {
+      weekstate >>= (0 - weeksDistance);
+    } else {
+      weekstate <<= weeksDistance;
+    }
+
+    Integer[] weekIndecies = new WeekState(weekstate).getWeekList().toArray(new Integer[0]);
+    String digest = NumberRangeDigestor.digest(weekIndecies, null);
+    return digest.replace("[", "").replace("]", "").replace("number.range.odd", "单")
+        .replace("number.range.even", "双");
+  }
 }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,25 +18,34 @@
  */
 package org.openurp.edu.exam.model;
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
+import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.HourMinute;
 import org.hibernate.annotations.Type;
+import org.openurp.edu.base.model.Project;
 
+/**
+ * 考试场次
+ *
+ *  考试场次是定义每场考试的具体时间段。
+ */
 @Entity(name = "org.openurp.edu.exam.model.ExamTurn")
-public class ExamTurn extends LongIdObject {
+public class ExamTurn extends LongIdObject implements Comparable<ExamTurn> {
 
-  private static final long serialVersionUID = 8897863916974084603L;
+  private static final long serialVersionUID = -5591926891640269453L;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private ExamGroup group;
+  /** 序号 */
+  @Size(max = 20)
+  private String code;
 
-  private java.sql.Date examOn;
+  /** 场次中文名 */
+  @Size(max = 100)
+  private String name;
 
   /**
    * 开始时间 格式采用数字.800,表示8:00
@@ -50,37 +59,24 @@ public class ExamTurn extends LongIdObject {
   @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
   private HourMinute endAt;
 
-  private Integer capacity;
+  /** 教学项目 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Project project;
 
-  public ExamTurn() {
-    super();
+  public String getCode() {
+    return code;
   }
 
-  public ExamTurn(Date examOn, TurnOfDay turn) {
-    this(examOn, turn.getBeginAt(), turn.getEndAt());
+  public void setCode(String code) {
+    this.code = code;
   }
 
-  public ExamTurn(Date examOn, HourMinute beginAt, HourMinute endAt) {
-    super();
-    this.examOn = examOn;
-    this.beginAt = beginAt;
-    this.endAt = endAt;
+  public String getName() {
+    return name;
   }
 
-  public ExamGroup getGroup() {
-    return group;
-  }
-
-  public void setGroup(ExamGroup session) {
-    this.group = session;
-  }
-
-  public java.sql.Date getExamOn() {
-    return examOn;
-  }
-
-  public void setExamOn(java.sql.Date examOn) {
-    this.examOn = examOn;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public HourMinute getBeginAt() {
@@ -99,12 +95,20 @@ public class ExamTurn extends LongIdObject {
     this.endAt = endAt;
   }
 
-  public Integer getCapacity() {
-    return capacity;
+  /**
+   * @see java.lang.Comparable#compareTo(Object)
+   */
+  public int compareTo(ExamTurn other) {
+    return Objects.compareBuilder().add(getCode(), other.getCode()).add(getBeginAt(), other.getBeginAt())
+        .toComparison();
   }
 
-  public void setCapacity(Integer capacity) {
-    this.capacity = capacity;
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
   }
 
 }

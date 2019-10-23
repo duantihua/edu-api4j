@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
  */
 package org.openurp.edu.base.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -38,22 +39,23 @@ import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.code.edu.model.ExamMode;
-import org.openurp.code.edu.model.GradingMode;
 import org.openurp.edu.base.code.model.CourseAbilityRate;
 import org.openurp.edu.base.code.model.CourseCategory;
 import org.openurp.edu.base.code.model.CourseHourType;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.base.code.model.Education;
+import org.openurp.edu.base.code.model.ExamMode;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 
 /**
  * 课程基本信息
+ *
  *
  * @since 2008-09-24
  */
 @Entity(name = "org.openurp.edu.base.model.Course")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class Course extends ProjectBasedObject<Long> implements Comparable<Course> {
 
   private static final long serialVersionUID = 732786365746405676L;
@@ -75,22 +77,26 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   /** 培养层次 */
   @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<AcademicLevel> levels = CollectUtils.newHashSet();
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
+  private List<Education> educations = new ArrayList<Education>();
+
+  /** 课程种类代码 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseCategory category;
 
   /** 学分 */
   private float credits;
 
   /** 学时/总课时 */
   @NotNull
-  private int creditHours;
+  private int period;
 
   /** 分类课时 */
   @OneToMany(mappedBy = "course", cascade = { CascadeType.ALL }, orphanRemoval = true)
   private List<CourseHour> hours = CollectUtils.newArrayList();
 
   /** 周课时 */
-  private int weekHours;
+  private int weekHour;
 
   /** 周数 */
   private Integer weeks;
@@ -103,22 +109,17 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType courseType;
 
-  /** 建议课程分类 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CourseCategory category;
-
   /** 考试方式 */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
 
   /** 成绩记录方式 */
-  @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<GradingMode> gradingModes = CollectUtils.newHashSet();
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ScoreMarkStyle markStyle;
 
   /** 能力等级 */
   @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
   private Set<CourseAbilityRate> abilityRates = CollectUtils.newHashSet();
 
   /** 针对专业 */
@@ -127,7 +128,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   /** 排除专业 */
   @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
   private Set<Major> xmajors = CollectUtils.newHashSet();
 
   /** 常用教材 */
@@ -135,17 +136,13 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   private Set<Textbook> textbooks = CollectUtils.newHashSet();
 
   private java.sql.Date beginOn;
-
   private java.sql.Date endOn;
 
-  /** 是否实践课程 */
-  private boolean practical;
-
-  /** 是否有补考 */
-  private boolean hasMakeup;
-
-  /** 是否计算绩点 */
-  private boolean calgp;
+  // /** 先修课程 */
+  // @ManyToMany
+  // @JoinTable(inverseJoinColumns = @JoinColumn(name = "precourse_id", referencedColumnName = "id")
+  // )
+  // private Set<Course> prerequisites = CollectUtils.newHashSet();
 
   /** 课程备注 */
   @Size(max = 500)
@@ -157,6 +154,14 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   public Course(Long id) {
     super(id);
+  }
+
+  public List<Education> getEducations() {
+    return educations;
+  }
+
+  public void setEducations(List<Education> educations) {
+    this.educations = educations;
   }
 
   public java.sql.Date getBeginOn() {
@@ -173,6 +178,14 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   public void setEndOn(java.sql.Date endOn) {
     this.endOn = endOn;
+  }
+
+  public CourseCategory getCategory() {
+    return category;
+  }
+
+  public void setCategory(CourseCategory category) {
+    this.category = category;
   }
 
   public String getCode() {
@@ -219,20 +232,20 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     return Objects.compareBuilder().add(getCode(), other.getCode()).toComparison();
   }
 
-  public int getCreditHours() {
-    return creditHours;
+  public int getPeriod() {
+    return period;
   }
 
-  public void setCreditHours(int creditHours) {
-    this.creditHours = creditHours;
+  public void setPeriod(int period) {
+    this.period = period;
   }
 
-  public int getWeekHours() {
-    return weekHours;
+  public int getWeekHour() {
+    return weekHour;
   }
 
-  public void setWeekHours(int weekHours) {
-    this.weekHours = weekHours;
+  public void setWeekHour(int weekHour) {
+    this.weekHour = weekHour;
   }
 
   public Integer getWeeks() {
@@ -299,14 +312,14 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.textbooks = textbooks;
   }
 
-  public String getCreditHourString() {
+  public String getWeekHourString() {
     if (hours.isEmpty()) {
       return "";
     } else {
       StringBuffer sb = new StringBuffer();
       for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
         CourseHour courseHour = iter.next();
-        Integer value = courseHour.getCreditHours();
+        Integer value = courseHour.getWeekHour();
         sb.append(value);
         if (iter.hasNext()) {
           sb.append('+');
@@ -319,7 +332,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   public Integer getHour(CourseHourType type) {
     for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
       CourseHour courseHour = iter.next();
-      if (null != type && courseHour.getHourType().equals(type)) { return courseHour.getCreditHours(); }
+      if (null != type && courseHour.getHourType().equals(type)) { return courseHour.getPeriod(); }
     }
     return null;
   }
@@ -328,7 +341,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
       CourseHour courseHour = iter.next();
       if (null != typeId
-          && courseHour.getHourType().getId().equals(typeId)) { return courseHour.getCreditHours(); }
+          && courseHour.getHourType().getId().equals(typeId)) { return courseHour.getPeriod(); }
     }
     return null;
   }
@@ -346,40 +359,24 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.hours = courseHours;
   }
 
-  public Set<AcademicLevel> getLevels() {
-    return levels;
+  // public Map<Long, Integer> getHours() {
+  // Map<Long, Integer> courseHourMap = new HashMap<Long, Integer>();
+  // for (CourseHour courseHour : getCourseHours()) {
+  // courseHourMap.put(courseHour.getType().getId(), courseHour.getPeriod());
+  // }
+  // return courseHourMap;
+  // }
+
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
   }
 
-  public void setLevels(Set<AcademicLevel> levels) {
-    this.levels = levels;
-  }
-
-  public Set<GradingMode> getGradingModes() {
-    return gradingModes;
-  }
-
-  public void setGradingModes(Set<GradingMode> gradingModes) {
-    this.gradingModes = gradingModes;
+  public void setMarkStyle(ScoreMarkStyle markStyle) {
+    this.markStyle = markStyle;
   }
 
   public boolean isEnabled() {
     return null == endOn;
-  }
-
-  public boolean isHasMakeup() {
-    return hasMakeup;
-  }
-
-  public void setHasMakeup(boolean hasMakeup) {
-    this.hasMakeup = hasMakeup;
-  }
-
-  public boolean isPractical() {
-    return practical;
-  }
-
-  public void setPractical(boolean practical) {
-    this.practical = practical;
   }
 
   public void setEnabled(boolean e) {
@@ -390,21 +387,4 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
       endOn = new java.sql.Date(System.currentTimeMillis());
     }
   }
-
-  public CourseCategory getCategory() {
-    return category;
-  }
-
-  public void setCategory(CourseCategory category) {
-    this.category = category;
-  }
-
-  public boolean isCalgp() {
-    return calgp;
-  }
-
-  public void setCalgp(boolean calgp) {
-    this.calgp = calgp;
-  }
-
 }

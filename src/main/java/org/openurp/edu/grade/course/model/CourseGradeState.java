@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -32,10 +34,11 @@ import org.beangle.commons.entity.metadata.Model;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.openurp.base.model.User;
-import org.openurp.code.edu.model.GradeType;
-import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.base.code.model.GradeType;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.grade.Grade;
+import org.openurp.edu.grade.course.domain.GradeTypeConstants;
+import org.openurp.edu.lesson.model.Lesson;
 
 /**
  * 成绩状态表
@@ -53,7 +56,7 @@ public class CourseGradeState extends AbstractGradeState {
 
   /** 教学任务 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Clazz clazz;
+  private Lesson lesson;
 
   /** 可录入各成绩类型的状态设置 */
   @OneToMany(mappedBy = "gradeState", orphanRemoval = true)
@@ -63,6 +66,12 @@ public class CourseGradeState extends AbstractGradeState {
   @OneToMany(mappedBy = "gradeState", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   private Set<GaGradeState> gaStates = CollectUtils.newHashSet();
+  /** 个人百分比审核状态 */
+  @Enumerated(value = EnumType.STRING)
+  private AuditStatus auditStatus;
+
+  /** 审核理由 */
+  private String auditReason;
 
   /** 其他录入人 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -71,9 +80,9 @@ public class CourseGradeState extends AbstractGradeState {
   public CourseGradeState() {
   }
 
-  public CourseGradeState(Clazz clazz) {
-    this.clazz = clazz;
-    this.setGradingMode(new GradingMode(GradingMode.Percent));
+  public CourseGradeState(Lesson lesson) {
+    this.lesson = lesson;
+    this.setMarkStyle(new ScoreMarkStyle(ScoreMarkStyle.Percent));
   }
 
   public void updateStatus(GradeType gradeType, int status) {
@@ -84,7 +93,7 @@ public class CourseGradeState extends AbstractGradeState {
         gas.setGradeState(this);
         gas.setGradeType(gradeType);
         gas.setStatus(status);
-        gas.setGradingMode(gradingMode);
+        gas.setMarkStyle(markStyle);
         gaStates.add(gas);
         state = gas;
       } else {
@@ -92,7 +101,7 @@ public class CourseGradeState extends AbstractGradeState {
         egs.setGradeState(this);
         egs.setGradeType(gradeType);
         egs.setStatus(status);
-        egs.setGradingMode(gradingMode);
+        egs.setMarkStyle(markStyle);
         examStates.add(egs);
         state = egs;
       }
@@ -125,7 +134,7 @@ public class CourseGradeState extends AbstractGradeState {
       }
       if (null == result) {
         result = new GaGradeState();
-        result.setStatus(Grade.Status.New);
+        result.setStatus(Grade.Status.NEW);
         result.setUpdatedAt(new Date());
         result.setGradeType(gradeType);
         result.setGradeState(this);
@@ -142,7 +151,7 @@ public class CourseGradeState extends AbstractGradeState {
       }
       if (null == result) {
         result = new ExamGradeState();
-        result.setStatus(Grade.Status.New);
+        result.setStatus(Grade.Status.NEW);
         result.setUpdatedAt(new Date());
         result.setGradeType(gradeType);
         result.setGradeState(this);
@@ -168,8 +177,8 @@ public class CourseGradeState extends AbstractGradeState {
   public Short getPercent(GradeType gradeType) {
     for (Iterator<ExamGradeState> iter = examStates.iterator(); iter.hasNext();) {
       ExamGradeState gradeTypeState = (ExamGradeState) iter.next();
-      if (null != gradeType && gradeTypeState.getGradeType().getId()
-          .equals(gradeType.getId())) { return gradeTypeState.getPercent(); }
+      if (null != gradeType && gradeTypeState.getGradeType().getId().equals(gradeType.getId())) { return gradeTypeState
+          .getPercent(); }
     }
     return null;
   }
@@ -188,15 +197,15 @@ public class CourseGradeState extends AbstractGradeState {
   }
 
   public GradeType getGradeType() {
-    return new GradeType(GradeType.FINAL_ID);
+    return new GradeType(GradeTypeConstants.FINAL_ID);
   }
 
-  public Clazz getClazz() {
-    return clazz;
+  public Lesson getLesson() {
+    return lesson;
   }
 
-  public void setClazz(Clazz clazz) {
-    this.clazz = clazz;
+  public void setLesson(Lesson lesson) {
+    this.lesson = lesson;
   }
 
   public Set<ExamGradeState> getExamStates() {
@@ -205,6 +214,22 @@ public class CourseGradeState extends AbstractGradeState {
 
   public void setExamStates(Set<ExamGradeState> states) {
     this.examStates = states;
+  }
+
+  public AuditStatus getAuditStatus() {
+    return auditStatus;
+  }
+
+  public void setAuditStatus(AuditStatus auditStatus) {
+    this.auditStatus = auditStatus;
+  }
+
+  public String getAuditReason() {
+    return auditReason;
+  }
+
+  public void setAuditReason(String auditReason) {
+    this.auditReason = auditReason;
   }
 
   public User getExtraInputer() {
@@ -224,8 +249,8 @@ public class CourseGradeState extends AbstractGradeState {
   }
 
   public enum AuditStatus {
-    NEED_AUDIT("待审核"), DEPART_AUDIT_PASSED("审核通过"), DEPART_AUDIT_UNPASSED("审核未通过"), NEED_FINAL_AUDIT(
-        "院长审核"), FINAL_AUDIT_PASSED("最终审核通过"), FINAL_AUDIT_UNPASSED("最终审核未通过");
+    NEED_AUDIT("待审核"), DEPART_AUDIT_PASSED("审核通过"), DEPART_AUDIT_UNPASSED("审核未通过"), NEED_FINAL_AUDIT("院长审核"), FINAL_AUDIT_PASSED(
+        "最终审核通过"), FINAL_AUDIT_UNPASSED("最终审核未通过");
 
     private String fullName;
 

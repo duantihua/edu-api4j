@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,8 +28,8 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.NumberIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.code.edu.model.GradeType;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.GradeType;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Student;
 import org.openurp.edu.grade.Grade;
 
@@ -50,7 +50,7 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
   /** 成绩记录方式 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GradingMode gradingMode;
+  private ScoreMarkStyle markStyle;
 
   /** 得分 */
   private Float score;
@@ -84,8 +84,6 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
 
   @Size(max = 100)
   private String remark;
-
-  private java.util.Date createdAt;
 
   public Float getGp() {
     return gp;
@@ -148,11 +146,11 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
   }
 
   public boolean isPublished() {
-    return getStatus() == Grade.Status.Published;
+    return getStatus() == Grade.Status.PUBLISHED;
   }
 
   public boolean isConfirmed() {
-    return status >= Grade.Status.Confirmed;
+    return status >= Grade.Status.CONFIRMED;
   }
 
   public int getStatus() {
@@ -178,12 +176,12 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
     this.passed = isPass;
   }
 
-  public GradingMode getGradingMode() {
-    return gradingMode;
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
   }
 
-  public void setGradingMode(GradingMode gradingMode) {
-    this.gradingMode = gradingMode;
+  public void setMarkStyle(ScoreMarkStyle markStyle) {
+    this.markStyle = markStyle;
   }
 
   public String getOperator() {
@@ -195,7 +193,7 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
   }
 
   public boolean isBeyondSubmit() {
-    return status >= Grade.Status.Confirmed;
+    return status >= Grade.Status.CONFIRMED;
   }
 
   public Float getDelta() {
@@ -220,14 +218,6 @@ public class GaGrade extends NumberIdObject<Long> implements Grade {
 
   public void setRemark(String remark) {
     this.remark = remark;
-  }
-
-  public java.util.Date getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(java.util.Date createdAt) {
-    this.createdAt = createdAt;
   }
 
 }

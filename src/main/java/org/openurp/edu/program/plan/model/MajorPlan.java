@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ import org.openurp.edu.base.model.Program;
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorPlan")
 @Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorPlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 7084539759992691314L;
@@ -56,7 +56,7 @@ public class MajorPlan extends AbstractCoursePlan {
   @OneToMany(orphanRemoval = true, targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
   @JoinColumn(name = "plan_id", nullable = false)
   @OrderBy("indexno")
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
   /** 审核备注 */

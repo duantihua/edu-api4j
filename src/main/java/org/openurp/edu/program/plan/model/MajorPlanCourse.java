@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,14 +32,14 @@ import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
-import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.code.model.ExamMode;
 
 /**
  * 专业计划课程
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorPlanCourse")
 @Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
 
   private static final long serialVersionUID = 6223259360999867620L;

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ public class StudentState extends LongIdObject {
 
   /** 行政班级 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Squad squad;
+  private Adminclass adminclass;
 
   /** 是否在校 */
   @NotNull
@@ -74,6 +74,10 @@ public class StudentState extends LongIdObject {
   // FIXME very versy strange ,why mapped to std_status_id
   // need update change foreignKeyColumnName method in RailsNamingStrategy
   private StudentStatus status;
+
+  /** 专业培养方案 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Program program;
 
   /** 校区 */
   @NotNull
@@ -155,12 +159,12 @@ public class StudentState extends LongIdObject {
     this.direction = direction;
   }
 
-  public Squad getSquad() {
-    return squad;
+  public Adminclass getAdminclass() {
+    return adminclass;
   }
 
-  public void setSquad(Squad squad) {
-    this.squad = squad;
+  public void setAdminclass(Adminclass adminclass) {
+    this.adminclass = adminclass;
   }
 
   public StudentStatus getStatus() {
@@ -177,6 +181,14 @@ public class StudentState extends LongIdObject {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public Program getProgram() {
+    return program;
+  }
+
+  public void setProgram(Program program) {
+    this.program = program;
   }
 
   public Campus getCampus() {

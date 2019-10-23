@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ import org.openurp.code.industry;
  */
 @Entity(name = "org.openurp.code.edu.model.Discipline")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AttributeOverrides(@AttributeOverride(name = "code", column = @Column(unique = false)))
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "code", "catalog_id" }))
 @industry

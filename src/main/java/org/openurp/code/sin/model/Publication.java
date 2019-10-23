@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ import org.openurp.code.industry;
  */
 @Entity(name = "org.openurp.code.sin.model.Publication")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @industry
 public class Publication extends Code<Integer> {
 
@@ -43,14 +43,14 @@ public class Publication extends Code<Integer> {
 
   /** 级别 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private PublicationGrade grade;
+  private PublicationLevel level;
 
-  public PublicationGrade getGrade() {
-    return grade;
+  public PublicationLevel getLevel() {
+    return level;
   }
 
-  public void setGrade(PublicationGrade grade) {
-    this.grade = grade;
+  public void setLevel(PublicationLevel level) {
+    this.level = level;
   }
 
 }

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ package org.openurp.edu.grade;
 
 import org.beangle.commons.entity.Entity;
 import org.beangle.commons.entity.TimeEntity;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Student;
 
 /**
@@ -30,7 +30,7 @@ import org.openurp.edu.base.model.Student;
  * 成绩中设立原始分数和分数字面值，分别表示数字型分数和文字型评价。分数用于和其他记录方式进行转换，
  * 分数字面值则为最后的转换结果。
  *
- * @depend - - - GradingMode
+ * @depend - - - ScoreMarkStyle
  * @since 2006
  */
 public interface Grade extends Comparable<Grade>, Entity<Long>, TimeEntity {
@@ -110,36 +110,36 @@ public interface Grade extends Comparable<Grade>, Entity<Long>, TimeEntity {
    *
    * @return
    */
-  public GradingMode getGradingMode();
+  public ScoreMarkStyle getMarkStyle();
 
   /**
    * 设置记录方式
    *
-   * @param gradingMode
+   * @param markStyle
    */
-  public void setGradingMode(GradingMode gradingMode);
+  public void setMarkStyle(ScoreMarkStyle markStyle);
 
   public final class Status {
 
     /**
      * 新添加、刚录入、暂存
      */
-    public static final int New = 0;
+    public static final int NEW = 0;
 
     /**
      * 确认 or 已提交
      */
-    public static final int Confirmed = 1;
+    public static final int CONFIRMED = 1;
 
     /**
      * 已发布
      */
-    public static final int Published = 2;
+    public static final int PUBLISHED = 2;
 
     /**
-     * 不在使用，没用的成绩
+     * 隐藏，一般用来有目的假删除成绩
      */
-    public static final int Obsolete = 3;
+    public static final int HIDDEN = 3;
   }
 
   public String getOperator();

@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,10 +22,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.code.edu.model.ExamStatus;
-import org.openurp.code.edu.model.GradeType;
+import org.openurp.edu.base.code.model.ExamStatus;
+import org.openurp.edu.base.code.model.GradeType;
 import org.openurp.edu.base.model.Project;
 import org.openurp.edu.base.model.ProjectBasedObject;
+import org.openurp.edu.grade.course.domain.GradeTypeConstants;
 
 /**
  * 课程成绩配置
@@ -52,8 +53,9 @@ public class CourseGradeSetting extends ProjectBasedObject<Long> {
 
   public CourseGradeSetting(Project project) {
     this();
-    gaElementTypes.add(new GradeType(GradeType.USUAL_ID));
-    gaElementTypes.add(new GradeType(GradeType.END_ID));
+    gaElementTypes.add(new GradeType(GradeTypeConstants.USUAL_ID));
+//    gaElementTypes.add(new GradeType(GradeTypeConstants.MIDDLE_ID));
+    gaElementTypes.add(new GradeType(GradeTypeConstants.END_ID));
 
     allowExamStatuses.add(new ExamStatus(ExamStatus.NORMAL));
     // allowExamStatuses.add(new ExamStatus(ExamStatus.MISC));

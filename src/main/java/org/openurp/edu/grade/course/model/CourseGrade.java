@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,15 +33,16 @@ import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.code.edu.model.CourseTakeType;
-import org.openurp.code.edu.model.ExamMode;
-import org.openurp.code.edu.model.GradeType;
+import org.openurp.edu.base.code.model.CourseTakeType;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.base.code.model.ExamMode;
+import org.openurp.edu.base.code.model.GradeType;
 import org.openurp.edu.base.model.Course;
-import org.openurp.edu.course.model.Clazz;
-import org.openurp.edu.course.model.CourseTaker;
 import org.openurp.edu.grade.AbstractGrade;
 import org.openurp.edu.grade.Grade;
+import org.openurp.edu.grade.course.domain.GradeTypeConstants;
+import org.openurp.edu.lesson.model.CourseTaker;
+import org.openurp.edu.lesson.model.Lesson;
 
 /**
  * 课程成绩实现
@@ -57,12 +58,13 @@ public class CourseGrade extends AbstractGrade {
   private Course course;
   /**
    * 课程序号
+   * 向后兼容需要
    */
-  private String crn;
+  private String lessonNo;
 
   /** 教学任务 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Clazz clazz;
+  private Lesson lesson;
 
   /*** 课程类别 */
   @NotNull
@@ -98,8 +100,6 @@ public class CourseGrade extends AbstractGrade {
   @Size(max = 255)
   private String remark;
 
-  private java.util.Date createdAt;
-
   public CourseGrade() {
   }
 
@@ -110,14 +110,13 @@ public class CourseGrade extends AbstractGrade {
    */
   public CourseGrade(CourseTaker taker) {
     setStd(taker.getStd());
-    setClazz(taker.getClazz());
-    setCrn(clazz.getCrn());
-    setSemester(clazz.getSemester());
-    setCourse(clazz.getCourse());
-    setCourseType(clazz.getCourseType());
+    setLesson(taker.getLesson());
+    setLessonNo(lesson.getNo());
+    setSemester(lesson.getSemester());
+    setCourse(lesson.getCourse());
+    setCourseType(lesson.getCourseType());
     setCourseTakeType(taker.getTakeType());
     setFreeListening(taker.isFreeListening());
-    setCreatedAt(new java.util.Date());
   }
 
   /**
@@ -192,7 +191,7 @@ public class CourseGrade extends AbstractGrade {
    */
   public String getScoreText(GradeType gradeType, Integer status) {
     String score = null;
-    if (gradeType.getId().equals(GradeType.FINAL_ID)) {
+    if (gradeType.getId().equals(GradeTypeConstants.FINAL_ID)) {
       score = getScoreText();
     } else {
       Grade grade = getGrade(gradeType);
@@ -222,12 +221,12 @@ public class CourseGrade extends AbstractGrade {
     this.course = course;
   }
 
-  public Clazz getClazz() {
-    return clazz;
+  public Lesson getLesson() {
+    return lesson;
   }
 
-  public void setClazz(Clazz clazz) {
-    this.clazz = clazz;
+  public void setLesson(Lesson lesson) {
+    this.lesson = lesson;
   }
 
   public CourseType getCourseType() {
@@ -262,12 +261,12 @@ public class CourseGrade extends AbstractGrade {
     this.courseTakeType = courseTakeType;
   }
 
-  public String getCrn() {
-    return crn;
+  public String getLessonNo() {
+    return lessonNo;
   }
 
-  public void setCrn(String lessonNo) {
-    this.crn = lessonNo;
+  public void setLessonNo(String lessonNo) {
+    this.lessonNo = lessonNo;
   }
 
   public ExamMode getExamMode() {
@@ -300,14 +299,6 @@ public class CourseGrade extends AbstractGrade {
 
   public void setFreeListening(boolean freeListening) {
     this.freeListening = freeListening;
-  }
-
-  public java.util.Date getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(java.util.Date createdAt) {
-    this.createdAt = createdAt;
   }
 
 }

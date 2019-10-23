@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.base.model.Semester;
+import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
 
 /**
@@ -38,8 +38,9 @@ import org.openurp.edu.base.model.Student;
  *
  * @depend - - - Student
  * @depend - - - Semester
- * @depend - - - GradingMode
+ * @depend - - - ScoreMarkStyle
  * @see Grade
+ *
  * @since 2007
  */
 @MappedSuperclass
@@ -92,7 +93,7 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
    */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected GradingMode gradingMode;
+  protected ScoreMarkStyle markStyle;
 
   /** 操作者 */
   @Size(max = 50)
@@ -114,7 +115,7 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
   }
 
   public boolean isConfirmed() {
-    return ((getStatus() & Grade.Status.Confirmed) > 0);
+    return ((getStatus() & Grade.Status.CONFIRMED) > 0);
   }
 
   public boolean isPassed() {
@@ -122,15 +123,11 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
   }
 
   public boolean isPublished() {
-    return ((getStatus() & Grade.Status.Published) > 0);
+    return ((getStatus() & Grade.Status.PUBLISHED) > 0);
   }
 
-  public GradingMode getGradingMode() {
-    return gradingMode;
-  }
-
-  public void setGradingMode(GradingMode gradingMode) {
-    this.gradingMode = gradingMode;
+  public ScoreMarkStyle getMarkStyle() {
+    return markStyle;
   }
 
   public Float getScore() {
@@ -155,6 +152,10 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
 
   public void setPassed(boolean passed) {
     this.passed = passed;
+  }
+
+  public void setMarkStyle(ScoreMarkStyle markStyle) {
+    this.markStyle = markStyle;
   }
 
   public void setScore(Float score) {

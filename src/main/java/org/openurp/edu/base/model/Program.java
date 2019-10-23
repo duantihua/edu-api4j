@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,16 +35,15 @@ import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.Degree;
-import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
-import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.base.code.model.Education;
 import org.openurp.edu.base.code.model.StdType;
 
 /**
  * 专业培养方案
  */
 @Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(region = "eams.teach", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity(name = "org.openurp.edu.base.model.Program")
 public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
@@ -73,7 +72,7 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   /** 培养层次 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private EducationLevel level;
+  private Education education;
 
   /** 学生类别 */
   @NotNull
@@ -120,10 +119,6 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @Enumerated(value = EnumType.ORDINAL)
   private AuditState state = AuditState.UNSUBMITTED;
 
-  /** 多出学分可以冲抵的课程类别 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CourseType offsetType;
-
   public Program() {
     super();
   }
@@ -156,12 +151,12 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.department = department;
   }
 
-  public EducationLevel getLevel() {
-    return level;
+  public Education getEducation() {
+    return education;
   }
 
-  public void setLevel(EducationLevel level) {
-    this.level = level;
+  public void setEducation(Education education) {
+    this.education = education;
   }
 
   public StdType getStdType() {
@@ -277,14 +272,5 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   public void setDegreeGpa(Float degreeGpa) {
     this.degreeGpa = degreeGpa;
   }
-
-  public CourseType getOffsetType() {
-    return offsetType;
-  }
-
-  public void setOffsetType(CourseType offsetType) {
-    this.offsetType = offsetType;
-  }
-
 
 }

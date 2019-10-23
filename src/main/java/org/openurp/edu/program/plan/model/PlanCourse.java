@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ public interface PlanCourse extends Entity<Long>, Cloneable {
   /**
    * <pre>
    * 开课学期，可以是数字，也可以是类似 春、秋的字样。
-   * 和 {@link org.openurp.edu.base.model.Semester#getGroup()} 呼应，用于生成开课计划
+   * 和 {@link org.openurp.base.model.Semester#getGroup()} 呼应，用于生成开课计划
    * 如果是多个值，必须用逗号分开，比如：
    * ,1,
    * ,1,2,

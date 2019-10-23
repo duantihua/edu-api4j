@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright © 2014, The OpenURP Software.
+ * Copyright (c) 2005, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.base.model.EduLevelBasedObject;
+import org.openurp.edu.base.model.EducationBasedObject;
 
 /**
  * 培养方案模板
@@ -45,7 +45,7 @@ import org.openurp.edu.base.model.EduLevelBasedObject;
  *
  */
 @Entity(name = "org.openurp.edu.program.doc.model.ProgramDocTemplate")
-public class ProgramDocTemplate extends EduLevelBasedObject<Long> {
+public class ProgramDocTemplate extends EducationBasedObject<Long> {
 
   private static final long serialVersionUID = 2045096188167471704L;
 
