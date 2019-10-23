@@ -46,7 +46,7 @@ public class DefaultModule extends AbstractBindModule {
 
     bind(CasEntryPoint.class).shortName();
 
-    bind(CacheableAuthorityManager.class).property("ignores", set("/index.do"));
+    bind(CacheableAuthorityManager.class).property("ignores", set("/index.action","index.do"));
 
     bind(CookieSessionIdReader.class).constructor("URP_SID");
 
