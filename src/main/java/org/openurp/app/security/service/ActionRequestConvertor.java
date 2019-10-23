@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright (c) 2005, The OpenURP Software.
+ * Copyright © 2014, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,14 +31,22 @@ public class ActionRequestConvertor implements RequestConvertor {
   public Request convert(HttpServletRequest request) {
     String sp = RequestUtils.getServletPath((HttpServletRequest) request);
     int actionIdx = sp.indexOf(".action");
+    String suffix = "";
     if (actionIdx > 0) {
       sp = sp.substring(0, actionIdx);
+      suffix = ".action";
+    } else if (actionIdx < 0) {
+      actionIdx = sp.indexOf(".do");
+      if (actionIdx > 0) {
+        sp = sp.substring(0, actionIdx);
+        suffix = ".do";
+      }
     }
     int alIdx = sp.indexOf("!");
     if (alIdx > 0) {
       sp = sp.substring(0, alIdx);
     }
-    return new DefaultRequest(sp, request.getMethod());
+    return new DefaultRequest(sp + suffix, request.getMethod());
   }
 
 }

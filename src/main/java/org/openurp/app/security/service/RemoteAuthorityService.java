@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright (c) 2005, The OpenURP Software.
+ * Copyright © 2014, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,8 +70,6 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
   private Map<String, FuncResource> resourceCache = CollectUtils.newHashMap();
 
-  private Set<String> roots = null;
-
   private UserDataResolver dataResolver;
 
   @Override
@@ -82,14 +80,13 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     sysCache = CacheManager.getInstance().getCache("user_data_permission");
     if (null == sysCache) { throw new RuntimeException(
         "Cannot find user_data_permission cache in ehcache.xml"); }
-    roots = getRoots();
   }
 
   public Dimension getDimension(String fieldName) {
     Element dimensionElem = sysCache.get("dimension_" + fieldName);
     Dimension dimension = (dimensionElem == null) ? null : (Dimension) dimensionElem.getObjectValue();
     if (null == dimension) {
-      String url = Urp.Instance.getPlatformBase() + "/user/dimensions/" + fieldName + ".json";
+      String url = Urp.Instance.getApi() + "/platform/user/dimensions/" + fieldName + ".json";
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;
@@ -113,7 +110,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     Element ele = ((Element) userCache.get(userCode));
 
     if (null == ele) {
-      String url = Urp.Instance.getPlatformBase() + "/user/profiles/" + userCode + ".json?domain=edu";
+      String url = Urp.Instance.getApi() + "/platform/user/profiles/" + userCode + ".json?domain=edu";
       String resources = HttpUtils.getResponseText(url);
       List rs = new Gson().fromJson(resources, List.class);
       if (rs.isEmpty()) return Collections.emptyList();
@@ -143,7 +140,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
     Element ele = sysCache.get(key);
     if (null == ele) {
-      String url = Urp.Instance.getPlatformBase() + "/security/data/permissions/user/" + user + ".json?data="
+      String url = Urp.Instance.getApi() + "/platform/security/data/permissions/user/" + user + ".json?data="
           + dataResource + "&app=" + UrpApp.getName();
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
@@ -181,7 +178,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     if (resourceCache.isEmpty()) {
       synchronized (this) {
         if (resourceCache.isEmpty()) {
-          String url = Urp.Instance.getPlatformBase() + "/security/func/" + UrpApp.getName()
+          String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName()
               + "/resources.json";
           String resources = HttpUtils.getResponseText(url);
           List rs = new Gson().fromJson(resources, List.class);
@@ -201,7 +198,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   }
 
   public Set<String> getRoots() {
-    String url = Urp.Instance.getPlatformBase() + "/user/roots.json?app=" + UrpApp.getName();
+    String url = Urp.Instance.getApi() + "/platform/user/roots.json?app=" + UrpApp.getName();
     try {
       String resources = HttpUtils.getResponseText(url);
       List rs = new Gson().fromJson(resources, List.class);
@@ -213,7 +210,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   }
 
   public Set<String> getResourceNamesByRole(String roleId) {
-    String url = Urp.Instance.getPlatformBase() + "/security/func/" + UrpApp.getName() + "/permissions/role/"
+    String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName() + "/permissions/role/"
         + roleId + ".json";
     String resources = HttpUtils.getResponseText(url);
     List rs = new Gson().fromJson(resources, List.class);
@@ -226,7 +223,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   }
 
   public Set<String> getResourceNamesByScope(Scope scope) {
-    String url = Urp.Instance.getPlatformBase() + "/security/func/" + UrpApp.getName()
+    String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName()
         + "/resources.json?scope=" + scope.toString();
     try {
       String resources = HttpUtils.getResponseText(url);

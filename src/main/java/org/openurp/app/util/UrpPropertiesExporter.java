@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright (c) 2005, The OpenURP Software.
+ * Copyright © 2014, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,12 +39,8 @@ public class UrpPropertiesExporter implements ServletContextListener {
       if (entry.getKey().contains(".")) System.setProperty(entry.getKey(), entry.getValue());
     }
 
-    sce.getServletContext().setAttribute("static_base", Urp.Instance.getStaticBase());
-    // if (null == sce.getServletContext().getAttribute(SystemConfig.SYSTEM_CONFIG)) {
-    // sce.getServletContext().setAttribute(SystemConfig.SYSTEM_CONFIG,
-    // SystemConfigLoader.getConfig());
-    // }
-
+    sce.getServletContext().setAttribute("static_base", Urp.Instance.getStatic());
+    System.setProperty("beangle.webmvc.static_base", Urp.Instance.getStatic());
   }
 
   @Override

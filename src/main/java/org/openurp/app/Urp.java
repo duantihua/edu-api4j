@@ -1,7 +1,7 @@
 /*
  * OpenURP, Agile University Resource Planning Solution.
  *
- * Copyright (c) 2005, The OpenURP Software.
+ * Copyright © 2014, The OpenURP Software.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +40,17 @@ public class Urp {
 
   private final String base;
 
-  private final String platformBase;
+  private final String cas;
 
-  private final String webappBase;
+  private final String api;
 
-  private final String staticBase;
+  private final String webapp;
+
+  private final String portal;
+
+  private final String cdn;
+
+  private final String key;
 
   private final Map<String, String> properties;
 
@@ -58,12 +64,13 @@ public class Urp {
     } else {
       throw new RuntimeException("Cannot find openurp.base");
     }
-    this.platformBase = readBase("openurp.platform");
-    this.webappBase = readBase("openurp.webapp");
-    if (!properties.containsKey("openurp.platform.cas.server")) {
-      properties.put("openurp.platform.cas.server", platformBase + "/cas");
-    }
-    this.staticBase = readBase("openurp.static");
+    this.cas = readBase("openurp.cas");
+    this.api = readBase("openurp.api");
+    this.webapp = readBase("openurp.webapp");
+    this.portal = readBase("openurp.portal");
+    this.cdn = readBase("openurp.static");
+
+    this.key = properties.getOrDefault("openurp.key", "openurp");
   }
 
   private String processUrl(String b) {
@@ -78,7 +85,13 @@ public class Urp {
 
   private String readBase(String property) {
     String b = properties.get(property);
-    if (null == b) b = properties.get("openurp.base") + "/" + Strings.replace(property, "openurp.", "");
+    if (null == b) {
+      if (property.equals("openurp.webapp")) {
+        b = properties.get("openurp.base");
+      } else {
+        b = properties.get("openurp.base") + "/" + Strings.replace(property, "openurp.", "");
+      }
+    }
     return processUrl(b);
   }
 
@@ -87,11 +100,7 @@ public class Urp {
   }
 
   public String getWebappPath(String appPath) {
-    return webappBase + appPath;
-  }
-
-  public String getPlatformBase() {
-    return platformBase;
+    return webapp + appPath;
   }
 
   public Map<String, String> getProperties() {
@@ -102,12 +111,32 @@ public class Urp {
     return base;
   }
 
-  public String getWebappBase() {
-    return webappBase;
+  public String getApi() {
+    return api;
   }
 
-  public String getStaticBase() {
-    return staticBase;
+  public String getCas() {
+    return cas;
+  }
+
+  public String getPortal() {
+    return portal;
+  }
+
+  public String getCdn() {
+    return cdn;
+  }
+
+  public String getWebapp() {
+    return webapp;
+  }
+
+  public String getStatic() {
+    return cdn;
+  }
+
+  public String getKey() {
+    return key;
   }
 
   public static Urp getInstance() {
