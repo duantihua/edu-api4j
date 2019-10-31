@@ -35,7 +35,7 @@ import org.openurp.code.edu.model.ExamMode;
  * 原始计划的计划课程
  */
 @Entity(name = "org.openurp.edu.program.plan.model.OriginalPlanCourse")
-public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
+public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePlanCourseInter {
 
   private static final long serialVersionUID = -2091355773150181171L;
 

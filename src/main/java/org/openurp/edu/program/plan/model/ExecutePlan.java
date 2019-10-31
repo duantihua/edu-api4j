@@ -43,10 +43,10 @@ import org.openurp.edu.base.model.Program;
 /**
  * 专业计划
  */
-@Entity(name = "org.openurp.edu.program.plan.model.MajorPlan")
+@Entity(name = "org.openurp.edu.program.plan.model.ExecutePlan")
 @Cacheable
 @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MajorPlan extends AbstractCoursePlan {
+public class ExecutePlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 7084539759992691314L;
 
@@ -56,17 +56,17 @@ public class MajorPlan extends AbstractCoursePlan {
   protected Program program;
 
   /** 课程组 */
-  @OneToMany(orphanRemoval = true, targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(orphanRemoval = true, targetEntity = ExecuteCourseGroup.class, cascade = { CascadeType.ALL })
   @JoinColumn(name = "plan_id", nullable = false)
   @OrderBy("indexno")
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
   /** 审核备注 */
-  @OneToMany(mappedBy = "majorPlan", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<MajorPlanComment> comments = CollectUtils.newArrayList();
+  @OneToMany(mappedBy = "executePlan", orphanRemoval = true, cascade = { CascadeType.ALL })
+  private List<ExecutePlanComment> comments = CollectUtils.newArrayList();
 
-  public MajorPlan() {
+  public ExecutePlan() {
     super();
   }
 
@@ -79,7 +79,7 @@ public class MajorPlan extends AbstractCoursePlan {
   }
 
   public Object clone() throws CloneNotSupportedException {
-    MajorPlan copy = (MajorPlan) super.clone();
+    ExecutePlan copy = (ExecutePlan) super.clone();
     copy.setGroups(new ArrayList<CourseGroup>());
     copy.setId(null);
     return copy;
@@ -154,17 +154,17 @@ public class MajorPlan extends AbstractCoursePlan {
     this.endOn = endOn;
   }
 
-  public List<MajorPlanComment> getComments() {
+  public List<ExecutePlanComment> getComments() {
     return comments;
   }
 
-  public void setComments(List<MajorPlanComment> comments) {
+  public void setComments(List<ExecutePlanComment> comments) {
     this.comments = comments;
   }
 
   @Override
   public String toString() {
-    return "MajorPlanBean [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
+    return "ExecutePlanBean [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
         + "]";
   }
 

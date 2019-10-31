@@ -41,10 +41,10 @@ import org.openurp.edu.base.model.Direction;
 /**
  * 专业计划课程组.
  */
-@Entity(name = "org.openurp.edu.program.plan.model.MajorCourseGroup")
+@Entity(name = "org.openurp.edu.program.plan.model.ExecuteCourseGroup")
 @Cacheable
 @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MajorCourseGroup extends AbstractCourseGroup {
+public class ExecuteCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = -6804554057069134031L;
 
@@ -69,24 +69,24 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   }
 
   /** 专业计划 */
-  @ManyToOne(targetEntity = MajorPlan.class)
+  @ManyToOne(targetEntity = ExecutePlan.class)
   @JoinColumn(name = "plan_id", updatable = false, insertable = false, nullable = false)
   private CoursePlan plan;
 
   /** 上级组 */
-  @ManyToOne(targetEntity = MajorCourseGroup.class)
+  @ManyToOne(targetEntity = ExecuteCourseGroup.class)
   @JoinColumn(name = "parent_id", nullable = true)
   private CourseGroup parent;
 
   /** 下级组列表 */
-  @OneToMany(targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(targetEntity = ExecuteCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
   @JoinColumn(name = "parent_id", nullable = true)
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> children = CollectUtils.newArrayList();
 
   /** 计划课程列表 */
-  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
+  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = ExecutePlanCourse.class, cascade = {
       CascadeType.ALL })
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<PlanCourse> planCourses = CollectUtils.newArrayList();
@@ -143,16 +143,16 @@ public class MajorCourseGroup extends AbstractCourseGroup {
    * 得到全部有效课程.
    */
   public Object clone() throws CloneNotSupportedException {
-    MajorCourseGroup majorCourseGroup = (MajorCourseGroup) super.clone();
-    majorCourseGroup.setId(null);
-    majorCourseGroup.setParent(null);
-    majorCourseGroup.setChildren(new ArrayList<CourseGroup>());
-    majorCourseGroup.setPlanCourses(new ArrayList<PlanCourse>());
+    ExecuteCourseGroup executeCourseGroup = (ExecuteCourseGroup) super.clone();
+    executeCourseGroup.setId(null);
+    executeCourseGroup.setParent(null);
+    executeCourseGroup.setChildren(new ArrayList<CourseGroup>());
+    executeCourseGroup.setPlanCourses(new ArrayList<PlanCourse>());
     // 克隆引用共享组
-    return majorCourseGroup;
+    return executeCourseGroup;
   }
 
-  public List<PlanCourse> getMajorPlanCourses() {
+  public List<PlanCourse> getExecutePlanCourses() {
     return planCourses;
   }
 
@@ -169,8 +169,8 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   }
 
   public boolean equals(Object object) {
-    if (!(object instanceof MajorCourseGroup)) { return false; }
-    MajorCourseGroup rhs = (MajorCourseGroup) object;
+    if (!(object instanceof ExecuteCourseGroup)) { return false; }
+    ExecuteCourseGroup rhs = (ExecuteCourseGroup) object;
     return Objects.equalsBuilder().add(this.id, rhs.id).isEquals();
   }
 
@@ -183,8 +183,8 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   }
 
   public boolean isSameGroup(Object object) {
-    if (!(object instanceof MajorCourseGroup)) { return false; }
-    MajorCourseGroup other = (MajorCourseGroup) object;
+    if (!(object instanceof ExecuteCourseGroup)) { return false; }
+    ExecuteCourseGroup other = (ExecuteCourseGroup) object;
     // it will handle null value
     return Objects.equalsBuilder().add(getCredits(), other.getCredits())
         .add(getCourseType(), other.getCourseType()).add(getParentCourseType(), other.getParentCourseType())
@@ -210,7 +210,7 @@ public class MajorCourseGroup extends AbstractCourseGroup {
 
   @Override
   public String toString() {
-    return "MajorCourseGroup [alias=" + alias + ", direction=" + direction + ", parent=" + parent
+    return "ExecuteCourseGroup [alias=" + alias + ", direction=" + direction + ", parent=" + parent
         + ", courseType=" + courseType + "]";
   }
 
