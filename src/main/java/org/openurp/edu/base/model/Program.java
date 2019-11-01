@@ -81,6 +81,7 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   private StdType stdType;
 
   /** 专业 */
+  @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Major major;
 
