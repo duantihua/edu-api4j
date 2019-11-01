@@ -30,6 +30,7 @@ public class CasHttpSessionRepo extends HttpSessionRepo implements Initializing 
   public void init() {
     this.setGeturl(config.getCasServer() + "/session/{id}?format=application/x-protobuf");
     this.setAccessUrl(config.getCasServer() + "/session/{id}/access?time={time}");
+    this.setExpireUrl(config.getCasServer()+"/session/{id}/expire");
     super.init();
   }
 
