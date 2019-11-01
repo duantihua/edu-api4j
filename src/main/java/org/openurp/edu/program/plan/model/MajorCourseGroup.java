@@ -37,8 +37,8 @@ import org.openurp.edu.base.model.Direction;
  *
  *
  */
-@Entity(name = "org.openurp.edu.program.plan.model.OriginalCourseGroup")
-public class OriginalCourseGroup extends AbstractCourseGroup {
+@Entity(name = "org.openurp.edu.program.plan.model.MajorCourseGroup")
+public class MajorCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = 4144045243297075224L;
 
@@ -51,23 +51,23 @@ public class OriginalCourseGroup extends AbstractCourseGroup {
   private Direction direction;
 
   /** 培养方案 */
-  @ManyToOne(targetEntity = OriginalPlan.class)
+  @ManyToOne(targetEntity = MajorPlan.class)
   @JoinColumn(name = "PLAN_ID", updatable = false, insertable = false, nullable = false)
   private CoursePlan plan;
 
   /** 上级组 */
-  @ManyToOne(targetEntity = OriginalCourseGroup.class)
+  @ManyToOne(targetEntity = MajorCourseGroup.class)
   @JoinColumn(name = "PARENT_ID", nullable = true)
   private CourseGroup parent;
 
   /** 下级节点 */
-  @OneToMany(targetEntity = OriginalCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
   @JoinColumn(name = "PARENT_ID", nullable = true)
   private List<CourseGroup> children = CollectUtils.newArrayList();
 
   /** 组内课程 */
-  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = OriginalPlanCourse.class, cascade = {
+  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
       CascadeType.ALL })
   private List<PlanCourse> planCourses = CollectUtils.newArrayList();
 

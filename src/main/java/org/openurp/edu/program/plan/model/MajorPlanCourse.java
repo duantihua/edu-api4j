@@ -34,13 +34,13 @@ import org.openurp.code.edu.model.ExamMode;
 /**
  * 原始计划的计划课程
  */
-@Entity(name = "org.openurp.edu.program.plan.model.OriginalPlanCourse")
-public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePlanCourseInter {
+@Entity(name = "org.openurp.edu.program.plan.model.MajorPlanCourse")
+public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourseInter {
 
   private static final long serialVersionUID = -2091355773150181171L;
 
   /** 课程组 */
-  @Target(OriginalCourseGroup.class)
+  @Target(MajorCourseGroup.class)
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseGroup group;
@@ -108,8 +108,8 @@ public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePla
   }
 
   public boolean isSame(Object object) {
-    if (!(object instanceof OriginalPlanCourse)) { return false; }
-    OriginalPlanCourse rhs = (OriginalPlanCourse) object;
+    if (!(object instanceof MajorPlanCourse)) { return false; }
+    MajorPlanCourse rhs = (MajorPlanCourse) object;
     return Objects.equalsBuilder().add(terms, rhs.terms).add(remark, rhs.remark)
         .add(department.getId(), rhs.department.getId()).add(course.getId(), rhs.course.getId())
         .add(id, rhs.id).isEquals();
@@ -117,7 +117,7 @@ public class OriginalPlanCourse extends AbstractPlanCourse implements ExecutePla
 
   @Override
   public String toString() {
-    return "OriginalPlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
+    return "MajorPlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
         + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 

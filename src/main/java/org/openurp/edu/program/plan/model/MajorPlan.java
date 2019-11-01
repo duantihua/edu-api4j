@@ -35,13 +35,13 @@ import org.openurp.edu.base.model.Program;
 /**
  * 原始计划
  */
-@Entity(name = "org.openurp.edu.program.plan.model.OriginalPlan")
-public class OriginalPlan extends AbstractCoursePlan {
+@Entity(name = "org.openurp.edu.program.plan.model.MajorPlan")
+public class MajorPlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 269841215644053574L;
 
   /** 课程组 */
-  @OneToMany(orphanRemoval = true, targetEntity = OriginalCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(orphanRemoval = true, targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
   @JoinColumn(name = "plan_id", nullable = false)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
@@ -60,7 +60,7 @@ public class OriginalPlan extends AbstractCoursePlan {
   }
 
   public Object clone() throws CloneNotSupportedException {
-    return (OriginalPlan) super.clone();
+    return (MajorPlan) super.clone();
   }
 
   public Program getProgram() {
