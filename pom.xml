@@ -16,7 +16,6 @@
     <servletapi.version>4.0.1</servletapi.version>
   </properties>
 
-
   <dependencies>
    <dependency>
       <groupId>org.beangle.commons</groupId>
