@@ -161,7 +161,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
    * 获取数据限制的某个属性的值
    *
    * @param property
-   * @param restriction
+   * @param value
    */
   private Object unmarshal(String value, Dimension property) {
     try {
