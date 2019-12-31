@@ -9,7 +9,7 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.9.8-SNAPSHOT</version>
+  <version>0.9.8</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
@@ -44,10 +44,7 @@
     <dependency>
       <groupId>org.beangle.security</groupId>
       <artifactId>beangle-security-ids</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.beangle.security</groupId>
-      <artifactId>beangle-security-core</artifactId>
+      <version>${beangle3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.beangle.commons</groupId>
