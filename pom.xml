@@ -44,7 +44,12 @@
     <dependency>
       <groupId>org.beangle.security</groupId>
       <artifactId>beangle-security-ids</artifactId>
-      <version>${beangle3.version}</version>
+      <version>3.6.12-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.security</groupId>
+      <artifactId>beangle-security-core</artifactId>
+      <version>3.6.12-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.beangle.commons</groupId>
