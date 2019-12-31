@@ -47,11 +47,6 @@
       <version>${beangle3.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.beangle.security</groupId>
-      <artifactId>beangle-security-core</artifactId>
-      <version>${beangle3.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.beangle.commons</groupId>
       <artifactId>beangle-commons-web</artifactId>
       <version>${beangle3.version}</version>
