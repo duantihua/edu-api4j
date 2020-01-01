@@ -71,7 +71,7 @@ public class InvigilationQuota extends LongIdObject {
   /** 次数 */
   private int amount;
 
-  @OneToMany(mappedBy = "invigilationQuota", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "quota", cascade = CascadeType.ALL)
   private List<InvigilationQuotaDetail> details = new ArrayList<InvigilationQuotaDetail>();
 
   /** 排除的日期 */
