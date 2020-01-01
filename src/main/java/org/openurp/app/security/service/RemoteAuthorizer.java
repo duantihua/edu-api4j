@@ -84,7 +84,10 @@ public class RemoteAuthorizer extends AbstractRoleBasedAuthorizer {
       Map<String, Object> m = (Map<String, Object>) o;
       s.add(m.get("name").toString());
       List roleList = (List) m.get("roles");
-      Set<String> roles = (Set<String>) roleList.stream().map(x -> String.valueOf(((Number) x).intValue())).collect(Collectors.toSet());
+      Set<String> roles = Collections.emptySet();
+      if (null != roleList) {
+        roles = (Set<String>) roleList.stream().map(x -> String.valueOf(((Number) x).intValue())).collect(Collectors.toSet());
+      }
       Authority a = new Authority(m.get("name").toString(), m.get("scope").toString(), roles);
       authorities.add(a);
     }

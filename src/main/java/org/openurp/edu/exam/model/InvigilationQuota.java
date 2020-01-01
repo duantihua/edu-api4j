@@ -69,7 +69,7 @@ public class InvigilationQuota extends LongIdObject {
   private User invigilator;
 
   /** 次数 */
-  private int quota;
+  private int amount;
 
   @OneToMany(mappedBy = "invigilationQuota", cascade = CascadeType.ALL)
   private List<InvigilationQuotaDetail> details = new ArrayList<InvigilationQuotaDetail>();
@@ -109,12 +109,12 @@ public class InvigilationQuota extends LongIdObject {
     this.project = project;
   }
 
-  public int getQuota() {
-    return quota;
+  public int getAmount() {
+    return amount;
   }
 
-  public void setQuota(int quota) {
-    this.quota = quota;
+  public void setAmount(int amount) {
+    this.amount = amount;
   }
 
   public List<java.sql.Date> getExcludes() {
@@ -141,32 +141,32 @@ public class InvigilationQuota extends LongIdObject {
     this.invigilator = invigilator;
   }
 
-  public InvigilationQuotaDetail addQuota(Campus campus, Department depart, float quota) {
+  public InvigilationQuotaDetail addQuota(Campus campus, Department depart, float amount) {
     InvigilationQuotaDetail finded = null;
     for (InvigilationQuotaDetail iq : details) {
       if (iq.getCampus().equals(campus) && iq.getDepart().equals(depart)) {
-        iq.setQuota(iq.getQuota() + quota);
+        iq.setAmount(iq.getAmount() + amount);
         finded = iq;
         break;
       }
     }
     if (null == finded) {
-      finded = new InvigilationQuotaDetail(campus, depart, quota);
-      finded.setInvigilationQuota(this);
+      finded = new InvigilationQuotaDetail(campus, depart, amount);
+      finded.setQuota(this);
       this.getDetails().add(finded);
     }
     double sum = 0f;
     for (InvigilationQuotaDetail iq : details) {
-      sum += iq.getQuota();
+      sum += iq.getAmount();
     }
-    this.quota = new Double(Math.round(sum)).intValue();
+    this.amount = Double.valueOf(Math.round(sum)).intValue();
     return finded;
   }
 
   public void clearQuota() {
-    this.quota = 0;
+    this.amount = 0;
     for (InvigilationQuotaDetail iq : details) {
-      iq.setQuota(0);
+      iq.setAmount(0);
     }
   }
 
@@ -174,13 +174,13 @@ public class InvigilationQuota extends LongIdObject {
     List<InvigilationQuotaDetail> removed = CollectUtils.newArrayList();
     double sum = 0d;
     for (InvigilationQuotaDetail iq : details) {
-      if (Float.compare(0, iq.getQuota()) == 0) {
+      if (Float.compare(0, iq.getAmount()) == 0) {
         removed.add(iq);
       }
-      iq.setQuota(new Double(Math.round(iq.getQuota())).intValue());
-      sum += iq.getQuota();
+      iq.setAmount(Double.valueOf(Math.round(iq.getAmount())).intValue());
+      sum += iq.getAmount();
     }
-    setQuota(new Double(sum).intValue());
+    setAmount(Double.valueOf(sum).intValue());
     return details.removeAll(removed);
   }
 
@@ -203,9 +203,9 @@ public class InvigilationQuota extends LongIdObject {
   public int getCampusQuota(Campus campus) {
     double sum = 0d;
     for (InvigilationQuotaDetail iq : details) {
-      if (iq.getCampus().equals(campus)) sum += iq.getQuota();
+      if (iq.getCampus().equals(campus)) sum += iq.getAmount();
     }
-    return new Double(sum).intValue();
+    return Double.valueOf(sum).intValue();
   }
 
 }

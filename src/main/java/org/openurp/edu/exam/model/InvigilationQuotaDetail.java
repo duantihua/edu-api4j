@@ -40,7 +40,7 @@ public class InvigilationQuotaDetail extends LongIdObject {
   /** 监考人 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected InvigilationQuota invigilationQuota;
+  protected InvigilationQuota quota;
 
   /** 校区 */
   @NotNull
@@ -53,25 +53,25 @@ public class InvigilationQuotaDetail extends LongIdObject {
   private Department depart;
 
   /** 次数 */
-  private float quota;
+  private float amount;
 
   public InvigilationQuotaDetail() {
     super();
   }
 
-  public InvigilationQuotaDetail(Campus campus, Department depart, float quota) {
+  public InvigilationQuotaDetail(Campus campus, Department depart, float amount) {
     super();
     this.campus = campus;
     this.depart = depart;
+    this.amount = amount;
+  }
+
+  public InvigilationQuota getQuota() {
+    return quota;
+  }
+
+  public void setQuota(InvigilationQuota quota) {
     this.quota = quota;
-  }
-
-  public InvigilationQuota getInvigilationQuota() {
-    return invigilationQuota;
-  }
-
-  public void setInvigilationQuota(InvigilationQuota invigilationQuota) {
-    this.invigilationQuota = invigilationQuota;
   }
 
   public Department getDepart() {
@@ -82,12 +82,12 @@ public class InvigilationQuotaDetail extends LongIdObject {
     this.depart = depart;
   }
 
-  public float getQuota() {
-    return quota;
+  public float getAmount() {
+    return amount;
   }
 
-  public void setQuota(float quota) {
-    this.quota = quota;
+  public void setAmount(float amount) {
+    this.amount = amount;
   }
 
   public Campus getCampus() {
