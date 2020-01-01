@@ -20,6 +20,7 @@ package org.openurp.app.security.service;
 
 import com.google.gson.Gson;
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.lang.Strings;
 import org.beangle.commons.web.util.HttpUtils;
 import org.beangle.security.authz.AbstractRoleBasedAuthorizer;
 import org.beangle.security.authz.Authority;
@@ -77,6 +78,9 @@ public class RemoteAuthorizer extends AbstractRoleBasedAuthorizer {
   }
 
   public static List<Authority> toAuthorities(String resources) {
+    if(Strings.isEmpty(resources)){
+      return Collections.emptyList();
+    }
     List rs = new Gson().fromJson(resources, List.class);
     Set<String> s = CollectUtils.newHashSet();
     List<Authority> authorities = CollectUtils.newArrayList();
