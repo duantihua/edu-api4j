@@ -30,5 +30,15 @@ public class RemoteServiceTest {
     System.out.println(authorities.size());
     System.out.println(authorities.get(0).getRoles());
     System.out.println(authorities.get(1).getRoles());
+
+    resources = "[{\"scope\":\"Private\",\"name\":\"/level\",\"id\":1707,\"title\":\"项目获奖级别\"},{\"roles\":[],\"scope\":\"Private\",\"name\":\"/project\",\"id\":1647,\"title\":\"项目管理\"}]";
+    authorities = RemoteAuthorizer.toAuthorities(resources);
+    System.out.println(authorities.get(0).getRoles());
+
+    authorities = RemoteAuthorizer.toAuthorities("");
+    assert(authorities.isEmpty());
+
+    authorities = RemoteAuthorizer.toAuthorities("[]");
+    assert(authorities.isEmpty());
   }
 }
