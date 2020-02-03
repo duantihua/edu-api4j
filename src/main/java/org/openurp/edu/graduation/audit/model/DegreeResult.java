@@ -38,7 +38,9 @@ public class DegreeResult extends LongIdObject {
 
   private static final long serialVersionUID = -4311694956398918521L;
 
-  /** 所属的毕业审核批次 */
+  /**
+   * 所属的毕业审核批次
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private GraduateSession session;
@@ -47,15 +49,21 @@ public class DegreeResult extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
 
-  /** GPA */
+  /**
+   * GPA
+   */
   private float gpa;
 
-  /** 平均分 */
+  /**
+   * 平均分
+   */
   private float ga;
 
-  /** 学位审核详细结果 */
+  /**
+   * 学位审核详细结果
+   */
   @OneToMany(mappedBy = "result", orphanRemoval = true, targetEntity = DegreeAuditItem.class, cascade = {
-      CascadeType.ALL })
+          CascadeType.ALL})
   private List<DegreeAuditItem> items = CollectUtils.newArrayList();
 
   /**
@@ -64,25 +72,37 @@ public class DegreeResult extends LongIdObject {
    */
   private Boolean passed;
 
-  /** 锁定毕业审核结果 */
+  /**
+   * 锁定毕业审核结果
+   */
   private boolean locked;
 
-  /** 是否已发布 */
+  /**
+   * 是否已发布
+   */
   @NotNull
   private boolean published;
 
-  /** 毕业备注 */
+  /**
+   * 毕业备注
+   */
   @Size(max = 500)
   private String comments;
 
-  /** 更新时间 */
+  /**
+   * 更新时间
+   */
   private java.util.Date updatedAt;
 
-  /** 学位 */
+  /**
+   * 学位
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Degree degree;
 
-  /** 外语通过年月 */
+  /**
+   * 外语通过年月
+   */
   private java.sql.Date foreignLangPassedOn;
 
   /**
