@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -48,14 +48,14 @@ import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.ProjectBasedObject;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Teacher;
-import org.openurp.edu.course.code.model.ClazzTag;
+import org.openurp.edu.clazz.code.model.ClazzTag;
 
 /**
  * 教学任务
  *
  * @since 2005-10-16
  */
-@Entity(name = "org.openurp.edu.course.model.Clazz")
+@Entity(name = "org.openurp.edu.clazz.model.Clazz")
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "crn", "semester_id", "project_id" }) })
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")

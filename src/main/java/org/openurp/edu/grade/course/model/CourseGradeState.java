@@ -34,7 +34,7 @@ import org.hibernate.annotations.CascadeType;
 import org.openurp.base.model.User;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.grade.Grade;
 
 /**

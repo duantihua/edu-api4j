@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.model.Teacher;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.clazz.model.Clazz;
 
 @Entity(name = "org.openurp.edu.exam.model.InvigilationClazzQuota")
 public class InvigilationClazzQuota extends LongIdObject {
