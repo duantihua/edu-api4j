@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.util.Collection;
 import java.util.Date;
@@ -42,7 +42,7 @@ import org.openurp.edu.base.model.Textbook;
 /**
  * 教学资料
  */
-@Entity(name = "org.openurp.edu.course.model.Material")
+@Entity(name = "org.openurp.edu.clazz.model.Material")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class Material extends LongIdObject {

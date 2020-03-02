@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.util.Set;
 
@@ -42,7 +42,7 @@ import org.openurp.edu.base.model.Squad;
 /**
  * 教学任务组
  */
-@Entity(name = "org.openurp.edu.course.model.ClazzGroup")
+@Entity(name = "org.openurp.edu.clazz.model.ClazzGroup")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class ClazzGroup extends ProjectBasedObject<Long> {

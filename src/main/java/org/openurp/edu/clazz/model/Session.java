@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.util.Collections;
 import java.util.Date;
@@ -48,7 +48,7 @@ import org.openurp.edu.base.model.Teacher;
  *
  * @since 2005-11-22
  */
-@Entity(name = "org.openurp.edu.course.model.Session")
+@Entity(name = "org.openurp.edu.clazz.model.Session")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class Session extends LongIdObject implements Comparable<Session> {

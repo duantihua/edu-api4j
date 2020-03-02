@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.clazz.model.Clazz;
 
 /**
  * 任务考试信息指定

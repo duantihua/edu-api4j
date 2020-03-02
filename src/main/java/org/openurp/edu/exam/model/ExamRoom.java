@@ -40,7 +40,7 @@ import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.course.model.Clazz;
+import org.openurp.edu.clazz.model.Clazz;
 
 /**
  * 考场
