@@ -65,7 +65,7 @@ public class Bill extends NumberIdTimeObject<Integer> {
    */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private FeeType type;
+  private FeeType feeType;
 
   /**
    * 应缴费用
@@ -88,7 +88,7 @@ public class Bill extends NumberIdTimeObject<Integer> {
    * 实缴日期
    */
   @NotNull
-  private Date payedAt;
+  private Date payAt;
 
   /**
    * 创建日期
@@ -150,20 +150,20 @@ public class Bill extends NumberIdTimeObject<Integer> {
     this.std = std;
   }
 
-  public FeeType getType() {
-    return type;
+  public FeeType getFeeType() {
+    return feeType;
   }
 
-  public void setType(FeeType type) {
-    this.type = type;
+  public void setFeeType(FeeType feeType) {
+    this.feeType = feeType;
   }
 
-  public Date getPayedAt() {
-    return payedAt;
+  public Date getPayAt() {
+    return payAt;
   }
 
-  public void setPayedAt(Date payedAt) {
-    this.payedAt = payedAt;
+  public void setPayAt(Date payAt) {
+    this.payAt = payAt;
   }
 
   public String getStdCode() {
