@@ -95,6 +95,20 @@ public class Session extends LongIdObject implements Comparable<Session> {
     }
   }
 
+  /**
+   * 最后一次活动时间
+   *
+   * @param calendar
+   * @return
+   */
+  public java.sql.Date getLastActivityTime() {
+    if (null != time) {
+      return time.getLastDay();
+    } else {
+      return null;
+    }
+  }
+
   public Session(Teacher teacher, Classroom room, WeekTime time) {
     if (teacher != null) {
       getTeachers().add(teacher);

@@ -4,18 +4,17 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-java-parent</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.9</version>
   </parent>
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.9.7-SNAPSHOT</version>
+  <version>0.9.8-SNAPSHOT</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
     <servletapi.version>4.0.1</servletapi.version>
   </properties>
-
 
   <dependencies>
    <dependency>

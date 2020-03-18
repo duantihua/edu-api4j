@@ -179,6 +179,28 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     return null;
   }
 
+
+  /**
+   * 得到最后一次上课时间
+   *
+   * @return
+   */
+  public Date getLastCourseTime() {
+    if (null != semester && semester.isPersisted()) {
+      Date date = null;
+      if (null != this.getSchedule().getSessions()) {
+        for (Session session : getSchedule().getSessions()) {
+          Date myDate = session.getLastActivityTime();
+          if (date == null || myDate.after(date)) {
+            date = myDate;
+          }
+        }
+      }
+      return date;
+    }
+    return null;
+  }
+
   /**
    * @return Returns the semester.
    */
