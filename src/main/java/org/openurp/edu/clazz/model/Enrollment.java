@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.edu.base.code.model.CourseAbilityRate;
 import org.openurp.edu.base.model.Student;
-import org.openurp.edu.course.util.GenderRatio;
+import org.openurp.edu.clazz.util.GenderRatio;
 
 /**
  * 教学任务中的教学班.

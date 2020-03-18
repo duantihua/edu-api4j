@@ -29,8 +29,8 @@ import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
-import org.openurp.edu.course.model.Clazz;
-import org.openurp.edu.course.model.CourseTaker;
+import org.openurp.edu.clazz.model.Clazz;
+import org.openurp.edu.clazz.model.CourseTaker;
 
 /**
  * 应考记录

@@ -38,8 +38,8 @@ import org.openurp.code.edu.model.ExamMode;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.model.Course;
-import org.openurp.edu.course.model.Clazz;
-import org.openurp.edu.course.model.CourseTaker;
+import org.openurp.edu.clazz.model.Clazz;
+import org.openurp.edu.clazz.model.CourseTaker;
 import org.openurp.edu.grade.AbstractGrade;
 import org.openurp.edu.grade.Grade;
 

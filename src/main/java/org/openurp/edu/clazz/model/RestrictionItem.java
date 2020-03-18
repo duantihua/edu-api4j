@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * 课程限制项
  */
-@Entity(name = "org.openurp.edu.course.model.RestrictionItem")
+@Entity(name = "org.openurp.edu.clazz.model.RestrictionItem")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class RestrictionItem extends LongIdObject implements Cloneable {

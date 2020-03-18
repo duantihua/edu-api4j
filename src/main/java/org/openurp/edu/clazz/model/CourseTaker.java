@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.course.model;
+package org.openurp.edu.clazz.model;
 
 import java.util.Date;
 
@@ -38,7 +38,7 @@ import org.openurp.edu.base.model.Student;
  * 学生修读课程信息
  * 同一个task的构成在一个教学班中
  */
-@Entity(name = "org.openurp.edu.course.model.CourseTaker")
+@Entity(name = "org.openurp.edu.clazz.model.CourseTaker")
 public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, Comparable<CourseTaker> {
 
   private static final long serialVersionUID = -4305006607087691491L;

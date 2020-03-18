@@ -18,18 +18,17 @@
  */
 package org.openurp.app.security.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.gson.Gson;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import org.beangle.commons.bean.Initializing;
 import org.beangle.commons.bean.PropertyUtils;
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.lang.Strings;
 import org.beangle.commons.web.util.HttpUtils;
+import org.beangle.security.Securities;
+import org.beangle.security.core.userdetail.DefaultAccount;
 import org.beangle.security.data.Permission;
 import org.beangle.security.data.Profile;
 import org.beangle.security.data.ProfileService;
@@ -37,25 +36,18 @@ import org.openurp.app.Urp;
 import org.openurp.app.UrpApp;
 import org.openurp.app.security.DataPermission;
 import org.openurp.app.security.Dimension;
-import org.openurp.app.security.FuncResource;
-import org.openurp.app.security.FuncResource.Scope;
 import org.openurp.app.security.UserProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
-
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * http://localhost:8080/platform/user/dimensions/departments.json
- * http://localhost:8080/platform/user/profiles/root.json?domain=edu
- * http://localhost:8080/platform/user/accounts/root.json
- * http://localhost:8080/platform/security/func/edu-lesson-adminapp/resources.json
  * http://localhost:8080/platform/security/func/edu-lesson-adminapp/permissions/role/1.json
- * http://localhost:8080/platform/security/func/edu-lesson-adminapp/resources.json?scope=Private
  * http://localhost:8080/platform/security/data/permissions/user/root.json?data=org.openurp.edu.base
  * .model.Student&app=edu-lesson-adminapp
  *
@@ -68,30 +60,33 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
   private Cache sysCache = null;
 
-  private Map<String, FuncResource> resourceCache = CollectUtils.newHashMap();
+  private Map<String, Dimension> dimensionMap = CollectUtils.newHashMap();
 
   private UserDataResolver dataResolver;
 
   @Override
   public void init() throws Exception {
     userCache = CacheManager.getInstance().getCache("user_profile");
-    if (null == userCache) { throw new RuntimeException("Cannot find user_profile cache in ehcache.xml"); }
+    if (null == userCache) {
+      throw new RuntimeException("Cannot find user_profile cache in ehcache.xml");
+    }
 
     sysCache = CacheManager.getInstance().getCache("user_data_permission");
-    if (null == sysCache) { throw new RuntimeException(
-        "Cannot find user_data_permission cache in ehcache.xml"); }
+    if (null == sysCache) {
+      throw new RuntimeException(
+              "Cannot find user_data_permission cache in ehcache.xml");
+    }
   }
 
   public Dimension getDimension(String fieldName) {
-    Element dimensionElem = sysCache.get("dimension_" + fieldName);
-    Dimension dimension = (dimensionElem == null) ? null : (Dimension) dimensionElem.getObjectValue();
+    Dimension dimension = dimensionMap.get(fieldName);
     if (null == dimension) {
       String url = Urp.Instance.getApi() + "/platform/user/dimensions/" + fieldName + ".json";
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;
       dimension = toDimension(rs);
-      sysCache.put(new Element("dimension_" + fieldName, dimension));
+      dimensionMap.put(fieldName, dimension);
     }
     return dimension;
   }
@@ -108,27 +103,28 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
   public List<Profile> getProfiles(String userCode, String function) {
     Element ele = ((Element) userCache.get(userCode));
-
     if (null == ele) {
-      String url = Urp.Instance.getApi() + "/platform/user/profiles/" + userCode + ".json?domain=edu";
-      String resources = HttpUtils.getResponseText(url);
-      List rs = new Gson().fromJson(resources, List.class);
-      if (rs.isEmpty()) return Collections.emptyList();
-      List<Profile> profiles = new ArrayList<Profile>();
-      for (Object o : rs) {
-        Collection properties = (Collection) ((Map) o).get("properties");
-        UserProfile profile = new UserProfile();
-        profiles.add(profile);
-        for (Object p : properties) {
-          Map property = (Map) p;
-          Dimension dimension = toDimension((Map) property.get("dimension"));
-          Object v = property.get("value");
-          if (!v.equals(Profile.AllValue)) v = unmarshal((String) v, dimension);
-          profile.getProperties().put(dimension.getName(), v);
+      DefaultAccount account = (DefaultAccount) Securities.getSession().getPrincipal();
+      String profileStr = (String) account.getDetails().get("profiles_edu");
+      if (Strings.isEmpty(profileStr)) {
+        return Collections.emptyList();
+      } else {
+        List<Profile> profiles = new ArrayList<Profile>();
+        List<Map<String, String>> rs = new Gson().fromJson(profileStr, List.class);
+        for (Map<String, String> o : rs) {
+          UserProfile profile = new UserProfile();
+          profiles.add(profile);
+          for (Map.Entry<String, String> e : o.entrySet()) {
+            Dimension dimension = this.getDimension(e.getKey());
+            String v = e.getValue();
+            Object value = v;
+            if (!v.equals(Profile.AllValue)) value = unmarshal(v, dimension);
+            profile.getProperties().put(dimension.getName(), value);
+          }
         }
+        userCache.put(new Element(userCode, profiles));
+        return profiles;
       }
-      userCache.put(new Element(userCode, profiles));
-      return profiles;
     } else {
       return (List<Profile>) ele.getValue();
     }
@@ -141,7 +137,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     Element ele = sysCache.get(key);
     if (null == ele) {
       String url = Urp.Instance.getApi() + "/platform/security/data/permissions/user/" + user + ".json?data="
-          + dataResource + "&app=" + UrpApp.getName();
+              + dataResource + "&app=" + UrpApp.getName();
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;
@@ -160,8 +156,8 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   /**
    * 获取数据限制的某个属性的值
    *
+   * @param value
    * @param property
-   * @param restriction
    */
   private Object unmarshal(String value, Dimension property) {
     try {
@@ -171,72 +167,6 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     } catch (Exception e) {
       logger.error("exception with param type:" + property.getTypeName() + " value:" + value, e);
       return null;
-    }
-  }
-
-  public FuncResource getResource(String name) {
-    if (resourceCache.isEmpty()) {
-      synchronized (this) {
-        if (resourceCache.isEmpty()) {
-          String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName()
-              + "/resources.json";
-          String resources = HttpUtils.getResponseText(url);
-          List rs = new Gson().fromJson(resources, List.class);
-          for (Object o : rs) {
-            Map<String, Object> m = (Map<String, Object>) o;
-            FuncResource resource = new FuncResource();
-            resource.setName(m.get("name").toString());
-            resource.setTitle(m.get("title").toString());
-            resource.setScope(Scope.valueOf(m.get("scope").toString()));
-            resource.setId((Double.valueOf(m.get("id").toString())).intValue());
-            resourceCache.put(resource.getName(), resource);
-          }
-        }
-      }
-    }
-    return resourceCache.get(name);
-  }
-
-  public Set<String> getRoots() {
-    String url = Urp.Instance.getApi() + "/platform/user/roots.json?app=" + UrpApp.getName();
-    try {
-      String resources = HttpUtils.getResponseText(url);
-      List rs = new Gson().fromJson(resources, List.class);
-      return new HashSet<String>(rs);
-    } catch (Exception e) {
-      logger.error("Cannot access {}", url);
-      return Collections.emptySet();
-    }
-  }
-
-  public Set<String> getResourceNamesByRole(String roleId) {
-    String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName() + "/permissions/role/"
-        + roleId + ".json";
-    String resources = HttpUtils.getResponseText(url);
-    List rs = new Gson().fromJson(resources, List.class);
-    Set<String> s = CollectUtils.newHashSet();
-    for (Object o : rs) {
-      Map<String, Object> m = (Map<String, Object>) o;
-      s.add(m.get("name").toString());
-    }
-    return s;
-  }
-
-  public Set<String> getResourceNamesByScope(Scope scope) {
-    String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName()
-        + "/resources.json?scope=" + scope.toString();
-    try {
-      String resources = HttpUtils.getResponseText(url);
-      List rs = new Gson().fromJson(resources, List.class);
-      Set<String> s = CollectUtils.newHashSet();
-      for (Object o : rs) {
-        Map<String, Object> m = (Map<String, Object>) o;
-        s.add(m.get("name").toString());
-      }
-      return s;
-    } catch (Exception e) {
-      logger.error("Cannot access {}", url);
-      return Collections.emptySet();
     }
   }
 
