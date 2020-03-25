@@ -41,10 +41,10 @@ public class OqlDataProvider extends BaseServiceImpl implements UserDataProvider
 
       boolean hasCondition = lowerSourse.contains(" where ");
       source = source.substring(0, index) + (hasCondition ? " and " : " where ") + field.getKeyName()
-          + " in (:ids)";
+              + " in (:ids)";
       Set<Object> newIds = CollectUtils.newHashSet(keys);
       Class<?> keyType = PropertyUtils.getPropertyType(ClassLoaders.loadClass(field.getTypeName()),
-          field.getKeyName());
+              field.getKeyName());
       if (!keys[0].getClass().equals(keyType)) {
         newIds = CollectUtils.newHashSet();
         for (Object key : keys)

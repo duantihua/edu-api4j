@@ -27,7 +27,7 @@ import org.beangle.security.ids.access.DefaultAccessDeniedHandler;
 import org.beangle.security.ids.session.CookieSessionIdReader;
 import org.openurp.app.Urp;
 import org.openurp.app.security.service.ActionRequestConvertor;
-import org.openurp.app.security.service.CacheableAuthorityManager;
+import org.openurp.app.security.service.RemoteAuthorizer;
 import org.openurp.app.security.service.CasHttpSessionRepo;
 import org.openurp.app.security.service.IdentifierDataResolver;
 import org.openurp.app.security.service.RemoteAuthorityService;
@@ -46,7 +46,7 @@ public class DefaultModule extends AbstractBindModule {
 
     bind(CasEntryPoint.class).shortName();
 
-    bind(CacheableAuthorityManager.class).property("ignores", set("/index.action","index.do"));
+    bind(RemoteAuthorizer.class);
 
     bind(CookieSessionIdReader.class).constructor("URP_SID");
 
@@ -56,7 +56,7 @@ public class DefaultModule extends AbstractBindModule {
 
     bind("idDataResolver", IdentifierDataResolver.class);
     bind("remoteAuthorityService", RemoteAuthorityService.class).property("dataResolver",
-        ref("idDataResolver"));
+            ref("idDataResolver"));
 
   }
 
