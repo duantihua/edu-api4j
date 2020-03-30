@@ -33,7 +33,7 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Project;

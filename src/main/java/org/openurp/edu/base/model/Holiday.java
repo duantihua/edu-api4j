@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import java.sql.Date;
 
@@ -30,13 +30,14 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.entity.pojo.NumberIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.model.School;
 
 /**
  * 法定假日
  *
  * @since 2013-03-07
  */
-@Entity(name = "org.openurp.base.model.Holiday")
+@Entity(name = "org.openurp.edu.base.model.Holiday")
 @Cacheable
 @Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Holiday extends NumberIdObject<Integer> {

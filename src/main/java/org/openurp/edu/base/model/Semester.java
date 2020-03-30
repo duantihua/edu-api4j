@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import java.sql.Date;
 import java.util.GregorianCalendar;
@@ -48,7 +48,7 @@ import org.hibernate.annotations.NaturalId;
  *
  * @depend - - - Calendar
  */
-@Entity(name = "org.openurp.base.model.Semester")
+@Entity(name = "org.openurp.edu.base.model.Semester")
 @Cacheable
 @Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Semester extends NumberIdObject<Integer> implements Comparable<Semester> {
@@ -126,11 +126,11 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
     this.code = code;
   }
 
-  public boolean before(org.openurp.base.model.Semester semester) {
+  public boolean before(Semester semester) {
     return endOn.before(semester.getBeginOn());
   }
 
-  public boolean after(org.openurp.base.model.Semester semester) {
+  public boolean after(Semester semester) {
     return beginOn.after(semester.getEndOn());
   }
 
@@ -278,7 +278,7 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
    *
    * @see java.lang.Comparable#compareTo(Object)
    */
-  public int compareTo(org.openurp.base.model.Semester other) {
+  public int compareTo(Semester other) {
     return Objects.compareBuilder().add(this.schoolYear, other.getSchoolYear())
         .add(this.beginOn, other.getBeginOn()).toComparison();
   }

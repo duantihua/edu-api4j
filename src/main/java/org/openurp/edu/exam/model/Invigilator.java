@@ -38,7 +38,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Project;
 import org.openurp.edu.base.model.Teacher;
 

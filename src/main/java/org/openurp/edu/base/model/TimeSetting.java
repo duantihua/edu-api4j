@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +38,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.openurp.base.model.School;
+import org.openurp.edu.base.model.CourseUnit;
 
 /**
  * 每个小节的时间设置
@@ -45,7 +47,7 @@ import org.hibernate.annotations.CascadeType;
  *
  * @since 2006-7-13
  */
-@Entity(name = "org.openurp.base.model.TimeSetting")
+@Entity(name = "org.openurp.edu.base.model.TimeSetting")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class TimeSetting extends NumberIdObject<Integer> {

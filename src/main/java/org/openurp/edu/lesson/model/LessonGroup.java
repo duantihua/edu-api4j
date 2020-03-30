@@ -34,7 +34,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Adminclass;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.ProjectBasedObject;

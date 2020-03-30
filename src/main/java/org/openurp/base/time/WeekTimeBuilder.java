@@ -36,7 +36,7 @@ import org.beangle.commons.lang.time.WeekState;
 import org.beangle.commons.lang.time.WeekTime;
 import org.beangle.commons.lang.time.Weeks;
 import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 
 public class WeekTimeBuilder {
 

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import java.util.List;
 
@@ -36,13 +36,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
+import org.openurp.base.model.NumberIdTimeObject;
+import org.openurp.base.model.School;
 
 /**
  * 日历方案
  *
  *
  */
-@Entity(name = "org.openurp.base.model.Calendar")
+@Entity(name = "org.openurp.edu.base.model.Calendar")
 @Cacheable
 @Cache(region = "eams.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Calendar extends NumberIdTimeObject<Integer> {

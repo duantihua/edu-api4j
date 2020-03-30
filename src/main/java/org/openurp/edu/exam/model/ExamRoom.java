@@ -36,7 +36,7 @@ import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.HourMinute;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Course;

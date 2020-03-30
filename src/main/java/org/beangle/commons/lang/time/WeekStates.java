@@ -27,7 +27,7 @@ import java.util.List;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Numbers;
 import org.beangle.commons.lang.Strings;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.base.time.NumberRangeDigestor;
 import org.openurp.base.time.NumberSequence;
 

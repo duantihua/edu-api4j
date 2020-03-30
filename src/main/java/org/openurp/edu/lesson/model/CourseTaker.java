@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.code.model.CourseTakeType;
 import org.openurp.edu.base.code.model.ElectionMode;
 import org.openurp.edu.base.model.Course;

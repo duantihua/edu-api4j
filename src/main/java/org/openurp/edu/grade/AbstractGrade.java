@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.code.model.ScoreMarkStyle;
 import org.openurp.edu.base.model.Project;
 import org.openurp.edu.base.model.Student;

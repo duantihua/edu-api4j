@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,13 +25,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.NumberIdObject;
+import org.openurp.edu.base.model.Semester;
 
 /**
  * 学期阶段
  *
  *
  */
-@Entity(name = "org.openurp.base.model.SemesterStage")
+@Entity(name = "org.openurp.edu.base.model.SemesterStage")
 public class SemesterStage extends NumberIdObject<Integer> {
 
   private static final long serialVersionUID = 317801950546445267L;

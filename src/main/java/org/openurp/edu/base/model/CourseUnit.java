@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.edu.base.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -38,7 +38,7 @@ import org.openurp.base.code.model.DayPart;
  *
  * @since 2005-10-16
  */
-@Entity(name = "org.openurp.base.model.CourseUnit")
+@Entity(name = "org.openurp.edu.base.model.CourseUnit")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "eams.teach")
 public class CourseUnit extends NumberIdObject<Integer> implements Cloneable, Comparable<CourseUnit> {

@@ -21,6 +21,7 @@ package org.openurp.edu.program.plan.model;
 import org.beangle.commons.entity.Entity;
 import org.openurp.base.time.Terms;
 import org.openurp.edu.base.model.Course;
+import org.openurp.edu.base.model.Semester;
 
 /**
  * 培养计划中的课程.<br>
@@ -45,7 +46,7 @@ public interface PlanCourse extends Entity<Long>, Cloneable {
   /**
    * <pre>
    * 开课学期，可以是数字，也可以是类似 春、秋的字样。
-   * 和 {@link org.openurp.base.model.Semester#getGroup()} 呼应，用于生成开课计划
+   * 和 {@link Semester#getGroup()} 呼应，用于生成开课计划
    * 如果是多个值，必须用逗号分开，比如：
    * ,1,
    * ,1,2,

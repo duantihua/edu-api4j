@@ -40,7 +40,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Building;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.code.edu.model.ClassroomType;
 import org.openurp.edu.base.code.model.ExamType;
 import org.openurp.edu.base.model.Classroom;

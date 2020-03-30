@@ -43,7 +43,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Semester;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.code.model.TeachLangType;
 import org.openurp.edu.base.model.AuditState;
