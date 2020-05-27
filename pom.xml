@@ -9,7 +9,7 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.11.0-SNAPSHOT</version>
+  <version>0.11.0</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>

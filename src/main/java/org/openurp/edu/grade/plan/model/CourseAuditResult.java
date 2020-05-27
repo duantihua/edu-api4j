@@ -18,19 +18,6 @@
  */
 package org.openurp.edu.grade.plan.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.beangle.commons.bean.comparators.PropertyComparator;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Strings;
@@ -38,8 +25,15 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.time.Terms;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.grade.course.model.ExamGrade;
 import org.openurp.edu.program.plan.model.PlanCourse;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 培养计划课程审核结果
@@ -49,31 +43,45 @@ public class CourseAuditResult extends LongIdObject {
 
   private static final long serialVersionUID = 7271307757012360755L;
 
-  /** 课程组审核结果 */
+  /**
+   * 课程组审核结果
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private GroupAuditResult groupResult;
 
-  /** 课程 */
+  /**
+   * 课程
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Course course;
 
-  /** 成绩 */
+  /**
+   * 成绩
+   */
   @Size(max = 100)
   private String scores;
 
-  /** 是否通过 */
+  /**
+   * 是否通过
+   */
   private boolean passed;
 
-  /** 是否必修 */
+  /**
+   * 是否必修
+   */
   private boolean compulsory;
 
-  /** 开课学期 */
+  /**
+   * 开课学期
+   */
   @NotNull
   @Type(type = "org.openurp.base.time.hibernate.TermsType")
   protected Terms terms = Terms.Empty;
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 500)
   private String remark;
 
@@ -137,25 +145,7 @@ public class CourseAuditResult extends LongIdObject {
     }
 
     if (!passed && !grades.isEmpty()) {
-      List<CourseGrade> newGrades = new ArrayList(grades);
-      StringBuilder remarkSB = new StringBuilder();
-      Collections.sort(newGrades, new PropertyComparator("semester"));
-      String brString = "";
-      for (CourseGrade grade : newGrades) {
-        remarkSB.append(brString);
-        remarkSB.append(grade.getSemester().getSchoolYear()).append(grade.getSemester().getName())
-            .append(" ");
-        for (ExamGrade examGrade : grade.getExamGrades()) {
-          remarkSB.append(examGrade.getGradeType().getName()).append(" ");
-          if (Strings.isNotBlank(examGrade.getScoreText())) {
-            remarkSB.append(examGrade.getScoreText()).append(" ");
-          } else {
-            remarkSB.append(examGrade.getExamStatus().getName()).append(" ");
-          }
-        }
-        brString = "\n";
-      }
-      remark = remarkSB.toString();
+      remark = new GradeRemarkDigester().digest(grades);
     }
   }
 
@@ -179,25 +169,9 @@ public class CourseAuditResult extends LongIdObject {
         this.passed &= courseId2passed.get(courseId);
       }
 
-      StringBuffer tempStr = new StringBuffer();
-      for (Iterator<CourseGrade> iter = substituteGrades.iterator(); iter.hasNext();) {
-        CourseGrade grade = iter.next();
-        tempStr.append(grade.getCourse().getName()).append('[').append(grade.getCourse().getCode())
-            .append(']').append("\n");
-        tempStr.append(grade.getSemester().getSchoolYear()).append(grade.getSemester().getName()).append(" ");
-        for (ExamGrade examGrade : grade.getExamGrades()) {
-          tempStr.append(examGrade.getGradeType().getName()).append(" ");
-          if (Strings.isNotBlank(examGrade.getScoreText())) {
-            tempStr.append(examGrade.getScoreText()).append(" ");
-          } else {
-            tempStr.append(examGrade.getExamStatus().getName()).append(" ");
-          }
-        }
-        if (iter.hasNext()) {
-          tempStr.append('\n');
-        }
+      if (passed) {
+        remark = new GradeRemarkDigester().digest(substituteGrades);
       }
-      remark = tempStr.toString();
     }
   }
 
