@@ -16,16 +16,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.graduation.plan.adapters;
+package org.openurp.edu.grade.plan.adapters;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.graduation.plan.model.AuditStat;
-import org.openurp.edu.graduation.plan.model.CourseAuditResult;
-import org.openurp.edu.graduation.plan.model.GroupAuditResult;
-import org.openurp.edu.graduation.plan.model.PlanAuditResult;
+import org.openurp.edu.grade.plan.model.AuditStat;
+import org.openurp.edu.grade.plan.model.CourseAuditResult;
+import org.openurp.edu.grade.plan.model.GroupAuditResult;
+import org.openurp.edu.grade.plan.model.PlanAuditResult;
 
 public class GroupResultAdapter extends GroupAuditResult {
 

@@ -36,7 +36,7 @@ import java.util.Date;
  * @author chaostone
  */
 @Entity(name = "org.openurp.edu.fee.model.Bill")
-public class Bill extends NumberIdTimeObject<Integer> {
+public class Bill extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = 5868193073466043875L;
 

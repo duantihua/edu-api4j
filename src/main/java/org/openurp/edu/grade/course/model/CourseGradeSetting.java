@@ -18,14 +18,15 @@
  */
 package org.openurp.edu.grade.course.model;
 
-import java.util.List;
-import java.util.Set;
-
 import org.beangle.commons.collection.CollectUtils;
+import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.edu.base.model.Project;
 import org.openurp.edu.base.model.ProjectBasedObject;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * 课程成绩配置
@@ -34,16 +35,29 @@ public class CourseGradeSetting extends ProjectBasedObject<Long> {
 
   private static final long serialVersionUID = -261419832818823702L;
 
-  /** 总评成绩的组成部分 */
+  /**
+   * 总评成绩的组成部分
+   */
   private List<GradeType> gaElementTypes = CollectUtils.newArrayList(3);
 
-  /** 允许补考考试类型 */
-  private Set<ExamStatus> allowExamStatuses = CollectUtils.newHashSet();
+  /**
+   * 不设补考的考试情况
+   */
+  private Set<ExamStatus> noMakeupExamStatuses = CollectUtils.newHashSet();
 
-  /** 不允许录入成绩的考试类型列表 */
+  /**
+   * 不设补考的修读类别
+   */
+  private Set<CourseTakeType> noMakeupTakeTypes = CollectUtils.newHashSet();
+
+  /**
+   * 不允许录入成绩的考试类型列表
+   */
   private Set<ExamStatus> emptyScoreStatuses = CollectUtils.newHashSet();
 
-  /** 是否提交即发布 */
+  /**
+   * 是否提交即发布
+   */
   private boolean submitIsPublish = false;
 
   public CourseGradeSetting() {
@@ -54,24 +68,22 @@ public class CourseGradeSetting extends ProjectBasedObject<Long> {
     this();
     gaElementTypes.add(new GradeType(GradeType.USUAL_ID));
     gaElementTypes.add(new GradeType(GradeType.END_ID));
-
-    allowExamStatuses.add(new ExamStatus(ExamStatus.NORMAL));
-    // allowExamStatuses.add(new ExamStatus(ExamStatus.MISC));
-
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.ABSENT));
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.CHEAT));
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.VIOLATION));
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.DELAY));
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.MISC));
-    // emptyScoreStatuses.add(new ExamStatus(ExamStatus.UNQUALIFY));
   }
 
-  public Set<ExamStatus> getAllowExamStatuses() {
-    return allowExamStatuses;
+  public Set<ExamStatus> getNoMakeupExamStatuses() {
+    return noMakeupExamStatuses;
   }
 
-  public void setAllowExamStatuses(Set<ExamStatus> allowExamStatuses) {
-    this.allowExamStatuses = allowExamStatuses;
+  public void setNoMakeupExamStatuses(Set<ExamStatus> noMakeupExamStatuses) {
+    this.noMakeupExamStatuses = noMakeupExamStatuses;
+  }
+
+  public Set<CourseTakeType> getNoMakeupTakeTypes() {
+    return noMakeupTakeTypes;
+  }
+
+  public void setNoMakeupTakeTypes(Set<CourseTakeType> noMakeupTakeTypes) {
+    this.noMakeupTakeTypes = noMakeupTakeTypes;
   }
 
   public List<GradeType> getGaElementTypes() {
