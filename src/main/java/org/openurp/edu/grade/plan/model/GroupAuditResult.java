@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.graduation.plan.model;
+package org.openurp.edu.grade.plan.model;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.model.Course;
-import org.openurp.edu.graduation.plan.adapters.GroupResultAdapter;
+import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
 import org.openurp.edu.program.plan.model.CourseGroup;
 
 /**
