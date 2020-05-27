@@ -39,7 +39,7 @@ import org.openurp.edu.base.model.Student;
 /**
  * 计划完成审核结果<br>
  */
-@Entity(name = "org.openurp.edu.graduation.plan.model.PlanAuditResult")
+@Entity(name = "org.openurp.edu.grade.plan.model.PlanAuditResult")
 public class PlanAuditResult extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = -3096429906586836701L;

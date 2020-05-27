@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * 培养计划课程审核结果
  */
-@Entity(name = "org.openurp.edu.graduation.plan.model.CourseAuditResult")
+@Entity(name = "org.openurp.edu.grade.plan.model.CourseAuditResult")
 public class CourseAuditResult extends LongIdObject {
 
   private static final long serialVersionUID = 7271307757012360755L;

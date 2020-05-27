@@ -38,7 +38,7 @@ import org.openurp.edu.program.plan.model.CourseGroup;
 /**
  * 课程组审核结果
  */
-@Entity(name = "org.openurp.edu.graduation.plan.model.GroupAuditResult")
+@Entity(name = "org.openurp.edu.grade.plan.model.GroupAuditResult")
 public class GroupAuditResult extends LongIdObject {
 
   private static final long serialVersionUID = -6622283837918622674L;
