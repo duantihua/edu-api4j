@@ -25,22 +25,20 @@ import net.sf.ehcache.Element;
 import org.beangle.commons.bean.Initializing;
 import org.beangle.commons.bean.PropertyUtils;
 import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.lang.Strings;
 import org.beangle.commons.web.util.HttpUtils;
 import org.beangle.security.Securities;
 import org.beangle.security.core.userdetail.DefaultAccount;
+import org.beangle.security.core.userdetail.Profile;
 import org.beangle.security.data.Permission;
-import org.beangle.security.data.Profile;
 import org.beangle.security.data.ProfileService;
 import org.openurp.app.Urp;
 import org.openurp.app.UrpApp;
 import org.openurp.app.security.DataPermission;
 import org.openurp.app.security.Dimension;
-import org.openurp.app.security.UserProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -56,8 +54,6 @@ import java.util.Map;
 public class RemoteAuthorityService implements ProfileService, Initializing {
   private static final Logger logger = LoggerFactory.getLogger(RemoteAuthorityService.class);
 
-  private Cache userCache = null;
-
   private Cache sysCache = null;
 
   private Map<String, Dimension> dimensionMap = CollectUtils.newHashMap();
@@ -66,15 +62,10 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
   @Override
   public void init() throws Exception {
-    userCache = CacheManager.getInstance().getCache("user_profile");
-    if (null == userCache) {
-      throw new RuntimeException("Cannot find user_profile cache in ehcache.xml");
-    }
-
     sysCache = CacheManager.getInstance().getCache("user_data_permission");
     if (null == sysCache) {
       throw new RuntimeException(
-              "Cannot find user_data_permission cache in ehcache.xml");
+        "Cannot find user_data_permission cache in ehcache.xml");
     }
   }
 
@@ -102,31 +93,11 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   }
 
   public List<Profile> getProfiles(String userCode, String function) {
-    Element ele = ((Element) userCache.get(userCode));
-    if (null == ele) {
-      DefaultAccount account = (DefaultAccount) Securities.getSession().getPrincipal();
-      String profileStr = (String) account.getDetails().get("profiles_edu");
-      if (Strings.isEmpty(profileStr)) {
-        return Collections.emptyList();
-      } else {
-        List<Profile> profiles = new ArrayList<Profile>();
-        List<Map<String, String>> rs = new Gson().fromJson(profileStr, List.class);
-        for (Map<String, String> o : rs) {
-          UserProfile profile = new UserProfile();
-          profiles.add(profile);
-          for (Map.Entry<String, String> e : o.entrySet()) {
-            Dimension dimension = this.getDimension(e.getKey());
-            String v = e.getValue();
-            Object value = v;
-            if (!v.equals(Profile.AllValue)) value = unmarshal(v, dimension);
-            profile.getProperties().put(dimension.getName(), value);
-          }
-        }
-        userCache.put(new Element(userCode, profiles));
-        return profiles;
-      }
+    DefaultAccount account = (DefaultAccount) Securities.getSession().getPrincipal();
+    if (null == account.getProfiles()) {
+      return Collections.emptyList();
     } else {
-      return (List<Profile>) ele.getValue();
+      return Arrays.asList(account.getProfiles());
     }
   }
 
@@ -137,7 +108,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
     Element ele = sysCache.get(key);
     if (null == ele) {
       String url = Urp.Instance.getApi() + "/platform/security/data/permissions/user/" + user + ".json?data="
-              + dataResource + "&app=" + UrpApp.getName();
+        + dataResource + "&app=" + UrpApp.getName();
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;

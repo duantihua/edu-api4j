@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 
 /**
  * 根据REST接口查找root用户和资源
- * http://localhost:8080/platform/user/profiles/root.json?domain=edu
  * http://localhost:8080/platform/user/accounts/root.json
  * http://localhost:8080/platform/security/func/edu-lesson-adminapp/resources.json
  */
