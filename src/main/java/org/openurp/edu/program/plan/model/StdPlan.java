@@ -34,7 +34,6 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.edu.base.model.AuditState;
-import org.openurp.edu.base.model.Program;
 import org.openurp.edu.base.model.Student;
 
 /**

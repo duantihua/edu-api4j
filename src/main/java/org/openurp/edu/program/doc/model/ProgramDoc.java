@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.edu.base.model.Program;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 培养方案文档

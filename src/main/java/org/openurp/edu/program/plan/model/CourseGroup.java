@@ -52,7 +52,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置课程方案
    *
-   * @param coursePlan
+   * @param plan
    *          课程方案
    */
   public void setPlan(CoursePlan plan);

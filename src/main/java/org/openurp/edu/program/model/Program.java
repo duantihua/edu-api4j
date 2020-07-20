@@ -16,18 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.base.model;
-
-import java.sql.Date;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package org.openurp.edu.program.model;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -39,13 +28,22 @@ import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.code.model.StdType;
+import org.openurp.edu.base.model.AuditState;
+import org.openurp.edu.base.model.Direction;
+import org.openurp.edu.base.model.Major;
+import org.openurp.edu.base.model.Project;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
 
 /**
  * 专业培养方案
  */
 @Cacheable
 @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Entity(name = "org.openurp.edu.base.model.Program")
+@Entity(name = "org.openurp.edu.program.model.Program")
 public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   private static final long serialVersionUID = 4260627210556648248L;
@@ -62,12 +60,10 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
-
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
   /** 部门 */
-
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
@@ -76,7 +72,6 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   private EducationLevel level;
 
   /** 学生类别 */
-
   @ManyToOne(fetch = FetchType.LAZY)
   private StdType stdType;
 

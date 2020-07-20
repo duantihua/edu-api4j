@@ -30,7 +30,7 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.model.Program;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 原始计划

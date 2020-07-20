@@ -38,7 +38,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.base.model.Program;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 专业计划
@@ -54,6 +54,18 @@ public class ExecutePlan extends AbstractCoursePlan {
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Program program;
+
+  /** 部门 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Department department;
+
+  /** 学生类别 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private StdType stdType;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Campus campus;
 
   /** 课程组 */
   @OneToMany(orphanRemoval = true, targetEntity = ExecuteCourseGroup.class, cascade = { CascadeType.ALL })
@@ -100,19 +112,6 @@ public class ExecutePlan extends AbstractCoursePlan {
   /** 结束日期 结束日期包括在有效期内 */
   private Date endOn;
 
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Campus campus;
-
-  /** 部门 */
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Department department;
-
-  /** 学生类别 */
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private StdType stdType;
 
   public Campus getCampus() {
     return campus;
