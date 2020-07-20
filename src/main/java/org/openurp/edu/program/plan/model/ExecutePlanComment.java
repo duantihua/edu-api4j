@@ -31,8 +31,8 @@ import org.openurp.base.model.NumberIdTimeObject;
  *
  *
  */
-@Entity(name = "org.openurp.edu.program.plan.model.MajorPlanComment")
-public class MajorPlanComment extends NumberIdTimeObject<Long> {
+@Entity(name = "org.openurp.edu.program.plan.model.ExecutePlanComment")
+public class ExecutePlanComment extends NumberIdTimeObject<Long> {
   private static final long serialVersionUID = 1L;
   /** 审核不通过原因 */
   @NotNull
@@ -41,7 +41,7 @@ public class MajorPlanComment extends NumberIdTimeObject<Long> {
 
   /** 培养计划 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private MajorPlan majorPlan;
+  private ExecutePlan executePlan;
 
   public String getReason() {
     return reason;
@@ -51,12 +51,12 @@ public class MajorPlanComment extends NumberIdTimeObject<Long> {
     this.reason = reason;
   }
 
-  public MajorPlan getMajorPlan() {
-    return majorPlan;
+  public ExecutePlan getExecutePlan() {
+    return executePlan;
   }
 
-  public void setMajorPlan(MajorPlan majorPlan) {
-    this.majorPlan = majorPlan;
+  public void setExecutePlan(ExecutePlan executePlan) {
+    this.executePlan = executePlan;
   }
 
 }

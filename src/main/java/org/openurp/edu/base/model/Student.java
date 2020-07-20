@@ -110,9 +110,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
   @ManyToOne(fetch = FetchType.LAZY)
   protected Teacher tutor;
 
-  /** 专业培养方案 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected Program program;
   /** 备注 */
   @Size(max = 2000)
   protected String remark;
@@ -314,14 +311,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
 
   public void setTutor(Teacher tutor) {
     this.tutor = tutor;
-  }
-
-  public Program getProgram() {
-    return program;
-  }
-
-  public void setProgram(Program program) {
-    this.program = program;
   }
 
   public User getUser() {

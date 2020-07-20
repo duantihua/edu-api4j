@@ -18,10 +18,8 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,33 +30,46 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.lang.Objects;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.model.Direction;
 
 /**
- * 专业计划课程组.
+ * 原始计划的课程组
+ *
+ *
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorCourseGroup")
-@Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorCourseGroup extends AbstractCourseGroup {
 
-  private static final long serialVersionUID = -6804554057069134031L;
+  private static final long serialVersionUID = 4144045243297075224L;
 
-  /** 自定义名称 */
-  @Size(max = 40)
+  /** 自定义组名 */
+  @Size(max = 100)
   private String alias;
 
   /** 该组针对的专业方向 */
   @ManyToOne(fetch = FetchType.LAZY)
   private Direction direction;
 
-  public boolean isLeafGroup() {
-    return null != alias;
-  }
+  /** 培养方案 */
+  @ManyToOne(targetEntity = MajorPlan.class)
+  @JoinColumn(name = "PLAN_ID", updatable = false, insertable = false, nullable = false)
+  private CoursePlan plan;
+
+  /** 上级组 */
+  @ManyToOne(targetEntity = MajorCourseGroup.class)
+  @JoinColumn(name = "PARENT_ID", nullable = true)
+  private CourseGroup parent;
+
+  /** 下级节点 */
+  @OneToMany(targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
+  @OrderBy("indexno")
+  @JoinColumn(name = "PARENT_ID", nullable = true)
+  private List<CourseGroup> children = CollectUtils.newArrayList();
+
+  /** 组内课程 */
+  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
+      CascadeType.ALL })
+  private List<PlanCourse> planCourses = CollectUtils.newArrayList();
 
   @Override
   public String getName() {
@@ -66,41 +77,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
     if (null != courseType) sb.append(courseType.getName());
     if (null != alias) sb.append(" ").append(alias);
     return sb.toString();
-  }
-
-  /** 专业计划 */
-  @ManyToOne(targetEntity = MajorPlan.class)
-  @JoinColumn(name = "plan_id", updatable = false, insertable = false, nullable = false)
-  private CoursePlan plan;
-
-  /** 上级组 */
-  @ManyToOne(targetEntity = MajorCourseGroup.class)
-  @JoinColumn(name = "parent_id", nullable = true)
-  private CourseGroup parent;
-
-  /** 下级组列表 */
-  @OneToMany(targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
-  @OrderBy("indexno")
-  @JoinColumn(name = "parent_id", nullable = true)
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<CourseGroup> children = CollectUtils.newArrayList();
-
-  /** 计划课程列表 */
-  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
-      CascadeType.ALL })
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<PlanCourse> planCourses = CollectUtils.newArrayList();
-
-  public void setPlanCourses(List<PlanCourse> planCourses) {
-    this.planCourses = planCourses;
-  }
-
-  public List<CourseGroup> getChildren() {
-    return children;
-  }
-
-  public void setChildren(List<CourseGroup> children) {
-    this.children = children;
   }
 
   public CoursePlan getPlan() {
@@ -111,55 +87,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
     this.plan = plan;
   }
 
-  /**
-   * 添加计划课程
-   */
-  public void addPlanCourses(List<PlanCourse> givenPlanCourses) {
-    for (PlanCourse element : givenPlanCourses) {
-      boolean finded = false;
-      for (PlanCourse element2 : planCourses) {
-        if (element.getCourse().getId().equals(element2.getCourse().getId())) {
-          finded = true;
-          break;
-        }
-      }
-      if (!finded) {
-        element.setGroup(this);
-        planCourses.add(element);
-      }
-    }
-  }
-
-  public void updateCoursePlan(CoursePlan plan) {
-    setPlan(plan);
-    if (getChildren() != null) {
-      for (CourseGroup group : getChildren()) {
-        group.updateCoursePlan(plan);
-      }
-    }
-  }
-
-  /**
-   * 得到全部有效课程.
-   */
-  public Object clone() throws CloneNotSupportedException {
-    MajorCourseGroup majorCourseGroup = (MajorCourseGroup) super.clone();
-    majorCourseGroup.setId(null);
-    majorCourseGroup.setParent(null);
-    majorCourseGroup.setChildren(new ArrayList<CourseGroup>());
-    majorCourseGroup.setPlanCourses(new ArrayList<PlanCourse>());
-    // 克隆引用共享组
-    return majorCourseGroup;
-  }
-
-  public List<PlanCourse> getMajorPlanCourses() {
-    return planCourses;
-  }
-
-  public List<PlanCourse> getPlanCourses() {
-    return planCourses;
-  }
-
   public CourseGroup getParent() {
     return parent;
   }
@@ -168,28 +95,20 @@ public class MajorCourseGroup extends AbstractCourseGroup {
     this.parent = parent;
   }
 
-  public boolean equals(Object object) {
-    if (!(object instanceof MajorCourseGroup)) { return false; }
-    MajorCourseGroup rhs = (MajorCourseGroup) object;
-    return Objects.equalsBuilder().add(this.id, rhs.id).isEquals();
+  public List<CourseGroup> getChildren() {
+    return children;
   }
 
-  private CourseType getParentCourseType() {
-    if (parent == null) {
-      return null;
-    } else {
-      return parent.getCourseType();
-    }
+  public void setChildren(List<CourseGroup> children) {
+    this.children = children;
   }
 
-  public boolean isSameGroup(Object object) {
-    if (!(object instanceof MajorCourseGroup)) { return false; }
-    MajorCourseGroup other = (MajorCourseGroup) object;
-    // it will handle null value
-    return Objects.equalsBuilder().add(getCredits(), other.getCredits())
-        .add(getCourseType(), other.getCourseType()).add(getParentCourseType(), other.getParentCourseType())
-        .add(getRemark(), other.getRemark()).add(getTermCredits(), other.getTermCredits())
-        .add(getPlanCourses(), other.getPlanCourses()).isEquals();
+  public List<PlanCourse> getPlanCourses() {
+    return planCourses;
+  }
+
+  public void setPlanCourses(List<PlanCourse> planCourses) {
+    this.planCourses = planCourses;
   }
 
   public String getAlias() {
@@ -206,12 +125,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
 
   public void setDirection(Direction direction) {
     this.direction = direction;
-  }
-
-  @Override
-  public String toString() {
-    return "MajorCourseGroup [alias=" + alias + ", direction=" + direction + ", parent=" + parent
-        + ", courseType=" + courseType + "]";
   }
 
 }

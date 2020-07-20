@@ -19,53 +19,37 @@
 package org.openurp.edu.program.plan.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.edu.base.model.Program;
 
 /**
- * 专业计划
+ * 原始计划
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorPlan")
-@Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class MajorPlan extends AbstractCoursePlan {
 
-  private static final long serialVersionUID = 7084539759992691314L;
-
-  /** 培养方案 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected Program program;
+  private static final long serialVersionUID = 269841215644053574L;
 
   /** 课程组 */
   @OneToMany(orphanRemoval = true, targetEntity = MajorCourseGroup.class, cascade = { CascadeType.ALL })
-  @JoinColumn(name = "plan_id", nullable = false)
   @OrderBy("indexno")
-  @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  @JoinColumn(name = "plan_id", nullable = false)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 审核备注 */
-  @OneToMany(mappedBy = "majorPlan", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<MajorPlanComment> comments = CollectUtils.newArrayList();
-
-  public MajorPlan() {
-    super();
-  }
+  /** 培养方案 */
+  @NotNull
+  @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+  protected Program program;
 
   public List<CourseGroup> getGroups() {
     return groups;
@@ -76,10 +60,7 @@ public class MajorPlan extends AbstractCoursePlan {
   }
 
   public Object clone() throws CloneNotSupportedException {
-    MajorPlan copy = (MajorPlan) super.clone();
-    copy.setGroups(new ArrayList<CourseGroup>());
-    copy.setId(null);
-    return copy;
+    return (MajorPlan) super.clone();
   }
 
   public Program getProgram() {
@@ -90,41 +71,11 @@ public class MajorPlan extends AbstractCoursePlan {
     this.program = program;
   }
 
-  /** 开始日期 */
-  @NotNull
-  private Date beginOn;
-
-  /** 结束日期 结束日期包括在有效期内 */
-  private Date endOn;
-
   public Date getBeginOn() {
-    return beginOn;
-  }
-
-  public void setBeginOn(Date beginOn) {
-    this.beginOn = beginOn;
+    return null != program ? program.getBeginOn() : null;
   }
 
   public Date getEndOn() {
-    return endOn;
+    return null != program ? program.getEndOn() : null;
   }
-
-  public void setEndOn(Date endOn) {
-    this.endOn = endOn;
-  }
-
-  public List<MajorPlanComment> getComments() {
-    return comments;
-  }
-
-  public void setComments(List<MajorPlanComment> comments) {
-    this.comments = comments;
-  }
-
-  @Override
-  public String toString() {
-    return "MajorPlanBean [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
-        + "]";
-  }
-
 }

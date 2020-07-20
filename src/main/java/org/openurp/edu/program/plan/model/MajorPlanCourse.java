@@ -18,7 +18,6 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -26,8 +25,6 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.WeekState;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
@@ -35,14 +32,12 @@ import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
 
 /**
- * 专业计划课程
+ * 原始计划的计划课程
  */
 @Entity(name = "org.openurp.edu.program.plan.model.MajorPlanCourse")
-@Cacheable
-@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
+public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourseInter {
 
-  private static final long serialVersionUID = 6223259360999867620L;
+  private static final long serialVersionUID = -2091355773150181171L;
 
   /** 课程组 */
   @Target(MajorCourseGroup.class)

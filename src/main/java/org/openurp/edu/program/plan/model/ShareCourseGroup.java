@@ -94,8 +94,8 @@ public class ShareCourseGroup extends AbstractCourseGroup {
     return courseGroup;
   }
 
-  public Object cloneToMajorCourseGroup() {
-    MajorCourseGroup courseGroup = Model.newInstance(MajorCourseGroup.class);
+  public Object cloneToExecuteCourseGroup() {
+    ExecuteCourseGroup courseGroup = Model.newInstance(ExecuteCourseGroup.class);
     courseGroup.setCourseCount(getCourseCount());
     courseGroup.setCourseType(getCourseType());
     courseGroup.setCredits(getCredits());
