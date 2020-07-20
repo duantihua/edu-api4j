@@ -31,8 +31,8 @@ import org.beangle.security.core.userdetail.DefaultAccount;
 import org.beangle.security.core.userdetail.Profile;
 import org.beangle.security.data.Permission;
 import org.beangle.security.data.ProfileService;
-import org.openurp.app.Urp;
-import org.openurp.app.UrpApp;
+import org.openurp.app.Ems;
+import org.openurp.app.EmsApp;
 import org.openurp.app.security.DataPermission;
 import org.openurp.app.security.Dimension;
 import org.slf4j.Logger;
@@ -72,7 +72,7 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
   public Dimension getDimension(String fieldName) {
     Dimension dimension = dimensionMap.get(fieldName);
     if (null == dimension) {
-      String url = Urp.Instance.getApi() + "/platform/user/dimensions/" + fieldName + ".json";
+      String url = Ems.Instance.getApi() + "/platform/user/dimensions/" + fieldName + ".json";
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;
@@ -107,8 +107,8 @@ public class RemoteAuthorityService implements ProfileService, Initializing {
 
     Element ele = sysCache.get(key);
     if (null == ele) {
-      String url = Urp.Instance.getApi() + "/platform/security/data/permissions/user/" + user + ".json?data="
-        + dataResource + "&app=" + UrpApp.getName();
+      String url = Ems.Instance.getApi() + "/platform/security/data/permissions/user/" + user + ".json?data="
+        + dataResource + "&app=" + EmsApp.getName();
       String resources = HttpUtils.getResponseText(url);
       Map rs = new Gson().fromJson(resources, Map.class);
       if (rs.isEmpty()) return null;

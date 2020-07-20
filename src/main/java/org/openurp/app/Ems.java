@@ -32,9 +32,9 @@ import org.beangle.commons.lang.SystemInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Urp {
+public class Ems {
 
-  private static final Logger logger = LoggerFactory.getLogger(Urp.class);
+  private static final Logger logger = LoggerFactory.getLogger(Ems.class);
 
   private final String home;
 
@@ -54,23 +54,23 @@ public class Urp {
 
   private final Map<String, String> properties;
 
-  public Urp(String home, Map<String, String> properties) {
+  public Ems(String home, Map<String, String> properties) {
     this.home = home;
     this.properties = properties;
-    logger.info("Openurp Home:{}", this.home);
+    logger.info("Ems Home:{}", this.home);
 
-    if (properties.containsKey("openurp.base")) {
-      this.base = processUrl(properties.get("openurp.base"));
+    if (properties.containsKey("base")) {
+      this.base = processUrl(properties.get("base"));
     } else {
-      throw new RuntimeException("Cannot find openurp.base");
+      throw new RuntimeException("Cannot find base");
     }
-    this.cas = readBase("openurp.cas");
-    this.api = readBase("openurp.api");
-    this.webapp = readBase("openurp.webapp");
-    this.portal = readBase("openurp.portal");
-    this.cdn = readBase("openurp.static");
+    this.cas = readBase("cas");
+    this.api = readBase("api");
+    this.webapp = readBase("webapp");
+    this.portal = readBase("portal");
+    this.cdn = readBase("static");
 
-    this.key = properties.getOrDefault("openurp.key", "openurp");
+    this.key = properties.getOrDefault("key", "openurp");
   }
 
   private String processUrl(String b) {
@@ -86,10 +86,10 @@ public class Urp {
   private String readBase(String property) {
     String b = properties.get(property);
     if (null == b) {
-      if (property.equals("openurp.webapp")) {
-        b = properties.get("openurp.base");
+      if (property.equals("webapp")) {
+        b = properties.get("base");
       } else {
-        b = properties.get("openurp.base") + "/" + Strings.replace(property, "openurp.", "");
+        b = properties.get("base") + "/" + property;
       }
     }
     return processUrl(b);
@@ -139,16 +139,16 @@ public class Urp {
     return key;
   }
 
-  public static Urp getInstance() {
+  public static Ems getInstance() {
     return Instance;
   }
 
-  public static Urp Instance = new Urp(findHome(), readConfig(findHome()));
+  public static Ems Instance = new Ems(findHome(), readConfig(findHome()));
 
   public static String findHome() {
-    String home = System.getProperty("openurp.home");
+    String home = System.getProperty("ems.home");
     if (home == null) {
-      home = SystemInfo.getUser().getHome() + "/.openurp";
+      home = SystemInfo.getUser().getHome() + "/.ems";
     }
     return home;
   }

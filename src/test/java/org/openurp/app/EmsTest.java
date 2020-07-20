@@ -22,13 +22,13 @@ import java.util.Map;
 
 import org.beangle.commons.collection.CollectUtils;
 
-public class UrpTest {
+public class EmsTest {
 
   public static void main(String[] args) {
 
     Map<String, String> properties = CollectUtils.newHashMap();
-    properties.put("openurp.base", "localhost");
-    Urp urp = new Urp("d", properties);
+    properties.put("base", "localhost");
+    Ems urp = new Ems("d", properties);
     System.out.println(urp.getApi());
     System.out.println(urp.getProperties().get("openurp.platform.cas.server"));
   }

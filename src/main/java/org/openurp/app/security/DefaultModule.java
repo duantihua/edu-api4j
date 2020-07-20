@@ -25,7 +25,7 @@ import org.beangle.security.ids.SecurityFilterChain;
 import org.beangle.security.ids.WebSecurityContextBuilder;
 import org.beangle.security.ids.access.DefaultAccessDeniedHandler;
 import org.beangle.security.ids.session.CookieSessionIdReader;
-import org.openurp.app.Urp;
+import org.openurp.app.Ems;
 import org.openurp.app.security.service.ActionRequestConvertor;
 import org.openurp.app.security.service.RemoteAuthorizer;
 import org.openurp.app.security.service.CasHttpSessionRepo;
@@ -42,7 +42,7 @@ public class DefaultModule extends AbstractBindModule {
 
     bind("securityFilterChain", SecurityFilterChain.class);
 
-    bind(CasConfig.class).property("casServer", Urp.getInstance().getCas());
+    bind(CasConfig.class).property("casServer", Ems.getInstance().getCas());
 
     bind(CasEntryPoint.class).shortName();
 

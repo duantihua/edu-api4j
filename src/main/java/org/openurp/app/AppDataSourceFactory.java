@@ -67,12 +67,12 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
 
   public void fetchConf() {
     if (null == name) name = "default";
-    File appFile = UrpApp.getUrpAppFile();
+    File appFile = EmsApp.getAppFile();
     if (appFile.exists()) {
-      this.url = UrpApp.getUrpAppFile().getAbsolutePath();
+      this.url = EmsApp.getAppFile().getAbsolutePath();
     } else {
       this.url =
-        Urp.getInstance().getApi() + "/platform/config/datasources/" + UrpApp.getName() + "/" + this.name + ".json?secret=" + UrpApp.Instance.getSecret();
+        Ems.getInstance().getApi() + "/platform/config/datasources/" + EmsApp.getName() + "/" + this.name + ".json?secret=" + EmsApp.Instance.getSecret();
     }
     try {
       postInit();
@@ -108,7 +108,7 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
       }
     }
     if (password != null && password.startsWith("?")) {
-      this.password = new AesEncryptor(Urp.Instance.getKey()).decrypt(password.substring(1));
+      this.password = new AesEncryptor(Ems.Instance.getKey()).decrypt(password.substring(1));
     }
   }
 

@@ -23,24 +23,24 @@ import java.util.Map;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.openurp.app.Urp;
-import org.openurp.app.UrpApp;
+import org.openurp.app.Ems;
+import org.openurp.app.EmsApp;
 
 public class UrpPropertiesExporter implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent sce) {
 
-    for (Map.Entry<String, String> entry : Urp.Instance.getProperties().entrySet()) {
+    for (Map.Entry<String, String> entry : Ems.Instance.getProperties().entrySet()) {
       if (entry.getKey().contains(".")) System.setProperty(entry.getKey(), entry.getValue());
     }
 
-    for (Map.Entry<String, String> entry : UrpApp.Instance.getProperties().entrySet()) {
+    for (Map.Entry<String, String> entry : EmsApp.Instance.getProperties().entrySet()) {
       if (entry.getKey().contains(".")) System.setProperty(entry.getKey(), entry.getValue());
     }
 
-    sce.getServletContext().setAttribute("static_base", Urp.Instance.getStatic());
-    System.setProperty("beangle.webmvc.static_base", Urp.Instance.getStatic());
+    sce.getServletContext().setAttribute("static_base", Ems.Instance.getStatic());
+    System.setProperty("beangle.webmvc.static_base", Ems.Instance.getStatic());
   }
 
   @Override
