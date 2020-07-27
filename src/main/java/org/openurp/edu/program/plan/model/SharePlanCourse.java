@@ -22,7 +22,9 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.WeekState;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
+import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
+import org.openurp.code.edu.model.ExamMode;
 import org.openurp.edu.base.model.Course;
 
 import javax.persistence.Entity;
@@ -59,8 +61,21 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   protected ShareCourseGroup group;
 
+  /**
+   * 开课部门
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Department department;
+
+  /**
+   * 考核方式
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ExamMode examMode;
+
+  @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
-  private WeekState weekstate;
+  private WeekState weekstate = WeekState.Zero;
 
   public ShareCourseGroup getGroup() {
     return group;
@@ -100,4 +115,19 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
     return planCourse;
   }
 
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  public ExamMode getExamMode() {
+    return examMode;
+  }
+
+  public void setExamMode(ExamMode examMode) {
+    this.examMode = examMode;
+  }
 }
