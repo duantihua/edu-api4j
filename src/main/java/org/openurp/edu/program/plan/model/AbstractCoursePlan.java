@@ -21,11 +21,14 @@ package org.openurp.edu.program.plan.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 抽象课程方案
@@ -37,7 +40,10 @@ import org.openurp.edu.base.code.model.CourseType;
 public abstract class AbstractCoursePlan extends LongIdObject implements CoursePlan {
 
   private static final long serialVersionUID = 1606351182470625309L;
-
+  /** 培养方案 */
+  @NotNull
+  @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+  protected Program program;
   /** 要求学分 */
   @NotNull
   private float credits;
@@ -108,5 +114,13 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public boolean isNumericTerm() {
     return true;
+  }
+
+  public Program getProgram() {
+    return program;
+  }
+
+  public void setProgram(Program program) {
+    this.program = program;
   }
 }

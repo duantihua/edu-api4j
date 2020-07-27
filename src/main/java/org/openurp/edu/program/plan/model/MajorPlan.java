@@ -46,11 +46,6 @@ public class MajorPlan extends AbstractCoursePlan {
   @JoinColumn(name = "plan_id", nullable = false)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 培养方案 */
-  @NotNull
-  @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-  protected Program program;
-
   public List<CourseGroup> getGroups() {
     return groups;
   }

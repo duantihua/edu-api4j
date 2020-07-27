@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.beangle.commons.entity.Entity;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 课程方案
@@ -62,7 +63,7 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   /**
    * 查询指定类型的组
    *
-   * @param stdType
+   * @param type
    * @return
    */
   public CourseGroup getGroup(CourseType type);
@@ -102,4 +103,6 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   Integer getTermsCount();
 
   void setTermsCount(Integer count);
+
+  Program getProgram();
 }

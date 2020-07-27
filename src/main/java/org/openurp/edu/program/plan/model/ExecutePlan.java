@@ -50,11 +50,6 @@ public class ExecutePlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 7084539759992691314L;
 
-  /** 培养方案 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected Program program;
-
   /** 部门 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -96,22 +91,12 @@ public class ExecutePlan extends AbstractCoursePlan {
     copy.setId(null);
     return copy;
   }
-
-  public Program getProgram() {
-    return program;
-  }
-
-  public void setProgram(Program program) {
-    this.program = program;
-  }
-
   /** 开始日期 */
   @NotNull
   private Date beginOn;
 
   /** 结束日期 结束日期包括在有效期内 */
   private Date endOn;
-
 
   public Campus getCampus() {
     return campus;

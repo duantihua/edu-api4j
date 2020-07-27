@@ -18,135 +18,178 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.metadata.Model;
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Target;
 import org.openurp.code.edu.model.Language;
 import org.openurp.edu.base.code.model.CourseAbilityRate;
+import org.openurp.edu.base.code.model.CourseType;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 公共共享课程组(默认实现)
  */
 @Entity(name = "org.openurp.edu.program.plan.model.ShareCourseGroup")
-public class ShareCourseGroup extends AbstractCourseGroup {
+public class ShareCourseGroup extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -6481752967441999886L;
 
-  /** 公共共享计划 */
+  /**
+   * 公共共享计划
+   */
   @Target(SharePlan.class)
   @ManyToOne(fetch = FetchType.LAZY)
-  private CoursePlan plan;
+  private SharePlan plan;
 
-  /** 上级组 */
+  /**
+   * index no
+   */
+  @Size(max = 30)
+  @NotNull
+  private String indexno;
+
+  /**
+   * 课程类别
+   */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected CourseType courseType;
+
+  /**
+   * 上级组
+   */
   @Target(ShareCourseGroup.class)
   @ManyToOne(fetch = FetchType.LAZY)
-  private CourseGroup parent;
+  private ShareCourseGroup parent;
 
-  /** 下级组列表 */
+  /**
+   * 下级组列表
+   */
   @OneToMany(targetEntity = ShareCourseGroup.class, mappedBy = "parent")
   @OrderBy("indexno")
   @Cascade(CascadeType.ALL)
-  private List<CourseGroup> children = CollectUtils.newArrayList();
+  private List<ShareCourseGroup> children = CollectUtils.newArrayList();
 
-  /** 课程列表 */
+  /**
+   * 课程列表
+   */
   @OneToMany(mappedBy = "group", targetEntity = SharePlanCourse.class)
   @Cascade(CascadeType.ALL)
-  protected List<PlanCourse> planCourses = CollectUtils.newArrayList();
+  protected List<SharePlanCourse> planCourses = CollectUtils.newArrayList();
 
-  /** 对应外语语种 */
+  /**
+   * 对应外语语种
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected Language language;
 
-  /** 对应课程能力等级 */
+  /**
+   * 对应课程能力等级
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseAbilityRate abilityRate;
+
+  public String getIndexno() {
+    return indexno;
+  }
+
+  public void setIndexno(String indexno) {
+    this.indexno = indexno;
+  }
+
+  public CourseType getCourseType() {
+    return courseType;
+  }
+
+  public void setCourseType(CourseType courseType) {
+    this.courseType = courseType;
+  }
 
   public Object clone() throws CloneNotSupportedException {
     ShareCourseGroup courseGroup = (ShareCourseGroup) super.clone();
     courseGroup.setId(null);
     // 克隆子组
-    List<CourseGroup> groups = courseGroup.getChildren();
-    List<CourseGroup> groupClones = CollectUtils.newArrayList();
-    for (CourseGroup cg : groups) {
-      CourseGroup groupClone = (CourseGroup) cg.clone();
+    List<ShareCourseGroup> groups = courseGroup.getChildren();
+    List<ShareCourseGroup> groupClones = CollectUtils.newArrayList();
+    for (ShareCourseGroup cg : groups) {
+      ShareCourseGroup groupClone = (ShareCourseGroup) cg.clone();
       groupClones.add(groupClone);
       groupClone.setParent(courseGroup);
     }
     courseGroup.setChildren(groupClones);
-    courseGroup.setPlanCourses(new ArrayList<PlanCourse>());
+    courseGroup.setPlanCourses(new ArrayList<SharePlanCourse>());
     // 克隆课程
-    for (PlanCourse planCourse : getPlanCourses()) {
-      courseGroup.addPlanCourse((PlanCourse) planCourse.clone());
+    for (SharePlanCourse planCourse : getPlanCourses()) {
+      courseGroup.addPlanCourse((SharePlanCourse) planCourse.clone());
     }
     // 克隆关系
     // courseGroup.setRelation((GroupRelation) getRelation().clone());
     return courseGroup;
   }
 
+  public void addPlanCourse(SharePlanCourse planCourse) {
+    for (SharePlanCourse planCourse1 : getPlanCourses()) {
+      if (planCourse.getCourse().equals(planCourse1.getCourse())) {
+        return;
+      }
+    }
+    planCourse.setGroup(this);
+    getPlanCourses().add(planCourse);
+  }
+
   public Object cloneToExecuteCourseGroup() {
     ExecuteCourseGroup courseGroup = Model.newInstance(ExecuteCourseGroup.class);
-    courseGroup.setCourseCount(getCourseCount());
     courseGroup.setCourseType(getCourseType());
-    courseGroup.setCredits(getCredits());
     courseGroup.setIndexno(getIndexno());
-    // courseGroup.setLimitRequiredCount(getLimitRequiredCount());
-    // courseGroup.setLimitCredits(getLimitCredits());
-    courseGroup.setTermCredits(getTermCredits());
-    courseGroup.setRemark(getRemark());
     courseGroup.setChildren(new ArrayList<CourseGroup>());
     courseGroup.setPlanCourses(new ArrayList<PlanCourse>());
-    // 克隆关系
-    // courseGroup.setRelation(getRelation());
     courseGroup.setId(null);
     return courseGroup;
   }
 
-  public void setPlanCourses(List<PlanCourse> planCourses) {
+  public void setPlanCourses(List<SharePlanCourse> planCourses) {
     this.planCourses = planCourses;
   }
 
-  public List<CourseGroup> getChildren() {
+  public List<ShareCourseGroup> getChildren() {
     return children;
   }
 
-  public void setChildren(List<CourseGroup> children) {
+  public void setChildren(List<ShareCourseGroup> children) {
     this.children = children;
   }
 
-  public CoursePlan getPlan() {
+  public SharePlan getPlan() {
     return plan;
   }
 
-  public void setPlan(CoursePlan plan) {
+  public void setPlan(SharePlan plan) {
     this.plan = plan;
   }
 
-  public CourseGroup getParent() {
+  public ShareCourseGroup getParent() {
     return parent;
   }
 
-  public void setParent(CourseGroup parent) {
+  public void setParent(ShareCourseGroup parent) {
     this.parent = parent;
   }
 
   /**
    * 添加计划课程
    */
-  public void addPlanCourses(List<PlanCourse> givenPlanCourses) {
-    for (PlanCourse element : givenPlanCourses) {
+  public void addPlanCourses(List<SharePlanCourse> givenPlanCourses) {
+    for (SharePlanCourse element : givenPlanCourses) {
       boolean finded = false;
-      for (PlanCourse element2 : planCourses) {
+      for (SharePlanCourse element2 : planCourses) {
         if (element.getCourse().getId().equals(element2.getCourse().getId())) {
           finded = true;
           break;
@@ -159,16 +202,16 @@ public class ShareCourseGroup extends AbstractCourseGroup {
     }
   }
 
-  public void updateCoursePlan(CoursePlan plan) {
+  public void updateCoursePlan(SharePlan plan) {
     setPlan(plan);
     if (getChildren() != null) {
-      for (CourseGroup group : getChildren()) {
+      for (ShareCourseGroup group : getChildren()) {
         group.updateCoursePlan(plan);
       }
     }
   }
 
-  public List<PlanCourse> getPlanCourses() {
+  public List<SharePlanCourse> getPlanCourses() {
     return this.planCourses;
   }
 
