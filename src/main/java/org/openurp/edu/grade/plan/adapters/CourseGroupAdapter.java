@@ -284,4 +284,9 @@ public class CourseGroupAdapter implements CourseGroup {
   public void setSubCount(short subCount) {
 
   }
+
+  @Override
+  public boolean isAutoAddup() {
+    return true;
+  }
 }

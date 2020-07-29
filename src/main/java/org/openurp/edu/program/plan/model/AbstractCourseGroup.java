@@ -69,6 +69,8 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   @NotNull
   private String indexno;
 
+  private boolean autoAddup;
+
   public String getName() {
     return (null == courseType) ? null : courseType.getName();
   }
@@ -79,25 +81,6 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
     int idx = Numbers.toInt(index);
     if (idx <= 0) idx = 1;
     return idx;
-  }
-
-  public boolean isCompulsory() {
-    if (CollectUtils.isEmpty(getChildren()) && CollectUtils.isEmpty(getPlanCourses())) { return false; }
-
-    boolean isCompulsory = true;
-    if (CollectUtils.isNotEmpty(getChildren()) && getChildren().size() > 1) {
-      isCompulsory &= (getChildren().size() == subCount);
-    }
-
-    if (!isCompulsory) { return isCompulsory; }
-
-    if (CollectUtils.isNotEmpty(getPlanCourses())) {
-      for (PlanCourse pcourse : getPlanCourses()) {
-        isCompulsory &= pcourse.isCompulsory();
-      }
-    }
-
-    return isCompulsory;
   }
 
   public short getSubCount() {
@@ -191,6 +174,15 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
 
   public void setIndexno(String indexno) {
     this.indexno = indexno;
+  }
+
+  @Override
+  public boolean isAutoAddup() {
+    return autoAddup;
+  }
+
+  public void setAutoAddup(boolean autoAddup) {
+    this.autoAddup = autoAddup;
   }
 
   /**
