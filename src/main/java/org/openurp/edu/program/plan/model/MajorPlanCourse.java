@@ -18,11 +18,6 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.WeekState;
 import org.hibernate.annotations.Target;
@@ -30,6 +25,12 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.model.SemesterStage;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * 原始计划的计划课程
@@ -39,7 +40,9 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
 
   private static final long serialVersionUID = -2091355773150181171L;
 
-  /** 课程组 */
+  /**
+   * 课程组
+   */
   @Target(MajorCourseGroup.class)
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -55,17 +58,24 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   @Type(type = "org.openurp.base.time.hibernate.TermsType")
   protected Terms suggestTerms = Terms.Empty;
 
-  /** 开课部门 */
+  /**
+   * 开课部门
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 考核方式 */
+  /**
+   * 考核方式
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
 
   @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private SemesterStage semesterStage;
 
   public Department getDepartment() {
     return department;
@@ -108,7 +118,9 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   }
 
   public boolean isSame(Object object) {
-    if (!(object instanceof MajorPlanCourse)) { return false; }
+    if (!(object instanceof MajorPlanCourse)) {
+      return false;
+    }
     MajorPlanCourse rhs = (MajorPlanCourse) object;
     return Objects.equalsBuilder().add(terms, rhs.terms).add(remark, rhs.remark)
         .add(department.getId(), rhs.department.getId()).add(course.getId(), rhs.course.getId())
@@ -121,4 +133,11 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
         + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 
+  public SemesterStage getSemesterStage() {
+    return semesterStage;
+  }
+
+  public void setSemesterStage(SemesterStage semesterStage) {
+    this.semesterStage = semesterStage;
+  }
 }

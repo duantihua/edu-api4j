@@ -33,6 +33,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.model.SemesterStage;
 
 /**
  * 专业计划课程
@@ -67,6 +68,9 @@ public class ExecutePlanCourse extends AbstractPlanCourse implements ExecutePlan
   /** 考核方式 */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private SemesterStage semesterStage;
 
   @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
@@ -126,4 +130,11 @@ public class ExecutePlanCourse extends AbstractPlanCourse implements ExecutePlan
         + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 
+  public SemesterStage getSemesterStage() {
+    return semesterStage;
+  }
+
+  public void setSemesterStage(SemesterStage semesterStage) {
+    this.semesterStage = semesterStage;
+  }
 }

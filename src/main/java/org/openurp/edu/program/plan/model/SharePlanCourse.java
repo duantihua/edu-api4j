@@ -26,6 +26,7 @@ import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
 import org.openurp.edu.base.model.Course;
+import org.openurp.edu.base.model.SemesterStage;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -76,6 +77,9 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
   @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private SemesterStage semesterStage;
 
   public ShareCourseGroup getGroup() {
     return group;
@@ -129,5 +133,13 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
 
   public void setExamMode(ExamMode examMode) {
     this.examMode = examMode;
+  }
+
+  public SemesterStage getSemesterStage() {
+    return semesterStage;
+  }
+
+  public void setSemesterStage(SemesterStage semesterStage) {
+    this.semesterStage = semesterStage;
   }
 }

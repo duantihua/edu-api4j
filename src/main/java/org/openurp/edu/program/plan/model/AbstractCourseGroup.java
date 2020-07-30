@@ -18,22 +18,23 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.LongIdObject;
+import org.beangle.commons.lang.Numbers;
+import org.beangle.commons.lang.Strings;
+import org.hibernate.annotations.Type;
+import org.openurp.base.time.Terms;
+import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.program.plan.util.PlanUtils;
 
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.lang.Numbers;
-import org.beangle.commons.lang.Strings;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.program.plan.util.PlanUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 课程设置中的课程组
@@ -69,7 +70,13 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   @NotNull
   private String indexno;
 
+  /**是否自动累计学分*/
   private boolean autoAddup;
+
+  /**开课学期*/
+  @NotNull
+  @Type(type = "org.openurp.base.time.hibernate.TermsType")
+  protected Terms terms = Terms.Empty;
 
   public String getName() {
     return (null == courseType) ? null : courseType.getName();
@@ -183,6 +190,14 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
 
   public void setAutoAddup(boolean autoAddup) {
     this.autoAddup = autoAddup;
+  }
+
+  public Terms getTerms() {
+    return terms;
+  }
+
+  public void setTerms(Terms terms) {
+    this.terms = terms;
   }
 
   /**
