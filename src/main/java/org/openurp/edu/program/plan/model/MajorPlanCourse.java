@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.model.CalendarStage;
 import org.openurp.edu.base.model.SemesterStage;
 
 import javax.persistence.Entity;
@@ -75,7 +76,7 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   private WeekState weekstate = WeekState.Zero;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private SemesterStage semesterStage;
+  private CalendarStage stage;
 
   public Department getDepartment() {
     return department;
@@ -133,11 +134,11 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
         + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 
-  public SemesterStage getSemesterStage() {
-    return semesterStage;
+  public CalendarStage getStage() {
+    return stage;
   }
 
-  public void setSemesterStage(SemesterStage semesterStage) {
-    this.semesterStage = semesterStage;
+  public void setStage(CalendarStage stage) {
+    this.stage = stage;
   }
 }

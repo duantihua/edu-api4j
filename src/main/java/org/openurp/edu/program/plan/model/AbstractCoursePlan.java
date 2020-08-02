@@ -49,33 +49,28 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
   private float credits;
 
   /** 起始学期 */
-  private Integer startTerm;
+  private int startTerm;
 
   /** 结束学期 */
-  private Integer endTerm;
+  private int endTerm;
 
-  public Integer getStartTerm() {
+  public int getStartTerm() {
     return startTerm;
   }
 
-  public void setStartTerm(Integer startTerm) {
+  public void setStartTerm(int startTerm) {
     this.startTerm = startTerm;
   }
 
-  public Integer getEndTerm() {
+  public int getEndTerm() {
     return endTerm;
   }
 
-  public void setEndTerm(Integer endTerm) {
+  public void setEndTerm(int endTerm) {
     this.endTerm = endTerm;
   }
 
-  public void setTermsCount(Integer count) {
-    startTerm = 1;
-    endTerm = count;
-  }
-
-  public Integer getTermsCount() {
+  public int getTermsCount() {
     return endTerm - startTerm + 1;
   }
 

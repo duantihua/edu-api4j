@@ -18,10 +18,11 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.util.List;
-
 import org.beangle.commons.entity.Entity;
+import org.openurp.base.time.Terms;
 import org.openurp.edu.base.code.model.CourseType;
+
+import java.util.List;
 
 /**
  * 课程设置中的课程组.
@@ -52,8 +53,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置课程方案
    *
-   * @param plan
-   *          课程方案
+   * @param plan 课程方案
    */
   public void setPlan(CoursePlan plan);
 
@@ -67,8 +67,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置上级组
    *
-   * @param courseGroup
-   *          上级组
+   * @param courseGroup 上级组
    */
   public void setParent(CourseGroup courseGroup);
 
@@ -82,8 +81,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置子节点集合
    *
-   * @param children
-   *          子节点集合
+   * @param children 子节点集合
    */
   public void setChildren(List<CourseGroup> children);
 
@@ -101,8 +99,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置课程类别
    *
-   * @param courseType
-   *          课程类别
+   * @param courseType 课程类别
    */
   public void setCourseType(CourseType courseType);
 
@@ -116,8 +113,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置组内要求总学分
    *
-   * @param credits
-   *          组内要求总学分
+   * @param credits 组内要求总学分
    */
   public void setCredits(float credits);
 
@@ -131,8 +127,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置组内要求门数
    *
-   * @param requiredCount
-   *          组内要求门数
+   * @param requiredCount 组内要求门数
    */
   public void setCourseCount(short requiredCount);
 
@@ -141,34 +136,33 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置组内计划课程
    *
-   * @param planCourses
-   *          组内计划课程
+   * @param planCourses 组内计划课程
    */
   public void setPlanCourses(List<PlanCourse> planCourses);
 
-  /**是否自动累计学分*/
+  /**
+   * 是否自动累计学分
+   */
   public boolean isAutoAddup();
+
   /**
    * 添加多个计划课程
    *
-   * @param planCourses
-   *          多个计划课程
+   * @param planCourses 多个计划课程
    */
   public void addPlanCourses(List<PlanCourse> planCourses);
 
   /**
    * 添加计划课程
    *
-   * @param planCourse
-   *          计划课程
+   * @param planCourse 计划课程
    */
   public void addPlanCourse(PlanCourse planCourse);
 
   /**
    * 添加子组
    *
-   * @param group
-   *          子组
+   * @param group 子组
    */
   public void addChildGroup(CourseGroup group);
 
@@ -197,16 +191,14 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置备注
    *
-   * @param remark
-   *          备注
+   * @param remark 备注
    */
   public void setRemark(String remark);
 
   /**
    * 删除计划课程
    *
-   * @param course
-   *          计划课程
+   * @param course 计划课程
    */
   public void removePlanCourse(PlanCourse course);
 
@@ -220,8 +212,7 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   /**
    * 设置每学期学分
    *
-   * @param termCredits
-   *          每学期学分
+   * @param termCredits 每学期学分
    */
   public void setTermCredits(String termCredits);
 
@@ -230,4 +221,8 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   public void setIndexno(String indexno);
 
   public int getIndex();
+
+  public Terms getTerms();
+
+  public void setTerms(Terms terms);
 }
