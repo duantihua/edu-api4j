@@ -44,9 +44,11 @@ public class ExamActivity extends LongIdObject {
   private static final long serialVersionUID = -6748665397101838909L;
 
   @NotNull
+  @Size(max = 200)
+  private String examinee;
+
   @ManyToOne(fetch = FetchType.LAZY)
-  @NaturalId
-  protected ExamClazz examClazz;
+  private ExamTask task;
 
   /**
    * 教学任务
@@ -68,6 +70,16 @@ public class ExamActivity extends LongIdObject {
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamType examType;
+
+  /** 考试周 */
+  private Short examWeek;
+
+  /** 是否院系自行安排 */
+  private Boolean departArranged;
+
+  /**试卷编号*/
+  private String examPaperNo;
+
 
   /**
    * 考试日期
@@ -132,33 +144,65 @@ public class ExamActivity extends LongIdObject {
     this.clazz = clazz;
   }
 
-  public ExamClazz getExamClazz() {
-    return examClazz;
+  public String getExaminee() {
+    return examinee;
   }
 
-  public void setExamClazz(ExamClazz examClazz) {
-    this.examClazz = examClazz;
+  public void setExaminee(String examinee) {
+    this.examinee = examinee;
+  }
+
+  public ExamTask getTask() {
+    return task;
+  }
+
+  public void setTask(ExamTask task) {
+    this.task = task;
+  }
+
+  public Short getExamWeek() {
+    return examWeek;
+  }
+
+  public void setExamWeek(Short examWeek) {
+    this.examWeek = examWeek;
+  }
+
+  public Boolean getDepartArranged() {
+    return departArranged;
+  }
+
+  public void setDepartArranged(Boolean departArranged) {
+    this.departArranged = departArranged;
+  }
+
+  public String getExamPaperNo() {
+    return examPaperNo;
+  }
+
+  public void setExamPaperNo(String examPaperNo) {
+    this.examPaperNo = examPaperNo;
   }
 
   /**
    * 把所有的信息克隆一遍<br>
    * 不包括examTakers
    */
-  public Object clone() {
-    ExamActivity activity = new ExamActivity();
-    activity.setExamOn(getExamOn());
-    activity.setBeginAt(getBeginAt());
-    activity.setEndAt(getEndAt());
-    activity.setExamType(getExamType());
-    activity.setClazz(getClazz());
-    activity.setSemester(getSemester());
-    activity.setRemark(getRemark());
-    activity.setState(getState());
-    for (ExamRoom examRoom : activity.getRooms()) {
-      activity.getRooms().add((ExamRoom) examRoom.clone());
-    }
-    return activity;
-  }
+//  public Object clone() {
+//    ExamActivity activity = new ExamActivity();
+//    activity.setExamOn(getExamOn());
+//    activity.setBeginAt(getBeginAt());
+//    activity.setEndAt(getEndAt());
+//    activity.setExamType(getExamType());
+//    activity.setClazz(getClazz());
+//    activity.setSemester(getSemester());
+//    activity.setRemark(getRemark());
+//    activity.setState(getState());
+//    for (ExamRoom examRoom : activity.getRooms()) {
+//      activity.getRooms().add((ExamRoom) examRoom.clone());
+//    }
+//    return activity;
+//  }
 
   public ExamActivity() {
   }
