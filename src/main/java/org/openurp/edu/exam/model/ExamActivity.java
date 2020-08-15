@@ -43,10 +43,6 @@ public class ExamActivity extends LongIdObject {
 
   private static final long serialVersionUID = -6748665397101838909L;
 
-  @NotNull
-  @Size(max = 200)
-  private String examinee;
-
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamTask task;
 
@@ -142,14 +138,6 @@ public class ExamActivity extends LongIdObject {
 
   public void setClazz(Clazz clazz) {
     this.clazz = clazz;
-  }
-
-  public String getExaminee() {
-    return examinee;
-  }
-
-  public void setExaminee(String examinee) {
-    this.examinee = examinee;
   }
 
   public ExamTask getTask() {

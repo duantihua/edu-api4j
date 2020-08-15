@@ -18,18 +18,18 @@
  */
 package org.openurp.edu.base.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Building;
 import org.openurp.base.model.Campus;
+import org.openurp.base.model.Department;
 import org.openurp.base.model.Room;
 import org.openurp.code.edu.model.ClassroomType;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "org.openurp.edu.base.model.Classroom")
 @Cacheable
@@ -64,7 +64,9 @@ public class Classroom extends ProjectBasedObject<Integer> {
   @ManyToOne(fetch = FetchType.LAZY)
   private ClassroomType roomType;
 
-  /** 所在校区 */
+  /**
+   * 所在校区
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
@@ -80,6 +82,15 @@ public class Classroom extends ProjectBasedObject<Integer> {
   private java.sql.Date beginOn;
 
   private java.sql.Date endOn;
+
+  public int getCapacity() {
+    if (null == room) return courseCapacity;
+    else return room.getCapacity();
+  }
+
+  @ManyToMany
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "openurp.base")
+  private Set<Department> departs = new HashSet<Department>();
 
   public Room getRoom() {
     return room;
@@ -173,8 +184,15 @@ public class Classroom extends ProjectBasedObject<Integer> {
     return campus;
   }
 
-  public String getExamDescription(){
-    return campus.getName()+" "+ getName() +" " +getRoomType().getName() +"("+ getExamCapacity()+")";
+  public String getExamDescription() {
+    return campus.getName() + " " + getName() + " " + getRoomType().getName() + "(" + getExamCapacity() + ")";
   }
 
+  public Set<Department> getDeparts() {
+    return departs;
+  }
+
+  public void setDeparts(Set<Department> departs) {
+    this.departs = departs;
+  }
 }
