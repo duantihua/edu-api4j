@@ -18,46 +18,105 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.WeekState;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
+import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.model.Course;
+import org.openurp.edu.base.model.SemesterStage;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * 公共共享课程组课程
  */
 @Entity(name = "org.openurp.edu.program.plan.model.SharePlanCourse")
-public class SharePlanCourse extends AbstractPlanCourse {
+public class SharePlanCourse extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -6806780960520737961L;
 
-  /** 共享课程组 */
+  /**
+   * 课程
+   */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Course course;
+
+  /**
+   * 开课学期
+   */
+  @NotNull
+  @Type(type = "org.openurp.base.time.hibernate.TermsType")
+  protected Terms terms = Terms.Empty;
+
+  /**
+   * 共享课程组
+   */
   @Target(ShareCourseGroup.class)
   @ManyToOne(fetch = FetchType.LAZY)
-  protected CourseGroup group;
+  protected ShareCourseGroup group;
 
-  /** 开课部门 */
+  /**
+   * 开课部门
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 开课部门 */
+  /**
+   * 考核方式
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
 
+  @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
-  private WeekState weekstate;
+  private WeekState weekstate = WeekState.Zero;
 
-  public CourseGroup getGroup() {
+  @ManyToOne(fetch = FetchType.LAZY)
+  private SemesterStage semesterStage;
+
+  public ShareCourseGroup getGroup() {
     return group;
   }
 
-  public void setGroup(CourseGroup group) {
+  public void setGroup(ShareCourseGroup group) {
     this.group = group;
+  }
+
+  public WeekState getWeekstate() {
+    return weekstate;
+  }
+
+  public void setWeekstate(WeekState weekstate) {
+    this.weekstate = weekstate;
+  }
+
+  public Course getCourse() {
+    return course;
+  }
+
+  public void setCourse(Course course) {
+    this.course = course;
+  }
+
+  public Terms getTerms() {
+    return terms;
+  }
+
+  public void setTerms(Terms terms) {
+    this.terms = terms;
+  }
+
+  public Object clone() throws CloneNotSupportedException {
+    SharePlanCourse planCourse = (SharePlanCourse) super.clone();
+    planCourse.setId(null);
+    return planCourse;
   }
 
   public Department getDepartment() {
@@ -76,11 +135,11 @@ public class SharePlanCourse extends AbstractPlanCourse {
     this.examMode = examMode;
   }
 
-  public WeekState getWeekstate() {
-    return weekstate;
+  public SemesterStage getSemesterStage() {
+    return semesterStage;
   }
 
-  public void setWeekstate(WeekState weekstate) {
-    this.weekstate = weekstate;
+  public void setSemesterStage(SemesterStage semesterStage) {
+    this.semesterStage = semesterStage;
   }
 }

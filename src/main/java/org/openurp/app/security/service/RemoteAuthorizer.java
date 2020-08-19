@@ -25,8 +25,8 @@ import org.beangle.commons.web.util.HttpUtils;
 import org.beangle.security.authz.AbstractRoleBasedAuthorizer;
 import org.beangle.security.authz.Authority;
 import org.beangle.security.authz.AuthorityDomain;
-import org.openurp.app.Urp;
-import org.openurp.app.UrpApp;
+import org.openurp.app.Ems;
+import org.openurp.app.EmsApp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 
 /**
  * 根据REST接口查找root用户和资源
- * http://localhost:8080/platform/user/profiles/root.json?domain=edu
  * http://localhost:8080/platform/user/accounts/root.json
  * http://localhost:8080/platform/security/func/edu-lesson-adminapp/resources.json
  */
@@ -55,7 +54,7 @@ public class RemoteAuthorizer extends AbstractRoleBasedAuthorizer {
 
 
   public static Set<String> getRoots() {
-    String url = Urp.Instance.getApi() + "/platform/user/roots.json?app=" + UrpApp.getName();
+    String url = Ems.Instance.getApi() + "/platform/user/roots.json?app=" + EmsApp.getName();
     try {
       String resources = HttpUtils.getResponseText(url);
       List rs = new Gson().fromJson(resources, List.class);
@@ -67,7 +66,7 @@ public class RemoteAuthorizer extends AbstractRoleBasedAuthorizer {
   }
 
   public static List<Authority> getResources() {
-    String url = Urp.Instance.getApi() + "/platform/security/func/" + UrpApp.getName() + "/resources.json";
+    String url = Ems.Instance.getApi() + "/platform/security/func/" + EmsApp.getName() + "/resources.json";
     try {
       String resources = HttpUtils.getResponseText(url);
       return toAuthorities(resources);

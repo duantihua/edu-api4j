@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.functor.Predicate;
+import org.openurp.base.time.Terms;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.program.plan.model.CourseGroup;
 import org.openurp.edu.program.plan.model.CoursePlan;
@@ -282,6 +283,21 @@ public class CourseGroupAdapter implements CourseGroup {
 
   @Override
   public void setSubCount(short subCount) {
+
+  }
+
+  @Override
+  public boolean isAutoAddup() {
+    return true;
+  }
+
+  @Override
+  public Terms getTerms() {
+    return Terms.Empty;
+  }
+
+  @Override
+  public void setTerms(Terms terms) {
 
   }
 }

@@ -39,6 +39,7 @@ import org.openurp.edu.clazz.model.CourseTaker;
 public class ExamTaker extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -1593583921052845498L;
+
   /** 教学任务 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -176,5 +177,6 @@ public class ExamTaker extends LongIdObject implements Cloneable {
   public void setRemark(String remark) {
     this.remark = remark;
   }
+
 
 }

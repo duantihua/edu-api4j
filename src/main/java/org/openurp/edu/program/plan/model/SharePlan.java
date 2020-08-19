@@ -18,94 +18,132 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.openurp.code.edu.model.AcademicLevel;
 import org.openurp.edu.base.model.Project;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 公共共享计划
  */
 @Entity(name = "org.openurp.edu.program.plan.model.SharePlan")
-public class SharePlan extends AbstractCoursePlan implements Cloneable {
+public class SharePlan extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -9012605313915822262L;
 
-  /** 名称 */
+  /**
+   * 名称
+   */
   @NotNull
   @Size(max = 255)
   private String name;
 
-  /** 开始年级 */
+  /**
+   * 开始年级
+   */
   @NotNull
   @Size(max = 10)
   private String fromGrade;
-  /** 截至年级 */
+  /**
+   * 截至年级
+   */
   @NotNull
   @Size(max = 10)
   private String toGrade;
 
-  /** 项目 */
+  /**
+   * 项目
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
-  /** 培养层次 */
+  /**
+   * 培养层次
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private AcademicLevel level;
 
-  /** 共享课程组 */
+  /**
+   * 共享课程组
+   */
   @OneToMany(mappedBy = "plan", targetEntity = ShareCourseGroup.class)
   @OrderBy("indexno")
   @Cascade(CascadeType.ALL)
-  protected List<CourseGroup> groups = CollectUtils.newArrayList();
+  protected List<ShareCourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 开始日期 */
+  /**
+   * 开始日期
+   */
   @NotNull
   private Date beginOn;
 
-  /** 结束日期 结束日期包括在有效期内 */
+  /**
+   * 结束日期 结束日期包括在有效期内
+   */
   private Date endOn;
 
-  /** 创建时间 */
+  /**
+   * 创建时间
+   */
   protected java.util.Date createdAt;
 
-  /** 最后修改时间 */
+  /**
+   * 最后修改时间
+   */
   protected java.util.Date updatedAt;
 
   public java.util.Date getUpdatedAt() {
     return updatedAt;
   }
 
+  @Size(max = 100)
+  private String remark;
+
   public void setUpdatedAt(java.util.Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 
+
+  public List<ShareCourseGroup> getTopCourseGroups() {
+    if (getGroups() == null) { return new ArrayList<ShareCourseGroup>(); }
+    List<ShareCourseGroup> res = new ArrayList<ShareCourseGroup>();
+    for (ShareCourseGroup group : getGroups()) {
+      if (group != null && group.getParent() == null) res.add(group);
+    }
+    return res;
+  }
+
+
   public Object clone() throws CloneNotSupportedException {
     SharePlan shareCoursePlan = (SharePlan) super.clone();
-    shareCoursePlan.setGroups(new ArrayList<CourseGroup>());
+    shareCoursePlan.setGroups(new ArrayList<ShareCourseGroup>());
     shareCoursePlan.setId(null);
-    for (CourseGroup cg : getGroups()) {
+    for (ShareCourseGroup cg : getGroups()) {
       if (null == cg.getParent()) {
-        CourseGroup cgClone = (CourseGroup) cg.clone();
+        ShareCourseGroup cgClone = (ShareCourseGroup) cg.clone();
         cgClone.setPlan(shareCoursePlan);
         shareCoursePlan.addGroup(cgClone);
       }
     }
     return shareCoursePlan;
+  }
+
+  public void addGroup(ShareCourseGroup group) {
+    if (null == getGroups()) {
+      setGroups(new ArrayList<ShareCourseGroup>());
+    }
+    getGroups().add(group);
+    group.updateCoursePlan(this);
   }
 
   public String getName() {
@@ -124,11 +162,11 @@ public class SharePlan extends AbstractCoursePlan implements Cloneable {
     this.level = level;
   }
 
-  public List<CourseGroup> getGroups() {
+  public List<ShareCourseGroup> getGroups() {
     return groups;
   }
 
-  public void setGroups(List<CourseGroup> groups) {
+  public void setGroups(List<ShareCourseGroup> groups) {
     this.groups = groups;
   }
 
@@ -180,4 +218,11 @@ public class SharePlan extends AbstractCoursePlan implements Cloneable {
     this.toGrade = toGrade;
   }
 
+  public String getRemark() {
+    return remark;
+  }
+
+  public void setRemark(String remark) {
+    this.remark = remark;
+  }
 }

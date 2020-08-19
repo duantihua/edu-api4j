@@ -18,16 +18,16 @@
  */
 package org.openurp.app.security;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.Condition;
 import org.beangle.commons.dao.query.builder.Conditions;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
+import org.beangle.security.core.userdetail.Profile;
 import org.beangle.security.data.Permission;
-import org.beangle.security.data.Profile;
+
+import java.util.Arrays;
+import java.util.List;
 
 public final class SecurityUtils {
 
@@ -52,7 +52,12 @@ public final class SecurityUtils {
         Condition c = new Condition(content);
         List<String> params = c.getParamNames();
         for (final String paramName : params) {
-          Object value = profile.getProperty(paramName);
+          Object value;
+          if (paramName.endsWith("s")) {
+            value = profile.getProperty(paramName.substring(0, paramName.length() - 1));
+          } else {
+            value = profile.getProperty(paramName);
+          }
           if (null != value) {
             if (value.equals(Profile.AllValue)) {
               content = "";

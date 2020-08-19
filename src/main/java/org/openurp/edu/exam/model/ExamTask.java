@@ -84,7 +84,7 @@ public class ExamTask extends LongIdObject {
 
   @OneToMany(mappedBy = "task")
   @OrderBy("stdCount DESC")
-  private List<ExamClazz> examClazzes = CollectUtils.newArrayList();
+  private List<ExamActivity> activities = CollectUtils.newArrayList();
 
   /** 考试日期 */
   private java.sql.Date examOn;
@@ -152,12 +152,12 @@ public class ExamTask extends LongIdObject {
    */
   public Map<Campus, Integer> getCampusStdCounts() {
     Map<Campus, Integer> counts = CollectUtils.newHashMap();
-    for (ExamClazz el : examClazzes) {
-      Integer c = counts.get(el.getClazz().getCampus());
+    for (ExamActivity ea : activities) {
+      Integer c = counts.get(ea.getClazz().getCampus());
       if (null == c) {
-        counts.put(el.getClazz().getCampus(), el.getStdCount());
+        counts.put(ea.getClazz().getCampus(), ea.getStdCount());
       } else {
-        counts.put(el.getClazz().getCampus(), el.getStdCount() + c.intValue());
+        counts.put(ea.getClazz().getCampus(), ea.getStdCount() + c.intValue());
       }
     }
     return counts;
@@ -165,7 +165,7 @@ public class ExamTask extends LongIdObject {
 
   public void calcStdCount() {
     int a = 0;
-    for (ExamClazz el : examClazzes) {
+    for (ExamActivity el : activities) {
       a += el.getStdCount();
     }
     this.stdCount = a;
@@ -175,28 +175,12 @@ public class ExamTask extends LongIdObject {
     this.code = getCourseCodes();
   }
 
-//  public List<ExamTaker> getExamTakers() {
-//    List<ExamTaker> takers = CollectUtils.newArrayList();
-//    for (ExamClazz el : examClazzes) {
-//      takers.addAll(el.getExamTakers());
-//    }
-//    return takers;
-//  }
-
   public List<Clazz> getClazzes() {
     List<Clazz> clazzes = CollectUtils.newArrayList();
-    for (ExamClazz el : examClazzes) {
-      clazzes.add(el.getClazz());
+    for (ExamActivity ea : activities) {
+      clazzes.add(ea.getClazz());
     }
     return clazzes;
-  }
-
-  public List<ExamClazz> getExamClazzes() {
-    return examClazzes;
-  }
-
-  public void setExamClazzes(List<ExamClazz> examClazzes) {
-    this.examClazzes = examClazzes;
   }
 
   public int getStdCount() {
@@ -318,8 +302,8 @@ public class ExamTask extends LongIdObject {
 
   public Set<Course> getCourses() {
     Set<Course> cs = CollectUtils.newHashSet();
-    for (ExamClazz el : examClazzes) {
-      cs.add(el.getClazz().getCourse());
+    for (ExamActivity ea : activities) {
+      cs.add(ea.getClazz().getCourse());
     }
     return cs;
   }
@@ -384,4 +368,11 @@ public class ExamTask extends LongIdObject {
     this.code = code;
   }
 
+  public List<ExamActivity> getActivities() {
+    return activities;
+  }
+
+  public void setActivities(List<ExamActivity> activities) {
+    this.activities = activities;
+  }
 }

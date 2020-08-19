@@ -18,11 +18,12 @@
  */
 package org.openurp.edu.program.plan.model;
 
-import java.sql.Date;
-import java.util.List;
-
 import org.beangle.commons.entity.Entity;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.program.model.Program;
+
+import java.sql.Date;
+import java.util.List;
 
 /**
  * 课程方案
@@ -47,8 +48,7 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   /**
    * 设置总学分
    *
-   * @param credits
-   *          总学分
+   * @param credits 总学分
    */
   public void setCredits(float credits);
 
@@ -62,7 +62,7 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   /**
    * 查询指定类型的组
    *
-   * @param stdType
+   * @param type
    * @return
    */
   public CourseGroup getGroup(CourseType type);
@@ -77,8 +77,7 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   /**
    * 设置计划课程组
    *
-   * @param groups
-   *          计划课程组
+   * @param groups 计划课程组
    */
   public void setGroups(List<CourseGroup> groups);
 
@@ -99,7 +98,15 @@ public interface CoursePlan extends Entity<Long>, Cloneable {
   /**
    * 这个计划的学期数
    */
-  Integer getTermsCount();
+  int getTermsCount();
 
-  void setTermsCount(Integer count);
+  void setStartTerm(int startTerm);
+
+  void setEndTerm(int endTerm);
+
+  int getStartTerm();
+
+  int getEndTerm();
+
+  Program getProgram();
 }

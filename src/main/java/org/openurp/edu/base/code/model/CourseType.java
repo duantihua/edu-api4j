@@ -48,6 +48,9 @@ public class CourseType extends Code<Integer> {
   /**是否专业课*/
   private boolean major;
 
+  /**是否选修课*/
+  private boolean optional;
+
   public boolean isPractical() {
     return practical;
   }
@@ -70,5 +73,13 @@ public class CourseType extends Code<Integer> {
 
   public void setMajor(boolean major) {
     this.major = major;
+  }
+
+  public boolean isOptional() {
+    return optional;
+  }
+
+  public void setOptional(boolean optional) {
+    this.optional = optional;
   }
 }

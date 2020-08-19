@@ -18,17 +18,19 @@
  */
 package org.openurp.edu.base.code.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+
 /**
  * 课时类别代码
- *
  *
  * @since 2009
  */
@@ -40,4 +42,15 @@ public class CourseHourType extends Code<Integer> {
 
   private static final long serialVersionUID = 387011356634522464L;
 
+  @NotNull
+  @Enumerated(value = EnumType.ORDINAL)
+  private CourseHourCategory category;
+
+  public CourseHourCategory getCategory() {
+    return category;
+  }
+
+  public void setCategory(CourseHourCategory category) {
+    this.category = category;
+  }
 }

@@ -41,7 +41,11 @@ public class SemesterStage extends NumberIdObject<Integer> {
   @NotNull
   private Semester semester;
 
-  /** 名称 */
+  /**阶段*/
+  @ManyToOne(fetch = FetchType.LAZY)
+  @NotNull
+  private CalendarStage stage;
+   /** 名称 */
   @NotNull
   @Size(max = 40)
   private String name;
@@ -96,4 +100,11 @@ public class SemesterStage extends NumberIdObject<Integer> {
     this.remark = remark;
   }
 
+  public CalendarStage getStage() {
+    return stage;
+  }
+
+  public void setStage(CalendarStage stage) {
+    this.stage = stage;
+  }
 }

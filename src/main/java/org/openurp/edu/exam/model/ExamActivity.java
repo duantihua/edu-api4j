@@ -18,20 +18,6 @@
  */
 package org.openurp.edu.exam.model;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
@@ -42,6 +28,13 @@ import org.openurp.edu.base.model.Classroom;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.clazz.model.Clazz;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 /**
  * 排考活动
  */
@@ -50,51 +43,84 @@ public class ExamActivity extends LongIdObject {
 
   private static final long serialVersionUID = -6748665397101838909L;
 
-  /** 教学任务 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ExamTask task;
+
+  /**
+   * 教学任务
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  @NaturalId
   protected Clazz clazz;
 
-  /** 学年学期 */
+  /**
+   * 学年学期
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Semester semester;
 
-  /** 考试类型 */
+  /**
+   * 考试类型
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  @NaturalId
   private ExamType examType;
 
-  /** 考试日期 */
+  /** 考试周 */
+  private Short examWeek;
+
+  /** 是否院系自行安排 */
+  private Boolean departArranged;
+
+  /**试卷编号*/
+  private String examPaperNo;
+
+
+  /**
+   * 考试日期
+   */
   private java.sql.Date examOn;
 
-  /** 开始时间 */
+  /**
+   * 开始时间
+   */
   @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
   private HourMinute beginAt;
 
-  /** 结束时间 */
+  /**
+   * 结束时间
+   */
   @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
   private HourMinute endAt;
 
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 255)
   private String remark;
 
-  /** 考生数量 */
+  /**
+   * 考生数量
+   */
   private int stdCount;
 
-  /** 考场列表 */
+  /**
+   * 考场列表
+   */
   @ManyToMany
   private Set<ExamRoom> rooms = CollectUtils.newHashSet();
 
-  /** 发布状态 */
+  /**
+   * 发布状态
+   */
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
   private PublishState state = PublishState.None;
 
-  /** 应考学生记录 */
+  /**
+   * 应考学生记录
+   */
   @OneToMany(mappedBy = "activity", targetEntity = ExamTaker.class)
   private List<ExamTaker> examTakers = CollectUtils.newArrayList();
 
@@ -110,25 +136,61 @@ public class ExamActivity extends LongIdObject {
     return clazz;
   }
 
+  public void setClazz(Clazz clazz) {
+    this.clazz = clazz;
+  }
+
+  public ExamTask getTask() {
+    return task;
+  }
+
+  public void setTask(ExamTask task) {
+    this.task = task;
+  }
+
+  public Short getExamWeek() {
+    return examWeek;
+  }
+
+  public void setExamWeek(Short examWeek) {
+    this.examWeek = examWeek;
+  }
+
+  public Boolean getDepartArranged() {
+    return departArranged;
+  }
+
+  public void setDepartArranged(Boolean departArranged) {
+    this.departArranged = departArranged;
+  }
+
+  public String getExamPaperNo() {
+    return examPaperNo;
+  }
+
+  public void setExamPaperNo(String examPaperNo) {
+    this.examPaperNo = examPaperNo;
+  }
+
   /**
    * 把所有的信息克隆一遍<br>
    * 不包括examTakers
    */
-  public Object clone() {
-    ExamActivity activity = new ExamActivity();
-    activity.setExamOn(getExamOn());
-    activity.setBeginAt(getBeginAt());
-    activity.setEndAt(getEndAt());
-    activity.setExamType(getExamType());
-    activity.setClazz(getClazz());
-    activity.setSemester(getSemester());
-    activity.setRemark(getRemark());
-    activity.setState(getState());
-    for (ExamRoom examRoom : activity.getRooms()) {
-      activity.getRooms().add((ExamRoom) examRoom.clone());
-    }
-    return activity;
-  }
+//  public Object clone() {
+//    ExamActivity activity = new ExamActivity();
+//    activity.setExamOn(getExamOn());
+//    activity.setBeginAt(getBeginAt());
+//    activity.setEndAt(getEndAt());
+//    activity.setExamType(getExamType());
+//    activity.setClazz(getClazz());
+//    activity.setSemester(getSemester());
+//    activity.setRemark(getRemark());
+//    activity.setState(getState());
+//    for (ExamRoom examRoom : activity.getRooms()) {
+//      activity.getRooms().add((ExamRoom) examRoom.clone());
+//    }
+//    return activity;
+//  }
 
   public ExamActivity() {
   }
@@ -147,10 +209,6 @@ public class ExamActivity extends LongIdObject {
 
   public void setRemark(String remark) {
     this.remark = remark;
-  }
-
-  public void setClazz(Clazz clazz) {
-    this.clazz = clazz;
   }
 
   public void setExamTakers(List<ExamTaker> examTakers) {

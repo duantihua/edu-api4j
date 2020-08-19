@@ -16,20 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.app;
+package org.openurp.edu.base.code.model;
 
-import java.util.Map;
+public enum CourseHourCategory {
 
-import org.beangle.commons.collection.CollectUtils;
+  Lecture("教授"), Experiment("实验"), Practice("实践");
 
-public class UrpTest {
+  private final String title;
 
-  public static void main(String[] args) {
+  private CourseHourCategory(String title) {
+    this.title = title;
+  }
 
-    Map<String, String> properties = CollectUtils.newHashMap();
-    properties.put("openurp.base", "localhost");
-    Urp urp = new Urp("d", properties);
-    System.out.println(urp.getApi());
-    System.out.println(urp.getProperties().get("openurp.platform.cas.server"));
+  public String getTitle() {
+    return title;
   }
 }

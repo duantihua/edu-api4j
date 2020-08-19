@@ -21,11 +21,14 @@ package org.openurp.edu.program.plan.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.program.model.Program;
 
 /**
  * 抽象课程方案
@@ -37,39 +40,37 @@ import org.openurp.edu.base.code.model.CourseType;
 public abstract class AbstractCoursePlan extends LongIdObject implements CoursePlan {
 
   private static final long serialVersionUID = 1606351182470625309L;
-
+  /** 培养方案 */
+  @NotNull
+  @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+  protected Program program;
   /** 要求学分 */
   @NotNull
   private float credits;
 
   /** 起始学期 */
-  private Integer startTerm;
+  private int startTerm;
 
   /** 结束学期 */
-  private Integer endTerm;
+  private int endTerm;
 
-  public Integer getStartTerm() {
+  public int getStartTerm() {
     return startTerm;
   }
 
-  public void setStartTerm(Integer startTerm) {
+  public void setStartTerm(int startTerm) {
     this.startTerm = startTerm;
   }
 
-  public Integer getEndTerm() {
+  public int getEndTerm() {
     return endTerm;
   }
 
-  public void setEndTerm(Integer endTerm) {
+  public void setEndTerm(int endTerm) {
     this.endTerm = endTerm;
   }
 
-  public void setTermsCount(Integer count) {
-    startTerm = 1;
-    endTerm = count;
-  }
-
-  public Integer getTermsCount() {
+  public int getTermsCount() {
     return endTerm - startTerm + 1;
   }
 
@@ -108,5 +109,13 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public boolean isNumericTerm() {
     return true;
+  }
+
+  public Program getProgram() {
+    return program;
+  }
+
+  public void setProgram(Program program) {
+    this.program = program;
   }
 }

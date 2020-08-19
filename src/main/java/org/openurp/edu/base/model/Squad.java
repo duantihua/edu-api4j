@@ -115,9 +115,6 @@ public class Squad extends EduLevelBasedObject<Integer> {
   private Set<StudentState> stdStates = CollectUtils.newHashSet();
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private Program program;
-
-  @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
   public Squad() {
@@ -275,14 +272,6 @@ public class Squad extends EduLevelBasedObject<Integer> {
 
   public void setStdStates(Set<StudentState> stdStates) {
     this.stdStates = stdStates;
-  }
-
-  public Program getProgram() {
-    return program;
-  }
-
-  public void setProgram(Program program) {
-    this.program = program;
   }
 
   public Campus getCampus() {

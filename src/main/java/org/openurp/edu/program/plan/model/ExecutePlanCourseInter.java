@@ -16,35 +16,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.app.security;
+package org.openurp.edu.program.plan.model;
 
-import java.io.Serializable;
-import java.util.Map;
+import org.openurp.base.model.Department;
+import org.openurp.code.edu.model.ExamMode;
 
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.lang.Objects;
-import org.beangle.security.data.Profile;
+public interface ExecutePlanCourseInter extends PlanCourse {
 
-/**
- * 用户配置
- *
- * @author chaostone
- */
-public class UserProfile implements Profile, Serializable {
+  public Department getDepartment();
 
-  private static final long serialVersionUID = -9047586316477373803L;
-  /**
-   * 用户自定义属性
-   */
-  private final Map<String, Object> properties = CollectUtils.newHashMap();
+  public ExamMode getExamMode();
 
-  public Map<String, Object> getProperties() {
-    return properties;
-  }
+  public void setDepartment(Department department);
 
-  @Override
-  public String toString() {
-    return Objects.toStringBuilder(this).add("properties", properties).toString();
-  }
-
+  public void setExamMode(ExamMode examMode);
 }

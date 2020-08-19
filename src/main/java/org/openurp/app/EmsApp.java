@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class UrpApp {
+public class EmsApp {
 
-  public static UrpApp Instance = new UrpApp();
+  public static EmsApp Instance = new EmsApp();
 
   public static String getName() {
     return Instance.name;
@@ -41,7 +41,7 @@ public class UrpApp {
 
   private Map<String, String> properties = CollectUtils.newHashMap();
 
-  public UrpApp() {
+  public EmsApp() {
     super();
     readProperties();
   }
@@ -59,7 +59,7 @@ public class UrpApp {
   }
 
   private void readProperties() {
-    List<URL> configs = ClassLoaders.getResources("META-INF/openurp/app.properties", this.getClass());
+    List<URL> configs = ClassLoaders.getResources("META-INF/beangle/ems-app.properties", this.getClass());
     for (URL config : configs) {
       Properties p = new Properties();
       try {
@@ -75,7 +75,7 @@ public class UrpApp {
     if (properties.containsKey("name")) {
       name = properties.get("name");
     } else {
-      throw new RuntimeException("cannot find META-INF/openurp/app.properties");
+      throw new RuntimeException("cannot find META-INF/beangle/ems-app.properties");
     }
   }
 
@@ -92,10 +92,10 @@ public class UrpApp {
     else return secret;
   }
 
-  public static File getUrpAppFile() {
-    File file= new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".xml");
+  public static File getAppFile() {
+    File file= new File(Ems.getInstance().getHome() + EmsApp.Instance.getPath() + ".xml");
     if(!file.exists()){
-      file= new File(Urp.getInstance().getHome() + UrpApp.Instance.getPath() + ".json");
+      file= new File(Ems.getInstance().getHome() + EmsApp.Instance.getPath() + ".json");
     }
     return file;
   }
