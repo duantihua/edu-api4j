@@ -18,45 +18,56 @@
  */
 package org.openurp.edu.base.model;
 
+import org.beangle.commons.entity.pojo.NumberIdObject;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.beangle.commons.entity.pojo.NumberIdObject;
+import java.sql.Date;
 
 /**
  * 学期阶段
- *
- *
  */
 @Entity(name = "org.openurp.edu.base.model.SemesterStage")
 public class SemesterStage extends NumberIdObject<Integer> {
 
   private static final long serialVersionUID = 317801950546445267L;
 
-  /** 学年学期 */
+  /**
+   * 学年学期
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
   private Semester semester;
 
-  /**阶段*/
+  /**
+   * 阶段
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
   private CalendarStage stage;
-   /** 名称 */
+  /**
+   * 名称
+   */
   @NotNull
   @Size(max = 40)
   private String name;
 
-  /** 起始周 */
-  private int startWeek;
+  /**
+   * 起始
+   */
+  private java.sql.Date beginOn;
 
-  /** 结束周 */
-  private int endWeek;
+  /**
+   * 结束
+   */
+  private java.sql.Date endOn;
 
-  /** 说明 */
+  /**
+   * 说明
+   */
   @Size(max = 255)
   private String remark;
 
@@ -76,20 +87,20 @@ public class SemesterStage extends NumberIdObject<Integer> {
     this.name = name;
   }
 
-  public int getStartWeek() {
-    return startWeek;
+  public Date getBeginOn() {
+    return beginOn;
   }
 
-  public void setStartWeek(int startWeek) {
-    this.startWeek = startWeek;
+  public void setBeginOn(Date beginOn) {
+    this.beginOn = beginOn;
   }
 
-  public int getEndWeek() {
-    return endWeek;
+  public Date getEndOn() {
+    return endOn;
   }
 
-  public void setEndWeek(int endWeek) {
-    this.endWeek = endWeek;
+  public void setEndOn(Date endOn) {
+    this.endOn = endOn;
   }
 
   public String getRemark() {

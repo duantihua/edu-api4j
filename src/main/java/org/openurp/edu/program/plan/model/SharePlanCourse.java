@@ -25,6 +25,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
+import org.openurp.edu.base.model.CalendarStage;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.SemesterStage;
 
@@ -79,7 +80,7 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
   private WeekState weekstate = WeekState.Zero;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private SemesterStage semesterStage;
+  private CalendarStage stage;
 
   public ShareCourseGroup getGroup() {
     return group;
@@ -135,11 +136,11 @@ public class SharePlanCourse extends LongIdObject implements Cloneable {
     this.examMode = examMode;
   }
 
-  public SemesterStage getSemesterStage() {
-    return semesterStage;
+  public CalendarStage getStage() {
+    return stage;
   }
 
-  public void setSemesterStage(SemesterStage semesterStage) {
-    this.semesterStage = semesterStage;
+  public void setStage(CalendarStage stage) {
+    this.stage = stage;
   }
 }

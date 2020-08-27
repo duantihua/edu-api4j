@@ -49,11 +49,6 @@ public class StdPlan extends AbstractCoursePlan {
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
 
-  /** 审核状态 */
-  @NotNull
-  @Enumerated
-  private AuditState auditState = AuditState.UNSUBMITTED;
-
   /** 课程组 */
   @OneToMany(orphanRemoval = true, targetEntity = StdCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
@@ -90,14 +85,6 @@ public class StdPlan extends AbstractCoursePlan {
    */
   public Object clone() throws CloneNotSupportedException {
     return (StdPlan) super.clone();
-  }
-
-  public AuditState getAuditState() {
-    return auditState;
-  }
-
-  public void setAuditState(AuditState auditState) {
-    this.auditState = auditState;
   }
 
   public Student getStd() {

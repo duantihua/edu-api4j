@@ -169,7 +169,7 @@ public class CourseGradeState extends AbstractGradeState {
     for (Iterator<ExamGradeState> iter = examStates.iterator(); iter.hasNext();) {
       ExamGradeState gradeTypeState = (ExamGradeState) iter.next();
       if (null != gradeType && gradeTypeState.getGradeType().getId()
-          .equals(gradeType.getId())) { return gradeTypeState.getPercent(); }
+          .equals(gradeType.getId())) { return gradeTypeState.getScorePercent(); }
     }
     return null;
   }

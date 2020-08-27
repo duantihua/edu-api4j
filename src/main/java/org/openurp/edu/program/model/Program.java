@@ -114,7 +114,7 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   /** 审核状态 */
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
-  private AuditState state = AuditState.UNSUBMITTED;
+  private AuditState auditState = AuditState.UNSUBMITTED;
 
   /** 多出学分可以冲抵的课程类别 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -232,12 +232,12 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.remark = remark;
   }
 
-  public AuditState getState() {
-    return state;
+  public AuditState getAuditState() {
+    return auditState;
   }
 
-  public void setState(AuditState auditState) {
-    this.state = auditState;
+  public void setAuditState(AuditState auditState) {
+    this.auditState = auditState;
   }
 
   public Object clone() throws CloneNotSupportedException {

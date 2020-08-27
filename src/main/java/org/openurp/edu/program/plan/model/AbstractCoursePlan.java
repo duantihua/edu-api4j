@@ -21,13 +21,12 @@ package org.openurp.edu.program.plan.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.edu.base.model.AuditState;
 import org.openurp.edu.program.model.Program;
 
 /**
@@ -44,6 +43,11 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
   @NotNull
   @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
   protected Program program;
+  /** 审核状态 */
+  @NotNull
+  @Enumerated(value = EnumType.ORDINAL)
+  private AuditState auditState = AuditState.UNSUBMITTED;
+
   /** 要求学分 */
   @NotNull
   private float credits;
@@ -117,5 +121,13 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public void setProgram(Program program) {
     this.program = program;
+  }
+
+  public AuditState getAuditState() {
+    return auditState;
+  }
+
+  public void setAuditState(AuditState auditState) {
+    this.auditState = auditState;
   }
 }

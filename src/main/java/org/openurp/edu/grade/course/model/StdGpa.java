@@ -88,7 +88,7 @@ public class StdGpa extends NumberIdTimeObject<Long> {
   /**
    * 成绩的门数
    */
-  private int count;
+  private int gradeCount;
 
   /** 查询类缓存 */
   private transient Map<Semester, StdSemesterGpa> semesterGpaCache;
@@ -109,7 +109,7 @@ public class StdGpa extends NumberIdTimeObject<Long> {
     this.semesterGpas = CollectUtils.newArrayList();
     this.yearGpas = CollectUtils.newArrayList();
     this.credits = 0f;
-    this.count = 0;
+    this.gradeCount = 0;
     this.ga = new Float(0);
     this.gpa = new Float(0);
   }
@@ -182,12 +182,12 @@ public class StdGpa extends NumberIdTimeObject<Long> {
     this.gpa = gpa;
   }
 
-  public int getCount() {
-    return count;
+  public int getGradeCount() {
+    return gradeCount;
   }
 
-  public void setCount(int count) {
-    this.count = count;
+  public void setGradeCount(int gradeCount) {
+    this.gradeCount = gradeCount;
   }
 
   public Float getCredits() {

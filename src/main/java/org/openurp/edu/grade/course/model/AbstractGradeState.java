@@ -47,7 +47,7 @@ public abstract class AbstractGradeState extends LongIdObject implements GradeSt
   protected int status = Grade.Status.New;
 
   /** * 小数点后保留几位 */
-  protected transient int precision = 0;
+  protected int scorePrecision = 0;
 
   /** 上次成绩录入时间 */
   protected Date updatedAt;
@@ -64,12 +64,12 @@ public abstract class AbstractGradeState extends LongIdObject implements GradeSt
     this.status = status;
   }
 
-  public int getPrecision() {
-    return precision;
+  public int getScorePrecision() {
+    return scorePrecision;
   }
 
-  public void setPrecision(int precision) {
-    this.precision = precision;
+  public void setScorePrecision(int scorePrecision) {
+    this.scorePrecision = scorePrecision;
   }
 
   public Date getUpdatedAt() {

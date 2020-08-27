@@ -55,7 +55,7 @@ public class StdYearGpa extends LongIdObject {
   private Float totalCredits;
 
   /** 总成绩数量 */
-  private int count;
+  private int gradeCount;
 
   public StdGpa getStdGpa() {
     return stdGpa;
@@ -105,12 +105,12 @@ public class StdYearGpa extends LongIdObject {
     this.totalCredits = totalCredits;
   }
 
-  public int getCount() {
-    return count;
+  public int getGradeCount() {
+    return gradeCount;
   }
 
-  public void setCount(int count) {
-    this.count = count;
+  public void setGradeCount(int gradeCount) {
+    this.gradeCount = gradeCount;
   }
 
 }
