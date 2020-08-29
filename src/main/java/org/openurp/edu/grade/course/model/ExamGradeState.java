@@ -49,7 +49,7 @@ public class ExamGradeState extends AbstractGradeState {
   /**
    * 百分比描述 <br>
    */
-  private Short percent;
+  private Short scorePercent;
 
   public ExamGradeState() {
     super();
@@ -71,12 +71,12 @@ public class ExamGradeState extends AbstractGradeState {
     this.gradeType = gradeType;
   }
 
-  public Short getPercent() {
-    return percent;
+  public Short getScorePercent() {
+    return scorePercent;
   }
 
-  public void setPercent(Short percent) {
-    this.percent = percent;
+  public void setScorePercent(Short scorePercent) {
+    this.scorePercent = scorePercent;
   }
 
   public String getRemark() {

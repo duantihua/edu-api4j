@@ -44,7 +44,7 @@ public class MajorCourseGroup extends AbstractCourseGroup {
 
   /** 自定义组名 */
   @Size(max = 100)
-  private String alias;
+  private String givenName;
 
   /** 该组针对的专业方向 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -75,7 +75,7 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   public String getName() {
     StringBuilder sb = new StringBuilder();
     if (null != courseType) sb.append(courseType.getName());
-    if (null != alias) sb.append(" ").append(alias);
+    if (null != givenName) sb.append(" ").append(givenName);
     return sb.toString();
   }
 
@@ -111,12 +111,12 @@ public class MajorCourseGroup extends AbstractCourseGroup {
     this.planCourses = planCourses;
   }
 
-  public String getAlias() {
-    return alias;
+  public String getGivenName() {
+    return givenName;
   }
 
-  public void setAlias(String alias) {
-    this.alias = alias;
+  public void setGivenName(String givenName) {
+    this.givenName = givenName;
   }
 
   public Direction getDirection() {

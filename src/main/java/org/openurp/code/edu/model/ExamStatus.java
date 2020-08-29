@@ -45,7 +45,7 @@ public class ExamStatus extends Code<Integer> {
   public static final Integer DELAY = 2;
   public static final Integer ABSENT = 3;
   public static final Integer Unqualified=6;
-  private boolean deferred = false;
+  private boolean hasDeferred = false;
 
   private boolean cheating = false;
 
@@ -70,12 +70,12 @@ public class ExamStatus extends Code<Integer> {
     this.attended = attend;
   }
 
-  public boolean isDeferred() {
-    return deferred;
+  public boolean isHasDeferred() {
+    return hasDeferred;
   }
 
-  public void setDeferred(boolean deferred) {
-    this.deferred = deferred;
+  public void setHasDeferred(boolean hasDeferred) {
+    this.hasDeferred = hasDeferred;
   }
 
   public boolean isCheating() {

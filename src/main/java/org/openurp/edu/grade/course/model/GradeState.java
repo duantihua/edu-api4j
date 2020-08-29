@@ -65,14 +65,14 @@ public interface GradeState extends Entity<Long> {
    *
    * @return
    */
-  public int getPrecision();
+  public int getScorePrecision();
 
   /**
    * 设置小数位
    *
    * @param percision
    */
-  public void setPrecision(int percision);
+  public void setScorePrecision(int percision);
 
   /**
    * 录入时间

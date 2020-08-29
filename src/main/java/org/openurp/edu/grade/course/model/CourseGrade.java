@@ -106,7 +106,7 @@ public class CourseGrade extends AbstractGrade {
   /**
    * 依照上课名单进行实例化课程成绩
    *
-   * @param take
+   * @param taker
    */
   public CourseGrade(CourseTaker taker) {
     setStd(taker.getStd());

@@ -50,7 +50,7 @@ public class Schedule implements Serializable, Cloneable, Component {
 
   /** 排课课时 */
   @NotNull
-  private int period;
+  private int creditHours;
   /**
    * 周状态
    */
@@ -155,7 +155,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   public float getWeekHours() {
     int w = getWeeks();
     if (0 != w) {
-      return calcWeekHours(period, w);
+      return calcWeekHours(creditHours, w);
     } else {
       return 0;
     }
@@ -165,12 +165,12 @@ public class Schedule implements Serializable, Cloneable, Component {
     return (null != weekstate) ? weekstate.getFirst() : 0;
   }
 
-  public int getPeriod() {
-    return period;
+  public int getCreditHours() {
+    return creditHours;
   }
 
-  public void setPeriod(int period) {
-    this.period = period;
+  public void setCreditHours(int creditHours) {
+    this.creditHours = creditHours;
   }
 
   public ClassroomType getRoomType() {
@@ -182,14 +182,14 @@ public class Schedule implements Serializable, Cloneable, Component {
   }
 
   public Status getStatus() {
-    if (period == 0) return Status.DONT_ARRANGE;
+    if (creditHours == 0) return Status.DONT_ARRANGE;
     else {
       return (getSessions().isEmpty()) ? Status.NEED_ARRANGE : Status.ARRANGED;
     }
   }
 
   public String toString() {
-    return Objects.toStringBuilder(this).add("weekstate", this.weekstate).add("period", this.period)
+    return Objects.toStringBuilder(this).add("weekstate", this.weekstate).add("period", this.creditHours)
         .toString();
   }
 

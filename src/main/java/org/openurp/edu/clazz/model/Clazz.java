@@ -137,7 +137,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   /** 审核状态 */
   @NotNull
   @Enumerated
-  private AuditState state = AuditState.UNSUBMITTED;
+  private AuditState auditState = AuditState.UNSUBMITTED;
 
   /**
    * 默认构造函数
@@ -374,12 +374,12 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     this.group = group;
   }
 
-  public AuditState getState() {
-    return state;
+  public AuditState getAuditState() {
+    return auditState;
   }
 
-  public void setState(AuditState state) {
-    this.state = state;
+  public void setAuditState(AuditState auditState) {
+    this.auditState = auditState;
   }
 
   public String getName() {

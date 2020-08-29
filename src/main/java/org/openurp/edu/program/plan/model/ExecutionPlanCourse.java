@@ -18,8 +18,16 @@
  */
 package org.openurp.edu.program.plan.model;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
 import org.beangle.commons.lang.Objects;
 import org.beangle.commons.lang.time.WeekState;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
@@ -27,23 +35,18 @@ import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
 import org.openurp.edu.base.model.CalendarStage;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 /**
- * 原始计划的计划课程
+ * 专业计划课程
  */
-@Entity(name = "org.openurp.edu.program.plan.model.MajorPlanCourse")
-public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
+@Entity(name = "org.openurp.edu.program.plan.model.ExecutionPlanCourse")
+@Cacheable
+@Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class ExecutionPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
 
-  private static final long serialVersionUID = -2091355773150181171L;
+  private static final long serialVersionUID = 6223259360999867620L;
 
-  /**
-   * 课程组
-   */
-  @Target(MajorCourseGroup.class)
+  /** 课程组 */
+  @Target(ExecutionCourseGroup.class)
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseGroup group;
@@ -58,24 +61,20 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   @Type(type = "org.openurp.base.time.hibernate.TermsType")
   protected Terms suggestTerms = Terms.Empty;
 
-  /**
-   * 开课部门
-   */
+  /** 开课部门 */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /**
-   * 考核方式
-   */
+  /** 考核方式 */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CalendarStage stage;
 
   @NotNull
   @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CalendarStage stage;
 
   public Department getDepartment() {
     return department;
@@ -118,10 +117,8 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   }
 
   public boolean isSame(Object object) {
-    if (!(object instanceof MajorPlanCourse)) {
-      return false;
-    }
-    MajorPlanCourse rhs = (MajorPlanCourse) object;
+    if (!(object instanceof ExecutionPlanCourse)) { return false; }
+    ExecutionPlanCourse rhs = (ExecutionPlanCourse) object;
     return Objects.equalsBuilder().add(terms, rhs.terms).add(remark, rhs.remark)
         .add(department.getId(), rhs.department.getId()).add(course.getId(), rhs.course.getId())
         .add(id, rhs.id).isEquals();
@@ -129,7 +126,7 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
 
   @Override
   public String toString() {
-    return "MajorPlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
+    return "ExecutionPlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
         + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
   }
 

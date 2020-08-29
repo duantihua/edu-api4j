@@ -50,21 +50,21 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Restriction restriction;
 
-  private boolean inclusive;
+  private boolean includeIn;
 
   /** 限制内容 */
   @NotNull
-  private String content;
+  private String contents;
 
   public RestrictionItem() {
     super();
   }
 
-  public RestrictionItem(RestrictionMeta meta, String content, boolean inclusive) {
+  public RestrictionItem(RestrictionMeta meta, String contents, boolean includeIn) {
     super();
     this.meta = meta;
-    this.content = content;
-    this.inclusive = inclusive;
+    this.contents = contents;
+    this.includeIn = includeIn;
   }
 
   public RestrictionMeta getMeta() {
@@ -75,12 +75,12 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
     this.meta = meta;
   }
 
-  public String getContent() {
-    return content;
+  public String getContents() {
+    return contents;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setContents(String contents) {
+    this.contents = contents;
   }
 
   public Restriction getRestriction() {
@@ -91,12 +91,12 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
     this.restriction = restriction;
   }
 
-  public boolean isInclusive() {
-    return inclusive;
+  public boolean isIncludeIn() {
+    return includeIn;
   }
 
-  public void setInclusive(boolean inclusive) {
-    this.inclusive = inclusive;
+  public void setIncludeIn(boolean includeIn) {
+    this.includeIn = includeIn;
   }
 
   public Object clone() {
@@ -119,17 +119,17 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
    */
   @Deprecated
   public String getContentForHql() {
-    if (null != content) {
+    if (null != contents) {
       if (null != meta && "GRADE".equals(meta.getName())) {
-        content = "'" + content + "'";
+        contents = "'" + contents + "'";
       }
     }
-    return content;
+    return contents;
   }
 
   @Override
   public String toString() {
-    return content;
+    return contents;
   }
 
 }

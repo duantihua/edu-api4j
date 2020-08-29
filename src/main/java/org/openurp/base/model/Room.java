@@ -73,7 +73,7 @@ public class Room extends AbstractBaseInfo {
   private Department department;
 
   /** 教室所处楼层 */
-  private int floor;
+  private int floorNo;
 
   public Room() {
   }
@@ -100,12 +100,12 @@ public class Room extends AbstractBaseInfo {
     this.building = building;
   }
 
-  public int getFloor() {
-    return floor;
+  public int getFloorNo() {
+    return floorNo;
   }
 
-  public void setFloor(int floor) {
-    this.floor = floor;
+  public void setFloorNo(int floorNo) {
+    this.floorNo = floorNo;
   }
 
   public Campus getCampus() {

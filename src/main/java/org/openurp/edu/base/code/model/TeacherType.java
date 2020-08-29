@@ -19,6 +19,7 @@
 package org.openurp.edu.base.code.model;
 
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
@@ -41,6 +42,7 @@ public class TeacherType extends Code<Integer> {
   private static final long serialVersionUID = -1761600684758782044L;
 
   /** 是否外聘 */
+  @Column(name = "external_")
   private boolean external;
 
   /** 是否兼职 */

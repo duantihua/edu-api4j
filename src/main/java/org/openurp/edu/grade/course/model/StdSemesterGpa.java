@@ -57,11 +57,11 @@ public class StdSemesterGpa extends LongIdObject {
   private Float totalCredits;
 
   /** 总成绩数量 */
-  private int count;
+  private int gradeCount;
 
   public StdSemesterGpa() {
     this.credits = 0f;
-    this.count = 0;
+    this.gradeCount = 0;
     this.ga = new Float(0);
     this.gpa = new Float(0);
   }
@@ -95,12 +95,12 @@ public class StdSemesterGpa extends LongIdObject {
     this.ga = ga;
   }
 
-  public int getCount() {
-    return count;
+  public int getGradeCount() {
+    return gradeCount;
   }
 
-  public void setCount(int count) {
-    this.count = count;
+  public void setGradeCount(int gradeCount) {
+    this.gradeCount = gradeCount;
   }
 
   public Float getCredits() {
