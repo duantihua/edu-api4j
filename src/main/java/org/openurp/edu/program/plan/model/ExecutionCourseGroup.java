@@ -41,10 +41,10 @@ import org.openurp.edu.base.model.Direction;
 /**
  * 专业计划课程组.
  */
-@Entity(name = "org.openurp.edu.program.plan.model.ExecuteCourseGroup")
+@Entity(name = "org.openurp.edu.program.plan.model.ExecutionCourseGroup")
 @Cacheable
 @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ExecuteCourseGroup extends AbstractCourseGroup {
+public class ExecutionCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = -6804554057069134031L;
 
@@ -69,24 +69,24 @@ public class ExecuteCourseGroup extends AbstractCourseGroup {
   }
 
   /** 专业计划 */
-  @ManyToOne(targetEntity = ExecutePlan.class)
+  @ManyToOne(targetEntity = ExecutionPlan.class)
   @JoinColumn(name = "plan_id", updatable = false, insertable = false, nullable = false)
   private CoursePlan plan;
 
   /** 上级组 */
-  @ManyToOne(targetEntity = ExecuteCourseGroup.class)
+  @ManyToOne(targetEntity = ExecutionCourseGroup.class)
   @JoinColumn(name = "parent_id", nullable = true)
   private CourseGroup parent;
 
   /** 下级组列表 */
-  @OneToMany(targetEntity = ExecuteCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(targetEntity = ExecutionCourseGroup.class, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
   @JoinColumn(name = "parent_id", nullable = true)
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> children = CollectUtils.newArrayList();
 
   /** 计划课程列表 */
-  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = ExecutePlanCourse.class, cascade = {
+  @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = ExecutionPlanCourse.class, cascade = {
       CascadeType.ALL })
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<PlanCourse> planCourses = CollectUtils.newArrayList();
@@ -143,7 +143,7 @@ public class ExecuteCourseGroup extends AbstractCourseGroup {
    * 得到全部有效课程.
    */
   public Object clone() throws CloneNotSupportedException {
-    ExecuteCourseGroup executeCourseGroup = (ExecuteCourseGroup) super.clone();
+    ExecutionCourseGroup executeCourseGroup = (ExecutionCourseGroup) super.clone();
     executeCourseGroup.setId(null);
     executeCourseGroup.setParent(null);
     executeCourseGroup.setChildren(new ArrayList<CourseGroup>());
@@ -169,8 +169,8 @@ public class ExecuteCourseGroup extends AbstractCourseGroup {
   }
 
   public boolean equals(Object object) {
-    if (!(object instanceof ExecuteCourseGroup)) { return false; }
-    ExecuteCourseGroup rhs = (ExecuteCourseGroup) object;
+    if (!(object instanceof ExecutionCourseGroup)) { return false; }
+    ExecutionCourseGroup rhs = (ExecutionCourseGroup) object;
     return Objects.equalsBuilder().add(this.id, rhs.id).isEquals();
   }
 
@@ -183,8 +183,8 @@ public class ExecuteCourseGroup extends AbstractCourseGroup {
   }
 
   public boolean isSameGroup(Object object) {
-    if (!(object instanceof ExecuteCourseGroup)) { return false; }
-    ExecuteCourseGroup other = (ExecuteCourseGroup) object;
+    if (!(object instanceof ExecutionCourseGroup)) { return false; }
+    ExecutionCourseGroup other = (ExecutionCourseGroup) object;
     // it will handle null value
     return Objects.equalsBuilder().add(getCredits(), other.getCredits())
         .add(getCourseType(), other.getCourseType()).add(getParentCourseType(), other.getParentCourseType())

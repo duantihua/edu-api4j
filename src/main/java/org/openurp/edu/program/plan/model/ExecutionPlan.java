@@ -38,15 +38,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.program.model.Program;
 
 /**
  * 专业计划
  */
-@Entity(name = "org.openurp.edu.program.plan.model.ExecutePlan")
+@Entity(name = "org.openurp.edu.program.plan.model.ExecutionPlan")
 @Cacheable
 @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class ExecutePlan extends AbstractCoursePlan {
+public class ExecutionPlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 7084539759992691314L;
 
@@ -63,17 +62,17 @@ public class ExecutePlan extends AbstractCoursePlan {
   private Campus campus;
 
   /** 课程组 */
-  @OneToMany(orphanRemoval = true, targetEntity = ExecuteCourseGroup.class, cascade = { CascadeType.ALL })
+  @OneToMany(orphanRemoval = true, targetEntity = ExecutionCourseGroup.class, cascade = { CascadeType.ALL })
   @JoinColumn(name = "plan_id", nullable = false)
   @OrderBy("indexno")
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
   /** 审核备注 */
-  @OneToMany(mappedBy = "executePlan", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<ExecutePlanComment> comments = CollectUtils.newArrayList();
+  @OneToMany(mappedBy = "executionPlan", orphanRemoval = true, cascade = { CascadeType.ALL })
+  private List<ExecutionPlanComment> comments = CollectUtils.newArrayList();
 
-  public ExecutePlan() {
+  public ExecutionPlan() {
     super();
   }
 
@@ -86,17 +85,11 @@ public class ExecutePlan extends AbstractCoursePlan {
   }
 
   public Object clone() throws CloneNotSupportedException {
-    ExecutePlan copy = (ExecutePlan) super.clone();
+    ExecutionPlan copy = (ExecutionPlan) super.clone();
     copy.setGroups(new ArrayList<CourseGroup>());
     copy.setId(null);
     return copy;
   }
-  /** 开始日期 */
-  @NotNull
-  private Date beginOn;
-
-  /** 结束日期 结束日期包括在有效期内 */
-  private Date endOn;
 
   public Campus getCampus() {
     return campus;
@@ -122,33 +115,24 @@ public class ExecutePlan extends AbstractCoursePlan {
     this.stdType = stdType;
   }
 
-  public Date getBeginOn() {
-    return beginOn;
-  }
-
-  public void setBeginOn(Date beginOn) {
-    this.beginOn = beginOn;
-  }
-
-  public Date getEndOn() {
-    return endOn;
-  }
-
-  public void setEndOn(Date endOn) {
-    this.endOn = endOn;
-  }
-
-  public List<ExecutePlanComment> getComments() {
+  public List<ExecutionPlanComment> getComments() {
     return comments;
   }
 
-  public void setComments(List<ExecutePlanComment> comments) {
+  public void setComments(List<ExecutionPlanComment> comments) {
     this.comments = comments;
   }
 
+  public Date getBeginOn() {
+    return null != program ? program.getBeginOn() : null;
+  }
+
+  public Date getEndOn() {
+    return null != program ? program.getEndOn() : null;
+  }
   @Override
   public String toString() {
-    return "ExecutePlanBean [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
+    return "ExecutionPlan [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
         + "]";
   }
 

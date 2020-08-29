@@ -27,8 +27,8 @@ import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.time.Terms;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.program.plan.model.CourseGroup;
-import org.openurp.edu.program.plan.model.ExecutePlan;
-import org.openurp.edu.program.plan.model.ExecutePlanCourse;
+import org.openurp.edu.program.plan.model.ExecutionPlan;
+import org.openurp.edu.program.plan.model.ExecutionPlanCourse;
 import org.openurp.edu.program.plan.model.PlanCourse;
 
 public class PlanUtils {
@@ -41,10 +41,10 @@ public class PlanUtils {
    *          要查询的学期，多个学期用逗号分割比如1,2,3
    * @return
    */
-  public static List<Course> getCourses(ExecutePlan plan, int term) {
+  public static List<Course> getCourses(ExecutionPlan plan, int term) {
     Set<Course> courses = new HashSet<Course>();
 
-    for (ExecutePlanCourse planCourse : getPlanCourses(plan)) {
+    for (ExecutionPlanCourse planCourse : getPlanCourses(plan)) {
       if (isUnplannedTerm(planCourse.getTerms())) {
         continue;
       }
@@ -56,9 +56,9 @@ public class PlanUtils {
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public static List<ExecutePlanCourse> getPlanCourses(ExecutePlan plan) {
+  public static List<ExecutionPlanCourse> getPlanCourses(ExecutionPlan plan) {
     if (CollectUtils.isEmpty(plan.getGroups())) { return CollectUtils.newArrayList(); }
-    List<ExecutePlanCourse> planCourses = new ArrayList<ExecutePlanCourse>();
+    List<ExecutionPlanCourse> planCourses = new ArrayList<ExecutionPlanCourse>();
     for (CourseGroup courseGroup : plan.getGroups()) {
       if (null != courseGroup) {
         planCourses.addAll((List) courseGroup.getPlanCourses());
@@ -67,14 +67,14 @@ public class PlanUtils {
     return planCourses;
   }
 
-  public static List<ExecutePlanCourse> getUnPlannedPlanCourses(ExecutePlan plan) {
+  public static List<ExecutionPlanCourse> getUnPlannedPlanCourses(ExecutionPlan plan) {
     if (CollectUtils.isEmpty(plan.getGroups())) { return CollectUtils.newArrayList(); }
-    List<ExecutePlanCourse> planCourses = new ArrayList<ExecutePlanCourse>();
+    List<ExecutionPlanCourse> planCourses = new ArrayList<ExecutionPlanCourse>();
     for (CourseGroup courseGroup : plan.getGroups()) {
       if (courseGroup.getPlanCourses() != null && courseGroup.getPlanCourses().size() > 0) {
         for (PlanCourse pcourse : courseGroup.getPlanCourses()) {
           if (isUnplannedTerm(pcourse.getTerms())) {
-            planCourses.add((ExecutePlanCourse) pcourse);
+            planCourses.add((ExecutionPlanCourse) pcourse);
           }
         }
       }
@@ -88,14 +88,14 @@ public class PlanUtils {
    * @param cb
    * @return
    */
-  public static List<ExecutePlanCourse> getPlannedCourse(ExecutePlan plan) {
+  public static List<ExecutionPlanCourse> getPlannedCourse(ExecutionPlan plan) {
     if (CollectUtils.isEmpty(plan.getGroups())) { return CollectUtils.newArrayList(); }
-    List<ExecutePlanCourse> planCourses = new ArrayList<ExecutePlanCourse>();
+    List<ExecutionPlanCourse> planCourses = new ArrayList<ExecutionPlanCourse>();
     for (CourseGroup courseGroup : plan.getGroups()) {
       if (courseGroup.getPlanCourses() != null && courseGroup.getPlanCourses().size() > 0) {
         for (PlanCourse pcourse : courseGroup.getPlanCourses()) {
           if (isUnplannedTerm(pcourse.getTerms())) {
-            planCourses.add((ExecutePlanCourse) pcourse);
+            planCourses.add((ExecutionPlanCourse) pcourse);
           }
         }
       }
@@ -127,10 +127,10 @@ public class PlanUtils {
    *          要查询的学期，多个学期用逗号分割比如1,2,3
    * @return
    */
-  public static List<ExecutePlanCourse> getPlanCourses(ExecutePlan plan, int term) {
-    List<ExecutePlanCourse> planCourses = new ArrayList<ExecutePlanCourse>();
+  public static List<ExecutionPlanCourse> getPlanCourses(ExecutionPlan plan, int term) {
+    List<ExecutionPlanCourse> planCourses = new ArrayList<ExecutionPlanCourse>();
 
-    for (ExecutePlanCourse planCourse : getPlanCourses(plan)) {
+    for (ExecutionPlanCourse planCourse : getPlanCourses(plan)) {
       if (openOnThisTerm(planCourse.getTerms(), term)) {
         planCourses.add(planCourse);
       }
