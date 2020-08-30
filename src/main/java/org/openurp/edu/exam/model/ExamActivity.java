@@ -21,7 +21,6 @@ package org.openurp.edu.exam.model;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.base.model.Classroom;
@@ -116,7 +115,7 @@ public class ExamActivity extends LongIdObject {
    */
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
-  private PublishState state = PublishState.None;
+  private PublishState publishState = PublishState.None;
 
   /**
    * 应考学生记录
@@ -232,12 +231,12 @@ public class ExamActivity extends LongIdObject {
     }
   }
 
-  public PublishState getState() {
-    return state;
+  public PublishState getPublishState() {
+    return publishState;
   }
 
-  public void setState(PublishState state) {
-    this.state = state;
+  public void setPublishState(PublishState publishState) {
+    this.publishState = publishState;
   }
 
   public java.sql.Date getExamOn() {
