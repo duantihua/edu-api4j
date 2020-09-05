@@ -61,20 +61,6 @@ public interface GradeState extends Entity<Long> {
   public void setGradingMode(GradingMode gradingMode);
 
   /**
-   * 返回保留小数位
-   *
-   * @return
-   */
-  public int getScorePrecision();
-
-  /**
-   * 设置小数位
-   *
-   * @param percision
-   */
-  public void setScorePrecision(int percision);
-
-  /**
    * 录入时间
    *
    * @return

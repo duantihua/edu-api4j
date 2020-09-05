@@ -45,7 +45,7 @@ import org.openurp.code.edu.model.EducationLevel;
 @Entity(name = "org.openurp.edu.base.model.Major")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Major extends NumberIdTimeObject<Integer> {
+public class Major extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = 7360406731828210066L;
   /** 专业编码 */
@@ -101,7 +101,7 @@ public class Major extends NumberIdTimeObject<Integer> {
     super();
   }
 
-  public Major(Integer id) {
+  public Major(Long id) {
     super(id);
   }
 

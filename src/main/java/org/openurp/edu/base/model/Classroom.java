@@ -34,7 +34,7 @@ import java.util.Set;
 @Entity(name = "org.openurp.edu.base.model.Classroom")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Classroom extends ProjectBasedObject<Integer> {
+public class Classroom extends ProjectBasedObject<Long> {
 
   private static final long serialVersionUID = -296464887575077607L;
 

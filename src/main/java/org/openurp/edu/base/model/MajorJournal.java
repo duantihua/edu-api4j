@@ -37,7 +37,7 @@ import org.openurp.code.edu.model.EducationLevel;
 @Entity(name = "org.openurp.edu.base.model.MajorJournal")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MajorJournal extends NumberIdObject<Integer> {
+public class MajorJournal extends NumberIdObject<Long> {
 
   private static final long serialVersionUID = 6945987326647765057L;
 
