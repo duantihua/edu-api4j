@@ -49,7 +49,7 @@ public class ProgramDoc extends NumberIdTimeObject<Long> {
 
   /** 针对语言 */
   @NotNull
-  private Locale locale;
+  private Locale docLocale;
 
   /** 模板中的章节列表定义 */
   @OneToMany(mappedBy = "doc", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -72,12 +72,12 @@ public class ProgramDoc extends NumberIdTimeObject<Long> {
     this.sections = sections;
   }
 
-  public Locale getLocale() {
-    return locale;
+  public Locale getDocLocale() {
+    return docLocale;
   }
 
-  public void setLocale(Locale locale) {
-    this.locale = locale;
+  public void setDocLocale(Locale docLocale) {
+    this.docLocale = docLocale;
   }
 
 }

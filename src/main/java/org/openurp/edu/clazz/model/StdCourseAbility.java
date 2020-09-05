@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.base.model;
+package org.openurp.edu.clazz.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,11 +25,12 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseAbilityRate;
+import org.openurp.edu.base.model.Student;
 
 /**
  * 学生课程等级能力
  */
-@Entity(name = "org.openurp.edu.base.model.StdCourseAbility")
+@Entity(name = "org.openurp.edu.clazz.model.StdCourseAbility")
 public class StdCourseAbility extends LongIdObject {
 
   private static final long serialVersionUID = 4198510825366495986L;

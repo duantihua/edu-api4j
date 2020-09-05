@@ -33,7 +33,6 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.edu.base.code.model.StdType;
 import org.openurp.edu.base.model.EduLevelBasedObject;
-import org.openurp.edu.program.model.ProgramDocMeta;
 
 /**
  * 培养方案模板
@@ -61,7 +60,7 @@ public class ProgramDocTemplate extends EduLevelBasedObject<Long> {
   private List<ProgramDocMeta> metas = CollectUtils.newArrayList();
   /** 针对语言 */
   @NotNull
-  private Locale locale;
+  private Locale docLocale;
 
   /** 学生类别列表 */
   @ManyToMany
@@ -107,12 +106,12 @@ public class ProgramDocTemplate extends EduLevelBasedObject<Long> {
     this.metas = metas;
   }
 
-  public Locale getLocale() {
-    return locale;
+  public Locale getDocLocale() {
+    return docLocale;
   }
 
-  public void setLocale(Locale locale) {
-    this.locale = locale;
+  public void setDocLocale(Locale docLocale) {
+    this.docLocale = docLocale;
   }
 
   public Set<StdType> getTypes() {
