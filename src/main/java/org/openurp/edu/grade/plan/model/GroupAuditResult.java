@@ -33,7 +33,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
-import org.openurp.edu.program.plan.model.CourseGroup;
+import org.openurp.edu.program.model.CourseGroup;
 
 /**
  * 课程组审核结果

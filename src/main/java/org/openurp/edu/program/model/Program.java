@@ -18,6 +18,7 @@
  */
 package org.openurp.edu.program.model;
 
+import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
@@ -37,6 +38,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * 专业培养方案
@@ -48,11 +50,15 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   private static final long serialVersionUID = 4260627210556648248L;
 
-  /** 名称 */
+  /**
+   * 名称
+   */
   @NotNull
   @Size(max = 200)
   private String name;
-  /** 年级 */
+  /**
+   * 年级
+   */
   @NotNull
   private String grade;
 
@@ -63,62 +69,94 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
-  /** 部门 */
+  /**
+   * 部门
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 培养层次 */
+  /**
+   * 培养层次
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationLevel level;
 
-  /** 学生类别 */
+  /**
+   * 学生类别
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private StdType stdType;
 
-  /** 专业 */
+  /**
+   * 专业
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Major major;
 
-  /** 专业方向 */
+  /**
+   * 专业方向
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Direction direction;
 
-  /** 学制 */
+  /**
+   * 学制
+   */
   @NotNull
   private Float duration;
 
-  /** 学习形式 */
+  /**
+   * 学习形式
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private StudyType studyType;
 
-  /** 毕业授予学位 */
+  /**
+   * 毕业授予学位
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Degree degree;
 
-  /** 开始日期 */
+  /**
+   * 开始日期
+   */
   @NotNull
   private Date beginOn;
 
-  /** 结束日期 结束日期包括在有效期内 */
+  /**
+   * 结束日期 结束日期包括在有效期内
+   */
   private Date endOn;
 
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 800)
   private String remark;
 
-  /** 学位GPA */
+  /**
+   * 学位GPA
+   */
   private Float degreeGpa;
 
-  /** 审核状态 */
+  /**
+   * 审核状态
+   */
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
   private AuditState auditState = AuditState.UNSUBMITTED;
 
-  /** 多出学分可以冲抵的课程类别 */
+  /**
+   * 多出学分可以冲抵的课程类别
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType offsetType;
+
+  @OneToMany(targetEntity = TermCampus.class, cascade = {CascadeType.ALL})
+  @JoinColumn(name = "program_id", nullable = true)
+  private List<TermCampus> termCampuses = CollectUtils.newArrayList();
 
   public Program() {
     super();
@@ -282,5 +320,11 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.offsetType = offsetType;
   }
 
+  public List<TermCampus> getTermCampuses() {
+    return termCampuses;
+  }
 
+  public void setTermCampuses(List<TermCampus> termCampuses) {
+    this.termCampuses = termCampuses;
+  }
 }

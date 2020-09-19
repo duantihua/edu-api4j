@@ -25,7 +25,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.time.Terms;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.program.plan.model.PlanCourse;
+import org.openurp.edu.program.model.PlanCourse;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -96,6 +96,7 @@ public class Squad extends EduLevelBasedObject<Long> {
   private java.sql.Date beginOn;
 
   /** 结束日期 结束日期包括在有效期内 */
+  @NotNull
   private java.sql.Date endOn;
 
   /** 学籍有效人数 */

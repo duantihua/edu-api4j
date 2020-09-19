@@ -38,31 +38,15 @@ public class Room extends AbstractBaseInfo {
 
   private static final long serialVersionUID = 3229044942979160250L;
 
-  /** 实际容量 */
-  @NotNull
-  private int capacity;
-
   /** 所在校区 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
-  public School getSchool() {
-    return school;
-  }
-
-  public void setSchool(School school) {
-    this.school = school;
-  }
-
   /** 学校 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private School school;
-
-  /** 所在教学楼 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Building building;
 
   /** 设备配置代码 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -72,8 +56,7 @@ public class Room extends AbstractBaseInfo {
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 教室所处楼层 */
-  private int floorNo;
+
 
   public Room() {
   }
@@ -92,20 +75,13 @@ public class Room extends AbstractBaseInfo {
     this.name = name;
   }
 
-  public Building getBuilding() {
-    return building;
+
+  public School getSchool() {
+    return school;
   }
 
-  public void setBuilding(Building building) {
-    this.building = building;
-  }
-
-  public int getFloorNo() {
-    return floorNo;
-  }
-
-  public void setFloorNo(int floorNo) {
-    this.floorNo = floorNo;
+  public void setSchool(School school) {
+    this.school = school;
   }
 
   public Campus getCampus() {
@@ -114,14 +90,6 @@ public class Room extends AbstractBaseInfo {
 
   public void setCampus(Campus campus) {
     this.campus = campus;
-  }
-
-  public int getCapacity() {
-    return capacity;
-  }
-
-  public void setCapacity(int capacity) {
-    this.capacity = capacity;
   }
 
   public RoomType getRoomType() {

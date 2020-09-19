@@ -20,10 +20,7 @@ package org.openurp.edu.base.model;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.model.Building;
-import org.openurp.base.model.Campus;
-import org.openurp.base.model.Department;
-import org.openurp.base.model.Room;
+import org.openurp.base.model.*;
 import org.openurp.code.edu.model.ClassroomType;
 
 import javax.persistence.*;
@@ -34,15 +31,18 @@ import java.util.Set;
 @Entity(name = "org.openurp.edu.base.model.Classroom")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Classroom extends ProjectBasedObject<Long> {
+public class Classroom extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = -296464887575077607L;
 
+  /** 学校 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private School school;
   /**
    * 房间 可以为空，表示虚拟房间
    */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Room room;
+  private String roomNo;
 
   private String code;
   /**
@@ -53,7 +53,6 @@ public class Classroom extends ProjectBasedObject<Long> {
    * 英文名
    */
   private String enName;
-
   /**
    * 简称
    */
@@ -63,7 +62,6 @@ public class Classroom extends ProjectBasedObject<Long> {
    */
   @ManyToOne(fetch = FetchType.LAZY)
   private ClassroomType roomType;
-
   /**
    * 所在校区
    */
@@ -83,21 +81,31 @@ public class Classroom extends ProjectBasedObject<Long> {
 
   private java.sql.Date endOn;
 
-  public int getCapacity() {
-    if (null == room) return courseCapacity;
-    else return room.getCapacity();
-  }
+  /** 实际容量 */
+  @NotNull
+  private int capacity;
+
+  /** 所在教学楼 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Building building;
+
+  /** 教室所处楼层 */
+  private int floorNo;
+
+  @ManyToMany
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "openurp.base")
+  private Set<Project> projects = new HashSet<Project>();
 
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "openurp.base")
   private Set<Department> departs = new HashSet<Department>();
 
-  public Room getRoom() {
-    return room;
+  public School getSchool() {
+    return school;
   }
 
-  public void setRoom(Room room) {
-    this.room = room;
+  public void setSchool(School school) {
+    this.school = school;
   }
 
   public String getEnName() {
@@ -134,10 +142,6 @@ public class Classroom extends ProjectBasedObject<Long> {
 
   public int getExamCapacity() {
     return examCapacity;
-  }
-
-  public Building getBuilding() {
-    return (null == room) ? null : room.getBuilding();
   }
 
   public void setExamCapacity(int examCapacity) {
@@ -194,5 +198,45 @@ public class Classroom extends ProjectBasedObject<Long> {
 
   public void setDeparts(Set<Department> departs) {
     this.departs = departs;
+  }
+
+  public String getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(String roomNo) {
+    this.roomNo = roomNo;
+  }
+
+  public int getCapacity() {
+    return capacity;
+  }
+
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public Building getBuilding() {
+    return building;
+  }
+
+  public void setBuilding(Building building) {
+    this.building = building;
+  }
+
+  public int getFloorNo() {
+    return floorNo;
+  }
+
+  public void setFloorNo(int floorNo) {
+    this.floorNo = floorNo;
+  }
+
+  public Set<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(Set<Project> projects) {
+    this.projects = projects;
   }
 }
