@@ -23,10 +23,11 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Campus;
 import org.openurp.base.time.Terms;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
+@Entity(name="org.openurp.edu.program.model.TermCampus")
 public class TermCampus extends LongIdObject {
 
   @NotNull
