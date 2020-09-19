@@ -145,4 +145,8 @@ public interface Grade extends Comparable<Grade>, Entity<Long>, TimeEntity {
   public String getOperator();
 
   public void setOperator(String operator);
+
+  public java.util.Date getCreatedAt();
+
+  public void setCreatedAt(java.util.Date createdAt);
 }

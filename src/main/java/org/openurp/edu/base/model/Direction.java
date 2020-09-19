@@ -43,7 +43,7 @@ import org.openurp.base.model.NumberIdTimeObject;
 @Entity(name = "org.openurp.edu.base.model.Direction")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Direction extends NumberIdTimeObject<Integer> {
+public class Direction extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = -5678184739078006225L;
   /** 专业方向编码 */
@@ -99,7 +99,7 @@ public class Direction extends NumberIdTimeObject<Integer> {
     super();
   }
 
-  public Direction(Integer id) {
+  public Direction(Long id) {
     super(id);
   }
 

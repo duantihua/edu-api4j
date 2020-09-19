@@ -64,6 +64,9 @@ public class CourseGradeState extends AbstractGradeState {
   @Cascade(CascadeType.ALL)
   private Set<GaGradeState> gaStates = CollectUtils.newHashSet();
 
+  /** * 小数点后保留几位 */
+  protected int scorePrecision = 0;
+
   /** 其他录入人 */
   @ManyToOne(fetch = FetchType.LAZY)
   private User extraInputer;
@@ -74,6 +77,14 @@ public class CourseGradeState extends AbstractGradeState {
   public CourseGradeState(Clazz clazz) {
     this.clazz = clazz;
     this.setGradingMode(new GradingMode(GradingMode.Percent));
+  }
+
+  public int getScorePrecision() {
+    return scorePrecision;
+  }
+
+  public void setScorePrecision(int scorePrecision) {
+    this.scorePrecision = scorePrecision;
   }
 
   public void updateStatus(GradeType gradeType, int status) {

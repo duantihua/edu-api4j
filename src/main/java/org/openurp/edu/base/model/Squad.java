@@ -44,7 +44,7 @@ import org.openurp.edu.base.code.model.StdType;
 @Entity(name = "org.openurp.edu.base.model.Squad")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Squad extends EduLevelBasedObject<Integer> {
+public class Squad extends EduLevelBasedObject<Long> {
 
   private static final long serialVersionUID = 6467000522483394459L;
 
@@ -96,6 +96,7 @@ public class Squad extends EduLevelBasedObject<Integer> {
   private java.sql.Date beginOn;
 
   /** 结束日期 结束日期包括在有效期内 */
+  @NotNull
   private java.sql.Date endOn;
 
   /** 学籍有效人数 */
@@ -120,11 +121,11 @@ public class Squad extends EduLevelBasedObject<Integer> {
   public Squad() {
   }
 
-  public Squad(Integer id) {
+  public Squad(Long id) {
     super(id);
   }
 
-  public Squad(Integer id, String code, String name) {
+  public Squad(Long id, String code, String name) {
     super(id);
     this.code = code;
     this.name = name;
