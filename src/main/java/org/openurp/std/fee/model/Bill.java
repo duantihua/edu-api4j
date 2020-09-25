@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.fee.model;
+package org.openurp.std.fee.model;
 
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
@@ -35,7 +35,7 @@ import java.util.Date;
  *
  * @author chaostone
  */
-@Entity(name = "org.openurp.edu.fee.model.Bill")
+@Entity(name = "org.openurp.std.fee.model.Bill")
 public class Bill extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = 5868193073466043875L;

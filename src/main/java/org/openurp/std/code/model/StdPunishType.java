@@ -16,38 +16,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.code.model;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+package org.openurp.std.code.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+
 /**
- * 未报到原因
+ * 处分名称
  *
  *
- * @since 2012-07-26
+ * @since 2005-9-7
  */
-@Entity(name = "org.openurp.edu.student.code.model.UncheckinReason")
+@Entity(name = "org.openurp.std.code.model.StdPunishType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class UncheckinReason extends Code<Integer> {
-  private static final long serialVersionUID = -2625912730520891625L;
+public class StdPunishType extends Code<Integer> {
 
-  /** 是否请假 */
-  private boolean leave;
+  private static final long serialVersionUID = 2306711938609410744L;
 
-  public boolean isLeave() {
-    return leave;
+  /**
+   * 处分等级值
+   * 级别越小越严重
+   */
+  private Integer grade;
+
+  public boolean isSeriousThan(StdPunishType other) {
+    return getGrade().intValue() < other.getGrade().intValue();
   }
 
-  public void setLeave(boolean leave) {
-    this.leave = leave;
+  public Integer getGrade() {
+    return grade;
+  }
+
+  public void setGrade(Integer grade) {
+    this.grade = grade;
   }
 
 }

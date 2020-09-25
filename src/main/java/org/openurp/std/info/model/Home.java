@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.info.model;
+package org.openurp.std.info.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +27,7 @@ import org.openurp.code.geo.model.RailwayStation;
 /**
  * 学生家庭信息
  */
-@Entity(name = "org.openurp.edu.student.info.model.Home")
+@Entity(name = "org.openurp.std.info.model.Home")
 public class Home extends StudentInfoBean {
 
   private static final long serialVersionUID = 6479456696916354885L;

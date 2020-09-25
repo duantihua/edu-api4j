@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.alter.model;
+package org.openurp.std.alter.model;
 
 import java.sql.Date;
 import java.util.Set;
@@ -39,7 +39,7 @@ import org.openurp.edu.base.model.Student;
 /**
  * 学籍异动
  */
-@Entity(name = "org.openurp.edu.student.alter.model.StdAlteration")
+@Entity(name = "org.openurp.std.alter.model.StdAlteration")
 public class StdAlteration extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = 3286874472425126383L;

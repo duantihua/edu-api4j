@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.alter.model;
+package org.openurp.std.alter.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +29,7 @@ import org.beangle.ems.meta.PropertyMeta;
 /**
  * 学籍异动变动项
  */
-@Entity(name = "org.openurp.edu.student.alter.model.StdAlterationItem")
+@Entity(name = "org.openurp.std.alter.model.StdAlterationItem")
 public class StdAlterationItem extends LongIdObject {
   private static final long serialVersionUID = -9189977160001292658L;
 

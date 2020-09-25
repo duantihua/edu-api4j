@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.info.model;
+package org.openurp.std.info.model;
 
 import javax.persistence.Entity;
 
 /**
  * 学生联系信息
  */
-@Entity(name = "org.openurp.edu.student.info.model.Contact")
+@Entity(name = "org.openurp.std.info.model.Contact")
 public class Contact extends StudentInfoBean {
   private static final long serialVersionUID = -1883342454367510587L;
 

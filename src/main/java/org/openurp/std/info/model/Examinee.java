@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.info.model;
+package org.openurp.std.info.model;
 
 import java.util.Map;
 
@@ -28,11 +28,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.code.edu.model.EducationMode;
-import org.openurp.code.edu.model.EnrollMode;
 import org.openurp.code.geo.model.Division;
 
-@Entity(name = "org.openurp.edu.student.info.model.Examinee")
+@Entity(name = "org.openurp.std.info.model.Examinee")
 public class Examinee extends StudentInfoBean {
 
   private static final long serialVersionUID = 8781039132558421121L;

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.fee.model;
+package org.openurp.std.fee.model;
 
 import org.beangle.commons.entity.pojo.IntegerIdObject;
 import org.openurp.base.model.Department;
@@ -28,7 +28,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "org.openurp.edu.fee.model.TuitionConfig")
+@Entity(name = "org.openurp.std.fee.model.TuitionConfig")
 public class TuitionConfig extends IntegerIdObject {
 
   @NotNull
