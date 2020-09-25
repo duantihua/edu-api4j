@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.fee.model;
+package org.openurp.std.fee.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -31,7 +31,7 @@ import javax.persistence.Entity;
  * @author chaostone
  *
  */
-@Entity(name = "org.openurp.edu.fee.model.FeeType")
+@Entity(name = "org.openurp.std.fee.model.FeeType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.code.model;
+package org.openurp.code.std.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ import org.openurp.code.school;
  *
  * @since 2012-07-26
  */
-@Entity(name = "org.openurp.edu.student.code.model.UncheckinReason")
+@Entity(name = "org.openurp.code.std.model.UncheckinReason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school

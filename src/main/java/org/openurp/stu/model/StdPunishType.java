@@ -16,28 +16,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.code.edu.model;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+package org.openurp.stu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.industry;
+import org.openurp.code.school;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
 /**
- * 学籍变动类别
+ * 处分名称
  *
  *
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.code.edu.model.StdAlterType")
+@Entity(name = "org.openurp.stu.model.StdPunishType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@industry
-public class StdAlterType extends Code<Integer> {
+@school
+public class StdPunishType extends Code<Integer> {
 
-  private static final long serialVersionUID = 1930324656331758575L;
+  private static final long serialVersionUID = 2306711938609410744L;
+
+  /**
+   * 处分等级值
+   * 级别越小越严重
+   */
+  private Integer grade;
+
+  public boolean isSeriousThan(StdPunishType other) {
+    return getGrade().intValue() < other.getGrade().intValue();
+  }
+
+  public Integer getGrade() {
+    return grade;
+  }
+
+  public void setGrade(Integer grade) {
+    this.grade = grade;
+  }
 
 }

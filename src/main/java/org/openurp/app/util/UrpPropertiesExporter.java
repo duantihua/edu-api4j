@@ -20,8 +20,8 @@ package org.openurp.app.util;
 
 import java.util.Map;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 import org.openurp.app.Ems;
 import org.openurp.app.EmsApp;

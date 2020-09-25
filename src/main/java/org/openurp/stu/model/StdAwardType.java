@@ -16,31 +16,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.info.model;
+package org.openurp.stu.model;
 
+import org.beangle.commons.entity.pojo.Code;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.school;
+
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
-@Entity(name = "org.openurp.edu.student.info.model.SocialRelation")
-public class SocialRelation extends StudentInfoBean {
+/**
+ * 学生奖励类别
+ *
+ *
+ * @since 2005-9-7
+ */
+@Entity(name = "org.openurp.stu.model.StdAwardType")
+@Cacheable
+@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@school
+public class StdAwardType extends Code<Integer> {
 
-  private String name;
+  private static final long serialVersionUID = 6778516873981739312L;
 
-  private String relation;
+  /** 类型等级 */
+  private Integer grade;
 
-  public String getName() {
-    return name;
+  public Integer getGrade() {
+    return grade;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getRelation() {
-    return relation;
-  }
-
-  public void setRelation(String relation) {
-    this.relation = relation;
+  public void setGrade(Integer grade) {
+    this.grade = grade;
   }
 
 }

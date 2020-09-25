@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.info.model;
+package org.openurp.std.info.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +33,7 @@ import org.openurp.edu.base.model.Major;
  *
  * @author duant
  */
-@Entity(name = "org.openurp.edu.student.info.model.Admission")
+@Entity(name = "org.openurp.std.info.model.Admission")
 public class Admission extends StudentInfoBean {
 
   private static final long serialVersionUID = -4421799484795106018L;

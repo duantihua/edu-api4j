@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.student.code.model;
+package org.openurp.code.std.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -24,20 +24,20 @@ import javax.persistence.Entity;
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.openurp.code.industry;
 
 /**
- * 未注册原因
+ * 学籍变动类别
  *
  *
- * @since 2011-10-18
+ * @since 2005-9-7
  */
-@Entity(name = "org.openurp.edu.student.code.model.UnregisteredReason")
+@Entity(name = "org.openurp.code.std.model.StdAlterType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class UnregisteredReason extends Code<Integer> {
+@industry
+public class StdAlterType extends Code<Integer> {
 
-  private static final long serialVersionUID = -5693446647744105995L;
+  private static final long serialVersionUID = 1930324656331758575L;
 
 }
