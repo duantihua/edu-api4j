@@ -31,13 +31,13 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
-import org.openurp.std.code.model.UncheckinReason;
-import org.openurp.std.code.model.UnregisteredReason;
+import org.openurp.code.std.model.UncheckinReason;
+import org.openurp.code.std.model.UnregisteredReason;
 
 /**
  * 学生注册信息
  */
-@Entity(name = "org.openurp.std.registration.model.Register")
+@Entity(name = "org.openurp.std.register.model.Register")
 public class Register extends LongIdObject {
 
   private static final long serialVersionUID = -7131131119889421960L;

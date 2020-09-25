@@ -16,13 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.award.model;
+package org.openurp.stu.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Department;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
-import org.openurp.std.code.model.StdAwardType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +33,7 @@ import java.sql.Date;
 /**
  * 奖励记录
  */
-@Entity(name = "org.openurp.std.award.model.Award")
+@Entity(name = "org.openurp.stu.model.Award")
 public class Award extends LongIdObject {
 
   private static final long serialVersionUID = 1648452714242979752L;

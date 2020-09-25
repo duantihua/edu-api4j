@@ -16,39 +16,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.code.model;
+package org.openurp.code.std.model;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-
 /**
- * 学生奖励类别
+ * 未注册原因
  *
  *
- * @since 2005-9-7
+ * @since 2011-10-18
  */
-@Entity(name = "org.openurp.std.code.model.StdAwardType")
+@Entity(name = "org.openurp.code.std.model.UnregisteredReason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class StdAwardType extends Code<Integer> {
+public class UnregisteredReason extends Code<Integer> {
 
-  private static final long serialVersionUID = 6778516873981739312L;
-
-  /** 类型等级 */
-  private Integer grade;
-
-  public Integer getGrade() {
-    return grade;
-  }
-
-  public void setGrade(Integer grade) {
-    this.grade = grade;
-  }
+  private static final long serialVersionUID = -5693446647744105995L;
 
 }

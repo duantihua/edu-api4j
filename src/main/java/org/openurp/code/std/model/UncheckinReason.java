@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.code.edu.model;
+package org.openurp.code.std.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -24,20 +24,30 @@ import javax.persistence.Entity;
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.industry;
+import org.openurp.code.school;
 
 /**
- * 学籍变动原因
+ * 未报到原因
  *
  *
- * @since 2005-9-7
+ * @since 2012-07-26
  */
-@Entity(name = "org.openurp.code.edu.model.StdAlterReason")
+@Entity(name = "org.openurp.code.std.model.UncheckinReason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@industry
-public class StdAlterReason extends Code<Integer> {
+@school
+public class UncheckinReason extends Code<Integer> {
+  private static final long serialVersionUID = -2625912730520891625L;
 
-  private static final long serialVersionUID = 2563688369028444395L;
+  /** 是否请假 */
+  private boolean leave;
+
+  public boolean isLeave() {
+    return leave;
+  }
+
+  public void setLeave(boolean leave) {
+    this.leave = leave;
+  }
 
 }

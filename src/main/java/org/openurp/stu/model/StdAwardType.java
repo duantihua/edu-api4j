@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.code.model;
+package org.openurp.stu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -27,28 +27,21 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
 /**
- * 处分名称
+ * 学生奖励类别
  *
  *
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.std.code.model.StdPunishType")
+@Entity(name = "org.openurp.stu.model.StdAwardType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class StdPunishType extends Code<Integer> {
+public class StdAwardType extends Code<Integer> {
 
-  private static final long serialVersionUID = 2306711938609410744L;
+  private static final long serialVersionUID = 6778516873981739312L;
 
-  /**
-   * 处分等级值
-   * 级别越小越严重
-   */
+  /** 类型等级 */
   private Integer grade;
-
-  public boolean isSeriousThan(StdPunishType other) {
-    return getGrade().intValue() < other.getGrade().intValue();
-  }
 
   public Integer getGrade() {
     return grade;

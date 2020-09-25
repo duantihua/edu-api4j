@@ -31,8 +31,8 @@ import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.code.edu.model.StdAlterReason;
-import org.openurp.code.edu.model.StdAlterType;
+import org.openurp.code.std.model.StdAlterReason;
+import org.openurp.code.std.model.StdAlterType;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
 

@@ -16,13 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.award.model;
+package org.openurp.stu.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Department;
 import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
-import org.openurp.std.code.model.StdPunishType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,7 +35,7 @@ import java.sql.Date;
  *
  *
  */
-@Entity(name = "org.openurp.std.award.model.Punishment")
+@Entity(name = "org.openurp.stu.model.Punishment")
 public class Punishment extends LongIdObject {
 
   private static final long serialVersionUID = 1648452714242979752L;
