@@ -76,7 +76,7 @@ public class ExamGroup extends LongIdObject {
   private float maxCourseConflictRatio;
 
   /** 排考结果是否发布 */
-  public PublishState state;
+  public PublishState publishState;
 
   /** 组内场次 */
   @OneToMany(mappedBy = "group", orphanRemoval = true, cascade = { CascadeType.ALL })
@@ -145,12 +145,12 @@ public class ExamGroup extends LongIdObject {
     this.endOn = endOn;
   }
 
-  public PublishState getState() {
-    return state;
+  public PublishState getPublishState() {
+    return publishState;
   }
 
-  public void setState(PublishState state) {
-    this.state = state;
+  public void setPublishState(PublishState publishState) {
+    this.publishState = publishState;
   }
 
   public List<ExamTurn> getTurns() {
