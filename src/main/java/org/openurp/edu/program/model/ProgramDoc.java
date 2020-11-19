@@ -53,7 +53,7 @@ public class ProgramDoc extends NumberIdTimeObject<Long> {
 
   /** 模板中的章节列表定义 */
   @OneToMany(mappedBy = "doc", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("code")
+  @OrderBy("indexno")
   private List<ProgramDocSection> sections = CollectUtils.newArrayList();
 
   public Program getProgram() {

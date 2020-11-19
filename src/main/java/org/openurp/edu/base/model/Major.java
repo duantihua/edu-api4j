@@ -83,15 +83,20 @@ public class Major extends NumberIdTimeObject<Long> {
   @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
   private Set<Direction> directions = CollectUtils.newHashSet();
 
-  /** 部门 */
+  /** 建设过程 */
   @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<MajorJournal> journals = CollectUtils.newArrayList();
 
-  /** 部门 */
+  /** 学科 */
   @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<MajorDiscipline> disciplines = CollectUtils.newArrayList();
+
+  /** 学制*/
+  @OneToMany(mappedBy = "major", cascade = { CascadeType.ALL }, orphanRemoval = true)
+  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  private List<SchoolLength> schoolLengths = CollectUtils.newArrayList();
 
   /** 简称 */
   @Size(max = 30)
@@ -103,13 +108,6 @@ public class Major extends NumberIdTimeObject<Long> {
 
   public Major(Long id) {
     super(id);
-  }
-
-  public Float getDuration() {
-    for (MajorJournal j : journals) {
-      return j.getDuration();
-    }
-    return 0f;
   }
 
   public Set<Direction> getDirections() {
@@ -246,4 +244,11 @@ public class Major extends NumberIdTimeObject<Long> {
     this.disciplines = disciplines;
   }
 
+  public List<SchoolLength> getSchoolLengths() {
+    return schoolLengths;
+  }
+
+  public void setSchoolLengths(List<SchoolLength> schoolLengths) {
+    this.schoolLengths = schoolLengths;
+  }
 }

@@ -18,53 +18,58 @@
  */
 package org.openurp.edu.program.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.entity.HierarchyEntity;
 import org.beangle.commons.entity.pojo.LongIdObject;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
+
 /**
  * 培养计划文档章节
- *
- *
  */
 @Entity(name = "org.openurp.edu.program.model.ProgramDocSection")
 public class ProgramDocSection extends LongIdObject implements HierarchyEntity<ProgramDocSection, Long> {
 
   private static final long serialVersionUID = 3516521279941525138L;
 
-  /** 内部编码 */
+  /**
+   * 内部编码
+   */
   @NotNull
   @Size(max = 20)
-  private String code;
+  private String indexno;
 
-  /** 标题 */
+  /**
+   * 标题
+   */
   @NotNull
   @Size(max = 100)
   private String name;
 
-  /** 内容 */
+  /**
+   * 内容
+   */
   @Size(max = 3000)
-  private String content;
+  private String contents;
 
-  /** 文档 */
+  /**
+   * 文档
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
   private ProgramDoc doc;
 
-  /** 上级章节 */
+  /**
+   * 上级章节
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   ProgramDocSection parent;
 
-  /** 下级章节列表 */
+  /**
+   * 下级章节列表
+   */
   @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
   List<ProgramDocSection> children;
 
@@ -76,16 +81,21 @@ public class ProgramDocSection extends LongIdObject implements HierarchyEntity<P
     this.name = name;
   }
 
+  @Override
   public String getIndexno() {
-    return code;
+    return indexno;
   }
 
-  public String getContent() {
-    return content;
+  public void setIndexno(String indexno) {
+    this.indexno = indexno;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public String getContents() {
+    return contents;
+  }
+
+  public void setContents(String contents) {
+    this.contents = contents;
   }
 
   public ProgramDoc getDoc() {
@@ -94,14 +104,6 @@ public class ProgramDocSection extends LongIdObject implements HierarchyEntity<P
 
   public void setDoc(ProgramDoc doc) {
     this.doc = doc;
-  }
-
-  public String getCode() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
   }
 
   public ProgramDocSection getParent() {

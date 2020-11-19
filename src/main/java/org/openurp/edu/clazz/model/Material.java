@@ -87,20 +87,15 @@ public class Material extends LongIdObject {
 
   /** 选用说明 */
   @Size(max = 500)
-  private String useExplain;
+  private String reason;
 
-  public String getUseExplain() {
-    return useExplain;
-  }
-
-  public void setUseExplain(String useExplain) {
-    this.useExplain = useExplain;
-  }
+  /**已经订购*/
+  private boolean ordered;
 
   /** 教材指定状态 */
   @NotNull
-  @Enumerated(value = EnumType.STRING)
-  private ClazzMaterialStatus status = ClazzMaterialStatus.ASSIGNED;
+  @Enumerated
+  private BookAdoption adoption = BookAdoption.None;
 
   public Clazz getClazz() {
     return clazz;
@@ -166,26 +161,18 @@ public class Material extends LongIdObject {
     this.remark = remark;
   }
 
-  public ClazzMaterialStatus getStatus() {
-    return status;
-  }
-
-  public void setStatus(ClazzMaterialStatus status) {
-    this.status = status;
-  }
-
   /**
    * 任务教材指定状态
    */
-  public enum ClazzMaterialStatus {
-    PUBLISHED("教材已发"), DONT_ASSIGNED("不需教材"), ASSIGNED("已指定");
+  public enum BookAdoption {
+    None("推荐参考书"), UseTextBook("使用教材"), UseLecture("使用教义");
 
     private String fullName;
 
-    private ClazzMaterialStatus() {
+    private BookAdoption() {
     }
 
-    private ClazzMaterialStatus(String fullName) {
+    private BookAdoption(String fullName) {
       this.fullName = fullName;
     }
 

@@ -48,24 +48,12 @@ public class ExecutionCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = -6804554057069134031L;
 
-  /** 自定义名称 */
-  @Size(max = 40)
-  private String givenName;
-
   /** 该组针对的专业方向 */
   @ManyToOne(fetch = FetchType.LAZY)
   private Direction direction;
 
   public boolean isLeafGroup() {
-    return null != givenName;
-  }
-
-  @Override
-  public String getName() {
-    StringBuilder sb = new StringBuilder();
-    if (null != courseType) sb.append(courseType.getName());
-    if (null != givenName) sb.append(" ").append(givenName);
-    return sb.toString();
+    return null != getGivenName();
   }
 
   /** 专业计划 */
@@ -192,14 +180,6 @@ public class ExecutionCourseGroup extends AbstractCourseGroup {
         .add(getPlanCourses(), other.getPlanCourses()).isEquals();
   }
 
-  public String getGivenName() {
-    return givenName;
-  }
-
-  public void setGivenName(String givenName) {
-    this.givenName = givenName;
-  }
-
   public Direction getDirection() {
     return direction;
   }
@@ -210,7 +190,7 @@ public class ExecutionCourseGroup extends AbstractCourseGroup {
 
   @Override
   public String toString() {
-    return "ExecuteCourseGroup [alias=" + givenName + ", direction=" + direction + ", parent=" + parent
+    return "ExecuteCourseGroup [alias=" + getGivenName() + ", direction=" + direction + ", parent=" + parent
         + ", courseType=" + courseType + "]";
   }
 

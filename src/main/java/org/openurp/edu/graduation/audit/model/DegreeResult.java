@@ -20,11 +20,7 @@ package org.openurp.edu.graduation.audit.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -49,6 +45,7 @@ public class DegreeResult extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
 
+  private int batch;
   /**
    * GPA
    */
@@ -87,6 +84,7 @@ public class DegreeResult extends LongIdObject {
    * 毕业备注
    */
   @Size(max = 500)
+  @Column(name="degree_comments")
   private String comments;
 
   /**
@@ -243,4 +241,11 @@ public class DegreeResult extends LongIdObject {
     this.foreignLangPassedOn = foreignLangPassedOn;
   }
 
+  public int getBatch() {
+    return batch;
+  }
+
+  public void setBatch(int batch) {
+    this.batch = batch;
+  }
 }

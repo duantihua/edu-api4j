@@ -18,17 +18,9 @@
  */
 package org.openurp.edu.grade.course.model;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.metadata.Model;
+import org.beangle.security.Securities;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.openurp.base.model.User;
@@ -36,6 +28,14 @@ import org.openurp.code.edu.model.GradeType;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.grade.Grade;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * 成绩状态表
@@ -51,25 +51,35 @@ public class CourseGradeState extends AbstractGradeState {
 
   private static final long serialVersionUID = 3297067284042522108L;
 
-  /** 教学任务 */
+  /**
+   * 教学任务
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Clazz clazz;
 
-  /** 可录入各成绩类型的状态设置 */
+  /**
+   * 可录入各成绩类型的状态设置
+   */
   @OneToMany(mappedBy = "gradeState", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   private Set<ExamGradeState> examStates = CollectUtils.newHashSet();
-  /** 可录入各成绩类型的状态设置 */
+  /**
+   * 可录入各成绩类型的状态设置
+   */
   @OneToMany(mappedBy = "gradeState", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   private Set<GaGradeState> gaStates = CollectUtils.newHashSet();
 
-  /** * 小数点后保留几位 */
+  /**
+   * 小数点后保留几位
+   */
   protected int scorePrecision = 0;
 
-  /** 其他录入人 */
+  /**
+   * 其他录入人
+   */
   @ManyToOne(fetch = FetchType.LAZY)
-  private User extraInputer;
+  private User inputer;
 
   public CourseGradeState() {
   }
@@ -107,6 +117,8 @@ public class CourseGradeState extends AbstractGradeState {
         examStates.add(egs);
         state = egs;
       }
+      state.setUpdatedAt(new Date());
+      state.setOperator(Securities.getUsername());
     } else {
       state.setStatus(status);
     }
@@ -138,6 +150,7 @@ public class CourseGradeState extends AbstractGradeState {
         result = new GaGradeState();
         result.setStatus(Grade.Status.New);
         result.setUpdatedAt(new Date());
+        result.setOperator(Securities.getUsername());
         result.setGradeType(gradeType);
         result.setGradeState(this);
         this.gaStates.add(result);
@@ -155,6 +168,7 @@ public class CourseGradeState extends AbstractGradeState {
         result = new ExamGradeState();
         result.setStatus(Grade.Status.New);
         result.setUpdatedAt(new Date());
+        result.setOperator(Securities.getUsername());
         result.setGradeType(gradeType);
         result.setGradeState(this);
         this.examStates.add(result);
@@ -172,15 +186,19 @@ public class CourseGradeState extends AbstractGradeState {
    */
   public boolean isStatus(GradeType gradeType, int status) {
     GradeState gradeTypeState = getState(gradeType);
-    if (null == gradeTypeState) { return false; }
+    if (null == gradeTypeState) {
+      return false;
+    }
     return gradeTypeState.getStatus() == status;
   }
 
   public Short getPercent(GradeType gradeType) {
-    for (Iterator<ExamGradeState> iter = examStates.iterator(); iter.hasNext();) {
+    for (Iterator<ExamGradeState> iter = examStates.iterator(); iter.hasNext(); ) {
       ExamGradeState gradeTypeState = (ExamGradeState) iter.next();
       if (null != gradeType && gradeTypeState.getGradeType().getId()
-          .equals(gradeType.getId())) { return gradeTypeState.getScorePercent(); }
+          .equals(gradeType.getId())) {
+        return gradeTypeState.getScorePercent();
+      }
     }
     return null;
   }
@@ -188,11 +206,15 @@ public class CourseGradeState extends AbstractGradeState {
   public int getStatus(GradeType gradeType) {
     if (gradeType.isGa()) {
       for (GaGradeState egs : gaStates) {
-        if (egs.getGradeType().getId().equals(gradeType.getId())) { return egs.getStatus(); }
+        if (egs.getGradeType().getId().equals(gradeType.getId())) {
+          return egs.getStatus();
+        }
       }
     } else {
       for (ExamGradeState egs : examStates) {
-        if (egs.getGradeType().getId().equals(gradeType.getId())) { return egs.getStatus(); }
+        if (egs.getGradeType().getId().equals(gradeType.getId())) {
+          return egs.getStatus();
+        }
       }
     }
     return 0;
@@ -218,12 +240,12 @@ public class CourseGradeState extends AbstractGradeState {
     this.examStates = states;
   }
 
-  public User getExtraInputer() {
-    return extraInputer;
+  public User getInputer() {
+    return inputer;
   }
 
-  public void setExtraInputer(User extraInputer) {
-    this.extraInputer = extraInputer;
+  public void setInputer(User inputer) {
+    this.inputer = inputer;
   }
 
   public Set<GaGradeState> getGaStates() {

@@ -67,8 +67,16 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
    */
   private int endTerm;
 
+
+  /** 开始日期 */
+  @NotNull
   private java.sql.Date beginOn;
+
+  /** 结束日期 结束日期包括在有效期内 */
+  @NotNull
   private java.sql.Date endOn;
+
+  private java.util.Date updatedAt;
 
   public int getStartTerm() {
     return startTerm;
@@ -161,5 +169,13 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public void setEndOn(Date endOn) {
     this.endOn = endOn;
+  }
+
+  public java.util.Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(java.util.Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

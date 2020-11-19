@@ -46,10 +46,6 @@ public class MajorJournal extends NumberIdObject<Long> {
   @ManyToOne(fetch = FetchType.LAZY)
   private Major major;
 
-  /** 修读年限 */
-  @NotNull
-  private Float duration;
-
   /** 培养层次 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -117,14 +113,6 @@ public class MajorJournal extends NumberIdObject<Long> {
 
   public void setRemark(String remark) {
     this.remark = remark;
-  }
-
-  public Float getDuration() {
-    return duration;
-  }
-
-  public void setDuration(Float duration) {
-    this.duration = duration;
   }
 
 }
