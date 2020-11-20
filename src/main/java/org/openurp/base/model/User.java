@@ -26,12 +26,16 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.code.model.UserCategory;
+import org.openurp.code.person.model.Gender;
 
 @Entity(name = "org.openurp.base.model.User")
 @Table(name = "users", schema = "base")
 public class User extends LongIdObject {
 
   private static final long serialVersionUID = 7382338864305594916L;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Gender gender;
 
   private String code;
 
@@ -56,6 +60,14 @@ public class User extends LongIdObject {
   private java.sql.Date endOn;
 
   private java.util.Date updatedAt;
+
+  public Gender getGender() {
+    return gender;
+  }
+
+  public void setGender(Gender gender) {
+    this.gender = gender;
+  }
 
   public School getSchool() {
     return school;
