@@ -18,15 +18,15 @@
  */
 package org.openurp.edu.program.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.edu.base.code.model.CourseType;
 import org.openurp.edu.base.model.AuditState;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 抽象课程方案
@@ -38,24 +38,45 @@ import org.openurp.edu.base.model.AuditState;
 public abstract class AbstractCoursePlan extends LongIdObject implements CoursePlan {
 
   private static final long serialVersionUID = 1606351182470625309L;
-  /** 培养方案 */
+  /**
+   * 培养方案
+   */
   @NotNull
-  @OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+  @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   protected Program program;
-  /** 审核状态 */
+  /**
+   * 审核状态
+   */
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
   private AuditState auditState = AuditState.UNSUBMITTED;
 
-  /** 要求学分 */
+  /**
+   * 要求学分
+   */
   @NotNull
   private float credits;
 
-  /** 起始学期 */
+  /**
+   * 起始学期
+   */
   private int startTerm;
 
-  /** 结束学期 */
+  /**
+   * 结束学期
+   */
   private int endTerm;
+
+
+  /** 开始日期 */
+  @NotNull
+  private java.sql.Date beginOn;
+
+  /** 结束日期 结束日期包括在有效期内 */
+  @NotNull
+  private java.sql.Date endOn;
+
+  private java.util.Date updatedAt;
 
   public int getStartTerm() {
     return startTerm;
@@ -94,7 +115,9 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
   }
 
   public List<CourseGroup> getTopCourseGroups() {
-    if (getGroups() == null) { return new ArrayList<CourseGroup>(); }
+    if (getGroups() == null) {
+      return new ArrayList<CourseGroup>();
+    }
     List<CourseGroup> res = new ArrayList<CourseGroup>();
     for (CourseGroup group : getGroups()) {
       if (group != null && group.getParent() == null) res.add(group);
@@ -128,5 +151,31 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public void setAuditState(AuditState auditState) {
     this.auditState = auditState;
+  }
+
+  @Override
+  public Date getBeginOn() {
+    return beginOn;
+  }
+
+  public void setBeginOn(Date beginOn) {
+    this.beginOn = beginOn;
+  }
+
+  @Override
+  public Date getEndOn() {
+    return endOn;
+  }
+
+  public void setEndOn(Date endOn) {
+    this.endOn = endOn;
+  }
+
+  public java.util.Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(java.util.Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

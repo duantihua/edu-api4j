@@ -53,13 +53,6 @@ public class StdPlan extends AbstractCoursePlan {
   @JoinColumn(name = "plan_id", nullable = false)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 开始日期 */
-  @NotNull
-  private Date beginOn;
-
-  /** 结束日期 结束日期包括在有效期内 */
-  private Date endOn;
-
   /** 备注 */
   @Size(max = 800)
   private String remark;
@@ -91,22 +84,6 @@ public class StdPlan extends AbstractCoursePlan {
 
   public void setStd(Student std) {
     this.std = std;
-  }
-
-  public Date getBeginOn() {
-    return beginOn;
-  }
-
-  public void setBeginOn(Date beginOn) {
-    this.beginOn = beginOn;
-  }
-
-  public Date getEndOn() {
-    return endOn;
-  }
-
-  public void setEndOn(Date endOn) {
-    this.endOn = endOn;
   }
 
   public String getRemark() {

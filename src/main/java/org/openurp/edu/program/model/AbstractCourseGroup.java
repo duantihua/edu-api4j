@@ -43,6 +43,9 @@ import java.util.Set;
 public abstract class AbstractCourseGroup extends LongIdObject implements CourseGroup, Cloneable {
 
   private static final long serialVersionUID = 1347767253840431206L;
+  /** 自定义组名 */
+  @Size(max = 100)
+  private String givenName;
 
   /** 要求完成组数 */
   protected short subCount;
@@ -78,10 +81,13 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   @Type(type = "org.openurp.base.time.hibernate.TermsType")
   protected Terms terms = Terms.Empty;
 
+  @Override
   public String getName() {
-    return (null == courseType) ? null : courseType.getName();
+    StringBuilder sb = new StringBuilder();
+    if (null != courseType) sb.append(courseType.getName());
+    if (null != givenName) sb.append(" ").append(givenName);
+    return sb.toString();
   }
-
   public int getIndex() {
     String index = Strings.substringAfterLast(indexno, ".");
     if (Strings.isEmpty(index)) index = indexno;
@@ -101,6 +107,13 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   public void addChildGroup(CourseGroup group) {
     group.setParent(this);
     getChildren().add(group);
+  }
+  public String getGivenName() {
+    return givenName;
+  }
+
+  public void setGivenName(String givenName) {
+    this.givenName = givenName;
   }
 
   public void addPlanCourse(PlanCourse planCourse) {

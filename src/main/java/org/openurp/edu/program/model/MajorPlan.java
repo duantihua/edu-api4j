@@ -62,12 +62,4 @@ public class MajorPlan extends AbstractCoursePlan {
   public void setProgram(Program program) {
     this.program = program;
   }
-
-  public Date getBeginOn() {
-    return null != program ? program.getBeginOn() : null;
-  }
-
-  public Date getEndOn() {
-    return null != program ? program.getEndOn() : null;
-  }
 }

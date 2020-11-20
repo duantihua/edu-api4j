@@ -42,10 +42,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
 
   private static final long serialVersionUID = 4144045243297075224L;
 
-  /** 自定义组名 */
-  @Size(max = 100)
-  private String givenName;
-
   /** 该组针对的专业方向 */
   @ManyToOne(fetch = FetchType.LAZY)
   private Direction direction;
@@ -70,14 +66,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
   @OneToMany(mappedBy = "group", orphanRemoval = true, targetEntity = MajorPlanCourse.class, cascade = {
       CascadeType.ALL })
   private List<PlanCourse> planCourses = CollectUtils.newArrayList();
-
-  @Override
-  public String getName() {
-    StringBuilder sb = new StringBuilder();
-    if (null != courseType) sb.append(courseType.getName());
-    if (null != givenName) sb.append(" ").append(givenName);
-    return sb.toString();
-  }
 
   public CoursePlan getPlan() {
     return plan;
@@ -109,14 +97,6 @@ public class MajorCourseGroup extends AbstractCourseGroup {
 
   public void setPlanCourses(List<PlanCourse> planCourses) {
     this.planCourses = planCourses;
-  }
-
-  public String getGivenName() {
-    return givenName;
-  }
-
-  public void setGivenName(String givenName) {
-    this.givenName = givenName;
   }
 
   public Direction getDirection() {

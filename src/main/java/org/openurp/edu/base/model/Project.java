@@ -141,7 +141,7 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
    */
   @ElementCollection
   @MapKeyColumn(name = "name")
-  @Column(name = "value", length = 4000)
+  @Column(name = "value_", length = 4000)
   private Map<String, String> properties = CollectUtils.newHashMap();
 
   public List<Semester> getSemesters() {

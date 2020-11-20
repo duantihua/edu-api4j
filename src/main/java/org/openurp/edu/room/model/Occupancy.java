@@ -20,7 +20,6 @@ package org.openurp.edu.room.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.WeekTime;
-import org.openurp.base.model.Room;
 import org.openurp.code.edu.model.ActivityType;
 import org.openurp.edu.base.model.Classroom;
 
@@ -55,7 +54,7 @@ public class Occupancy extends LongIdObject {
   /** 使用者 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected App app;
+  protected UserApp app;
 
   protected Long activityId;
 
@@ -90,11 +89,11 @@ public class Occupancy extends LongIdObject {
     this.activityType = usage;
   }
 
-  public App getApp() {
+  public UserApp getApp() {
     return app;
   }
 
-  public void setApp(App app) {
+  public void setApp(UserApp app) {
     this.app = app;
   }
 
