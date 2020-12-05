@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.clazz.model;
+package org.openurp.edu.textbook.model;
 
 import java.util.Collection;
 import java.util.Date;
@@ -38,11 +38,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.edu.base.model.Textbook;
+import org.openurp.edu.clazz.model.Clazz;
 
 /**
  * 教学资料
  */
-@Entity(name = "org.openurp.edu.clazz.model.Material")
+@Entity(name = "org.openurp.edu.textbook.model.Material")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class Material extends LongIdObject {
@@ -61,33 +62,17 @@ public class Material extends LongIdObject {
 
   /** 参考书 */
   @Size(max = 500)
-  private String referenceBooks;
-
-  /** 其它资料 */
-  @Size(max = 500)
-  private String extra;
+  private String materials;
 
   /** 是否审核通过 */
   private Boolean passed;
 
-  /** 审核时间 */
-  private Date auditAt;
-
-  public Date getAuditAt() {
-    return auditAt;
-  }
-
-  public void setAuditAt(Date auditAt) {
-    this.auditAt = auditAt;
-  }
+  /** 提交时间 */
+  private Date submitAt;
 
   /** 其它说明 */
   @Size(max = 200)
   private String remark;
-
-  /** 选用说明 */
-  @Size(max = 500)
-  private String reason;
 
   /**已经订购*/
   private boolean ordered;
@@ -129,22 +114,6 @@ public class Material extends LongIdObject {
     this.books = books;
   }
 
-  public String getReferenceBooks() {
-    return referenceBooks;
-  }
-
-  public void setReferenceBooks(String referenceBooks) {
-    this.referenceBooks = referenceBooks;
-  }
-
-  public String getExtra() {
-    return extra;
-  }
-
-  public void setExtra(String extra) {
-    this.extra = extra;
-  }
-
   public Boolean getPassed() {
     return passed;
   }
@@ -159,6 +128,38 @@ public class Material extends LongIdObject {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public String getMaterials() {
+    return materials;
+  }
+
+  public void setMaterials(String materials) {
+    this.materials = materials;
+  }
+
+  public Date getSubmitAt() {
+    return submitAt;
+  }
+
+  public void setSubmitAt(Date submitAt) {
+    this.submitAt = submitAt;
+  }
+
+  public boolean isOrdered() {
+    return ordered;
+  }
+
+  public void setOrdered(boolean ordered) {
+    this.ordered = ordered;
+  }
+
+  public BookAdoption getAdoption() {
+    return adoption;
+  }
+
+  public void setAdoption(BookAdoption adoption) {
+    this.adoption = adoption;
   }
 
   /**

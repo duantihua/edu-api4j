@@ -18,22 +18,22 @@
  */
 package org.openurp.edu.base.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
+import org.openurp.base.model.School;
 import org.openurp.base.model.User;
 import org.openurp.code.hr.model.WorkStatus;
 import org.openurp.code.job.model.ProfessionalGrade;
 import org.openurp.code.job.model.ProfessionalTitle;
 import org.openurp.edu.base.code.model.TeacherType;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 教师信息默认实现
@@ -44,36 +44,56 @@ import org.openurp.edu.base.code.model.TeacherType;
 public class Teacher extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * 学校
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected Project project;
+  private School school;
+
+  @ManyToMany
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "openurp.base")
+  private Set<Project> projects = new HashSet<Project>();
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected User user;
 
-  /** 职称 */
+  /**
+   * 职称
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected ProfessionalTitle title;
 
-  /** 教职工类别 */
+  /**
+   * 教职工类别
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected TeacherType teacherType;
 
-  /** 教师在职状态 */
+  /**
+   * 教师在职状态
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private WorkStatus status;
 
-  /** 任职开始日期 */
+  /**
+   * 任职开始日期
+   */
   @NotNull
   private java.sql.Date beginOn;
 
-  /** 任职结束日期 */
+  /**
+   * 任职结束日期
+   */
   private java.sql.Date endOn;
 
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 500)
   protected String remark;
 
@@ -156,12 +176,19 @@ public class Teacher extends NumberIdTimeObject<Long> {
     this.endOn = endOn;
   }
 
-  public Project getProject() {
-    return project;
+  public School getSchool() {
+    return school;
   }
 
-  public void setProject(Project project) {
-    this.project = project;
+  public void setSchool(School school) {
+    this.school = school;
   }
 
+  public Set<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(Set<Project> projects) {
+    this.projects = projects;
+  }
 }
