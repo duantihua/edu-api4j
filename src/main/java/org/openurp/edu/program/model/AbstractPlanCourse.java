@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Type;
 import org.openurp.base.time.Terms;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 
 /**
  * 抽象计划内课程

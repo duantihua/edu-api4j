@@ -27,12 +27,12 @@ import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.base.model.AuditState;
-import org.openurp.edu.base.model.Direction;
-import org.openurp.edu.base.model.Major;
-import org.openurp.edu.base.model.Project;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.model.AuditState;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Project;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

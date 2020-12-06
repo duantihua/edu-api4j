@@ -19,8 +19,8 @@
 package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.AuditState;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.AuditState;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

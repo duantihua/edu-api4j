@@ -20,8 +20,8 @@ package org.openurp.std.fee.model;
 
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Student;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

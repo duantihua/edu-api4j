@@ -42,12 +42,12 @@ import org.hibernate.annotations.Target;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.TeachLangType;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.AuditState;
-import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.ProjectBasedObject;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Teacher;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.AuditState;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.ProjectBasedObject;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Teacher;
 import org.openurp.edu.clazz.code.model.ClazzTag;
 
 /**

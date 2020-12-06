@@ -24,7 +24,7 @@ import java.util.List;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.functor.Predicate;
 import org.openurp.base.time.Terms;
-import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.base.edu.code.model.CourseType;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.PlanCourse;

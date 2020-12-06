@@ -34,9 +34,9 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.HourMinute;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.edu.base.model.Classroom;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
+import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.Semester;
 
 @Entity(name = "org.openurp.edu.exam.model.ExamGroup")
 public class ExamGroup extends LongIdObject {

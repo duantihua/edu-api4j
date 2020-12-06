@@ -28,8 +28,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.model.Classroom;
-import org.openurp.edu.base.model.Project;
+import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.edu.model.Project;
 
 @Entity(name = "org.openurp.edu.exam.model.RoomGroup")
 public class RoomGroup extends LongIdObject {

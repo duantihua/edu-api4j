@@ -46,7 +46,7 @@ import java.util.Map;
 /**
  * http://localhost:8080/platform/user/dimensions/departments.json
  * http://localhost:8080/platform/security/func/edu-lesson-adminapp/permissions/role/1.json
- * http://localhost:8080/platform/security/data/permissions/user/root.json?data=org.openurp.edu.base
+ * http://localhost:8080/platform/security/data/permissions/user/root.json?data=org.openurp.base.edu
  * .model.Student&app=edu-lesson-adminapp
  *
  * @author chaostone

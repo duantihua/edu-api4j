@@ -27,9 +27,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 成绩的抽象类

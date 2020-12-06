@@ -31,9 +31,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.Student;
-import org.openurp.edu.program.model.AbstractCourseSubstitution;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 学生可代替课程实体类.<br>

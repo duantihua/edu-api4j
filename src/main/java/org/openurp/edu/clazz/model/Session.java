@@ -40,8 +40,8 @@ import org.beangle.commons.lang.time.WeekTime;
 import org.beangle.commons.lang.time.WeekTimes;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.edu.base.model.Classroom;
-import org.openurp.edu.base.model.Teacher;
+import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.edu.model.Teacher;
 
 /**
  * 教学活动

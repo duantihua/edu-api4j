@@ -25,7 +25,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
 import org.openurp.code.edu.model.ExamMode;
-import org.openurp.edu.base.model.CalendarStage;
+import org.openurp.base.edu.model.CalendarStage;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

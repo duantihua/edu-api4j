@@ -25,8 +25,8 @@ import javax.persistence.ManyToOne;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationMode;
 import org.openurp.code.edu.model.EnrollMode;
-import org.openurp.edu.base.model.Direction;
-import org.openurp.edu.base.model.Major;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
 
 /**
  * 录取信息

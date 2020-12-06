@@ -24,8 +24,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.code.model.CourseAbilityRate;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.code.model.CourseAbilityRate;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 学生课程等级能力

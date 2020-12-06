@@ -21,7 +21,7 @@ package org.openurp.edu.grade;
 import org.beangle.commons.entity.Entity;
 import org.beangle.commons.entity.TimeEntity;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 成绩接口

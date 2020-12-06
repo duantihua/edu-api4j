@@ -27,7 +27,6 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.User;
-import org.openurp.edu.base.model.Teacher;
 
 /**
  * 监考任务

@@ -33,8 +33,8 @@ import org.hibernate.annotations.CascadeType;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.std.model.StdAlterReason;
 import org.openurp.code.std.model.StdAlterType;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 学籍异动

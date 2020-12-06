@@ -25,7 +25,7 @@ import java.util.Set;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.time.Terms;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.ExecutionPlanCourse;

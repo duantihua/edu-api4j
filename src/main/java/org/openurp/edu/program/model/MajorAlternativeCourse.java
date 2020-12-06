@@ -36,12 +36,11 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.Direction;
-import org.openurp.edu.base.model.Major;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.program.model.AbstractCourseSubstitution;
+import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Project;
 
 /**
  * 专业替代课程

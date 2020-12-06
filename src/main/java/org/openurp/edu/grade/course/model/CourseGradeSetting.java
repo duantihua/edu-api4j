@@ -22,8 +22,8 @@ import org.beangle.commons.collection.CollectUtils;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.GradeType;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.ProjectBasedObject;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.ProjectBasedObject;
 
 import java.util.List;
 import java.util.Set;

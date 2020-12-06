@@ -25,8 +25,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Target;
 import org.openurp.code.edu.model.Language;
-import org.openurp.edu.base.code.model.CourseAbilityRate;
-import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.base.edu.code.model.CourseAbilityRate;
+import org.openurp.base.edu.code.model.CourseType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

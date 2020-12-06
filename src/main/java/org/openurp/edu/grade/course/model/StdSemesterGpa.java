@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.model.Semester;
+import org.openurp.base.edu.model.Semester;
 
 /**
  * 每学期绩点

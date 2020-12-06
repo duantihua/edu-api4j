@@ -21,7 +21,7 @@ package org.openurp.edu.room.model;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.time.WeekTime;
 import org.openurp.code.edu.model.ActivityType;
-import org.openurp.edu.base.model.Classroom;
+import org.openurp.base.edu.model.Classroom;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

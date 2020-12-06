@@ -20,7 +20,7 @@ package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.Entity;
 import org.openurp.base.time.Terms;
-import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.base.edu.code.model.CourseType;
 
 import java.util.List;
 

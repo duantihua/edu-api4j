@@ -23,7 +23,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Strings;
 import org.hibernate.annotations.Type;
 import org.openurp.base.time.Terms;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.program.model.PlanCourse;
 
