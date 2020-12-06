@@ -33,8 +33,8 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 计划完成审核结果<br>

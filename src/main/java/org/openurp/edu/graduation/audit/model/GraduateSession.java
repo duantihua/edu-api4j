@@ -24,7 +24,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.openurp.edu.base.model.ProjectBasedObject;
+import org.openurp.base.edu.model.ProjectBasedObject;
 
 /**
  * 毕业审核批次<br>

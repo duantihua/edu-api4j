@@ -21,7 +21,7 @@ package org.openurp.edu.program.model;
 import java.util.Set;
 
 import org.beangle.commons.entity.Entity;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 
 /**
  * 课程替代关系.

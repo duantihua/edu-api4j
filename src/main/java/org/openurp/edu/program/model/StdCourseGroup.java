@@ -29,7 +29,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.model.Direction;
+import org.openurp.base.edu.model.Direction;
 
 /**
  * 个人计划的课程组

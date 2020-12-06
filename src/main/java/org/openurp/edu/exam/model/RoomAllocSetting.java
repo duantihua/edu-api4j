@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.edu.base.model.Project;
+import org.openurp.base.edu.model.Project;
 
 @Entity(name = "org.openurp.edu.exam.model.RoomAllocSetting")
 public class RoomAllocSetting extends LongIdObject {

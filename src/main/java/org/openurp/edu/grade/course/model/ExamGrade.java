@@ -32,7 +32,7 @@ import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 import org.openurp.edu.grade.Grade;
 
 /**

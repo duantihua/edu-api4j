@@ -29,8 +29,8 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Student;
 import org.openurp.code.std.model.UncheckinReason;
 import org.openurp.code.std.model.UnregisteredReason;
 

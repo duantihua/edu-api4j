@@ -24,7 +24,7 @@ import javax.persistence.Embeddable;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 
 /**
  * 课程审核统计结果

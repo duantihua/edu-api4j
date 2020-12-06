@@ -38,7 +38,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ClassroomType;
-import org.openurp.edu.base.model.Classroom;
+import org.openurp.base.edu.model.Classroom;
 
 /**
  * 课程安排具体结果

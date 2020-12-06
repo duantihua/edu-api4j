@@ -21,7 +21,7 @@ package org.openurp.edu.grade.plan.adapters;
 import java.util.Collections;
 import java.util.List;
 
-import org.openurp.edu.base.code.model.CourseType;
+import org.openurp.base.edu.code.model.CourseType;
 import org.openurp.edu.grade.plan.model.AuditStat;
 import org.openurp.edu.grade.plan.model.CourseAuditResult;
 import org.openurp.edu.grade.plan.model.GroupAuditResult;

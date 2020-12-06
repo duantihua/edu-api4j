@@ -29,14 +29,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.Direction;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.Direction;
 
 /**
  * 专业计划课程组.

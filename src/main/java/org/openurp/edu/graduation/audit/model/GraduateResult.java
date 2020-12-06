@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.EducationResult;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 
 @Entity(name = "org.openurp.edu.graduation.audit.model.GraduateResult")
 public class GraduateResult extends LongIdObject {

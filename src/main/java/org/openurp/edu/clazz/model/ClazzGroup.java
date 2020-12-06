@@ -34,10 +34,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.ProjectBasedObject;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Squad;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.ProjectBasedObject;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Squad;
 
 /**
  * 教学任务组

@@ -30,9 +30,9 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 学生历学期的成绩绩点

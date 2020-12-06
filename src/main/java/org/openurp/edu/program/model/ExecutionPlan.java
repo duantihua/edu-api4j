@@ -37,7 +37,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.edu.base.code.model.StdType;
+import org.openurp.base.edu.code.model.StdType;
 
 /**
  * 专业计划

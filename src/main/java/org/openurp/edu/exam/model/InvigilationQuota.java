@@ -39,8 +39,8 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.User;
-import org.openurp.edu.base.model.Project;
-import org.openurp.edu.base.model.Semester;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.Semester;
 
 /**
  * 监考人员

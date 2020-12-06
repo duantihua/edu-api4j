@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.edu.base.model.Project;
+import org.openurp.base.edu.model.Project;
 
 /**
  * 成绩分级配置

@@ -25,7 +25,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.model.Course;
 
 /**
  * 抽象替代课程实现

@@ -30,8 +30,8 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.Course;
 import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
 import org.openurp.edu.program.model.CourseGroup;
 

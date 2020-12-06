@@ -18,7 +18,6 @@
  */
 package org.openurp.edu.program.model;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,7 +31,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 
 /**
  * 个人计划

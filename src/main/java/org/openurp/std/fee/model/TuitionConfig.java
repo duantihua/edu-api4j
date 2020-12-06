@@ -21,7 +21,7 @@ package org.openurp.std.fee.model;
 import org.beangle.commons.entity.pojo.IntegerIdObject;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.edu.base.model.Major;
+import org.openurp.base.edu.model.Major;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

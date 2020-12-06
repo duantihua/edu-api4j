@@ -31,8 +31,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.code.model.StdType;
-import org.openurp.edu.base.model.EduLevelBasedObject;
+import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.model.EduLevelBasedObject;
 
 /**
  * 培养方案模板

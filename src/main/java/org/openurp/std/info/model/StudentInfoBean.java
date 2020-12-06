@@ -25,8 +25,8 @@ import javax.persistence.OneToOne;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.edu.base.model.Student;
-import org.openurp.edu.base.model.StudentBasedEntity;
+import org.openurp.base.edu.model.Student;
+import org.openurp.base.edu.model.StudentBasedEntity;
 
 /**
  * @depend - - - Student

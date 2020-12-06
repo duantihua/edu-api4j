@@ -24,7 +24,6 @@ import java.util.List;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -37,7 +36,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.edu.base.model.Textbook;
+import org.openurp.base.edu.model.Textbook;
 import org.openurp.edu.clazz.model.Clazz;
 
 /**

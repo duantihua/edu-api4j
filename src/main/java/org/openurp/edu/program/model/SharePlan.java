@@ -23,7 +23,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.edu.base.model.Project;
+import org.openurp.base.edu.model.Project;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
