@@ -69,8 +69,8 @@ public class ExamActivity extends LongIdObject {
   /** 考试周 */
   private Short examWeek;
 
-  /** 是否院系自行安排 */
-  private Boolean departArranged;
+  /** 是否集中安排 */
+  private Boolean centralized;
 
   /**试卷编号*/
   private String examPaperNo;
@@ -155,12 +155,12 @@ public class ExamActivity extends LongIdObject {
     this.examWeek = examWeek;
   }
 
-  public Boolean getDepartArranged() {
-    return departArranged;
+  public Boolean getCentralized() {
+    return centralized;
   }
 
-  public void setDepartArranged(Boolean departArranged) {
-    this.departArranged = departArranged;
+  public void setCentralized(Boolean centralized) {
+    this.centralized = centralized;
   }
 
   public String getExamPaperNo() {

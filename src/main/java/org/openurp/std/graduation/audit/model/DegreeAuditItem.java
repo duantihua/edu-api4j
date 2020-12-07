@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.graduation.audit.model;
+package org.openurp.std.graduation.audit.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,19 +27,21 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.entity.pojo.LongIdObject;
 
 /**
- * 毕业审核各项目审核结果
+ * 学位审核条目结果
  */
-@Entity(name = "org.openurp.edu.graduation.audit.model.GraduateAuditItem")
-public class GraduateAuditItem extends LongIdObject {
+@Entity(name = "org.openurp.std.graduation.audit.model.DegreeAuditItem")
+public class DegreeAuditItem extends LongIdObject {
 
-  private static final long serialVersionUID = -1475985213287305005L;
+  private static final long serialVersionUID = -5306832627413494440L;
 
   /** 项目名称 */
-  @Size(max = 200)
+  @Size(max = 255)
   @NotNull
   private String name;
 
-  /** 是否通过 */
+  /**
+   * 是否通过
+   */
   private Boolean passed;
 
   /** 具体状态信息 */
@@ -49,17 +51,7 @@ public class GraduateAuditItem extends LongIdObject {
   /** 毕业审核结果 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GraduateResult result;
-
-  public GraduateAuditItem() {
-    super();
-  }
-
-  public GraduateAuditItem(String name, GraduateResult auditResult) {
-    this();
-    this.name = name;
-    this.result = auditResult;
-  }
+  private DegreeResult result;
 
   public String getName() {
     return name;
@@ -85,11 +77,11 @@ public class GraduateAuditItem extends LongIdObject {
     this.comments = comments;
   }
 
-  public GraduateResult getResult() {
+  public DegreeResult getResult() {
     return result;
   }
 
-  public void setResult(GraduateResult result) {
+  public void setResult(DegreeResult result) {
     this.result = result;
   }
 
