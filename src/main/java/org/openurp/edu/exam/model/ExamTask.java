@@ -130,8 +130,8 @@ public class ExamTask extends LongIdObject {
   /** 考试周 */
   private Short examWeek;
 
-  /** 是否院系自行安排 */
-  private boolean departArranged;
+  /** 是否集中安排 */
+  private boolean centralized;
 
   public boolean isEmptyTime() {
     return ((null == beginAt && null == endAt) || (beginAt.value == 0 && endAt.value == 0));
@@ -352,12 +352,12 @@ public class ExamTask extends LongIdObject {
     return this.duration;
   }
 
-  public boolean isDepartArranged() {
-    return departArranged;
+  public boolean isCentralized() {
+    return centralized;
   }
 
-  public void setDepartArranged(boolean departArranged) {
-    this.departArranged = departArranged;
+  public void setCentralized(boolean centralized) {
+    this.centralized = centralized;
   }
 
   public String getCode() {
