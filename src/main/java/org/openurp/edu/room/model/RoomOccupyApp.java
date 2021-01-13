@@ -22,8 +22,8 @@ import org.beangle.commons.entity.pojo.IntegerIdObject;
 
 import javax.persistence.Entity;
 
-@Entity(name = "org.openurp.edu.room.model.UserApp")
-public class UserApp extends IntegerIdObject {
+@Entity(name = "org.openurp.edu.room.model.RoomOccupyApp")
+public class RoomOccupyApp extends IntegerIdObject {
 
   public static Integer COURSE = 1;
   public static Integer EXAM = 2;
@@ -37,11 +37,11 @@ public class UserApp extends IntegerIdObject {
     return name;
   }
 
-  public UserApp() {
+  public RoomOccupyApp() {
     super();
   }
 
-  public UserApp(Integer id) {
+  public RoomOccupyApp(Integer id) {
     super();
     this.id = id;
   }

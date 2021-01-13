@@ -54,7 +54,7 @@ public class Occupancy extends LongIdObject {
   /** 使用者 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected UserApp app;
+  protected RoomOccupyApp app;
 
   protected Long activityId;
 
@@ -89,11 +89,11 @@ public class Occupancy extends LongIdObject {
     this.activityType = usage;
   }
 
-  public UserApp getApp() {
+  public RoomOccupyApp getApp() {
     return app;
   }
 
-  public void setApp(UserApp app) {
+  public void setApp(RoomOccupyApp app) {
     this.app = app;
   }
 
