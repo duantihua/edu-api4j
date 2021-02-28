@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.graduation.audit.model;
+package org.openurp.std.graduation.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +29,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 /**
  * 毕业审核各项目审核结果
  */
-@Entity(name = "org.openurp.std.graduation.audit.model.GraduateAuditItem")
+@Entity(name = "org.openurp.std.graduation.model.GraduateAuditItem")
 public class GraduateAuditItem extends LongIdObject {
 
   private static final long serialVersionUID = -1475985213287305005L;

@@ -16,42 +16,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.graduation.audit.model;
+package org.openurp.std.graduation.model;
+
+import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.beangle.commons.entity.pojo.LongIdObject;
+import org.openurp.base.edu.model.ProjectBasedObject;
 
 /**
- * 学位审核条目结果
+ * 毕业审核批次<br>
+ * 毕业审核批次中有很多学生名单
  */
-@Entity(name = "org.openurp.std.graduation.audit.model.DegreeAuditItem")
-public class DegreeAuditItem extends LongIdObject {
+@Entity(name = "org.openurp.std.graduation.model.GraduateSession")
+public class GraduateSession extends ProjectBasedObject<Long> {
 
-  private static final long serialVersionUID = -5306832627413494440L;
+  private static final long serialVersionUID = -6510377955716412956L;
 
-  /** 项目名称 */
-  @Size(max = 255)
+  /** 名称 */
   @NotNull
+  @Size(max = 150)
   private String name;
 
-  /**
-   * 是否通过
-   */
-  private Boolean passed;
-
-  /** 具体状态信息 */
-  @Size(max = 500)
-  private String comments;
-
-  /** 毕业审核结果 */
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private DegreeResult result;
+  private Date graduateOn;
+
+  /** 是否授学位 */
+  private boolean degreeOffered;
 
   public String getName() {
     return name;
@@ -61,28 +54,20 @@ public class DegreeAuditItem extends LongIdObject {
     this.name = name;
   }
 
-  public Boolean getPassed() {
-    return passed;
+  public Date getGraduateOn() {
+    return graduateOn;
   }
 
-  public void setPassed(Boolean passed) {
-    this.passed = passed;
+  public void setGraduateOn(Date graduateOn) {
+    this.graduateOn = graduateOn;
   }
 
-  public String getComments() {
-    return comments;
+  public boolean isDegreeOffered() {
+    return degreeOffered;
   }
 
-  public void setComments(String comments) {
-    this.comments = comments;
-  }
-
-  public DegreeResult getResult() {
-    return result;
-  }
-
-  public void setResult(DegreeResult result) {
-    this.result = result;
+  public void setDegreeOffered(boolean degreeOffered) {
+    this.degreeOffered = degreeOffered;
   }
 
 }

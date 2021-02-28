@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.graduation.audit.model;
+package org.openurp.std.graduation.model;
 
 import java.util.List;
 
@@ -26,14 +26,17 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.code.edu.model.EducationResult;
+import org.openurp.code.edu.model.Degree;
 import org.openurp.base.edu.model.Student;
 
-@Entity(name = "org.openurp.std.graduation.audit.model.GraduateResult")
-public class GraduateResult extends LongIdObject {
-  private static final long serialVersionUID = -1856339635822733136L;
+@Entity(name = "org.openurp.std.graduation.model.DegreeResult")
+public class DegreeResult extends LongIdObject {
 
-  /** 所属的毕业审核批次 */
+  private static final long serialVersionUID = -4311694956398918521L;
+
+  /**
+   * 所属的毕业审核批次
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private GraduateSession session;
@@ -43,22 +46,22 @@ public class GraduateResult extends LongIdObject {
   private Student std;
 
   private int batch;
+  /**
+   * GPA
+   */
+  private float gpa;
 
-  /** 获得学分 */
-  private float acquiredCredits;
+  /**
+   * 平均分
+   */
+  private float ga;
 
-  /** 要求学分 */
-  private float requiredCredits;
-
-  /** 修读学分 */
-  private float electedCredits;
-
-  private java.util.Date updatedAt;
-
-  /** 毕业审核详细结果 */
-  @OneToMany(mappedBy = "result", orphanRemoval = true, targetEntity = GraduateAuditItem.class, cascade = {
-      CascadeType.ALL })
-  private List<GraduateAuditItem> items = CollectUtils.newArrayList();
+  /**
+   * 学位审核详细结果
+   */
+  @OneToMany(mappedBy = "result", orphanRemoval = true, targetEntity = DegreeAuditItem.class, cascade = {
+          CascadeType.ALL})
+  private List<DegreeAuditItem> items = CollectUtils.newArrayList();
 
   /**
    * 是否通过毕业审核
@@ -66,34 +69,51 @@ public class GraduateResult extends LongIdObject {
    */
   private Boolean passed;
 
-  /** 锁定毕业审核结果 */
-  @NotNull
+  /**
+   * 锁定毕业审核结果
+   */
   private boolean locked;
 
-  /** 是否已发布 */
+  /**
+   * 是否已发布
+   */
   @NotNull
   private boolean published;
 
-  /** 毕业备注 */
+  /**
+   * 毕业备注
+   */
   @Size(max = 500)
-  @Column(name="graduate_comments")
+  @Column(name="degree_comments")
   private String comments;
 
-  /** 毕结业情况 */
+  /**
+   * 更新时间
+   */
+  private java.util.Date updatedAt;
+
+  /**
+   * 学位
+   */
   @ManyToOne(fetch = FetchType.LAZY)
-  private EducationResult educationResult;
+  private Degree degree;
+
+  /**
+   * 外语通过年月
+   */
+  private java.sql.Date foreignLangPassedOn;
 
   /**
    * @return the items
    */
-  public List<GraduateAuditItem> getItems() {
+  public List<DegreeAuditItem> getItems() {
     return items;
   }
 
   /**
    * @param items the items to set
    */
-  public void setItems(List<GraduateAuditItem> items) {
+  public void setItems(List<DegreeAuditItem> items) {
     this.items = items;
   }
 
@@ -168,17 +188,17 @@ public class GraduateResult extends LongIdObject {
   }
 
   /**
-   * @return the educationResult
+   * @return the degree
    */
-  public EducationResult getEducationResult() {
-    return educationResult;
+  public Degree getDegree() {
+    return degree;
   }
 
   /**
-   * @param educationResult the educationResult to set
+   * @param degree the degree to set
    */
-  public void setEducationResult(EducationResult educationResult) {
-    this.educationResult = educationResult;
+  public void setDegree(Degree degree) {
+    this.degree = degree;
   }
 
   public GraduateSession getSession() {
@@ -197,28 +217,28 @@ public class GraduateResult extends LongIdObject {
     this.std = std;
   }
 
-  public float getAcquiredCredits() {
-    return acquiredCredits;
+  public float getGpa() {
+    return gpa;
   }
 
-  public void setAcquiredCredits(float acquiredCredits) {
-    this.acquiredCredits = acquiredCredits;
+  public void setGpa(float gpa) {
+    this.gpa = gpa;
   }
 
-  public float getRequiredCredits() {
-    return requiredCredits;
+  public float getGa() {
+    return ga;
   }
 
-  public void setRequiredCredits(float requiredCredits) {
-    this.requiredCredits = requiredCredits;
+  public void setGa(float ga) {
+    this.ga = ga;
   }
 
-  public float getElectedCredits() {
-    return electedCredits;
+  public java.sql.Date getForeignLangPassedOn() {
+    return foreignLangPassedOn;
   }
 
-  public void setElectedCredits(float electedCredits) {
-    this.electedCredits = electedCredits;
+  public void setForeignLangPassedOn(java.sql.Date foreignLangPassedOn) {
+    this.foreignLangPassedOn = foreignLangPassedOn;
   }
 
   public int getBatch() {
