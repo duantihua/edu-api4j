@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.stu.model;
+package org.openurp.std.award;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.model.Department;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.edu.model.Student;
+import org.openurp.base.model.Department;
+import org.openurp.code.std.model.StdPunishmentType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,57 +32,71 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 
 /**
- * 奖励记录
+ * 处分记录
  */
-@Entity(name = "org.openurp.stu.model.Award")
-public class Award extends LongIdObject {
+@Entity(name = "org.openurp.std.award.Punishment")
+public class Punishment extends LongIdObject {
 
   private static final long serialVersionUID = 1648452714242979752L;
-
-  /** 奖励名称 */
+  /**
+   * 处分名称
+   */
   @NotNull
   private String name;
 
-  /** 奖励类型 */
+  /**
+   * 处分文号
+   */
+  private String docSeq;
+
+  /**
+   * 处分类别
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private StdAwardType type;
+  private StdPunishmentType punishmentType;
 
-  /** 学生 */
+  /**
+   * 学生
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Student std;
 
-  /** 教学日历 */
+  /**
+   * 教学日历
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Semester semester;
 
-  /** 奖励文号 */
+  /**
+   * 日期
+   */
   @NotNull
-  private String docSeq;
+  protected Date issueOn;
 
-  /** 部门 */
+  /**
+   * 撤销日期
+   */
+  protected Date withdrawOn;
+
+  /**
+   * 部门
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected Department depart;
 
-  /** 日期 */
-  @NotNull
-  protected Date presentOn;
-
-  /** 撤销日期 */
-  protected Date withdrawOn;
-
-  /** 是否有效 */
-  @NotNull
-  private boolean valid = true;
-
-  /** 奖励原因 */
-  @Size(max = 500)
-  private String reason;
-
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 500)
   protected String remark;
+
+  /**
+   * 处分原因
+   */
+  @Size(max = 500)
+  private String reason;
 
   public String getName() {
     return name;
@@ -103,24 +118,8 @@ public class Award extends LongIdObject {
     return depart;
   }
 
-  public StdAwardType getType() {
-    return type;
-  }
-
-  public void setType(StdAwardType type) {
-    this.type = type;
-  }
-
   public void setDepart(Department depart) {
     this.depart = depart;
-  }
-
-  public Date getPresentOn() {
-    return presentOn;
-  }
-
-  public void setPresentOn(Date presentOn) {
-    this.presentOn = presentOn;
   }
 
   public String getRemark() {
@@ -156,19 +155,27 @@ public class Award extends LongIdObject {
     this.semester = semester;
   }
 
-  public boolean isValid() {
-    return valid;
-  }
-
-  public void setValid(boolean valid) {
-    this.valid = valid;
-  }
-
   public String getDocSeq() {
     return docSeq;
   }
 
   public void setDocSeq(String docSeq) {
     this.docSeq = docSeq;
+  }
+
+  public StdPunishmentType getPunishmentType() {
+    return punishmentType;
+  }
+
+  public void setPunishmentType(StdPunishmentType punishmentType) {
+    this.punishmentType = punishmentType;
+  }
+
+  public Date getIssueOn() {
+    return issueOn;
+  }
+
+  public void setIssueOn(Date issueOn) {
+    this.issueOn = issueOn;
   }
 }
