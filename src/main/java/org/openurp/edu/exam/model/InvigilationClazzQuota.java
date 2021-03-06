@@ -18,41 +18,51 @@
  */
 package org.openurp.edu.exam.model;
 
+import org.beangle.commons.entity.pojo.LongIdObject;
+import org.openurp.base.edu.model.Teacher;
+import org.openurp.edu.clazz.model.Clazz;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
-import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.edu.model.Teacher;
-import org.openurp.edu.clazz.model.Clazz;
 
 @Entity(name = "org.openurp.edu.exam.model.InvigilationClazzQuota")
 public class InvigilationClazzQuota extends LongIdObject {
 
   private static final long serialVersionUID = -3547476184143257602L;
 
-  /** 教学任务 */
+  /**
+   * 教学任务
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Clazz clazz;
 
-  /** 教师 */
+  /**
+   * 教师
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Teacher teacher;
 
-  /** 系数 */
+  /**
+   * 系数
+   */
   @NotNull
   private float ratio;
 
-  /** 课时 */
+  /**
+   * 课时
+   */
   @NotNull
-  private int period;
+  private float creditHours;
 
-  /** 次数 */
+  /**
+   * 次数
+   */
   @NotNull
-  private float quota;
+  private float amount;
 
   public InvigilationClazzQuota() {
     super();
@@ -88,20 +98,19 @@ public class InvigilationClazzQuota extends LongIdObject {
     this.ratio = ratio;
   }
 
-  public float getQuota() {
-    return quota;
+  public float getCreditHours() {
+    return creditHours;
   }
 
-  public void setQuota(float quota) {
-    this.quota = quota;
+  public void setCreditHours(float creditHours) {
+    this.creditHours = creditHours;
   }
 
-  public int getPeriod() {
-    return period;
+  public float getAmount() {
+    return amount;
   }
 
-  public void setPeriod(int period) {
-    this.period = period;
+  public void setAmount(float amount) {
+    this.amount = amount;
   }
-
 }
