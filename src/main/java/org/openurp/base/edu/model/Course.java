@@ -43,7 +43,7 @@ import org.openurp.code.edu.model.ExamMode;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.edu.code.model.CourseAbilityRate;
 import org.openurp.base.edu.code.model.CourseCategory;
-import org.openurp.base.edu.code.model.CourseHourType;
+import org.openurp.code.edu.model.TeachingNature;
 import org.openurp.base.edu.code.model.CourseType;
 
 /**
@@ -316,7 +316,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     }
   }
 
-  public Integer getHour(CourseHourType type) {
+  public Integer getHour(TeachingNature type) {
     for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
       CourseHour courseHour = iter.next();
       if (null != type && courseHour.getHourType().equals(type)) { return courseHour.getCreditHours(); }

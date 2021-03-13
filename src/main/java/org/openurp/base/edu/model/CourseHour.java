@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.edu.code.model.CourseHourType;
+import org.openurp.code.edu.model.TeachingNature;
 
 /**
  * 课程分类课时信息
@@ -42,7 +42,7 @@ public class CourseHour extends LongIdObject {
   /** 课时类型 */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
-  private CourseHourType hourType;
+  private TeachingNature hourType;
 
   /** 学时/总课时 */
   @NotNull
@@ -64,11 +64,11 @@ public class CourseHour extends LongIdObject {
     this.course = course;
   }
 
-  public CourseHourType getHourType() {
+  public TeachingNature getHourType() {
     return hourType;
   }
 
-  public void setHourType(CourseHourType type) {
+  public void setHourType(TeachingNature type) {
     this.hourType = type;
   }
 

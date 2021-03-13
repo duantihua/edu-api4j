@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.code.edu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -34,23 +34,23 @@ import javax.validation.constraints.NotNull;
  *
  * @since 2009
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseHourType")
+@Entity(name = "org.openurp.code.edu.model.TeachingNature")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseHourType extends Code<Integer> {
+public class TeachingNature extends Code<Integer> {
 
   private static final long serialVersionUID = 387011356634522464L;
 
   @NotNull
   @Enumerated(value = EnumType.ORDINAL)
-  private CourseHourCategory category;
+  private TeachingNatureCategory category;
 
-  public CourseHourCategory getCategory() {
+  public TeachingNatureCategory getCategory() {
     return category;
   }
 
-  public void setCategory(CourseHourCategory category) {
+  public void setCategory(TeachingNatureCategory category) {
     this.category = category;
   }
 }

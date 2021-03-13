@@ -16,15 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.code.edu.model;
 
-public enum CourseHourCategory {
+public enum TeachingNatureCategory {
 
   Lecture("教授"), Experiment("实验"), Practice("实践");
 
   private final String title;
 
-  private CourseHourCategory(String title) {
+  private TeachingNatureCategory(String title) {
     this.title = title;
   }
 
