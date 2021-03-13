@@ -21,22 +21,37 @@ package org.openurp.code.edu.model;
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.openurp.code.industry;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
 /**
- * 课时类别代码
- *
- * @since 2009
+ * 课程性质
+ * @since 2005-9-7
  */
-@Entity(name = "org.openurp.code.edu.model.TeachingNature")
+@Entity(name = "org.openurp.code.edu.model.CourseNature")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class TeachingNature extends Code<Integer> {
+@industry
+public class CourseNature extends Code<Integer> {
 
-  private static final long serialVersionUID = 387011356634522464L;
+  private static final long serialVersionUID = 8355099231396221397L;
 
+  private boolean practical;
+
+  public CourseNature() {
+  }
+
+  public CourseNature(Integer id) {
+    super(id);
+  }
+
+  public boolean isPractical() {
+    return practical;
+  }
+
+  public void setPractical(boolean practical) {
+    this.practical = practical;
+  }
 }

@@ -18,17 +18,31 @@
  */
 package org.openurp.code.edu.model;
 
-public enum TeachingNatureCategory {
+import org.beangle.commons.entity.pojo.Code;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.industry;
 
-  Lecture("教授"), Experiment("实验"), Practice("实践");
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
-  private final String title;
+/**
+ * 授课方式
+ * @since 2005-9-7
+ */
+@Entity(name = "org.openurp.code.edu.model.TeachingMethod")
+@Cacheable
+@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@industry
+public class TeachingMethod extends Code<Integer> {
 
-  private TeachingNatureCategory(String title) {
-    this.title = title;
+  private static final long serialVersionUID = 8355099231396221397L;
+
+  public TeachingMethod() {
   }
 
-  public String getTitle() {
-    return title;
+  public TeachingMethod(Integer id) {
+    super(id);
   }
+
 }

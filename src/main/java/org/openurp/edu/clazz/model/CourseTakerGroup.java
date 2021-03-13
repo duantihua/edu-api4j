@@ -16,27 +16,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.code.edu.model;
+package org.openurp.edu.clazz.model;
 
-import org.beangle.commons.entity.pojo.Code;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.beangle.commons.entity.pojo.LongIdObject;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-/**
- * 课时类别代码
- *
- * @since 2009
- */
-@Entity(name = "org.openurp.code.edu.model.TeachingNature")
-@Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class TeachingNature extends Code<Integer> {
+@Entity(name = "org.openurp.edu.clazz.model.CourseTakerGroup")
+public class CourseTakerGroup extends LongIdObject  {
+  /** 教学任务 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Clazz clazz;
 
-  private static final long serialVersionUID = 387011356634522464L;
+  @Size(max=200)
+  private String name;
 
+  public Clazz getClazz() {
+    return clazz;
+  }
+
+  public void setClazz(Clazz clazz) {
+    this.clazz = clazz;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }

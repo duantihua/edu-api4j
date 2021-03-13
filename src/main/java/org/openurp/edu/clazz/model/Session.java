@@ -42,6 +42,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.Teacher;
+import org.openurp.code.edu.model.TeachingMethod;
+import org.openurp.code.edu.model.TeachingNature;
 
 /**
  * 教学活动
@@ -75,7 +77,19 @@ public class Session extends LongIdObject implements Comparable<Session> {
 
   /** 排课备注 */
   @Size(max = 500)
-  private String remark;
+  private String places;
+
+  /** 授课性质 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected TeachingNature teachingNature;
+
+  /** 授课方式 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected TeachingMethod teachingMethod;
+
+  /** 课程分组 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseTakerGroup group;
 
   public Session() {
     super();
@@ -84,7 +98,6 @@ public class Session extends LongIdObject implements Comparable<Session> {
   /**
    * 第一次活动时间
    *
-   * @param calendar
    * @return
    */
   public java.sql.Date getFirstActivityTime() {
@@ -97,8 +110,6 @@ public class Session extends LongIdObject implements Comparable<Session> {
 
   /**
    * 最后一次活动时间
-   *
-   * @param calendar
    * @return
    */
   public java.sql.Date getLastActivityTime() {
@@ -129,15 +140,14 @@ public class Session extends LongIdObject implements Comparable<Session> {
   /**
    * 判断该教学活动的时间段能否与目标教学活动在[相邻时间段]上合并
    *
-   * @param other
    * @return
    */
   public boolean canMergerWith(Session session) {
     if (!getTeachers().equals(session.getTeachers())) return false;
     if (!getRooms().equals(session.getRooms())) return false;
-    if ((getRemark() != null && session.getRemark() != null && !getRemark().equals(session.getRemark()))
-        || (getRemark() == null && session.getRemark() != null)
-        || (session.getRemark() == null && getRemark() != null))
+    if ((getPlaces() != null && session.getPlaces() != null && !getPlaces().equals(session.getPlaces()))
+        || (getPlaces() == null && session.getPlaces() != null)
+        || (session.getPlaces() == null && getPlaces() != null))
       return false;
     return WeekTimes.canMergerWith(getTime(), session.getTime());
   }
@@ -255,12 +265,35 @@ public class Session extends LongIdObject implements Comparable<Session> {
     return clazz.getCrn();
   }
 
-  public String getRemark() {
-    return remark;
+  public String getPlaces() {
+    return places;
   }
 
-  public void setRemark(String remark) {
-    this.remark = remark;
+  public void setPlaces(String places) {
+    this.places = places;
   }
 
+  public TeachingNature getTeachingNature() {
+    return teachingNature;
+  }
+
+  public void setTeachingNature(TeachingNature teachingNature) {
+    this.teachingNature = teachingNature;
+  }
+
+  public TeachingMethod getTeachingMethod() {
+    return teachingMethod;
+  }
+
+  public void setTeachingMethod(TeachingMethod teachingMethod) {
+    this.teachingMethod = teachingMethod;
+  }
+
+  public CourseTakerGroup getGroup() {
+    return group;
+  }
+
+  public void setGroup(CourseTakerGroup group) {
+    this.group = group;
+  }
 }

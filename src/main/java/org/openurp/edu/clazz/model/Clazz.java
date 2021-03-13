@@ -22,15 +22,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -133,6 +125,10 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   /** 所属课程组 */
   @ManyToOne(fetch = FetchType.LAZY)
   private ClazzGroup group;
+
+  /** 教学内容 */
+  @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
+  private List<Lesson> lessons = new ArrayList<Lesson>();
 
   /** 审核状态 */
   @NotNull
@@ -429,4 +425,11 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     this.subject = subject;
   }
 
+  public List<Lesson> getLessons() {
+    return lessons;
+  }
+
+  public void setLessons(List<Lesson> lessons) {
+    this.lessons = lessons;
+  }
 }

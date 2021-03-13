@@ -38,12 +38,9 @@ import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.code.edu.model.ExamMode;
-import org.openurp.code.edu.model.GradingMode;
+import org.openurp.code.edu.model.*;
 import org.openurp.base.edu.code.model.CourseAbilityRate;
 import org.openurp.base.edu.code.model.CourseCategory;
-import org.openurp.code.edu.model.TeachingNature;
 import org.openurp.base.edu.code.model.CourseType;
 
 /**
@@ -103,6 +100,9 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType courseType;
 
+  /** 课程性质 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseNature nature;
   /** 建议课程分类 */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseCategory category;
@@ -137,9 +137,6 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   private java.sql.Date beginOn;
 
   private java.sql.Date endOn;
-
-  /** 是否实践课程 */
-  private boolean practical;
 
   /** 是否有补考 */
   private boolean hasMakeup;
@@ -375,11 +372,16 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   }
 
   public boolean isPractical() {
-    return practical;
+    if(null==nature) return false;
+    else return nature.isPractical();
   }
 
-  public void setPractical(boolean practical) {
-    this.practical = practical;
+  public CourseNature getNature() {
+    return nature;
+  }
+
+  public void setNature(CourseNature nature) {
+    this.nature = nature;
   }
 
   public void setEnabled(boolean e) {
