@@ -126,10 +126,6 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private ClazzGroup group;
 
-  /** 教学内容 */
-  @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
-  private List<Lesson> lessons = new ArrayList<Lesson>();
-
   /** 审核状态 */
   @NotNull
   @Enumerated
@@ -423,13 +419,5 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   public void setSubject(String subject) {
     this.subject = subject;
-  }
-
-  public List<Lesson> getLessons() {
-    return lessons;
-  }
-
-  public void setLessons(List<Lesson> lessons) {
-    this.lessons = lessons;
   }
 }

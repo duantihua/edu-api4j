@@ -28,22 +28,27 @@ import javax.validation.constraints.Size;
 
 @Entity(name = "org.openurp.edu.clazz.model.Lesson")
 public class Lesson extends LongIdObject {
-  /** 教学任务 */
+  /**
+   * 教学进度表
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected Clazz clazz;
+  protected TeachingPlan plan;
 
   private int idx;
 
-  @Size(max=300)
+  @Size(max = 300)
   private String contents;
 
-  public Clazz getClazz() {
-    return clazz;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Subclazz subclazz;
+
+  public TeachingPlan getPlan() {
+    return plan;
   }
 
-  public void setClazz(Clazz clazz) {
-    this.clazz = clazz;
+  public void setPlan(TeachingPlan plan) {
+    this.plan = plan;
   }
 
   public int getIdx() {
@@ -60,5 +65,13 @@ public class Lesson extends LongIdObject {
 
   public void setContents(String contents) {
     this.contents = contents;
+  }
+
+  public Subclazz getSubclazz() {
+    return subclazz;
+  }
+
+  public void setSubclazz(Subclazz subclazz) {
+    this.subclazz = subclazz;
   }
 }

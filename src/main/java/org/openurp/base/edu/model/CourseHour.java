@@ -42,7 +42,7 @@ public class CourseHour extends LongIdObject {
   /** 课时类型 */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
-  private TeachingNature hourType;
+  private TeachingNature teachingNature;
 
   /** 学时/总课时 */
   @NotNull
@@ -64,12 +64,12 @@ public class CourseHour extends LongIdObject {
     this.course = course;
   }
 
-  public TeachingNature getHourType() {
-    return hourType;
+  public TeachingNature getTeachingNature() {
+    return teachingNature;
   }
 
-  public void setHourType(TeachingNature type) {
-    this.hourType = type;
+  public void setTeachingNature(TeachingNature teachingNature) {
+    this.teachingNature = teachingNature;
   }
 
   public int getCreditHours() {

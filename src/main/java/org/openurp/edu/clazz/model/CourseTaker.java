@@ -83,7 +83,7 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
 
   /** 课程分组 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private CourseTakerGroup group;
+  private Subclazz subclazz;
 
   public CourseTaker() {
     Date now = new Date();
@@ -212,12 +212,12 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
     this.freeListening = freeListening;
   }
 
-  public CourseTakerGroup getGroup() {
-    return group;
+  public Subclazz getSubclazz() {
+    return subclazz;
   }
 
-  public void setGroup(CourseTakerGroup group) {
-    this.group = group;
+  public void setSubclazz(Subclazz subclazz) {
+    this.subclazz = subclazz;
   }
 
   public boolean isAlternative() {

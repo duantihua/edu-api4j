@@ -86,7 +86,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
 
   /** 上课名单 */
   @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
-  private List<CourseTakerGroup> takerGroups = new ArrayList<CourseTakerGroup>();
+  private List<Subclazz> subclazzes = new ArrayList<Subclazz>();
 
   /** 语言等级 */
   @ManyToMany
@@ -266,11 +266,11 @@ public class Enrollment implements Component, Cloneable, Serializable {
     this.reserved = reserved;
   }
 
-  public List<CourseTakerGroup> getTakerGroups() {
-    return takerGroups;
+  public List<Subclazz> getSubclazzes() {
+    return subclazzes;
   }
 
-  public void setTakerGroups(List<CourseTakerGroup> takerGroups) {
-    this.takerGroups = takerGroups;
+  public void setSubclazzes(List<Subclazz> subclazzes) {
+    this.subclazzes = subclazzes;
   }
 }

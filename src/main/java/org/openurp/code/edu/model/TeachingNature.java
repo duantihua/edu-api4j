@@ -39,4 +39,10 @@ public class TeachingNature extends Code<Integer> {
 
   private static final long serialVersionUID = 387011356634522464L;
 
+  public TeachingNature() {
+  }
+
+  public TeachingNature(Integer id) {
+    super(id);
+  }
 }

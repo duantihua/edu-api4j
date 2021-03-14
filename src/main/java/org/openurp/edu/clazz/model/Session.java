@@ -18,18 +18,9 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -81,15 +72,16 @@ public class Session extends LongIdObject implements Comparable<Session> {
 
   /** 授课性质 */
   @ManyToOne(fetch = FetchType.LAZY)
-  protected TeachingNature teachingNature;
+  @NotNull
+  protected TeachingNature teachingNature = new TeachingNature(1);
 
   /** 授课方式 */
   @ManyToOne(fetch = FetchType.LAZY)
-  protected TeachingMethod teachingMethod;
+  @NotNull
+  protected TeachingMethod teachingMethod = new TeachingMethod(1);
 
-  /** 课程分组 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private CourseTakerGroup group;
+  private Subclazz subclazz;
 
   public Session() {
     super();
@@ -289,11 +281,11 @@ public class Session extends LongIdObject implements Comparable<Session> {
     this.teachingMethod = teachingMethod;
   }
 
-  public CourseTakerGroup getGroup() {
-    return group;
+  public Subclazz getSubclazz() {
+    return subclazz;
   }
 
-  public void setGroup(CourseTakerGroup group) {
-    this.group = group;
+  public void setSubclazz(Subclazz subclazz) {
+    this.subclazz = subclazz;
   }
 }

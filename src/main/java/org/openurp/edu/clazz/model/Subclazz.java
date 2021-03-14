@@ -26,15 +26,26 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity(name = "org.openurp.edu.clazz.model.CourseTakerGroup")
-public class CourseTakerGroup extends LongIdObject  {
-  /** 教学任务 */
+@Entity(name = "org.openurp.edu.clazz.model.Subclazz")
+public class Subclazz extends LongIdObject {
+  /**
+   * 教学任务
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Clazz clazz;
 
-  @Size(max=200)
+  @Size(max = 200)
   private String name;
+  /**
+   * 最大人数
+   */
+  private int maxCount;
+
+  /**
+   * 当前人数
+   */
+  private int curCount;
 
   public Clazz getClazz() {
     return clazz;
@@ -50,5 +61,21 @@ public class CourseTakerGroup extends LongIdObject  {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public int getMaxCount() {
+    return maxCount;
+  }
+
+  public void setMaxCount(int maxCount) {
+    this.maxCount = maxCount;
+  }
+
+  public int getCurCount() {
+    return curCount;
+  }
+
+  public void setCurCount(int curCount) {
+    this.curCount = curCount;
   }
 }
