@@ -135,12 +135,37 @@ public class Session extends LongIdObject implements Comparable<Session> {
    * @return
    */
   public boolean canMergerWith(Session session) {
-    if (!getTeachers().equals(session.getTeachers())) return false;
-    if (!getRooms().equals(session.getRooms())) return false;
+    if(!Objects.equals(getTeachingNature(),session.getTeachingNature())){
+      return false;
+    }
+    if(!Objects.equals(getTeachingMethod(),session.getTeachingMethod())){
+      return false;
+    }
+
+    if (!getTeachers().equals(session.getTeachers())) {
+      //时间地点一致就合并
+       if(getTime().equals(session.getTime()) && getRooms().equals(session.getRooms())
+           && Objects.equals(getPlaces(),session.getPlaces())){
+         return true;
+       }else {
+         return false;
+       }
+    }
+    if (!getRooms().equals(session.getRooms())) {
+      //时间和人员一致就合并
+      if(getTime().equals(session.getTime()) && getTeachers().equals(session.getTeachers())){
+        return true;
+      }else {
+        return false;
+      }
+    }
     if ((getPlaces() != null && session.getPlaces() != null && !getPlaces().equals(session.getPlaces()))
         || (getPlaces() == null && session.getPlaces() != null)
         || (session.getPlaces() == null && getPlaces() != null))
       return false;
+    if(!Objects.equals(getSubclazz(),session.getSubclazz())){
+      return false;
+    }
     return WeekTimes.canMergerWith(getTime(), session.getTime());
   }
 
@@ -151,6 +176,8 @@ public class Session extends LongIdObject implements Comparable<Session> {
    * @param other
    */
   public void mergeWith(Session other) {
+    getTeachers().addAll(other.getTeachers());
+    getRooms().addAll(other.getRooms());
     WeekTimes.mergeWith(this.getTime(), other.getTime());
   }
 

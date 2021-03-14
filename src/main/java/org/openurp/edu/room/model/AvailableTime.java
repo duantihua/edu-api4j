@@ -25,6 +25,9 @@ import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * 可用
@@ -32,11 +35,15 @@ import javax.persistence.Entity;
 @Entity(name = "org.openurp.edu.room.model.AvailableTime")
 public class AvailableTime extends LongIdObject {
 
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
   /**
    * 教室
    */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
   private Classroom room;
 
   /**
