@@ -23,8 +23,8 @@ import org.openurp.base.edu.model.Semester;
 import org.openurp.base.model.User;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,7 +44,7 @@ public class TeachingPlan extends LongIdObject {
   /**
    * 教学内容
    */
-  @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Lesson> lessons = new ArrayList<Lesson>();
 
   private int fileSize;
@@ -58,8 +58,8 @@ public class TeachingPlan extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private User auditor;
 
-  private Instant auditAt;
-  private Instant updatedAt;
+  private java.util.Date auditAt;
+  private java.util.Date updatedAt;
 
   public Clazz getClazz() {
     return clazz;
@@ -141,19 +141,19 @@ public class TeachingPlan extends LongIdObject {
     this.auditor = auditor;
   }
 
-  public Instant getAuditAt() {
+  public Date getAuditAt() {
     return auditAt;
   }
 
-  public void setAuditAt(Instant auditAt) {
+  public void setAuditAt(Date auditAt) {
     this.auditAt = auditAt;
   }
 
-  public Instant getUpdatedAt() {
+  public Date getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(Instant updatedAt) {
+  public void setUpdatedAt(Date updatedAt) {
     this.updatedAt = updatedAt;
   }
 }

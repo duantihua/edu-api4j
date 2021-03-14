@@ -141,6 +141,15 @@ public class Session extends LongIdObject implements Comparable<Session> {
         || (getPlaces() == null && session.getPlaces() != null)
         || (session.getPlaces() == null && getPlaces() != null))
       return false;
+    if(!Objects.equals(getSubclazz(),session.getSubclazz())){
+      return false;
+    }
+    if(!Objects.equals(getTeachingNature(),session.getTeachingNature())){
+      return false;
+    }
+    if(!Objects.equals(getTeachingMethod(),session.getTeachingMethod())){
+      return false;
+    }
     return WeekTimes.canMergerWith(getTime(), session.getTime());
   }
 
