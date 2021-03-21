@@ -9,8 +9,12 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.21.2-SNAPSHOT</version>
+  <version>0.22.0</version>
   <name>OpenURP Edu Java API</name>
+
+  <properties>
+    <mvn.bundle.version>5.1.1</mvn.bundle.version>
+  </properties>
 
   <dependencies>
    <dependency>
