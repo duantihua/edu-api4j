@@ -12,6 +12,10 @@
   <version>0.22.0</version>
   <name>OpenURP Edu Java API</name>
 
+  <properties>
+    <mvn.bundle.version>5.1.1</mvn.bundle.version>
+  </properties>
+
   <dependencies>
    <dependency>
       <groupId>org.beangle.commons</groupId>
