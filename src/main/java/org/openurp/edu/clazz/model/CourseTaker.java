@@ -81,9 +81,9 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
   /** 备注 */
   private String remark;
 
-  /** 授课对象组 */
+  /** 课程分组 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Restriction restriction;
+  private Subclazz subclazz;
 
   public CourseTaker() {
     Date now = new Date();
@@ -212,12 +212,12 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
     this.freeListening = freeListening;
   }
 
-  public Restriction getRestriction() {
-    return restriction;
+  public Subclazz getSubclazz() {
+    return subclazz;
   }
 
-  public void setRestriction(Restriction limitGroup) {
-    this.restriction = limitGroup;
+  public void setSubclazz(Subclazz subclazz) {
+    this.subclazz = subclazz;
   }
 
   public boolean isAlternative() {

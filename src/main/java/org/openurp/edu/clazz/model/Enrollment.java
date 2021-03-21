@@ -84,6 +84,10 @@ public class Enrollment implements Component, Cloneable, Serializable {
   @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
   private Set<CourseTaker> courseTakers = new HashSet<CourseTaker>();
 
+  /** 上课名单 */
+  @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL,orphanRemoval = true)
+  private List<Subclazz> subclazzes = new ArrayList<Subclazz>();
+
   /** 语言等级 */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
@@ -262,4 +266,11 @@ public class Enrollment implements Component, Cloneable, Serializable {
     this.reserved = reserved;
   }
 
+  public List<Subclazz> getSubclazzes() {
+    return subclazzes;
+  }
+
+  public void setSubclazzes(List<Subclazz> subclazzes) {
+    this.subclazzes = subclazzes;
+  }
 }

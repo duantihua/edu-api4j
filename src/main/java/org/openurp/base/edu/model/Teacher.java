@@ -60,6 +60,10 @@ public class Teacher extends NumberIdTimeObject<Long> {
   @ManyToOne(fetch = FetchType.LAZY)
   protected User user;
 
+  /**任教院系*/
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Department department;
+
   /**
    * 职称
    */
@@ -190,5 +194,9 @@ public class Teacher extends NumberIdTimeObject<Long> {
 
   public void setProjects(Set<Project> projects) {
     this.projects = projects;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
   }
 }

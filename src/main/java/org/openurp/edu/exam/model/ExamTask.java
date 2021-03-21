@@ -18,6 +18,7 @@
  */
 package org.openurp.edu.exam.model;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -126,6 +127,11 @@ public class ExamTask extends LongIdObject {
 
   /** 时长(以分钟为单位) */
   private short duration;
+
+  /**
+   * 最早考试日期
+   */
+  private java.sql.Date minExamOn;
 
   /** 考试周 */
   private Short examWeek;
@@ -374,5 +380,13 @@ public class ExamTask extends LongIdObject {
 
   public void setActivities(List<ExamActivity> activities) {
     this.activities = activities;
+  }
+
+  public Date getMinExamOn() {
+    return minExamOn;
+  }
+
+  public void setMinExamOn(Date minExamOn) {
+    this.minExamOn = minExamOn;
   }
 }

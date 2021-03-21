@@ -18,18 +18,9 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -42,6 +33,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.Teacher;
+import org.openurp.code.edu.model.TeachingMethod;
+import org.openurp.code.edu.model.TeachingNature;
 
 /**
  * 教学活动
@@ -75,7 +68,20 @@ public class Session extends LongIdObject implements Comparable<Session> {
 
   /** 排课备注 */
   @Size(max = 500)
-  private String remark;
+  private String places;
+
+  /** 授课性质 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  @NotNull
+  protected TeachingNature teachingNature = new TeachingNature(1);
+
+  /** 授课方式 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  @NotNull
+  protected TeachingMethod teachingMethod = new TeachingMethod(1);
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Subclazz subclazz;
 
   public Session() {
     super();
@@ -84,7 +90,6 @@ public class Session extends LongIdObject implements Comparable<Session> {
   /**
    * 第一次活动时间
    *
-   * @param calendar
    * @return
    */
   public java.sql.Date getFirstActivityTime() {
@@ -97,8 +102,6 @@ public class Session extends LongIdObject implements Comparable<Session> {
 
   /**
    * 最后一次活动时间
-   *
-   * @param calendar
    * @return
    */
   public java.sql.Date getLastActivityTime() {
@@ -129,16 +132,40 @@ public class Session extends LongIdObject implements Comparable<Session> {
   /**
    * 判断该教学活动的时间段能否与目标教学活动在[相邻时间段]上合并
    *
-   * @param other
    * @return
    */
   public boolean canMergerWith(Session session) {
-    if (!getTeachers().equals(session.getTeachers())) return false;
-    if (!getRooms().equals(session.getRooms())) return false;
-    if ((getRemark() != null && session.getRemark() != null && !getRemark().equals(session.getRemark()))
-        || (getRemark() == null && session.getRemark() != null)
-        || (session.getRemark() == null && getRemark() != null))
+    if(!Objects.equals(getTeachingNature(),session.getTeachingNature())){
       return false;
+    }
+    if(!Objects.equals(getTeachingMethod(),session.getTeachingMethod())){
+      return false;
+    }
+
+    if (!getTeachers().equals(session.getTeachers())) {
+      //时间地点一致就合并
+       if(getTime().equals(session.getTime()) && getRooms().equals(session.getRooms())
+           && Objects.equals(getPlaces(),session.getPlaces())){
+         return true;
+       }else {
+         return false;
+       }
+    }
+    if (!getRooms().equals(session.getRooms())) {
+      //时间和人员一致就合并
+      if(getTime().equals(session.getTime()) && getTeachers().equals(session.getTeachers())){
+        return true;
+      }else {
+        return false;
+      }
+    }
+    if ((getPlaces() != null && session.getPlaces() != null && !getPlaces().equals(session.getPlaces()))
+        || (getPlaces() == null && session.getPlaces() != null)
+        || (session.getPlaces() == null && getPlaces() != null))
+      return false;
+    if(!Objects.equals(getSubclazz(),session.getSubclazz())){
+      return false;
+    }
     return WeekTimes.canMergerWith(getTime(), session.getTime());
   }
 
@@ -149,6 +176,8 @@ public class Session extends LongIdObject implements Comparable<Session> {
    * @param other
    */
   public void mergeWith(Session other) {
+    getTeachers().addAll(other.getTeachers());
+    getRooms().addAll(other.getRooms());
     WeekTimes.mergeWith(this.getTime(), other.getTime());
   }
 
@@ -255,12 +284,35 @@ public class Session extends LongIdObject implements Comparable<Session> {
     return clazz.getCrn();
   }
 
-  public String getRemark() {
-    return remark;
+  public String getPlaces() {
+    return places;
   }
 
-  public void setRemark(String remark) {
-    this.remark = remark;
+  public void setPlaces(String places) {
+    this.places = places;
   }
 
+  public TeachingNature getTeachingNature() {
+    return teachingNature;
+  }
+
+  public void setTeachingNature(TeachingNature teachingNature) {
+    this.teachingNature = teachingNature;
+  }
+
+  public TeachingMethod getTeachingMethod() {
+    return teachingMethod;
+  }
+
+  public void setTeachingMethod(TeachingMethod teachingMethod) {
+    this.teachingMethod = teachingMethod;
+  }
+
+  public Subclazz getSubclazz() {
+    return subclazz;
+  }
+
+  public void setSubclazz(Subclazz subclazz) {
+    this.subclazz = subclazz;
+  }
 }

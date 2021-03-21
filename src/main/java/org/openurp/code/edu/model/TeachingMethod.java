@@ -16,41 +16,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.code.edu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.openurp.code.industry;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
 
 /**
- * 课时类别代码
- *
- * @since 2009
+ * 授课方式
+ * @since 2005-9-7
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseHourType")
+@Entity(name = "org.openurp.code.edu.model.TeachingMethod")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class CourseHourType extends Code<Integer> {
+@industry
+public class TeachingMethod extends Code<Integer> {
 
-  private static final long serialVersionUID = 387011356634522464L;
+  private static final long serialVersionUID = 8355099231396221397L;
 
-  @NotNull
-  @Enumerated(value = EnumType.ORDINAL)
-  private CourseHourCategory category;
-
-  public CourseHourCategory getCategory() {
-    return category;
+  public TeachingMethod() {
   }
 
-  public void setCategory(CourseHourCategory category) {
-    this.category = category;
+  public TeachingMethod(Integer id) {
+    super(id);
   }
+
 }

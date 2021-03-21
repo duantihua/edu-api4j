@@ -16,19 +16,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.code.edu.model;
 
-public enum CourseHourCategory {
+import org.beangle.commons.entity.pojo.Code;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.school;
 
-  Lecture("教授"), Experiment("实验"), Practice("实践");
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
-  private final String title;
+/**
+ * 课时类别代码
+ *
+ * @since 2009
+ */
+@Entity(name = "org.openurp.code.edu.model.TeachingNature")
+@Cacheable
+@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@school
+public class TeachingNature extends Code<Integer> {
 
-  private CourseHourCategory(String title) {
-    this.title = title;
+  private static final long serialVersionUID = 387011356634522464L;
+
+  public TeachingNature() {
   }
 
-  public String getTitle() {
-    return title;
+  public TeachingNature(Integer id) {
+    super(id);
   }
 }

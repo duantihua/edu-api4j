@@ -47,6 +47,9 @@ public class RoomAllocSetting extends LongIdObject {
 
   public int minCapacity = 0;
 
+  /**学生连续考试最小间隔*/
+  public int minStdExamInterval=0;
+
   private RoomAllocPolicy allocPolicy;
 
   public Project getProject() {
@@ -97,4 +100,11 @@ public class RoomAllocSetting extends LongIdObject {
     this.name = name;
   }
 
+  public int getMinStdExamInterval() {
+    return minStdExamInterval;
+  }
+
+  public void setMinStdExamInterval(int minStdExamInterval) {
+    this.minStdExamInterval = minStdExamInterval;
+  }
 }
