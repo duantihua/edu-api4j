@@ -31,19 +31,19 @@ import org.openurp.code.school;
  *
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseCategory")
+@Entity(name = "org.openurp.base.edu.code.model.CourseAssessCategory")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseCategory extends Code<Integer> {
+public class CourseAssessCategory extends Code<Integer> {
 
   private static final long serialVersionUID = 8232522018765348618L;
 
-  public CourseCategory() {
+  public CourseAssessCategory() {
     super();
   }
 
-  public CourseCategory(Integer id) {
+  public CourseAssessCategory(Integer id) {
     super(id);
   }
 

@@ -40,7 +40,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.*;
 import org.openurp.base.edu.code.model.CourseAbilityRate;
-import org.openurp.base.edu.code.model.CourseCategory;
+import org.openurp.base.edu.code.model.CourseAssessCategory;
 import org.openurp.base.edu.code.model.CourseType;
 
 /**
@@ -103,9 +103,9 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   /** 课程性质 */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseNature nature;
-  /** 建议课程分类 */
+  /** 课程分类 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private CourseCategory category;
+  private CourseAssessCategory category;
 
   /** 考试方式 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -393,11 +393,11 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     }
   }
 
-  public CourseCategory getCategory() {
+  public CourseAssessCategory getCategory() {
     return category;
   }
 
-  public void setCategory(CourseCategory category) {
+  public void setCategory(CourseAssessCategory category) {
     this.category = category;
   }
 
