@@ -32,8 +32,8 @@ import javax.validation.constraints.NotNull;
 /**
  * 可用
  */
-@Entity(name = "org.openurp.edu.room.model.AvailableTime")
-public class AvailableTime extends LongIdObject {
+@Entity(name = "org.openurp.edu.room.model.RoomAvailableTime")
+public class RoomAvailableTime extends LongIdObject {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
