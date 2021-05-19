@@ -51,7 +51,6 @@ public class DataSourceUtils {
     return new HikariDataSource(new HikariConfig(buildProperties(driver, username, password, props)));
   }
 
-
   private static Properties buildProperties(String driver, String username, String password, Map<String, String> props) {
     Properties properties = new Properties();
     Set<String> writables = PropertyUtils.getWritableProperties(HikariConfig.class);

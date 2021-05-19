@@ -56,8 +56,6 @@ public class Room extends AbstractBaseInfo {
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-
-
   public Room() {
   }
 
@@ -74,7 +72,6 @@ public class Room extends AbstractBaseInfo {
     this.id = id;
     this.name = name;
   }
-
 
   public School getSchool() {
     return school;

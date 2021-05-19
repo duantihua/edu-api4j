@@ -34,7 +34,6 @@ public class EduCategory extends Code<Integer> {
 
   private static final long serialVersionUID = 6690822086442394949L;
 
-
   /** 继续教育 */
   public static final Integer JXJY_ID = new Integer(1);
 

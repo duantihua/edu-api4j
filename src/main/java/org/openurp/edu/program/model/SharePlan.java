@@ -113,7 +113,6 @@ public class SharePlan extends LongIdObject implements Cloneable {
     this.updatedAt = updatedAt;
   }
 
-
   public List<ShareCourseGroup> getTopCourseGroups() {
     if (getGroups() == null) { return new ArrayList<ShareCourseGroup>(); }
     List<ShareCourseGroup> res = new ArrayList<ShareCourseGroup>();
@@ -122,7 +121,6 @@ public class SharePlan extends LongIdObject implements Cloneable {
     }
     return res;
   }
-
 
   public Object clone() throws CloneNotSupportedException {
     SharePlan shareCoursePlan = (SharePlan) super.clone();

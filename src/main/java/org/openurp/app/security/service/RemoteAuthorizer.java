@@ -52,7 +52,6 @@ public class RemoteAuthorizer extends AbstractRoleBasedAuthorizer {
     return new AuthorityDomain(roots, authorities);
   }
 
-
   public static Set<String> getRoots() {
     String url = Ems.Instance.getApi() + "/platform/user/roots.json?app=" + EmsApp.getName();
     try {

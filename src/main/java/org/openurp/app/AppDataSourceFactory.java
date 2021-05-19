@@ -180,5 +180,4 @@ public class AppDataSourceFactory implements FactoryBean<DataSource>, Initializi
     this.props = props;
   }
 
-
 }

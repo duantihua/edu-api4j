@@ -50,7 +50,6 @@ public class TuitionConfig extends IntegerIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-
   /**
    * 所属的专业
    */

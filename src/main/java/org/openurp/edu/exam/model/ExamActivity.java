@@ -75,7 +75,6 @@ public class ExamActivity extends LongIdObject {
   /**试卷编号*/
   private String examPaperNo;
 
-
   /**
    * 考试日期
    */

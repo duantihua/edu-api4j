@@ -171,7 +171,6 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     return null;
   }
 
-
   /**
    * 得到最后一次上课时间
    *
