@@ -44,8 +44,6 @@ public class DegreeResult extends LongIdObject {
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
-
-  private int batch;
   /**
    * GPA
    */
@@ -239,13 +237,5 @@ public class DegreeResult extends LongIdObject {
 
   public void setForeignLangPassedOn(java.sql.Date foreignLangPassedOn) {
     this.foreignLangPassedOn = foreignLangPassedOn;
-  }
-
-  public int getBatch() {
-    return batch;
-  }
-
-  public void setBatch(int batch) {
-    this.batch = batch;
   }
 }
