@@ -9,12 +9,12 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.22.2</version>
+  <version>0.22.3</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
     <HikariCP.version>5.0.1</HikariCP.version>
-    <beangle3.version>3.8.5</beangle3.version>
+    <beangle3.version>3.8.6</beangle3.version>
   </properties>
 
   <dependencies>
