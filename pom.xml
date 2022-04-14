@@ -9,8 +9,13 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.22.2-SNAPSHOT</version>
+  <version>0.22.2</version>
   <name>OpenURP Edu Java API</name>
+
+  <properties>
+    <HikariCP.version>5.0.1</HikariCP.version>
+    <beangle3.version>3.8.5</beangle3.version>
+  </properties>
 
   <dependencies>
    <dependency>
@@ -50,7 +55,7 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.2.2</version>
+      <version>2.9.0</version>
     </dependency>
     <dependency>
       <groupId>jakarta.servlet</groupId>
