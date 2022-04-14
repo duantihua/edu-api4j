@@ -28,7 +28,7 @@ public class Contact extends StudentInfoBean {
   private static final long serialVersionUID = -1883342454367510587L;
 
   /** 电子邮箱 */
-  private String mail;
+  private String email;
 
   /** 电话 */
   private String phone;
@@ -47,12 +47,12 @@ public class Contact extends StudentInfoBean {
     this.address = address;
   }
 
-  public String getMail() {
-    return mail;
+  public String getEmail() {
+    return email;
   }
 
-  public void setMail(String mail) {
-    this.mail = mail;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getMobile() {

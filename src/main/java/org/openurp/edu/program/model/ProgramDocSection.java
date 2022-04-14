@@ -51,7 +51,8 @@ public class ProgramDocSection extends LongIdObject implements HierarchyEntity<P
   /**
    * 内容
    */
-  @Size(max = 3000)
+  @Size(max = 50000)
+  @Lob
   private String contents;
 
   /**

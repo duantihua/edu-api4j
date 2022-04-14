@@ -178,5 +178,4 @@ public class ExamTaker extends LongIdObject implements Cloneable {
     this.remark = remark;
   }
 
-
 }

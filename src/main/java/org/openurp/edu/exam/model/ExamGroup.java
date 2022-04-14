@@ -95,7 +95,7 @@ public class ExamGroup extends LongIdObject {
   /** 教室分配设置 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private RoomAllocSetting allocSetting;
+  private ExamAllocSetting allocSetting;
 
   public String getName() {
     return name;
@@ -240,11 +240,11 @@ public class ExamGroup extends LongIdObject {
     this.updatedAt = updatedAt;
   }
 
-  public RoomAllocSetting getAllocSetting() {
+  public ExamAllocSetting getAllocSetting() {
     return allocSetting;
   }
 
-  public void setAllocSetting(RoomAllocSetting allocSetting) {
+  public void setAllocSetting(ExamAllocSetting allocSetting) {
     this.allocSetting = allocSetting;
   }
 

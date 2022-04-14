@@ -42,7 +42,7 @@ public class GraduateResult extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
 
-  private int batch;
+  private int batchNo;
 
   /** 获得学分 */
   private float acquiredCredits;
@@ -221,11 +221,11 @@ public class GraduateResult extends LongIdObject {
     this.electedCredits = electedCredits;
   }
 
-  public int getBatch() {
-    return batch;
+  public int getBatchNo() {
+    return batchNo;
   }
 
-  public void setBatch(int batch) {
-    this.batch = batch;
+  public void setBatchNo(int batchNo) {
+    this.batchNo = batchNo;
   }
 }

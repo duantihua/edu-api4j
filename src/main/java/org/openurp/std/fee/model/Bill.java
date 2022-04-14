@@ -108,7 +108,6 @@ public class Bill extends NumberIdTimeObject<Long> {
   @Size(max = 500)
   private String remark;
 
-
   public Semester getSemester() {
     return semester;
   }
@@ -140,7 +139,6 @@ public class Bill extends NumberIdTimeObject<Long> {
   public void setRemark(String remark) {
     this.remark = remark;
   }
-
 
   public Student getStd() {
     return std;

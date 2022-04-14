@@ -123,6 +123,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
         CourseTaker clone_taker = (CourseTaker) taker.clone();
         clone.getCourseTakers().add(clone_taker);
       }
+      clone.setSubclazzes(new ArrayList<Subclazz>());
       clone.setAbilityRates(new ArrayList<CourseAbilityRate>(getAbilityRates()));
       return clone;
     } catch (CloneNotSupportedException e) {

@@ -67,7 +67,6 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
    */
   private int endTerm;
 
-
   /** 开始日期 */
   @NotNull
   private java.sql.Date beginOn;

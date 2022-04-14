@@ -34,7 +34,7 @@ public class Graduation extends StudentInfoBean {
   private static final long serialVersionUID = -4102691429295031076L;
 
   /** 毕业证书编号（电子注册号） */
-  private String code;
+  private String certificateNo;
 
   /** 毕结业日期 */
   private java.sql.Date graduateOn;
@@ -88,18 +88,12 @@ public class Graduation extends StudentInfoBean {
     this.educationResult = educationResult;
   }
 
-  /**
-   * @return the code
-   */
-  public String getCode() {
-    return code;
+  public String getCertificateNo() {
+    return certificateNo;
   }
 
-  /**
-   * @param code the code to set
-   */
-  public void setCode(String code) {
-    this.code = code;
+  public void setCertificateNo(String certificateNo) {
+    this.certificateNo = certificateNo;
   }
 
   /**

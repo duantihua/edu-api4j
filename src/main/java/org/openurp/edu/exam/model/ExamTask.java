@@ -109,7 +109,7 @@ public class ExamTask extends LongIdObject {
   private Building building;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  private RoomGroup roomGroup;
+  private ExamRoomGroup roomGroup;
 
   /** 特定教室 */
   @ManyToMany
@@ -261,11 +261,11 @@ public class ExamTask extends LongIdObject {
     this.rooms = rooms;
   }
 
-  public RoomGroup getRoomGroup() {
+  public ExamRoomGroup getRoomGroup() {
     return roomGroup;
   }
 
-  public void setRoomGroup(RoomGroup roomGroup) {
+  public void setRoomGroup(ExamRoomGroup roomGroup) {
     this.roomGroup = roomGroup;
   }
 

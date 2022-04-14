@@ -18,7 +18,6 @@
  */
 package org.openurp.app.util;
 
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;

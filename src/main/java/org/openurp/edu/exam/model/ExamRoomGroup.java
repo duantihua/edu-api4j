@@ -31,8 +31,8 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.Project;
 
-@Entity(name = "org.openurp.edu.exam.model.RoomGroup")
-public class RoomGroup extends LongIdObject {
+@Entity(name = "org.openurp.edu.exam.model.ExamRoomGroup")
+public class ExamRoomGroup extends LongIdObject {
 
   private static final long serialVersionUID = -9117368249488898009L;
 
@@ -52,11 +52,11 @@ public class RoomGroup extends LongIdObject {
   @NotNull
   private java.util.Date updatedAt;
 
-  public RoomGroup() {
+  public ExamRoomGroup() {
     super();
   }
 
-  public RoomGroup(Long id ,Set<Classroom> rooms) {
+  public ExamRoomGroup(Long id , Set<Classroom> rooms) {
     super();
     this.id=id;
     this.rooms = rooms;

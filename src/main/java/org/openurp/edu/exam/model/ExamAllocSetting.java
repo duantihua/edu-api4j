@@ -28,8 +28,8 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Project;
 
-@Entity(name = "org.openurp.edu.exam.model.RoomAllocSetting")
-public class RoomAllocSetting extends LongIdObject {
+@Entity(name = "org.openurp.edu.exam.model.ExamAllocSetting")
+public class ExamAllocSetting extends LongIdObject {
 
   private static final long serialVersionUID = -6232074703201469078L;
 
