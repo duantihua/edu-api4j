@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.Component;
 import org.beangle.commons.lang.Objects;
-import org.beangle.commons.lang.time.WeekState;
+import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -55,7 +55,7 @@ public class Schedule implements Serializable, Cloneable, Component {
    * 周状态
    */
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
+  @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
 
   /** 具体排课结果 */

@@ -19,8 +19,9 @@
 package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
+import org.hibernate.annotations.Type;
 import org.openurp.base.edu.code.model.CourseType;
-import org.openurp.base.edu.model.AuditState;
+import org.openurp.base.model.AuditStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -48,8 +49,8 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
    * 审核状态
    */
   @NotNull
-  @Enumerated(value = EnumType.ORDINAL)
-  private AuditState auditState = AuditState.UNSUBMITTED;
+  @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
+  private AuditStatus status = AuditStatus.UNSUBMITTED;
 
   /**
    * 要求学分
@@ -144,12 +145,12 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
     this.program = program;
   }
 
-  public AuditState getAuditState() {
-    return auditState;
+  public AuditStatus getStatus() {
+    return status;
   }
 
-  public void setAuditState(AuditState auditState) {
-    this.auditState = auditState;
+  public void setStatus(AuditStatus status) {
+    this.status = status;
   }
 
   @Override

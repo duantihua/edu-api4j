@@ -36,7 +36,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Strings;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Building;
 import org.openurp.base.model.Campus;
@@ -91,11 +91,11 @@ public class ExamTask extends LongIdObject {
   private java.sql.Date examOn;
 
   /** 开始时间 */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute beginAt = HourMinute.Zero;
 
   /** 结束时间 */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt = HourMinute.Zero;
 
   /** 时间已经分配 */

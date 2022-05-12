@@ -16,48 +16,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.beangle.commons.lang.time;
+package org.openurp.base.model;
 
-public class WeekUnit {
+import org.beangle.commons.lang.IDEnum;
 
-  int cycle;
+/**
+ * 通用的审核状态枚举类，有4种状态：未提交、已提交、通过、不通过
+ */
+public enum AuditStatus implements IDEnum {
 
-  int start;
+  UNSUBMITTED(0, "未提交"), SUBMITTED(1, "已提交"),
+  ACCEPTED(100, "通过"), REJECTED(99, "不通过");
 
-  int end;
+  private final int id;
+  private final String fullName;
 
-  public WeekUnit(int cycle, int start, int end) {
-    this.cycle = cycle;
-    this.start = start;
-    this.end = end;
+  AuditStatus(int id, String fullName) {
+    this.id = id;
+    this.fullName = fullName;
   }
 
-  public String toString() {
-    return (cycle + "[" + start + "-" + end + "]");
+  public String getEnName() {
+    return this.name();
   }
 
-  public int getCycle() {
-    return cycle;
+  public String getName() {
+    return this.name();
   }
 
-  public void setCycle(int cycle) {
-    this.cycle = cycle;
+  public String getFullName() {
+    return this.fullName;
   }
 
-  public int getEnd() {
-    return end;
+  @Override
+  public int getId() {
+    return id;
   }
-
-  public void setEnd(int end) {
-    this.end = end;
-  }
-
-  public int getStart() {
-    return start;
-  }
-
-  public void setStart(int start) {
-    this.start = start;
-  }
-
 }

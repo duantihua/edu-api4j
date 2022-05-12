@@ -30,11 +30,11 @@ import java.util.Map;
 
 import org.beangle.commons.bean.comparators.PropertyComparator;
 import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.lang.time.HourMinute;
-import org.beangle.commons.lang.time.WeekDay;
-import org.beangle.commons.lang.time.WeekState;
-import org.beangle.commons.lang.time.WeekTime;
-import org.beangle.commons.lang.time.Weeks;
+import org.beangle.orm.hibernate.udt.HourMinute;
+import org.beangle.orm.hibernate.udt.WeekDay;
+import org.beangle.orm.hibernate.udt.WeekState;
+import org.beangle.orm.hibernate.udt.WeekTime;
+import org.beangle.orm.hibernate.udt.Weeks;
 import org.beangle.commons.lang.tuple.Pair;
 import org.openurp.base.time.NumberRangeDigestor;
 import org.openurp.base.time.NumberSequence;
@@ -63,7 +63,7 @@ public class WeekTimeBuilder {
   /**
    * 这个方法都是在ftl里使用的
    *
-   * @param state
+   * @param time
    * @return
    */
   public static String digestWeekTime(WeekTime time, Semester semester) {

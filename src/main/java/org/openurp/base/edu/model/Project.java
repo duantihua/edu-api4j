@@ -18,36 +18,23 @@
  */
 package org.openurp.base.edu.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
-import javax.persistence.OrderColumn;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.TimeEntity;
 import org.beangle.commons.lang.functor.Predicate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.model.Campus;
-import org.openurp.base.model.Department;
-import org.openurp.base.model.NumberIdTimeObject;
-import org.openurp.base.model.School;
-import org.openurp.base.model.TemporalEntity;
-import org.openurp.code.edu.model.EduCategory;
-import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.base.edu.code.model.StdLabel;
 import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.model.*;
+import org.openurp.code.edu.model.EduCategory;
+import org.openurp.code.edu.model.EducationLevel;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 项目
@@ -63,77 +50,104 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
       return depart.isTeaching();
     }
   };
-  /** 名称 */
+  /**
+   * 名称
+   */
   @Column(unique = true)
   @NotNull
   @Size(max = 100)
   private String name;
 
-  /** 名称 */
+  /**
+   * 名称
+   */
   @Column(unique = true)
   @NotNull
   @Size(max = 100)
   private String code;
 
-  /** 适用学校 */
+  /**
+   * 适用学校
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private School school;
 
-  /** 校区列表 */
+  /**
+   * 校区列表
+   */
   @ManyToMany
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<Campus> campuses = CollectUtils.newArrayList();
 
-  /** 部门列表 */
+  /**
+   * 部门列表
+   */
   @ManyToMany(targetEntity = Department.class)
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   @OrderColumn(name = "idx")
   private List<Department> departments = CollectUtils.newArrayList();
 
-  /** 培养层次列表 */
+  /**
+   * 培养层次列表
+   */
   @ManyToMany
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<EducationLevel> levels = CollectUtils.newArrayList();
 
-  /** 学生分类列表 */
+  /**
+   * 学生分类列表
+   */
   @ManyToMany
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<StdLabel> stdLabels = CollectUtils.newArrayList();
 
-  /** 学生类别列表 */
+  /**
+   * 学生类别列表
+   */
   @ManyToMany
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<StdType> stdTypes = CollectUtils.newArrayList();
 
-  /** 使用校历 */
-  @ManyToMany
+  /**
+   * 使用校历
+   */
   @NotNull
-  @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<Calendar> calendars = CollectUtils.newArrayList();
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Calendar calendar;
 
-  /** 描述 */
+  /**
+   * 描述
+   */
   @Size(max = 500)
   private String description;
 
-  /** 是否辅修 */
+  /**
+   * 是否辅修
+   */
   @NotNull
   private boolean minor;
 
-  /**教育类别*/
+  /**
+   * 教育类别
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private EduCategory category;
-  /** 生效时间 */
+  /**
+   * 生效时间
+   */
   @NotNull
   protected java.sql.Date beginOn;
 
-  /** 失效时间 */
+  /**
+   * 失效时间
+   */
   protected java.sql.Date endOn;
 
   /**
@@ -146,9 +160,7 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
 
   public List<Semester> getSemesters() {
     List<Semester> semesters = new ArrayList<Semester>();
-    for (Calendar calendar : calendars) {
-      semesters.addAll(calendar.getSemesters());
-    }
+    semesters.addAll(calendar.getSemesters());
     return semesters;
   }
 
@@ -177,12 +189,12 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
     this.levels = levels;
   }
 
-  public List<Calendar> getCalendars() {
-    return calendars;
+  public Calendar getCalendar() {
+    return calendar;
   }
 
-  public void setCalendars(List<Calendar> calendars) {
-    this.calendars = calendars;
+  public void setCalendar(Calendar calendar) {
+    this.calendar = calendar;
   }
 
   public List<Department> getDepartments() {

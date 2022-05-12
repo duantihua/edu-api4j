@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.NumberIdObject;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.beangle.commons.lang.tuple.Pair;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

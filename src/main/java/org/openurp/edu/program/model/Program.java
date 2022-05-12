@@ -21,18 +21,19 @@ package org.openurp.edu.program.model;
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
-import org.openurp.base.edu.code.model.CourseType;
-import org.openurp.base.edu.code.model.StdType;
-import org.openurp.base.edu.model.AuditState;
-import org.openurp.base.edu.model.Direction;
-import org.openurp.base.edu.model.Major;
-import org.openurp.base.edu.model.Project;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -145,8 +146,8 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
    * 审核状态
    */
   @NotNull
-  @Enumerated(value = EnumType.ORDINAL)
-  private AuditState auditState = AuditState.UNSUBMITTED;
+  @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
+  private AuditStatus status = AuditStatus.UNSUBMITTED;
 
   /**
    * 多出学分可以冲抵的课程类别
@@ -270,12 +271,12 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.remark = remark;
   }
 
-  public AuditState getAuditState() {
-    return auditState;
+  public AuditStatus getStatus() {
+    return status;
   }
 
-  public void setAuditState(AuditState auditState) {
-    this.auditState = auditState;
+  public void setStatus(AuditStatus status) {
+    this.status = status;
   }
 
   public Object clone() throws CloneNotSupportedException {

@@ -16,14 +16,35 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.beangle.commons.lang.time;
+package org.openurp.base.edu.code.model;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
-public class Weeks {
+import org.beangle.commons.entity.pojo.Code;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.school;
 
-  public static int between(LocalDate a, LocalDate b) {
-    return (int) ChronoUnit.WEEKS.between(a, b);
+/**
+ * 课程类别
+ *
+ * @since 2005-9-7
+ */
+@Entity(name = "org.openurp.base.edu.code.model.CourseCategory")
+@Cacheable
+@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@school
+public class CourseCategory extends Code<Integer> {
+
+  private static final long serialVersionUID = 8232522018765348618L;
+
+  public CourseCategory() {
+    super();
   }
+
+  public CourseCategory(Integer id) {
+    super(id);
+  }
+
 }

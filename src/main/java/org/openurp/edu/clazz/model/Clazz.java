@@ -31,11 +31,12 @@ import org.beangle.commons.entity.metadata.Model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
+import org.hibernate.annotations.Type;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.TeachLangType;
 import org.openurp.base.edu.code.model.CourseType;
-import org.openurp.base.edu.model.AuditState;
+import org.openurp.base.model.AuditStatus;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
@@ -128,8 +129,8 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   /** 审核状态 */
   @NotNull
-  @Enumerated
-  private AuditState auditState = AuditState.UNSUBMITTED;
+  @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
+  private AuditStatus status = AuditStatus.UNSUBMITTED;
 
   /**
    * 默认构造函数
@@ -365,12 +366,12 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     this.group = group;
   }
 
-  public AuditState getAuditState() {
-    return auditState;
+  public AuditStatus getStatus() {
+    return status;
   }
 
-  public void setAuditState(AuditState auditState) {
-    this.auditState = auditState;
+  public void setStatus(AuditStatus status) {
+    this.status = status;
   }
 
   public String getName() {

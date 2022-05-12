@@ -26,7 +26,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ClassroomType;
 import org.openurp.code.edu.model.ExamForm;
@@ -44,12 +44,12 @@ public class Exam implements Serializable, Cloneable {
 
   @NotNull
   @Column(name = "exam_begin_at")
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute beginAt = HourMinute.Zero;
 
   @NotNull
   @Column(name = "exam_end_at")
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt = HourMinute.Zero;
 
   /** 考核方式 */

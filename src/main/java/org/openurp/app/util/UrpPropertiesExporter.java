@@ -18,13 +18,13 @@
  */
 package org.openurp.app.util;
 
-import java.util.Map;
-
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-
 import org.openurp.app.Ems;
 import org.openurp.app.EmsApp;
+
+import java.util.Map;
 
 public class UrpPropertiesExporter implements ServletContextListener {
 
@@ -39,8 +39,12 @@ public class UrpPropertiesExporter implements ServletContextListener {
       if (entry.getKey().contains(".")) System.setProperty(entry.getKey(), entry.getValue());
     }
 
-    sce.getServletContext().setAttribute("static_base", Ems.Instance.getStatic());
-    System.setProperty("beangle.webmvc.static_base", Ems.Instance.getStatic());
+    Ems ems = Ems.getInstance();
+
+    ServletContext context = sce.getServletContext();
+    context.setAttribute("templatePath", ems.getApi() + "/platform/config/files/" + EmsApp.getName() + "/{path},webapp://pages,class://");
+    context.setAttribute("static_base", ems.getStatic());
+    System.setProperty("beangle.webmvc.static_base", ems.getStatic());
   }
 
   @Override

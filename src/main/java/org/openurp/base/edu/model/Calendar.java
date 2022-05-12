@@ -30,7 +30,7 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.beangle.commons.lang.time.WeekDay;
+import org.beangle.orm.hibernate.udt.WeekDay;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -80,7 +80,7 @@ public class Calendar extends NumberIdTimeObject<Integer> {
    * 星期中第一天,默认星期天
    */
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.WeekDayType")
+  @Type(type = "org.beangle.orm.hibernate.udt.WeekDayType")
   private WeekDay firstWeekday;
   /** 包含学期 */
   @OneToMany(mappedBy = "calendar", orphanRemoval = true)

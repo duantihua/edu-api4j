@@ -18,19 +18,18 @@
  */
 package org.openurp.app;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.io.IOs;
+import org.beangle.commons.lang.SystemInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
-
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.io.IOs;
-import org.beangle.commons.lang.Strings;
-import org.beangle.commons.lang.SystemInfo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Ems {
 
@@ -148,7 +147,12 @@ public class Ems {
   public static String findHome() {
     String home = System.getProperty("ems.home");
     if (home == null) {
-      home = SystemInfo.getUser().getHome() + "/.ems";
+      String profile = System.getProperty("ems.profile");
+      if (null == profile) {
+        home = SystemInfo.getUser().getHome() + "/.ems";
+      } else {
+        home = SystemInfo.getUser().getHome() + "/.ems/" + profile;
+      }
     }
     return home;
   }

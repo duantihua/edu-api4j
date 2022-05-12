@@ -16,35 +16,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.base.edu.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
-import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.openurp.base.model.NumberIdTimeObject;
+import org.openurp.base.model.User;
 
 /**
- * 课程类别
- *
- * @since 2005-9-7
+ * 辅导员信息默认实现
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseAssessCategory")
+@Entity(name = "org.openurp.base.edu.model.Mentor")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class CourseAssessCategory extends Code<Integer> {
+public class Mentor extends NumberIdTimeObject<Long> {
 
-  private static final long serialVersionUID = 8232522018765348618L;
+  /** 人员信息 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected User user;
 
-  public CourseAssessCategory() {
-    super();
+  /** 项目 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Project project;
+
+  public Project getProject() {
+    return project;
   }
 
-  public CourseAssessCategory(Integer id) {
-    super(id);
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
 }

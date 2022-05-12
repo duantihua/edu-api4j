@@ -19,7 +19,7 @@
 package org.openurp.edu.exam.model;
 
 import org.beangle.commons.lang.Objects;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 
 public class TurnOfDay implements Comparable<TurnOfDay> {
 
