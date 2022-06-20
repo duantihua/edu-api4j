@@ -32,7 +32,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.code.StdType;
 
 /**
  * 学生范围

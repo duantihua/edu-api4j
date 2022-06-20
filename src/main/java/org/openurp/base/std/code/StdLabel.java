@@ -16,10 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.base.std.code;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -27,34 +29,29 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 课程能力等级
+ * 学生分类标签
  *
- * @since 2011-09-19
+ *
+ * @since 3.0.0
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseAbilityRate")
+@Entity(name = "org.openurp.base.std.code.StdLabel")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseAbilityRate extends Code<Integer> {
+public class StdLabel extends Code<Integer> {
 
-  private static final long serialVersionUID = 478622629471793724L;
+  private static final long serialVersionUID = 4577754153764356671L;
 
-  public int getRate() {
-    return rate;
+  /** 类型 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private StdLabelType labelType;
+
+  public StdLabelType getLabelType() {
+    return labelType;
   }
 
-  public void setRate(int rate) {
-    this.rate = rate;
+  public void setLabelType(StdLabelType type) {
+    this.labelType = type;
   }
 
-  public boolean sameLevel(int rate) {
-    return this.rate == rate;
-  }
-
-  public boolean sameLevel(CourseAbilityRate o) {
-    if (null != o) return rate == o.getRate();
-    else return false;
-  }
-
-  private int rate;
 }

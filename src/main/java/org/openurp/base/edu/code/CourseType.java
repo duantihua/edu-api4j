@@ -16,41 +16,70 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.fee.model;
+package org.openurp.base.edu.code;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-
 /**
- * 收费类型
- * @author chaostone
+ * 课程类别
  *
+ *
+ * @since 2005-9-7
  */
-@Entity(name = "org.openurp.std.fee.model.FeeType")
+@Entity(name = "org.openurp.base.edu.code.CourseType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class FeeType extends Code<Integer> {
+public class CourseType extends Code<Integer> {
 
-  private static final long serialVersionUID = 1690716122640060437L;
+  private static final long serialVersionUID = 8232522018765348618L;
 
-  /** 学费 */
-  public static final Integer TUITION = 1;
+  /**
+   * 是否理论课:true:理论课 false:实践课
+   */
+  private boolean practical;
 
-  public FeeType() {
+  /**是否专业课*/
+  private boolean major;
+
+  /**是否选修课*/
+  private boolean optional;
+
+  public boolean isPractical() {
+    return practical;
   }
 
-  public FeeType(String code) {
-    super(Integer.valueOf(code));
-    setCode(code);
+  public void setPractical(boolean practical) {
+    this.practical = practical;
   }
 
-  public FeeType(Integer id) {
+  public CourseType() {
+    super();
+  }
+
+  public CourseType(Integer id) {
     super(id);
+  }
+
+  public boolean isMajor() {
+    return major;
+  }
+
+  public void setMajor(boolean major) {
+    this.major = major;
+  }
+
+  public boolean isOptional() {
+    return optional;
+  }
+
+  public void setOptional(boolean optional) {
+    this.optional = optional;
   }
 }

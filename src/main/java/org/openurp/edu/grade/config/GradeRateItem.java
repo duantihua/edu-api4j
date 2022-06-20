@@ -16,20 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.grade.course.model;
+package org.openurp.edu.grade.config;
+
+import org.beangle.commons.entity.pojo.LongIdObject;
+import org.beangle.commons.lang.Range;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
 
-import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.lang.Range;
-
 /**
  * 成绩分级配置项
  */
-@Entity(name = "org.openurp.edu.grade.course.model.GradeRateItem")
+@Entity(name = "org.openurp.edu.grade.config.GradeRateItem")
 public class GradeRateItem extends LongIdObject {
 
   private static final long serialVersionUID = 0L;

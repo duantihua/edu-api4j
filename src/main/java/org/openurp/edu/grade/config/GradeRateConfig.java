@@ -16,28 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.grade.course.model;
-
-import java.text.NumberFormat;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.NotNull;
+package org.openurp.edu.grade.config;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.edu.model.Project;
+import org.openurp.code.edu.model.GradingMode;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.text.NumberFormat;
+import java.util.List;
 
 /**
  * 成绩分级配置
  */
-@Entity(name = "org.openurp.edu.grade.course.model.GradeRateConfig")
+@Entity(name = "org.openurp.edu.grade.config.GradeRateConfig")
 public class GradeRateConfig extends LongIdObject {
 
   private static final long serialVersionUID = 7557740151486177737L;

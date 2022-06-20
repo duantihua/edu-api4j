@@ -22,6 +22,7 @@ import org.openurp.base.model.Department;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.code.FeeType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

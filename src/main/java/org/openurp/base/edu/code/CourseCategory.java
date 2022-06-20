@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.code.model;
+package org.openurp.base.edu.code;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -26,18 +26,25 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
-@Entity(name = "org.openurp.base.code.model.UserCategory")
+/**
+ * 课程类别
+ *
+ * @since 2005-9-7
+ */
+@Entity(name = "org.openurp.base.edu.code.CourseCategory")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class UserCategory extends Code<Integer> {
+public class CourseCategory extends Code<Integer> {
 
-  private static final long serialVersionUID = -6479420771683285746L;
+  private static final long serialVersionUID = 8232522018765348618L;
 
-  public static final int Teacher = 1;
+  public CourseCategory() {
+    super();
+  }
 
-  public static final int Student = 2;
-
-  public static final int Manager = 3;
+  public CourseCategory(Integer id) {
+    super(id);
+  }
 
 }

@@ -20,7 +20,7 @@ package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Type;
-import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.model.AuditStatus;
 
 import javax.persistence.*;

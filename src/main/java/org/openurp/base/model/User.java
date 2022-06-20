@@ -25,7 +25,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.code.model.UserCategory;
+import org.openurp.code.hr.model.UserCategory;
 import org.openurp.code.person.model.Gender;
 
 @Entity(name = "org.openurp.base.model.User")

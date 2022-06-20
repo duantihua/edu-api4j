@@ -27,7 +27,7 @@ import org.openurp.base.model.User;
 import org.openurp.code.hr.model.WorkStatus;
 import org.openurp.code.job.model.ProfessionalGrade;
 import org.openurp.code.job.model.ProfessionalTitle;
-import org.openurp.base.edu.code.model.TeacherType;
+import org.openurp.base.edu.code.TeacherType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

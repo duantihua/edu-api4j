@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.exam.model;
+package org.openurp.edu.exam.config;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +28,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Project;
 
-@Entity(name = "org.openurp.edu.exam.model.ExamAllocSetting")
+@Entity(name = "org.openurp.edu.exam.config.ExamAllocSetting")
 public class ExamAllocSetting extends LongIdObject {
 
   private static final long serialVersionUID = -6232074703201469078L;

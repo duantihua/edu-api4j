@@ -35,13 +35,13 @@ import org.hibernate.annotations.Type;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.TeachLangType;
-import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.edu.model.Teacher;
-import org.openurp.edu.clazz.code.model.ClazzTag;
+import org.openurp.edu.clazz.code.ClazzTag;
 
 /**
  * 教学任务

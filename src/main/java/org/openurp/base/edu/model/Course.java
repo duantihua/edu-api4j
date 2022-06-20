@@ -39,9 +39,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.*;
-import org.openurp.base.edu.code.model.CourseAbilityRate;
-import org.openurp.base.edu.code.model.CourseCategory;
-import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.code.CourseAbilityRate;
+import org.openurp.base.edu.code.CourseCategory;
+import org.openurp.base.edu.code.CourseType;
 
 /**
  * 课程基本信息

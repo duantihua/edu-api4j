@@ -18,27 +18,22 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import org.beangle.commons.entity.Component;
+import org.beangle.commons.lang.Objects;
+import org.beangle.orm.hibernate.udt.WeekState;
+import org.hibernate.annotations.*;
+import org.openurp.base.edu.model.Classroom;
+import org.openurp.code.edu.model.ClassroomType;
 
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import org.beangle.commons.entity.Component;
-import org.beangle.commons.lang.Objects;
-import org.beangle.orm.hibernate.udt.WeekState;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Type;
-import org.openurp.code.edu.model.ClassroomType;
-import org.openurp.base.edu.model.Classroom;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 课程安排具体结果
@@ -48,7 +43,9 @@ public class Schedule implements Serializable, Cloneable, Component {
 
   private static final long serialVersionUID = 3067092503219100019L;
 
-  /** 排课课时 */
+  /**
+   * 排课课时
+   */
   @NotNull
   private int creditHours;
   /**
@@ -58,15 +55,24 @@ public class Schedule implements Serializable, Cloneable, Component {
   @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
 
-  /** 具体排课结果 */
+  /**
+   * 具体排课结果
+   */
   @OneToMany(mappedBy = "clazz", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Session> sessions = new HashSet<Session>();
 
-  /** 教室类型 */
+  /**
+   * 教室类型
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ClassroomType roomType;
+
+  /**
+   * 院系自助安排
+   */
+  private boolean departArranged = true;
 
   public Schedule() {
 
@@ -191,6 +197,14 @@ public class Schedule implements Serializable, Cloneable, Component {
   public String toString() {
     return Objects.toStringBuilder(this).add("weekstate", this.weekstate).add("period", this.creditHours)
         .toString();
+  }
+
+  public boolean isDepartArranged() {
+    return departArranged;
+  }
+
+  public void setDepartArranged(boolean departArranged) {
+    this.departArranged = departArranged;
   }
 
   public enum Status {

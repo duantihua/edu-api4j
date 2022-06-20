@@ -39,7 +39,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
-import org.openurp.base.edu.code.model.CourseAbilityRate;
+import org.openurp.base.edu.code.CourseAbilityRate;
 import org.openurp.base.edu.model.Student;
 import org.openurp.edu.clazz.util.GenderRatio;
 

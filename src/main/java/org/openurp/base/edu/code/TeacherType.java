@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code.model;
+package org.openurp.base.edu.code;
 
 import javax.persistence.Cacheable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
@@ -27,59 +28,48 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 课程类别
+ * 教职工类别
  *
  *
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.base.edu.code.model.CourseType")
+@Entity(name = "org.openurp.base.edu.code.TeacherType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseType extends Code<Integer> {
+public class TeacherType extends Code<Integer> {
 
-  private static final long serialVersionUID = 8232522018765348618L;
+  private static final long serialVersionUID = -1761600684758782044L;
 
-  /**
-   * 是否理论课:true:理论课 false:实践课
-   */
-  private boolean practical;
+  /** 是否外聘 */
+  @Column(name = "external_")
+  private boolean external;
 
-  /**是否专业课*/
-  private boolean major;
+  /** 是否兼职 */
+  private boolean parttime;
 
-  /**是否选修课*/
-  private boolean optional;
-
-  public boolean isPractical() {
-    return practical;
-  }
-
-  public void setPractical(boolean practical) {
-    this.practical = practical;
-  }
-
-  public CourseType() {
+  public TeacherType() {
     super();
   }
 
-  public CourseType(Integer id) {
+  public TeacherType(Integer id) {
     super(id);
   }
 
-  public boolean isMajor() {
-    return major;
+  public boolean isExternal() {
+    return external;
   }
 
-  public void setMajor(boolean major) {
-    this.major = major;
+  public void setExternal(boolean external) {
+    this.external = external;
   }
 
-  public boolean isOptional() {
-    return optional;
+  public boolean isParttime() {
+    return parttime;
   }
 
-  public void setOptional(boolean optional) {
-    this.optional = optional;
+  public void setParttime(boolean parttime) {
+    this.parttime = parttime;
   }
+
 }
