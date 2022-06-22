@@ -40,9 +40,9 @@ import org.openurp.base.model.TemporalEntity;
 import org.openurp.base.model.User;
 import org.openurp.code.edu.model.StudyType;
 import org.openurp.code.person.model.Gender;
-import org.openurp.base.edu.code.model.StdLabel;
-import org.openurp.base.edu.code.model.StdLabelType;
-import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.std.code.StdLabel;
+import org.openurp.base.std.code.StdLabelType;
+import org.openurp.base.edu.code.StdType;
 import org.springframework.util.CollectionUtils;
 
 /**

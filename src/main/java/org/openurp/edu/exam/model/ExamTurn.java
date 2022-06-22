@@ -25,7 +25,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Type;
 
 @Entity(name = "org.openurp.edu.exam.model.ExamTurn")
@@ -41,13 +41,13 @@ public class ExamTurn extends LongIdObject {
   /**
    * 开始时间 格式采用数字.800,表示8:00
    */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute beginAt;
 
   /**
    * 结束时间 格式采用数字.1400,表示14:00
    */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt;
 
   private Integer capacity;

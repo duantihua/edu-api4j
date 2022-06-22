@@ -25,7 +25,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.lang.Objects;
-import org.beangle.commons.lang.time.WeekState;
+import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
@@ -73,7 +73,7 @@ public class ExecutionPlanCourse extends AbstractPlanCourse implements ExecutePl
   private CalendarStage stage;
 
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
+  @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
 
   public Department getDepartment() {

@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.entity.pojo.NumberIdObject;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -73,12 +73,12 @@ public class CourseUnit extends NumberIdObject<Integer> implements Cloneable, Co
 
   /** 开始时间 */
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute beginAt;
 
   /** 结束时间 */
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt;
 
   /** 时间设置 */

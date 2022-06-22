@@ -32,11 +32,12 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
+import org.openurp.edu.exam.config.ExamAllocSetting;
 
 @Entity(name = "org.openurp.edu.exam.model.ExamGroup")
 public class ExamGroup extends LongIdObject {

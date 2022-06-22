@@ -20,6 +20,7 @@ package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.HierarchyEntity;
 import org.beangle.commons.entity.pojo.LongIdObject;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,6 +54,7 @@ public class ProgramDocSection extends LongIdObject implements HierarchyEntity<P
    */
   @Size(max = 50000)
   @Lob
+  @Type(type = "org.hibernate.type.TextType")
   private String contents;
 
   /**

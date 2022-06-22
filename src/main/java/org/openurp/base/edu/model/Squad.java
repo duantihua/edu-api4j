@@ -34,7 +34,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.edu.code.model.StdType;
+import org.openurp.base.edu.code.StdType;
+import org.openurp.base.model.User;
 
 /**
  * 学生行政班级信息
@@ -105,11 +106,11 @@ public class Squad extends EduLevelBasedObject<Long> {
 
   /** 辅导员 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Instructor instructor;
+  private User mentor;
 
   /** 班导师 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private Teacher tutor = null;
+  private User tutor = null;
 
   /** 学生列表 班级学生 */
   @OneToMany(mappedBy = "squad")
@@ -235,19 +236,19 @@ public class Squad extends EduLevelBasedObject<Long> {
     this.stdCount = stdCount;
   }
 
-  public Instructor getInstructor() {
-    return instructor;
+  public User getMentor() {
+    return mentor;
   }
 
-  public void setInstructor(Instructor instructor) {
-    this.instructor = instructor;
+  public void setMentor(User mentor) {
+    this.mentor = mentor;
   }
 
-  public Teacher getTutor() {
+  public User getTutor() {
     return tutor;
   }
 
-  public void setTutor(Teacher tutor) {
+  public void setTutor(User tutor) {
     this.tutor = tutor;
   }
 

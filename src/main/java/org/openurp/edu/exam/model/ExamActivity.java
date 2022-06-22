@@ -20,7 +20,7 @@ package org.openurp.edu.exam.model;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.lang.time.HourMinute;
+import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Classroom;
@@ -83,13 +83,13 @@ public class ExamActivity extends LongIdObject {
   /**
    * 开始时间
    */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute beginAt;
 
   /**
    * 结束时间
    */
-  @Type(type = "org.beangle.commons.lang.time.hibernate.HourMinuteType")
+  @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt;
 
   /**

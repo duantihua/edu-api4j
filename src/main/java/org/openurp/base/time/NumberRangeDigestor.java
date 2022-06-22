@@ -18,12 +18,13 @@
  */
 package org.openurp.base.time;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.text.i18n.TextResource;
+import org.beangle.orm.hibernate.udt.WeekState;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.text.i18n.TextResource;
 
 /**
  * 用于将数字数组变成用户可以看懂的文字的工具类
@@ -111,5 +112,13 @@ public class NumberRangeDigestor {
       integers[i] = numberSequence[i];
     }
     return digest(integers, textResource, formatter);
+  }
+
+  public static String digest(WeekState state) {
+    if (null == state) return "";
+    Integer[] weekIndecies = state.getWeekList().toArray(new Integer[0]);
+    String digest = NumberRangeDigestor.digest(weekIndecies, null);
+    return digest.replace("[", "").replace("]", "").replace("number.range.odd", "单")
+        .replace("number.range.even", "双");
   }
 }

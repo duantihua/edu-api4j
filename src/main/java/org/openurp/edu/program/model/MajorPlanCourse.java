@@ -19,7 +19,7 @@
 package org.openurp.edu.program.model;
 
 import org.beangle.commons.lang.Objects;
-import org.beangle.commons.lang.time.WeekState;
+import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
 import org.openurp.base.model.Department;
@@ -71,7 +71,7 @@ public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCo
   private ExamMode examMode;
 
   @NotNull
-  @Type(type = "org.beangle.commons.lang.time.hibernate.WeekStateType")
+  @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
 
   @ManyToOne(fetch = FetchType.LAZY)
