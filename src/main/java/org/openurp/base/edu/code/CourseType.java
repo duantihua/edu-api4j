@@ -20,6 +20,8 @@ package org.openurp.base.edu.code;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -39,6 +41,11 @@ import org.openurp.code.school;
 public class CourseType extends Code<Integer> {
 
   private static final long serialVersionUID = 8232522018765348618L;
+  /**
+   * 上级类别
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseType parent;
 
   /**
    * 是否理论课:true:理论课 false:实践课
@@ -81,5 +88,13 @@ public class CourseType extends Code<Integer> {
 
   public void setOptional(boolean optional) {
     this.optional = optional;
+  }
+
+  public CourseType getParent() {
+    return parent;
+  }
+
+  public void setParent(CourseType parent) {
+    this.parent = parent;
   }
 }
