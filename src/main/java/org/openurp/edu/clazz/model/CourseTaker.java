@@ -27,6 +27,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.NaturalId;
+import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ElectionMode;
@@ -61,6 +62,10 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
+
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseType courseType;
 
   /** 修读类别 */
   @NotNull
@@ -228,4 +233,11 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
     this.alternative = alternative;
   }
 
+  public CourseType getCourseType() {
+    return courseType;
+  }
+
+  public void setCourseType(CourseType courseType) {
+    this.courseType = courseType;
+  }
 }

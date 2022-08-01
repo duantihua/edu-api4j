@@ -18,61 +18,60 @@
  */
 package org.openurp.edu.clazz.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.validation.constraints.NotNull;
+import org.beangle.commons.entity.Entity;
+import org.beangle.commons.entity.metadata.Model;
+import org.beangle.commons.lang.IDEnum;
+import org.openurp.base.edu.code.StdType;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Squad;
+import org.openurp.base.model.Department;
+import org.openurp.base.std.code.StdLabel;
+import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.code.person.model.Gender;
 
-import org.beangle.commons.entity.pojo.LongIdObject;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+public enum RestrictionMeta implements IDEnum {
 
-/**
- * 课程限制元信息
- *
- *
- */
-@Entity(name = "org.openurp.edu.clazz.model.RestrictionMeta")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class RestrictionMeta extends LongIdObject {
+  Grade(1, String.class, "年级"), StdType(2, StdType.class, "学生类别"),
+  Gender(3, Gender.class, "性别"), Department(4, Department.class, "院系"),
+  Major(5, Major.class, "专业"), Direction(6, Direction.class, "方向"),
+  Squad(7, Squad.class, "班级"), Level(8, EducationLevel.class, "培养层次"),
+  StdLabel(11, StdLabel.class, "学生标签");
 
-  private static final long serialVersionUID = 2311660436512066941L;
+  private final int id;
+  private final String title;
+  private final Class<?> contentType;
 
-  /** 名称 */
-  @NotNull
-  private String name;
-
-  /** 备注 */
-  @NotNull
-  private String remark;
-
-  public RestrictionMeta() {
-    super();
+  RestrictionMeta(int id, Class<?> contentType, String title) {
+    this.id = id;
+    this.title = title;
+    this.contentType = contentType;
   }
 
-  public RestrictionMeta(Long id) {
-    super(id);
+  public static RestrictionMeta of(int id) {
+    for (RestrictionMeta meta : values()) {
+      if (meta.getId() == id) return meta;
+    }
+    return null;
   }
 
-  public RestrictionMeta(Long id, String name, String remark) {
-    super(id);
-    this.name = name;
-    this.remark = remark;
+  public int getId() {
+    return id;
   }
 
-  public String getName() {
-    return name;
+  public String getTitle() {
+    return title;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public Class<?> getContentType() {
+    return contentType;
   }
 
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
+  public Class<?> getContentValueType() {
+    if (Entity.class.isAssignableFrom(contentType)) {
+      return Model.getType(contentType).getIdType();
+    } else {
+      return contentType;
+    }
   }
 }

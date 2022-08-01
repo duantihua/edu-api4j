@@ -18,30 +18,22 @@
  */
 package org.openurp.base.edu.model;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.*;
 import org.openurp.base.edu.code.CourseAbilityRate;
 import org.openurp.base.edu.code.CourseCategory;
 import org.openurp.base.edu.code.CourseType;
+import org.openurp.base.model.Department;
+import org.openurp.code.edu.model.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 课程基本信息
@@ -55,82 +47,120 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   private static final long serialVersionUID = 732786365746405676L;
 
-  /** 课程代码 */
+  /**
+   * 课程代码
+   */
   @Column(unique = true)
   @NotNull
   @Size(max = 32)
   protected String code;
 
-  /** 课程名称 */
+  /**
+   * 课程名称
+   */
   @NotNull
   @Size(max = 255)
   protected String name;
 
-  /** 课程英文名 */
+  /**
+   * 课程英文名
+   */
   @Size(max = 300)
   protected String enName;
 
-  /** 培养层次 */
+  /**
+   * 培养层次
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<AcademicLevel> levels = CollectUtils.newHashSet();
 
-  /** 学分 */
+  /**
+   * 学分
+   */
   private float credits;
 
-  /** 学时/总课时 */
+  /**
+   * 学时/总课时
+   */
   @NotNull
   private int creditHours;
 
-  /** 分类课时 */
-  @OneToMany(mappedBy = "course", cascade = { CascadeType.ALL }, orphanRemoval = true)
+  /**
+   * 分类课时
+   */
+  @OneToMany(mappedBy = "course", cascade = {CascadeType.ALL}, orphanRemoval = true)
   private List<CourseHour> hours = CollectUtils.newArrayList();
 
-  /** 周课时 */
+  /**
+   * 周课时
+   */
   private int weekHours;
 
-  /** 周数 */
+  /**
+   * 周数
+   */
   private Integer weeks;
 
-  /** 院系 */
+  /**
+   * 院系
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 建议课程类别 */
+  /**
+   * 建议课程类别
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType courseType;
 
-  /** 课程性质 */
+  /**
+   * 课程性质
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseNature nature;
-  /** 课程分类 */
+  /**
+   * 课程分类
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseCategory category;
 
-  /** 考试方式 */
+  /**
+   * 考试方式
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamMode examMode;
 
-  /** 成绩记录方式 */
+  /**
+   * 成绩记录方式
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<GradingMode> gradingModes = CollectUtils.newHashSet();
 
-  /** 能力等级 */
+  /**
+   * 能力等级
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<CourseAbilityRate> abilityRates = CollectUtils.newHashSet();
 
-  /** 针对专业 */
+  /**
+   * 针对专业
+   */
   @ManyToMany
   private Set<Major> majors = CollectUtils.newHashSet();
 
-  /** 排除专业 */
+  /**
+   * 排除专业
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Major> xmajors = CollectUtils.newHashSet();
 
-  /** 常用教材 */
+  /**
+   * 常用教材
+   */
   @ManyToMany
   private Set<Textbook> textbooks = CollectUtils.newHashSet();
 
@@ -138,13 +168,19 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   private java.sql.Date endOn;
 
-  /** 是否有补考 */
+  /**
+   * 是否有补考
+   */
   private boolean hasMakeup;
 
-  /** 是否计算绩点 */
+  /**
+   * 是否计算绩点
+   */
   private boolean calgp;
 
-  /** 课程备注 */
+  /**
+   * 课程备注
+   */
   @Size(max = 500)
   protected String remark;
 
@@ -301,7 +337,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
       return "";
     } else {
       StringBuffer sb = new StringBuffer();
-      for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
+      for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext(); ) {
         CourseHour courseHour = iter.next();
         Integer value = courseHour.getCreditHours();
         sb.append(value);
@@ -314,18 +350,22 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   }
 
   public Integer getHour(TeachingNature type) {
-    for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
+    for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext(); ) {
       CourseHour courseHour = iter.next();
-      if (null != type && courseHour.getTeachingNature().equals(type)) { return courseHour.getCreditHours(); }
+      if (null != type && courseHour.getTeachingNature().equals(type)) {
+        return courseHour.getCreditHours();
+      }
     }
     return null;
   }
 
   public Integer getHourById(Integer typeId) {
-    for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext();) {
+    for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext(); ) {
       CourseHour courseHour = iter.next();
       if (null != typeId
-          && courseHour.getTeachingNature().getId().equals(typeId)) { return courseHour.getCreditHours(); }
+          && courseHour.getTeachingNature().getId().equals(typeId)) {
+        return courseHour.getCreditHours();
+      }
     }
     return null;
   }
@@ -363,6 +403,12 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     return null == endOn;
   }
 
+  public boolean validIn(java.sql.Date from, java.sql.Date to) {
+    if (getBeginOn().after(to)) return false;
+    if (getEndOn() == null) return true;
+    return getBeginOn().before(to) && from.before(getEndOn());
+  }
+
   public boolean isHasMakeup() {
     return hasMakeup;
   }
@@ -372,7 +418,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   }
 
   public boolean isPractical() {
-    if(null==nature) return false;
+    if (null == nature) return false;
     else return nature.isPractical();
   }
 
