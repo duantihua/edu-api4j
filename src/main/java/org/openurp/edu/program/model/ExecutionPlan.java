@@ -68,10 +68,6 @@ public class ExecutionPlan extends AbstractCoursePlan {
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 审核备注 */
-  @OneToMany(mappedBy = "executionPlan", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<ExecutionPlanComment> comments = CollectUtils.newArrayList();
-
   public ExecutionPlan() {
     super();
   }
@@ -113,14 +109,6 @@ public class ExecutionPlan extends AbstractCoursePlan {
 
   public void setStdType(StdType stdType) {
     this.stdType = stdType;
-  }
-
-  public List<ExecutionPlanComment> getComments() {
-    return comments;
-  }
-
-  public void setComments(List<ExecutionPlanComment> comments) {
-    this.comments = comments;
   }
 
   public Date getBeginOn() {

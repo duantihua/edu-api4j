@@ -18,16 +18,13 @@
  */
 package org.openurp.edu.clazz.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 /**
  * 课程限制项
@@ -41,8 +38,7 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
 
   /** 限制具体项目 */
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "meta")
+  @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
   private RestrictionMeta meta;
 
   /** 所在限制组 */
@@ -50,7 +46,8 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Restriction restriction;
 
-  private boolean includeIn;
+  @Column(name = "include_in")
+  private boolean included;
 
   /** 限制内容 */
   @NotNull
@@ -60,11 +57,11 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
     super();
   }
 
-  public RestrictionItem(RestrictionMeta meta, String contents, boolean includeIn) {
+  public RestrictionItem(RestrictionMeta meta, String contents, boolean included) {
     super();
     this.meta = meta;
     this.contents = contents;
-    this.includeIn = includeIn;
+    this.included = included;
   }
 
   public RestrictionMeta getMeta() {
@@ -91,20 +88,17 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
     this.restriction = restriction;
   }
 
-  public boolean isIncludeIn() {
-    return includeIn;
+  public boolean isIncluded() {
+    return included;
   }
 
-  public void setIncludeIn(boolean includeIn) {
-    this.includeIn = includeIn;
+  public void setIncluded(boolean included) {
+    this.included = included;
   }
 
   public Object clone() {
     try {
       RestrictionItem clone = (RestrictionItem) super.clone();
-      RestrictionMeta meta = new RestrictionMeta();
-      meta.setId(this.getMeta().getId());
-      clone.setMeta(meta);
       clone.setId(null);
       return clone;
     } catch (CloneNotSupportedException e) {
@@ -113,14 +107,11 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   }
 
   /**
-   * @see CourseLimitItemContentProvider
-   * @see CourseLimitItemContentProviderFactory
-   * @see CourseLimitMetaEnum
    */
   @Deprecated
   public String getContentForHql() {
     if (null != contents) {
-      if (null != meta && "GRADE".equals(meta.getName())) {
+      if (null != meta && RestrictionMeta.Grade.equals(meta)) {
         contents = "'" + contents + "'";
       }
     }

@@ -24,6 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.code.StdType;
+import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Project;
@@ -40,6 +41,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 专业培养方案
@@ -159,6 +161,10 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @JoinColumn(name = "program_id", nullable = true)
   private List<TermCampus> termCampuses = CollectUtils.newArrayList();
 
+  /**学位课程*/
+  @ManyToMany
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  private Set<Course> degreeCourses=CollectUtils.newHashSet();
   public Program() {
     super();
   }
@@ -327,5 +333,13 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   public void setTermCampuses(List<TermCampus> termCampuses) {
     this.termCampuses = termCampuses;
+  }
+
+  public Set<Course> getDegreeCourses() {
+    return degreeCourses;
+  }
+
+  public void setDegreeCourses(Set<Course> degreeCourses) {
+    this.degreeCourses = degreeCourses;
   }
 }
