@@ -24,7 +24,7 @@ import java.util.Set;
 import javax.persistence.MappedSuperclass;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.model.NumberIdTimeObject;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.base.edu.model.Course;
 
 /**

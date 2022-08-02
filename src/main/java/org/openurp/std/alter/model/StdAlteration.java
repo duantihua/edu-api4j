@@ -28,9 +28,9 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.std.model.StdAlterReason;
 import org.openurp.code.std.model.StdAlterType;
 import org.openurp.base.edu.model.Semester;

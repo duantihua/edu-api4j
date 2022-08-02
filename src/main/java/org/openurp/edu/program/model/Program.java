@@ -19,6 +19,7 @@
 package org.openurp.edu.program.model;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -31,7 +32,6 @@ import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;

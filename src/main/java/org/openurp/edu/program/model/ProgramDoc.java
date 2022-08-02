@@ -30,7 +30,7 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.model.NumberIdTimeObject;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 
 /**
  * 培养方案文档

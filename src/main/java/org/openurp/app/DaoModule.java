@@ -20,6 +20,7 @@ package org.openurp.app;
 
 import org.beangle.commons.entity.metadata.impl.ConvertPopulatorBean;
 import org.beangle.commons.inject.bind.AbstractBindModule;
+import org.beangle.ems.app.AppDataSourceFactory;
 import org.beangle.orm.hibernate.*;
 import org.beangle.orm.hibernate.internal.HibernateModelMeta;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;

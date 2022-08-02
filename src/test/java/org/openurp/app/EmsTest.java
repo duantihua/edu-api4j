@@ -21,11 +21,11 @@ package org.openurp.app;
 import java.util.Map;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.ems.app.Ems;
 
 public class EmsTest {
 
   public static void main(String[] args) {
-
     Map<String, String> properties = CollectUtils.newHashMap();
     properties.put("base", "localhost");
     Ems urp = new Ems("d", properties);

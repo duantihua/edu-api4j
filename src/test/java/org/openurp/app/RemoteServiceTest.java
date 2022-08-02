@@ -18,8 +18,8 @@
  */
 package org.openurp.app;
 
+import org.beangle.ems.app.security.service.RemoteAuthorizer;
 import org.beangle.security.authz.Authority;
-import org.openurp.app.security.service.RemoteAuthorizer;
 
 import java.util.List;
 

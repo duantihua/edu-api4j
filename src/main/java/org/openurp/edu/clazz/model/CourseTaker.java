@@ -25,10 +25,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.edu.code.CourseType;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ElectionMode;
 import org.openurp.base.edu.model.Course;

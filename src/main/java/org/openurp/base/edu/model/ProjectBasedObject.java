@@ -18,11 +18,11 @@
  */
 package org.openurp.base.edu.model;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
+
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-
-import org.openurp.base.model.NumberIdTimeObject;
 
 /**
  * 基于项目的实体基类

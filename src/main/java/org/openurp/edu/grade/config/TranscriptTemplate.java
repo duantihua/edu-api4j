@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.grade.config;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.base.edu.model.Project;
-import org.openurp.base.model.NumberIdTimeObject;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
