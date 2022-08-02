@@ -33,10 +33,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.TemporalEntity;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.Person;
-import org.openurp.base.model.TemporalEntity;
 import org.openurp.base.model.User;
 import org.openurp.code.edu.model.StudyType;
 import org.openurp.code.person.model.Gender;

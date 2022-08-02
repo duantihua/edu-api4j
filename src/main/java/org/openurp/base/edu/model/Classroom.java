@@ -18,6 +18,7 @@
  */
 package org.openurp.base.edu.model;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.*;

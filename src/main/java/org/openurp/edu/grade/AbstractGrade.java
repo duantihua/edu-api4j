@@ -24,8 +24,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;

@@ -30,13 +30,13 @@ import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.beangle.orm.hibernate.udt.WeekDay;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Type;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.base.model.School;
 
 /**

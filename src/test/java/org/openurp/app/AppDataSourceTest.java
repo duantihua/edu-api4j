@@ -19,7 +19,8 @@
 package org.openurp.app;
 
 import org.beangle.commons.lang.ClassLoaders;
-import org.openurp.app.util.DatasourceConfig;
+import org.beangle.ems.app.AppDataSourceFactory;
+import org.beangle.ems.app.util.DatasourceConfig;
 
 import java.io.InputStream;
 

@@ -20,6 +20,8 @@ package org.openurp.base.edu.model;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.TimeEntity;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
+import org.beangle.commons.entity.pojo.TemporalEntity;
 import org.beangle.commons.lang.functor.Predicate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

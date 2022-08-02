@@ -33,10 +33,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.NumberIdTimeObject;
 import org.openurp.code.edu.model.EducationLevel;
 
 /**

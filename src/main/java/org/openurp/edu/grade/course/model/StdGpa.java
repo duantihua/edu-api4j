@@ -29,7 +29,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.model.NumberIdTimeObject;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.edu.model.Student;
