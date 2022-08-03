@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.app;
+package org.openurp.edu;
 
 import org.beangle.commons.entity.metadata.impl.ConvertPopulatorBean;
 import org.beangle.commons.inject.bind.AbstractBindModule;
