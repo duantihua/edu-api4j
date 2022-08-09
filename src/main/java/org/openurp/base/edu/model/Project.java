@@ -152,14 +152,6 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
    */
   protected java.sql.Date endOn;
 
-  /**
-   * 项目配置项
-   */
-  @ElementCollection
-  @MapKeyColumn(name = "name")
-  @Column(name = "value_", length = 4000)
-  private Map<String, String> properties = CollectUtils.newHashMap();
-
   public List<Semester> getSemesters() {
     List<Semester> semesters = new ArrayList<Semester>();
     semesters.addAll(calendar.getSemesters());
@@ -277,14 +269,6 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
 
   public List<Department> getColleges() {
     return CollectUtils.select(this.departments, TEACHING);
-  }
-
-  public Map<String, String> getProperties() {
-    return properties;
-  }
-
-  public void setProperties(Map<String, String> properties) {
-    this.properties = properties;
   }
 
   public String getCode() {
