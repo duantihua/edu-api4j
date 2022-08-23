@@ -18,13 +18,13 @@
  */
 package org.openurp.base.time;
 
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.List;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Numbers;
 import org.beangle.commons.lang.Strings;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 public class Terms implements Serializable, Comparable<Terms> {
   private static final long serialVersionUID = -8846980902784025935L;
@@ -35,7 +35,15 @@ public class Terms implements Serializable, Comparable<Terms> {
     if (terms.equals("*") || terms.equals("")) return 0;
     int result = 0;
     for (String t : Strings.split(terms, ",")) {
-      result |= (1 << Numbers.toInt(t));
+      if (t.contains("-")) {
+        int start = Integer.parseInt(Strings.substringBefore(t, "-").trim());
+        int end = Integer.parseInt(Strings.substringAfter(t, "-").trim());
+        for (int i = start; i <= end; i++) {
+          result |= (1 << i);
+        }
+      } else {
+        result |= (1 << Numbers.toInt(t));
+      }
     }
     return result;
   }
