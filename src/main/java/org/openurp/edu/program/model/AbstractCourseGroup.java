@@ -58,6 +58,12 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
   /** 要求学分 */
   private float credits;
 
+  /**学时数*/
+  private int creditHours;
+
+  /**分类学时比例*/
+  private String hourRatios;
+
   /** 要求门数 */
   private short courseCount;
 
@@ -253,5 +259,22 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
 
   public int compareTo(CourseGroup o) {
     return getIndexno().compareTo(o.getIndexno());
+  }
+
+  public int getCreditHours() {
+    return creditHours;
+  }
+
+  public void setCreditHours(int creditHours) {
+    this.creditHours = creditHours;
+  }
+
+  public String getHourRatios() {
+    return hourRatios;
+  }
+
+  @Override
+  public void setHourRatios(String hourRatios) {
+    this.hourRatios = hourRatios;
   }
 }

@@ -225,4 +225,13 @@ public interface CourseGroup extends Entity<Long>, Cloneable, Comparable<CourseG
   public Terms getTerms();
 
   public void setTerms(Terms terms);
+
+  public int getCreditHours();
+
+  public void setCreditHours(int creditHours);
+
+  public String getHourRatios();
+
+  public void setHourRatios(String ratios);
+
 }

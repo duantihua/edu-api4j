@@ -18,16 +18,16 @@
  */
 package org.openurp.edu.grade.plan.adapters;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.functor.Predicate;
-import org.openurp.base.time.Terms;
 import org.openurp.base.edu.code.CourseType;
+import org.openurp.base.time.Terms;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.PlanCourse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseGroupAdapter implements CourseGroup {
 
@@ -299,5 +299,20 @@ public class CourseGroupAdapter implements CourseGroup {
   @Override
   public void setTerms(Terms terms) {
 
+  }
+
+  public int getCreditHours() {
+    return 0;
+  }
+
+  public void setCreditHours(int creditHours) {
+  }
+
+  public String getHourRatios() {
+    return null;
+  }
+
+  @Override
+  public void setHourRatios(String hourRatios) {
   }
 }
