@@ -37,7 +37,7 @@ import org.openurp.base.model.Department;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Squad;
+import org.openurp.base.std.model.Squad;
 
 /**
  * 教学任务组

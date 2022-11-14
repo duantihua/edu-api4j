@@ -32,7 +32,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 学生历学期的成绩绩点

@@ -24,7 +24,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.base.edu.code.CourseType;
-import org.openurp.base.edu.code.StdType;
+import org.openurp.base.edu.code.EducationType;
+import org.openurp.base.std.code.StdType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
@@ -32,6 +33,7 @@ import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
+import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
@@ -63,7 +65,8 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
    * 年级
    */
   @NotNull
-  private String grade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade grade;
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -83,7 +86,11 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
    */
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationLevel level;
-
+  /**
+   * 培养类型
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private EducationType eduType;
   /**
    * 学生类别
    */
@@ -181,11 +188,11 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.name = name;
   }
 
-  public String getGrade() {
+  public Grade getGrade() {
     return grade;
   }
 
-  public void setGrade(String grade) {
+  public void setGrade(Grade grade) {
     this.grade = grade;
   }
 
@@ -341,5 +348,13 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   public void setDegreeCourses(Set<Course> degreeCourses) {
     this.degreeCourses = degreeCourses;
+  }
+
+  public EducationType getEduType() {
+    return eduType;
+  }
+
+  public void setEduType(EducationType eduType) {
+    this.eduType = eduType;
   }
 }

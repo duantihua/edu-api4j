@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.base.std.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,9 +30,12 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.base.edu.code.StdType;
+import org.openurp.base.std.code.StdType;
 
 /**
  * 学生范围

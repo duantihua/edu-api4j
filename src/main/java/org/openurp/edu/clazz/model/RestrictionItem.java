@@ -46,7 +46,6 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Restriction restriction;
 
-  @Column(name = "include_in")
   private boolean included;
 
   /** 限制内容 */

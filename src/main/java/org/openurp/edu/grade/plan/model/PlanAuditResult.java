@@ -34,7 +34,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.base.edu.code.CourseType;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 计划完成审核结果<br>

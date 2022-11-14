@@ -28,7 +28,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.CourseTaker;
 

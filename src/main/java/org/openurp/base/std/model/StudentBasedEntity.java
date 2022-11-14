@@ -16,36 +16,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
+package org.openurp.base.std.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 
-import org.beangle.commons.entity.pojo.Code;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.school;
+import org.beangle.commons.entity.Entity;
+import org.beangle.commons.entity.TimeEntity;
 
 /**
- * 学生类别
+ * 基于学生信息的实体
  *
  *
- * @since 3.0.0
  */
-@Entity(name = "org.openurp.base.edu.code.StdType")
-@Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@school
-public class StdType extends Code<Integer> {
+@MappedSuperclass
+public interface StudentBasedEntity extends Entity<Long>, TimeEntity {
 
-  private static final long serialVersionUID = -1653080750576602460L;
+  public Student getStd();
 
-  public StdType() {
-    super();
-  }
-
-  public StdType(Integer id) {
-    super(id);
-  }
+  public void setStd(Student std);
 
 }

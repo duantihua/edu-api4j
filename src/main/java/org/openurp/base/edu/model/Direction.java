@@ -93,7 +93,7 @@ public class Direction extends NumberIdTimeObject<Long> {
   /** 部门 */
   @OneToMany(mappedBy = "direction", cascade = { CascadeType.ALL }, orphanRemoval = true)
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  private List<DirectionJournal> departs = CollectUtils.newArrayList();
+  private List<DirectionJournal> journals = CollectUtils.newArrayList();
 
   public Direction() {
     super();
@@ -111,12 +111,12 @@ public class Direction extends NumberIdTimeObject<Long> {
     this.major = major;
   }
 
-  public List<DirectionJournal> getDeparts() {
-    return departs;
+  public List<DirectionJournal> getJournals() {
+    return journals;
   }
 
-  public void setDeparts(List<DirectionJournal> departs) {
-    this.departs = departs;
+  public void setJournals(List<DirectionJournal> journals) {
+    this.journals = journals;
   }
 
   public String getCode() {

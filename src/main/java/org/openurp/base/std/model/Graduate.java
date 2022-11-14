@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.info.model;
+package org.openurp.base.std.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,12 +24,13 @@ import javax.persistence.ManyToOne;
 
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationResult;
+import org.openurp.std.info.model.StudentInfoBean;
 
 /**
  * 毕业信息实现
  */
-@Entity(name = "org.openurp.std.info.model.Graduation")
-public class Graduation extends StudentInfoBean {
+@Entity(name = "org.openurp.base.std.model.Graduate")
+public class Graduate extends StudentInfoBean {
 
   private static final long serialVersionUID = -4102691429295031076L;
 
@@ -41,7 +42,7 @@ public class Graduation extends StudentInfoBean {
 
   /** 毕结业情况 */
   @ManyToOne(fetch = FetchType.LAZY)
-  private EducationResult educationResult;
+  private EducationResult result;
 
   /** 学位 */
   @ManyToOne(fetch = FetchType.LAZY)
@@ -80,12 +81,12 @@ public class Graduation extends StudentInfoBean {
     this.degree = degree;
   }
 
-  public EducationResult getEducationResult() {
-    return educationResult;
+  public EducationResult getResult() {
+    return result;
   }
 
-  public void setEducationResult(EducationResult educationResult) {
-    this.educationResult = educationResult;
+  public void setResult(EducationResult result) {
+    this.result = result;
   }
 
   public String getCertificateNo() {

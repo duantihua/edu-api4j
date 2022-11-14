@@ -19,7 +19,7 @@
 package org.openurp.std.info.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.DisciplineCategory;
 import org.openurp.code.edu.model.Institution;
 

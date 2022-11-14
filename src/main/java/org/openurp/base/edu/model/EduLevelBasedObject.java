@@ -23,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
+import org.openurp.base.edu.code.EducationType;
 import org.openurp.code.edu.model.EducationLevel;
 
 /**
@@ -38,6 +39,11 @@ public abstract class EduLevelBasedObject<ID extends Number> extends ProjectBase
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationLevel level;
+  /**
+   * 培养类型
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private EducationType eduType;
 
   public EduLevelBasedObject() {
     super();
@@ -64,4 +70,11 @@ public abstract class EduLevelBasedObject<ID extends Number> extends ProjectBase
     this.level = level;
   }
 
+  public EducationType getEduType() {
+    return eduType;
+  }
+
+  public void setEduType(EducationType eduType) {
+    this.eduType = eduType;
+  }
 }

@@ -16,101 +16,125 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.base.std.model;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.entity.pojo.TemporalEntity;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.EduLevelBasedObject;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.model.Campus;
+import org.openurp.base.model.Department;
+import org.openurp.base.model.Person;
+import org.openurp.base.std.code.StdLabel;
+import org.openurp.base.std.code.StdLabelType;
+import org.openurp.base.std.code.StdType;
+import org.openurp.code.edu.model.StudyType;
+import org.openurp.code.person.model.Gender;
+import org.springframework.util.CollectionUtils;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.entity.pojo.TemporalEntity;
-import org.openurp.base.model.Campus;
-import org.openurp.base.model.Department;
-import org.openurp.base.model.Person;
-import org.openurp.base.model.User;
-import org.openurp.code.edu.model.StudyType;
-import org.openurp.code.person.model.Gender;
-import org.openurp.base.std.code.StdLabel;
-import org.openurp.base.std.code.StdLabelType;
-import org.openurp.base.edu.code.StdType;
-import org.springframework.util.CollectionUtils;
-
 /**
  * 学籍信息实现
  */
-@Entity(name = "org.openurp.base.edu.model.Student")
+@Entity(name = "org.openurp.base.std.model.Student")
 public class Student extends EduLevelBasedObject<Long> implements TemporalEntity {
 
   private static final long serialVersionUID = -1973115982366299767L;
-  /** 用户 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected User user;
 
-  /** 基本信息 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Gender gender;
+
+  private String code;
+
+  private String name;
+
+  private String enName;
+  /**
+   * 基本信息
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected Person person;
 
-  /** 学生类别 所在项目内的学生类别 */
+  /**
+   * 学生类别 所在项目内的学生类别
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected StdType stdType;
 
-  /** 学籍状态日志 */
+  /**
+   * 学籍状态日志
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected StudentState state;
 
-  /** 状态变化日志 */
-  @OneToMany(mappedBy = "std", cascade = { CascadeType.ALL }, orphanRemoval = true)
+  /**
+   * 状态变化日志
+   */
+  @OneToMany(mappedBy = "std", cascade = {CascadeType.ALL}, orphanRemoval = true)
   protected Set<StudentState> states = CollectUtils.newHashSet();
 
-  /** 学生分类标签 */
+  /**
+   * 学生分类标签
+   */
   @ManyToMany
   @MapKeyJoinColumn(name = "std_label_type_id")
   protected Map<StdLabelType, StdLabel> labels = CollectUtils.newHashMap();
 
-  /** 学制 学习年限（允许0.5年出现）1 */
+  /**
+   * 学制 学习年限（允许0.5年出现）1
+   */
   @NotNull
   protected Float duration;
 
-  /** 是否有学籍 */
+  /**
+   * 是否有学籍
+   */
   @NotNull
   protected boolean registed;
 
-  /** 学籍生效日期 */
+  /**
+   * 学籍生效日期
+   */
   @NotNull
   protected java.sql.Date beginOn;
 
-  /** 学籍结束日期 */
+  /**
+   * 学籍结束日期
+   */
   @NotNull
   protected java.sql.Date endOn;
 
-  /** 入学日期 */
+  /**
+   * 入学日期
+   */
   @NotNull
   protected java.sql.Date studyOn;
 
-  /** 预计毕业日期 */
+  /**
+   * 预计毕业日期
+   */
   @NotNull
   protected java.sql.Date graduateOn;
 
-  /** 学习形式 全日制/业余/函授 */
+  /**
+   * 学习形式 全日制/业余/函授
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   protected StudyType studyType;
 
-  /** 导师 */
   @ManyToOne(fetch = FetchType.LAZY)
-  protected Teacher tutor;
-
-  /** 备注 */
+  private Teacher tutor;
+  /**
+   * 备注
+   */
   @Size(max = 2000)
   protected String remark;
 
@@ -143,7 +167,7 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
     return person.getGender();
   }
 
-  public String getGrade() {
+  public Grade getGrade() {
     return state.getGrade();
   }
 
@@ -153,14 +177,6 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
 
   public Direction getDirection() {
     return state.getDirection();
-  }
-
-  public String getName() {
-    return user.getName();
-  }
-
-  public String getCode() {
-    return user.getCode();
   }
 
   public String getRemark() {
@@ -250,7 +266,9 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
    * @throws Exception
    */
   public void pointCurrentState() throws Exception {
-    if (CollectionUtils.isEmpty(states)) { throw new IllegalArgumentException("states is empty!!!"); }
+    if (CollectionUtils.isEmpty(states)) {
+      throw new IllegalArgumentException("states is empty!!!");
+    }
     SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
     long now = Long.valueOf(f.format(new java.sql.Date(System.currentTimeMillis())));
     java.sql.Date nowDate = new java.sql.Date(System.currentTimeMillis());
@@ -305,20 +323,32 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
     this.person = person;
   }
 
-  public Teacher getTutor() {
-    return tutor;
+  public void setGender(Gender gender) {
+    this.gender = gender;
   }
 
-  public void setTutor(Teacher tutor) {
-    this.tutor = tutor;
+  public String getCode() {
+    return code;
   }
 
-  public User getUser() {
-    return user;
+  public void setCode(String code) {
+    this.code = code;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getEnName() {
+    return enName;
+  }
+
+  public void setEnName(String enName) {
+    this.enName = enName;
   }
 
   public java.sql.Date getStudyOn() {
@@ -337,4 +367,11 @@ public class Student extends EduLevelBasedObject<Long> implements TemporalEntity
     this.graduateOn = graduateOn;
   }
 
+  public Teacher getTutor() {
+    return tutor;
+  }
+
+  public void setTutor(Teacher tutor) {
+    this.tutor = tutor;
+  }
 }
