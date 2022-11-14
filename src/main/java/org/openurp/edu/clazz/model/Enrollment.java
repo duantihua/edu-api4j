@@ -18,30 +18,23 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.openurp.base.model.Department;
 import org.openurp.base.edu.code.CourseAbilityRate;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
+import org.openurp.base.model.Department;
 import org.openurp.edu.clazz.util.GenderRatio;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 教学任务中的教学班.
@@ -50,23 +43,33 @@ import org.openurp.edu.clazz.util.GenderRatio;
 public class Enrollment implements Component, Cloneable, Serializable {
   private static final long serialVersionUID = 895173901324223302L;
 
-  /** 入学年份 */
-  private String grade;
+  /**
+   * 入学年份
+   */
+  private String grades;
 
-  /** 男女比例 */
+  /**
+   * 男女比例
+   */
   @NotNull
   @Type(type = "org.beangle.data.jpa.hibernate.udt.GenderRatioType")
   private GenderRatio genderRatio = GenderRatio.empty;
 
-  /** 学生所在部门 */
+  /**
+   * 学生所在部门
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department depart;
 
-  /** 学生人数 */
+  /**
+   * 学生人数
+   */
   @NotNull
   private int actual;
 
-  /** 最大人数 */
+  /**
+   * 最大人数
+   */
   private int capacity;
 
   /**
@@ -80,15 +83,21 @@ public class Enrollment implements Component, Cloneable, Serializable {
    */
   private int reserved;
 
-  /** 上课名单 */
+  /**
+   * 上课名单
+   */
   @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL)
   private Set<CourseTaker> courseTakers = new HashSet<CourseTaker>();
 
-  /** 上课名单 */
-  @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL,orphanRemoval = true)
+  /**
+   * 上课名单
+   */
+  @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Subclazz> subclazzes = new ArrayList<Subclazz>();
 
-  /** 语言等级 */
+  /**
+   * 语言等级
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private List<CourseAbilityRate> abilityRates = new ArrayList<CourseAbilityRate>();
@@ -96,7 +105,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
   /**
    * 限制条件组
    */
-  @OneToMany(mappedBy = "clazz", orphanRemoval = true, cascade = { CascadeType.ALL })
+  @OneToMany(mappedBy = "clazz", orphanRemoval = true, cascade = {CascadeType.ALL})
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   @OrderBy("id")
   private List<Restriction> restrictions = CollectUtils.newArrayList();
@@ -175,7 +184,9 @@ public class Enrollment implements Component, Cloneable, Serializable {
    */
   public Restriction getOrCreateDefautRestriction() {
     for (Restriction limitGroup : restrictions) {
-      if (limitGroup.isPrime()) { return limitGroup; }
+      if (limitGroup.isPrime()) {
+        return limitGroup;
+      }
     }
     Restriction forClassGroup = new Restriction();
     forClassGroup.setPrime(true);
@@ -211,12 +222,12 @@ public class Enrollment implements Component, Cloneable, Serializable {
     this.capacity = limitCount;
   }
 
-  public String getGrade() {
-    return grade;
+  public String getGrades() {
+    return grades;
   }
 
-  public void setGrade(String year) {
-    this.grade = year;
+  public void setGrades(String year) {
+    this.grades = year;
   }
 
   public Department getDepart() {

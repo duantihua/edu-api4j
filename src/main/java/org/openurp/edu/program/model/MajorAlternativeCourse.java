@@ -35,8 +35,9 @@ import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
+import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.base.edu.code.StdType;
+import org.openurp.base.std.code.StdType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
@@ -54,17 +55,13 @@ public class MajorAlternativeCourse extends AbstractCourseSubstitution {
   private static final long serialVersionUID = 5820298588618272410L;
   /** 年级 */
   @NotNull
-  @Size(max = 100)
-  private String fromGrade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade fromGrade;
 
   /** 年级 */
   @NotNull
-  @Size(max = 100)
-  private String toGrade;
-  /** 培养层次 */
-  @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private AcademicLevel level;
+  private Grade toGrade;
 
   /** 项目 */
   @NotNull
@@ -105,19 +102,19 @@ public class MajorAlternativeCourse extends AbstractCourseSubstitution {
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Course> news = CollectUtils.newHashSet();
 
-  public String getFromGrade() {
+  public Grade getFromGrade() {
     return fromGrade;
   }
 
-  public void setFromGrade(String fromGrade) {
+  public void setFromGrade(Grade fromGrade) {
     this.fromGrade = fromGrade;
   }
 
-  public String getToGrade() {
+  public Grade getToGrade() {
     return toGrade;
   }
 
-  public void setToGrade(String toGrade) {
+  public void setToGrade(Grade toGrade) {
     this.toGrade = toGrade;
   }
 
@@ -135,14 +132,6 @@ public class MajorAlternativeCourse extends AbstractCourseSubstitution {
 
   public void setDirection(Direction direction) {
     this.direction = direction;
-  }
-
-  public AcademicLevel getLevel() {
-    return level;
-  }
-
-  public void setLevel(AcademicLevel level) {
-    this.level = level;
   }
 
   public StdType getStdType() {

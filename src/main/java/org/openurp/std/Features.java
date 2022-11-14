@@ -16,38 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.std;
 
-import javax.persistence.MappedSuperclass;
-
-import org.openurp.base.std.model.Squad;
-import org.openurp.base.std.model.Student;
-import org.openurp.code.edu.model.EducationLevel;
-
-/**
- * 基于培养层次的实体接口
- * </p>
- * 基于项目和培养层次的实体接口，标准化了培养层次的属性名称。
- *
- * @see Squad
- * @see Student
- */
-@MappedSuperclass
-public interface EduLevelBasedEntity<ID extends Number> extends ProjectBasedEntity<ID> {
-
-  /**
-   * 获取培养层次
-   *
-   * @return 培养层次
-   */
-  public EducationLevel getLevel();
-
-  /**
-   * 设置培养层次
-   *
-   * @param education
-   *          培养层次
-   */
-  public void setLevel(EducationLevel level);
-
+public class Features {
+  public static final String InfoSquadSupported = "std.info.squad_supported";
 }

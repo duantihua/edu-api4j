@@ -18,20 +18,15 @@
  */
 package org.openurp.base.edu.model;
 
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.School;
-import org.openurp.base.model.User;
-import org.openurp.code.hr.model.WorkStatus;
-import org.openurp.code.job.model.ProfessionalGrade;
-import org.openurp.code.job.model.ProfessionalTitle;
-import org.openurp.base.edu.code.TeacherType;
+import org.openurp.base.model.Staff;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,48 +36,28 @@ import java.util.Set;
 @Entity(name = "org.openurp.base.edu.model.Teacher")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Teacher extends NumberIdTimeObject<Long> {
+public class Teacher extends LongIdObject {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * 学校
+   * 教职工
    */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private School school;
+  private Staff staff;
 
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "openurp.base")
   private Set<Project> projects = new HashSet<Project>();
 
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected User user;
+  private String name;
 
-  /**任教院系*/
+  /**
+   * 任教院系
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
-
-  /**
-   * 职称
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected ProfessionalTitle title;
-
-  /**
-   * 教职工类别
-   */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  protected TeacherType teacherType;
-
-  /**
-   * 教师在职状态
-   */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private WorkStatus status;
 
   /**
    * 任职开始日期
@@ -95,46 +70,28 @@ public class Teacher extends NumberIdTimeObject<Long> {
    */
   private java.sql.Date endOn;
 
-  /**
-   * 备注
-   */
-  @Size(max = 500)
-  protected String remark;
-
   public String getCode() {
-    return (null == user) ? null : user.getCode();
+    return (null == staff) ? null : staff.getCode();
+  }
+
+  public Staff getStaff() {
+    return staff;
+  }
+
+  public void setStaff(Staff staff) {
+    this.staff = staff;
   }
 
   public String getName() {
-    return (null == user) ? null : user.getName();
+    return name;
   }
 
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Department getDepartment() {
-    return (null == user) ? null : user.getDepartment();
-  }
-
-  public TeacherType getTeacherType() {
-    return teacherType;
-  }
-
-  public void setTeacherType(TeacherType teacherType) {
-    this.teacherType = teacherType;
-  }
-
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
+    return department;
   }
 
   public Teacher() {
@@ -142,26 +99,6 @@ public class Teacher extends NumberIdTimeObject<Long> {
 
   public Teacher(Long id) {
     this.setId(id);
-  }
-
-  public ProfessionalTitle getTitle() {
-    return title;
-  }
-
-  public void setTitle(ProfessionalTitle title) {
-    this.title = title;
-  }
-
-  public ProfessionalGrade getTitleGrade() {
-    return null == title ? null : title.getGrade();
-  }
-
-  public WorkStatus getStatus() {
-    return status;
-  }
-
-  public void setStatus(WorkStatus status) {
-    this.status = status;
   }
 
   public java.sql.Date getBeginOn() {
@@ -178,14 +115,6 @@ public class Teacher extends NumberIdTimeObject<Long> {
 
   public void setEndOn(java.sql.Date endOn) {
     this.endOn = endOn;
-  }
-
-  public School getSchool() {
-    return school;
-  }
-
-  public void setSchool(School school) {
-    this.school = school;
   }
 
   public Set<Project> getProjects() {

@@ -20,7 +20,7 @@ package org.openurp.std.award;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.base.model.Department;
 import org.openurp.code.std.model.StdPunishmentType;
 

@@ -33,7 +33,7 @@ import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ElectionMode;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 学生修读课程信息
@@ -189,7 +189,7 @@ public class CourseTaker extends NumberIdTimeObject<Long> implements Cloneable, 
    * @see java.lang.Comparable#compareTo(Object)
    */
   public int compareTo(CourseTaker other) {
-    return Objects.compareBuilder().add(this.std.getUser().getCode(), other.getStd().getUser().getCode())
+    return Objects.compareBuilder().add(this.std.getCode(), other.getStd().getCode())
         .toComparison();
   }
 

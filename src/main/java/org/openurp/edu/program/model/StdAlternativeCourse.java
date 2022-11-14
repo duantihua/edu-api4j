@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.edu.model.Course;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 学生可代替课程实体类.<br>

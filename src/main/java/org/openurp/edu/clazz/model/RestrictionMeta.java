@@ -21,12 +21,13 @@ package org.openurp.edu.clazz.model;
 import org.beangle.commons.entity.Entity;
 import org.beangle.commons.entity.metadata.Model;
 import org.beangle.commons.lang.IDEnum;
-import org.openurp.base.edu.code.StdType;
+import org.openurp.base.edu.code.EducationType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
-import org.openurp.base.edu.model.Squad;
+import org.openurp.base.std.model.Squad;
 import org.openurp.base.model.Department;
 import org.openurp.base.std.code.StdLabel;
+import org.openurp.base.std.code.StdType;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.person.model.Gender;
 
@@ -36,7 +37,7 @@ public enum RestrictionMeta implements IDEnum {
   Gender(3, Gender.class, "性别"), Department(4, Department.class, "院系"),
   Major(5, Major.class, "专业"), Direction(6, Direction.class, "方向"),
   Squad(7, Squad.class, "班级"), Level(8, EducationLevel.class, "培养层次"),
-  StdLabel(11, StdLabel.class, "学生标签");
+  EduType(9, EducationType.class, "培养类型"), StdLabel(11, StdLabel.class, "学生标签");
 
   private final int id;
   private final String title;

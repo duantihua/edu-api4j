@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.base.std.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +25,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.StudentStatus;
@@ -32,7 +34,7 @@ import org.openurp.code.edu.model.StudentStatus;
 /**
  * 学籍状态日志
  */
-@Entity(name = "org.openurp.base.edu.model.StudentState")
+@Entity(name = "org.openurp.base.std.model.StudentState")
 public class StudentState extends LongIdObject {
 
   private static final long serialVersionUID = -321115982366299767L;
@@ -44,7 +46,8 @@ public class StudentState extends LongIdObject {
 
   /** 年级 */
   @NotNull
-  private String grade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade grade;
 
   /** 管理院系 */
   @NotNull
@@ -123,11 +126,11 @@ public class StudentState extends LongIdObject {
     this.inschool = inschool;
   }
 
-  public String getGrade() {
+  public Grade getGrade() {
     return grade;
   }
 
-  public void setGrade(String grade) {
+  public void setGrade(Grade grade) {
     this.grade = grade;
   }
 

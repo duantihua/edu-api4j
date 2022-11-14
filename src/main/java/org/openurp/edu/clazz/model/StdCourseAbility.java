@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.edu.code.CourseAbilityRate;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 学生课程等级能力
