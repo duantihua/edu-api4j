@@ -21,6 +21,7 @@ package org.openurp.base.std.model;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationResult;
@@ -33,6 +34,10 @@ import org.openurp.std.info.model.StudentInfoBean;
 public class Graduate extends StudentInfoBean {
 
   private static final long serialVersionUID = -4102691429295031076L;
+
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private GraduateGrade grade;
 
   /** 毕业证书编号（电子注册号） */
   private String certificateNo;
@@ -119,4 +124,11 @@ public class Graduate extends StudentInfoBean {
     this.foreignLangPassedOn = foreignLangPassedOn;
   }
 
+  public GraduateGrade getGrade() {
+    return grade;
+  }
+
+  public void setGrade(GraduateGrade grade) {
+    this.grade = grade;
+  }
 }
