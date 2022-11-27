@@ -45,9 +45,6 @@ public class Examinee extends StudentInfoBean {
   @ManyToOne(fetch = FetchType.LAZY)
   private Division originDivision;
 
-  /** 毕业学校编号 */
-  private String schoolNo;
-
   /** 毕业学校名称 */
   private String schoolName;
 
@@ -56,12 +53,6 @@ public class Examinee extends StudentInfoBean {
 
   /** 招生录取总分 */
   private Float score;
-
-  /** 各科分数 科目->浮点数 */
-  @ElementCollection
-  @MapKeyColumn(name = "type_id")
-  @Column(name = "score")
-  private Map<Integer, Float> scores = CollectUtils.newHashMap();
 
   public Division getOriginDivision() {
     return originDivision;
@@ -87,14 +78,6 @@ public class Examinee extends StudentInfoBean {
     this.code = examineeCode;
   }
 
-  public String getSchoolNo() {
-    return schoolNo;
-  }
-
-  public void setSchoolNo(String schoolNo) {
-    this.schoolNo = schoolNo;
-  }
-
   public String getSchoolName() {
     return schoolName;
   }
@@ -117,14 +100,6 @@ public class Examinee extends StudentInfoBean {
 
   public void setScore(Float score) {
     this.score = score;
-  }
-
-  public Map<Integer, Float> getScores() {
-    return scores;
-  }
-
-  public void setScores(Map<Integer, Float> scores) {
-    this.scores = scores;
   }
 
 }

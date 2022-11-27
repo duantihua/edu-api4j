@@ -24,9 +24,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.EduLevelBasedObject;
 import org.openurp.base.edu.model.Major;
-import org.openurp.base.std.code.StdType;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
+import org.openurp.base.model.Staff;
+import org.openurp.base.std.code.StdType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -130,6 +131,9 @@ public class Squad extends EduLevelBasedObject<Long> {
    */
   @OneToMany(mappedBy = "squad")
   private Set<StudentState> stdStates = CollectUtils.newHashSet();
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Staff master;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
@@ -281,5 +285,13 @@ public class Squad extends EduLevelBasedObject<Long> {
 
   public void setCampus(Campus campus) {
     this.campus = campus;
+  }
+
+  public Staff getMaster() {
+    return master;
+  }
+
+  public void setMaster(Staff master) {
+    this.master = master;
   }
 }
