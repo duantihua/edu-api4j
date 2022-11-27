@@ -21,10 +21,13 @@ package org.openurp.std.graduation.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.openurp.base.edu.model.ProjectBasedObject;
+import org.openurp.base.std.model.GraduateGrade;
 
 /**
  * 毕业审核批次<br>
@@ -34,6 +37,9 @@ import org.openurp.base.edu.model.ProjectBasedObject;
 public class GraduateSession extends ProjectBasedObject<Long> {
 
   private static final long serialVersionUID = -6510377955716412956L;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private GraduateGrade grade;
 
   /** 名称 */
   @NotNull
@@ -70,4 +76,11 @@ public class GraduateSession extends ProjectBasedObject<Long> {
     this.degreeOffered = degreeOffered;
   }
 
+  public GraduateGrade getGrade() {
+    return grade;
+  }
+
+  public void setGrade(GraduateGrade grade) {
+    this.grade = grade;
+  }
 }
