@@ -22,6 +22,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.AcademicLevel;
 import org.openurp.base.edu.model.Project;
 
@@ -51,14 +52,14 @@ public class SharePlan extends LongIdObject implements Cloneable {
    * 开始年级
    */
   @NotNull
-  @Size(max = 10)
-  private String fromGrade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade fromGrade;
   /**
    * 截至年级
    */
   @NotNull
-  @Size(max = 10)
-  private String toGrade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade toGrade;
 
   /**
    * 项目
@@ -200,19 +201,19 @@ public class SharePlan extends LongIdObject implements Cloneable {
     this.createdAt = createdAt;
   }
 
-  public String getFromGrade() {
+  public Grade getFromGrade() {
     return fromGrade;
   }
 
-  public void setFromGrade(String fromGrade) {
+  public void setFromGrade(Grade fromGrade) {
     this.fromGrade = fromGrade;
   }
 
-  public String getToGrade() {
+  public Grade getToGrade() {
     return toGrade;
   }
 
-  public void setToGrade(String toGrade) {
+  public void setToGrade(Grade toGrade) {
     this.toGrade = toGrade;
   }
 

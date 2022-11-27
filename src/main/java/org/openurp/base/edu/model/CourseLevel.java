@@ -18,45 +18,49 @@
  */
 package org.openurp.base.edu.model;
 
+import org.beangle.commons.entity.pojo.LongIdObject;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.edu.model.EducationLevel;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
-import org.beangle.commons.entity.pojo.NumberIdTimeObject;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.model.User;
-
-/**
- * 辅导员信息默认实现
- */
-@Entity(name = "org.openurp.base.edu.model.Mentor")
+@Entity(name = "org.openurp.base.edu.model.CourseLevel")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Mentor extends NumberIdTimeObject<Long> {
-
-  /** 人员信息 */
-  @NotNull
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+public class CourseLevel extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
-  protected User user;
+  private Course course;
 
-  /** 项目 */
-  @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  protected Project project;
+  private EducationLevel level;
 
-  public Project getProject() {
-    return project;
+  private Float credits;
+
+  public Course getCourse() {
+    return course;
   }
 
-  public User getUser() {
-    return user;
+  public void setCourse(Course course) {
+    this.course = course;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public EducationLevel getLevel() {
+    return level;
   }
 
+  public void setLevel(EducationLevel level) {
+    this.level = level;
+  }
+
+  public Float getCredits() {
+    return credits;
+  }
+
+  public void setCredits(Float credits) {
+    this.credits = credits;
+  }
 }

@@ -16,10 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
+package org.openurp.base.std.code;
 
 import javax.persistence.Cacheable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
@@ -28,48 +27,25 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 教职工类别
+ * 学生类别
  *
  *
- * @since 2005-9-7
+ * @since 3.0.0
  */
-@Entity(name = "org.openurp.base.edu.code.TeacherType")
+@Entity(name = "org.openurp.base.std.code.StdType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class TeacherType extends Code<Integer> {
+public class StdType extends Code<Integer> {
 
-  private static final long serialVersionUID = -1761600684758782044L;
+  private static final long serialVersionUID = -1653080750576602460L;
 
-  /** 是否外聘 */
-  @Column(name = "external_")
-  private boolean external;
-
-  /** 是否兼职 */
-  private boolean parttime;
-
-  public TeacherType() {
+  public StdType() {
     super();
   }
 
-  public TeacherType(Integer id) {
+  public StdType(Integer id) {
     super(id);
-  }
-
-  public boolean isExternal() {
-    return external;
-  }
-
-  public void setExternal(boolean external) {
-    this.external = external;
-  }
-
-  public boolean isParttime() {
-    return parttime;
-  }
-
-  public void setParttime(boolean parttime) {
-    this.parttime = parttime;
   }
 
 }

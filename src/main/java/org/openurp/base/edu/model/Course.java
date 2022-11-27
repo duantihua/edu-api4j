@@ -71,14 +71,13 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   /**
    * 培养层次
    */
-  @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<AcademicLevel> levels = CollectUtils.newHashSet();
+  @OneToMany(mappedBy = "course", cascade = {CascadeType.ALL}, orphanRemoval = true)
+  private List<CourseLevel> levels = CollectUtils.newArrayList();
 
   /**
    * 学分
    */
-  private float credits;
+  private float defaultCredits;
 
   /**
    * 学时/总课时
@@ -216,12 +215,12 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.code = code;
   }
 
-  public float getCredits() {
-    return credits;
+  public float getDefaultCredits() {
+    return defaultCredits;
   }
 
-  public void setCredits(float credits) {
-    this.credits = credits;
+  public void setDefaultCredits(float defaultCredits) {
+    this.defaultCredits = defaultCredits;
   }
 
   public String getEnName() {
@@ -250,6 +249,13 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   public int compareTo(Course other) {
     return Objects.compareBuilder().add(getCode(), other.getCode()).toComparison();
+  }
+
+  public float getCredits(EducationLevel level) {
+    for (CourseLevel l : levels) {
+      if (l.getLevel().equals(level) && null != l.getCredits()) return l.getCredits();
+    }
+    return defaultCredits;
   }
 
   public int getCreditHours() {
@@ -383,11 +389,11 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.hours = courseHours;
   }
 
-  public Set<AcademicLevel> getLevels() {
+  public List<CourseLevel> getLevels() {
     return levels;
   }
 
-  public void setLevels(Set<AcademicLevel> levels) {
+  public void setLevels(List<CourseLevel> levels) {
     this.levels = levels;
   }
 

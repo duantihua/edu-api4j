@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.code.edu.model;
+package org.openurp.base.std.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -24,54 +24,40 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import org.beangle.commons.entity.pojo.Code;
+import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.industry;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.model.User;
 
 /**
- * 培养层次
- * (专科高职、专升本、高起本、硕士、博士)
- *
- * @since 0.1.0
+ * 辅导员信息默认实现
  */
-@Entity(name = "org.openurp.code.edu.model.EducationLevel")
+@Entity(name = "org.openurp.base.std.model.Mentor")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@industry
-public class EducationLevel extends Code<Integer> {
+public class Mentor extends NumberIdTimeObject<Long> {
 
-  private static final long serialVersionUID = -4823371272084474124L;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private AcademicLevel fromLevel;
-
+  /** 人员信息 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private AcademicLevel toLevel;
+  protected User user;
 
-  public AcademicLevel getFromLevel() {
-    return fromLevel;
+  /** 项目 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  protected Project project;
+
+  public Project getProject() {
+    return project;
   }
 
-  public void setFromLevel(AcademicLevel fromLevel) {
-    this.fromLevel = fromLevel;
+  public User getUser() {
+    return user;
   }
 
-  public AcademicLevel getToLevel() {
-    return toLevel;
-  }
-
-  public void setToLevel(AcademicLevel toLevel) {
-    this.toLevel = toLevel;
-  }
-
-  public EducationLevel() {
-    super();
-  }
-
-  public EducationLevel(Integer id) {
-    super(id);
+  public void setUser(User user) {
+    this.user = user;
   }
 
 }

@@ -30,7 +30,7 @@ import org.beangle.commons.entity.pojo.NumberIdObject;
 import org.hibernate.annotations.NaturalId;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.code.edu.model.GradingMode;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.Grade;
 
 /**

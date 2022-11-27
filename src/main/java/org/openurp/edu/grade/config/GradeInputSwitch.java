@@ -60,9 +60,6 @@ public class GradeInputSwitch extends LongIdObject {
   @ManyToMany
   private Set<GradeType> types = CollectUtils.newHashSet();
 
-  /** 成绩录入开关 */
-  private boolean opened;
-
   /** 成绩录入验证开关 */
   private boolean needValidate = false;
 
@@ -79,9 +76,8 @@ public class GradeInputSwitch extends LongIdObject {
     if (null == getBeginAt() || null == getEndAt()) { return false; }
     if (date.after(getEndAt()) || getBeginAt().after(date)) {
       return false;
-    } else {
-      return opened;
     }
+    return true;
   }
 
   public boolean checkOpen() {
@@ -126,14 +122,6 @@ public class GradeInputSwitch extends LongIdObject {
 
   public void setTypes(Set<GradeType> types) {
     this.types = types;
-  }
-
-  public boolean isOpened() {
-    return opened;
-  }
-
-  public void setOpened(boolean opened) {
-    this.opened = opened;
   }
 
   public String getRemark() {

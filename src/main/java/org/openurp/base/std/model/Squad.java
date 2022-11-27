@@ -16,105 +16,124 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
-
-import java.util.Set;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package org.openurp.base.std.model;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.EduLevelBasedObject;
+import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.edu.code.StdType;
-import org.openurp.base.model.User;
+import org.openurp.base.model.Staff;
+import org.openurp.base.std.code.StdType;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * 学生行政班级信息
  *
  * @since 2005-9-12
  */
-@Entity(name = "org.openurp.base.edu.model.Squad")
+@Entity(name = "org.openurp.base.std.model.Squad")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Squad extends EduLevelBasedObject<Long> {
 
   private static final long serialVersionUID = 6467000522483394459L;
 
-  /** 编码代码 */
+  /**
+   * 编码代码
+   */
   @Column(unique = true)
   @NotNull
   @Size(max = 32)
   protected String code;
 
-  /** 名称 */
+  /**
+   * 名称
+   */
   @NotNull
   @Size(max = 50)
   protected String name;
 
-  /** 简称 */
+  /**
+   * 简称
+   */
   @Size(max = 50)
   protected String shortName;
 
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 500)
   protected String remark;
 
-  /** 年级,形式为yyyy-p */
+  /**
+   * 年级,形式为yyyy-p
+   */
   @NotNull
-  @Size(max = 10)
-  private String grade;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade grade;
 
-  /** 院系 */
+  /**
+   * 院系
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 专业 */
+  /**
+   * 专业
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Major major;
 
-  /** 方向 */
+  /**
+   * 方向
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Direction direction;
-
-  /** 学生类别 */
+  /**
+   * 学生类别
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private StdType stdType;
 
-  /** 计划人数 */
+  /**
+   * 计划人数
+   */
   private int planCount;
 
-  /** 开始日期 */
+  /**
+   * 开始日期
+   */
   @NotNull
   private java.sql.Date beginOn;
 
-  /** 结束日期 结束日期包括在有效期内 */
+  /**
+   * 结束日期 结束日期包括在有效期内
+   */
   @NotNull
   private java.sql.Date endOn;
 
-  /** 学籍有效人数 */
+  /**
+   * 学籍有效人数
+   */
   @NotNull
   private int stdCount;
 
-  /** 辅导员 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private User mentor;
-
-  /** 班导师 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private User tutor = null;
-
-  /** 学生列表 班级学生 */
+  /**
+   * 学生列表 班级学生
+   */
   @OneToMany(mappedBy = "squad")
   private Set<StudentState> stdStates = CollectUtils.newHashSet();
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Staff master;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
@@ -164,11 +183,11 @@ public class Squad extends EduLevelBasedObject<Long> {
     this.remark = remark;
   }
 
-  public String getGrade() {
+  public Grade getGrade() {
     return grade;
   }
 
-  public void setGrade(String grade) {
+  public void setGrade(Grade grade) {
     this.grade = grade;
   }
 
@@ -236,22 +255,6 @@ public class Squad extends EduLevelBasedObject<Long> {
     this.stdCount = stdCount;
   }
 
-  public User getMentor() {
-    return mentor;
-  }
-
-  public void setMentor(User mentor) {
-    this.mentor = mentor;
-  }
-
-  public User getTutor() {
-    return tutor;
-  }
-
-  public void setTutor(User tutor) {
-    this.tutor = tutor;
-  }
-
   public Set<Student> getAllStudents() {
     Set<Student> students = new java.util.HashSet<Student>();
     for (StudentState ss : stdStates) {
@@ -284,4 +287,11 @@ public class Squad extends EduLevelBasedObject<Long> {
     this.campus = campus;
   }
 
+  public Staff getMaster() {
+    return master;
+  }
+
+  public void setMaster(Staff master) {
+    this.master = master;
+  }
 }

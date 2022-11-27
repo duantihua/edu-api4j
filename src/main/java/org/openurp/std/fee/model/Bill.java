@@ -21,7 +21,7 @@ package org.openurp.std.fee.model;
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.base.model.Department;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.base.std.code.FeeType;
 
 import javax.persistence.Entity;

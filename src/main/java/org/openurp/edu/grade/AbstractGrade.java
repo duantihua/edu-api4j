@@ -29,7 +29,7 @@ import org.hibernate.annotations.NaturalId;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 
 /**
  * 成绩的抽象类
@@ -50,7 +50,6 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
   /**
    * 学生
    */
-  @NaturalId
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Student std;
@@ -58,13 +57,11 @@ public abstract class AbstractGrade extends NumberIdTimeObject<Long> implements 
   /**
    * 教学日历
    */
-  @NaturalId
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Semester semester;
 
   /** 教学项目 */
-  @NaturalId
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
