@@ -37,7 +37,7 @@ public class Graduate extends StudentInfoBean {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GraduateGrade grade;
+  private GraduateSeason season;
 
   /** 毕业证书编号（电子注册号） */
   private String certificateNo;
@@ -124,11 +124,11 @@ public class Graduate extends StudentInfoBean {
     this.foreignLangPassedOn = foreignLangPassedOn;
   }
 
-  public GraduateGrade getGrade() {
-    return grade;
+  public GraduateSeason getSeason() {
+    return season;
   }
 
-  public void setGrade(GraduateGrade grade) {
-    this.grade = grade;
+  public void setSeason(GraduateSeason season) {
+    this.season = season;
   }
 }

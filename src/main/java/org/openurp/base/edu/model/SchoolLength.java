@@ -21,6 +21,7 @@ package org.openurp.base.edu.model;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.EducationLevel;
 
 import javax.persistence.Cacheable;
@@ -48,9 +49,13 @@ public class SchoolLength extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationLevel level;
 
-  private String fromGrade;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade fromGrade;
 
-  private String toGrade;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Grade toGrade;
 
   private float normal;
 
@@ -74,19 +79,19 @@ public class SchoolLength extends LongIdObject {
     this.level = level;
   }
 
-  public String getFromGrade() {
+  public Grade getFromGrade() {
     return fromGrade;
   }
 
-  public void setFromGrade(String fromGrade) {
+  public void setFromGrade(Grade fromGrade) {
     this.fromGrade = fromGrade;
   }
 
-  public String getToGrade() {
+  public Grade getToGrade() {
     return toGrade;
   }
 
-  public void setToGrade(String toGrade) {
+  public void setToGrade(Grade toGrade) {
     this.toGrade = toGrade;
   }
 

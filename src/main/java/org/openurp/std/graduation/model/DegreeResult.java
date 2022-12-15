@@ -39,7 +39,7 @@ public class DegreeResult extends LongIdObject {
    */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GraduateSession session;
+  private GraduateBatch batch;
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -199,12 +199,12 @@ public class DegreeResult extends LongIdObject {
     this.degree = degree;
   }
 
-  public GraduateSession getSession() {
-    return session;
+  public GraduateBatch getBatch() {
+    return batch;
   }
 
-  public void setSession(GraduateSession session) {
-    this.session = session;
+  public void setBatch(GraduateBatch batch) {
+    this.batch = batch;
   }
 
   public Student getStd() {

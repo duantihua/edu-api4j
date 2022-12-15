@@ -27,19 +27,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.openurp.base.edu.model.ProjectBasedObject;
-import org.openurp.base.std.model.GraduateGrade;
+import org.openurp.base.std.model.GraduateSeason;
 
 /**
  * 毕业审核批次<br>
  * 毕业审核批次中有很多学生名单
  */
-@Entity(name = "org.openurp.std.graduation.model.GraduateSession")
-public class GraduateSession extends ProjectBasedObject<Long> {
+@Entity(name = "org.openurp.std.graduation.model.GraduateBatch")
+public class GraduateBatch extends ProjectBasedObject<Long> {
 
   private static final long serialVersionUID = -6510377955716412956L;
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GraduateGrade grade;
+  private GraduateSeason season;
 
   /** 名称 */
   @NotNull
@@ -76,11 +76,11 @@ public class GraduateSession extends ProjectBasedObject<Long> {
     this.degreeOffered = degreeOffered;
   }
 
-  public GraduateGrade getGrade() {
-    return grade;
+  public GraduateSeason getSeason() {
+    return season;
   }
 
-  public void setGrade(GraduateGrade grade) {
-    this.grade = grade;
+  public void setSeason(GraduateSeason season) {
+    this.season = season;
   }
 }
