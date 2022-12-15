@@ -36,7 +36,7 @@ public class GraduateResult extends LongIdObject {
   /** 所属的毕业审核批次 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GraduateSession session;
+  private GraduateBatch batch;
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -181,12 +181,12 @@ public class GraduateResult extends LongIdObject {
     this.educationResult = educationResult;
   }
 
-  public GraduateSession getSession() {
-    return session;
+  public GraduateBatch getBatch() {
+    return batch;
   }
 
-  public void setSession(GraduateSession session) {
-    this.session = session;
+  public void setBatch(GraduateBatch batch) {
+    this.batch = batch;
   }
 
   public Student getStd() {

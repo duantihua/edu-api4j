@@ -29,10 +29,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "org.openurp.base.std.model.GraduateGrade")
+@Entity(name = "org.openurp.base.std.model.GraduateSeason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class GraduateGrade extends IntegerIdObject {
+public class GraduateSeason extends IntegerIdObject {
 
   private String code;
 
