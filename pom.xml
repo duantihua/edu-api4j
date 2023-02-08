@@ -9,11 +9,12 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.31.0</version>
+  <version>0.31.1</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
-    <beangle3.version>3.9.1</beangle3.version>
+    <beangle3.version>3.10.0</beangle3.version>
+    <java.version>17</java.version>
   </properties>
 
   <dependencies>
