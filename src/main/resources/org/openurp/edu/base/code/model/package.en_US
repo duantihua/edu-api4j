@@ -1,0 +1,50 @@
+
+TeacherUnitType=Teacher Unit Type
+
+TeacherType=Teacher Type
+TeacherType.external=External
+TeacherType.parttime=Parttime
+
+TutorType=Tutor Type
+
+TeacherState=Teacher State
+
+HskLevel=Hskdegree
+HskLevel.grade=Grade
+
+Education=Education
+
+StdStatus=Std Status
+
+Discipline=Discipline
+Discipline.category=Category
+Discipline.catalog=Catalog
+Discipline.children=Children
+Discipline.parent=Parent
+
+DisciplineCategory=Discipline Category
+
+DisciplineCatalog=Discipline Catalog
+
+
+Degree=Degree
+
+TeacherTitleLevel=Teacher Title Level
+
+TeacherTitle=Teacher Title
+TeacherTitle.level=Level
+TeacherTitle.parent=Parent
+TeacherTitle.children=Children
+
+StudyType=Study Type
+
+SocialRelation=Social Relation
+
+
+
+StdType=Std Type
+
+StdLabelType=Std Label Type
+
+StdLabel=Std Label
+StdLabel.type=Type

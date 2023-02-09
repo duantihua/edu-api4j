@@ -1,0 +1,12 @@
+
+EducationBasedEntity=基于培养层次的实体接口
+
+EducationBasedObject=基于培养层次的基类
+EducationBasedObject.level=培养层次
+
+StudentBasedEntity=基于学生信息的实体
+
+ProjectBasedEntity=基于项目的业务实体接口
+
+ProjectBasedObject=基于项目的实体基类
+ProjectBasedObject.project=项目

@@ -1,0 +1,6 @@
+[#ftl]
+[#if (uiType!)==""]
+  [#include "semesterCalendar/default.ftl" /]
+[#else]
+  [#include "semesterCalendar/"+uiType+".ftl" /]
+[/#if]

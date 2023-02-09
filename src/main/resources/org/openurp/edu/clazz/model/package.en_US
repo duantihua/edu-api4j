@@ -1,0 +1,242 @@
+
+ExamActivity=Exam Activity
+ExamActivity.lesson=Lesson
+ExamActivity.semester=Semester
+ExamActivity.examType=Exam Type
+ExamActivity.startAt=Start At
+ExamActivity.endAt=End At
+ExamActivity.remark=Remark
+ExamActivity.examRooms=Exam Rooms
+ExamActivity.state=State
+
+LessonMaterial=Lesson Material
+LessonMaterial.lesson=Lesson
+LessonMaterial.books=Books
+LessonMaterial.referenceBooks=Reference Books
+LessonMaterial.extra=Extra
+LessonMaterial.passed=Passed
+LessonMaterial.auditAt=Audit At
+LessonMaterial.remark=Remark
+LessonMaterial.useExplain=Use Explain
+LessonMaterial.status=Status
+
+CourseTake=Course Take
+CourseTake.lesson=Lesson
+CourseTake.std=Std
+CourseTake.takeType=Course Take Type
+CourseTake.electionMode=Election Mode
+CourseTake.turn=Turn
+CourseTake.remark=Remark
+CourseTake.paid=Paid
+CourseTake.attend=Attend
+CourseTake.bill=Bill
+CourseTake.limitGroup=Limit Group
+
+CourseGrade=Course Grade
+CourseGrade.course=Course
+CourseGrade.lessonNo=Lesson No
+CourseGrade.lesson=Lesson
+CourseGrade.courseType=Course Type
+CourseGrade.courseTakeType=Course Take Type
+CourseGrade.examGrades=Exam Grades
+CourseGrade.gp=Gp
+CourseGrade.examMode=Exam Mode
+CourseGrade.remark=Remark
+CourseGrade.exchanges=Exchanges
+
+NormalClass=Normal Class
+NormalClass.name=Name
+NormalClass.project=Project
+NormalClass.level=Education
+NormalClass.students=Students
+NormalClass.beginOn=Effective At
+NormalClass.endOn=Invalid At
+NormalClass.grade=Grade
+NormalClass.code=Code
+
+CourseLimitMeta=Course Limit Meta
+CourseLimitMeta.name=Name
+CourseLimitMeta.remark=Remark
+
+ExamMonitor=Exam Monitor
+ExamMonitor.examRoom=Exam Room
+ExamMonitor.teacher=Teacher
+ExamMonitor.department=Department
+ExamMonitor.teacherName=Teacher Name
+
+CourseMaterial=Course Material
+CourseMaterial.course=Course
+CourseMaterial.department=Department
+CourseMaterial.semester=Semester
+CourseMaterial.books=Books
+CourseMaterial.referenceBooks=Reference Books
+CourseMaterial.extra=Extra
+CourseMaterial.passed=Passed
+CourseMaterial.auditAt=Audit At
+CourseMaterial.remark=Remark
+CourseMaterial.useExplain=Use Explain
+CourseMaterial.status=Status
+
+ArrangeSuggest=Arrange Suggest
+ArrangeSuggest.lesson=Lesson
+ArrangeSuggest.activities=Activities
+ArrangeSuggest.rooms=Rooms
+ArrangeSuggest.remark=Remark
+
+ExamRoom=Exam Room
+ExamRoom.semester=Semester
+ExamRoom.startAt=Start At
+ExamRoom.endAt=End At
+ExamRoom.room=Room
+ExamRoom.examiner=Examiner
+ExamRoom.department=Department
+ExamRoom.activities=Activities
+ExamRoom.monitors=Monitors
+ExamRoom.examTakers=Exam Takers
+ExamRoom.roomApplyId=Room Apply Id
+
+CourseLimitItem=Course Limit Item
+CourseLimitItem.name=Name
+CourseLimitItem.meta=Meta
+CourseLimitItem.group=Group
+CourseLimitItem.operator=Operator
+CourseLimitItem.contents=Content
+
+CourseGradeState=Course Grade State
+CourseGradeState.lesson=Lesson
+CourseGradeState.states=States
+CourseGradeState.state=Audit Status
+CourseGradeState.auditReason=Audit Reason
+CourseGradeState.extraInputer=Extra Inputer
+CourseGradeState.ratioA=Ratioa
+CourseGradeState.ratioB=Ratiob
+
+LessonPlanRelation=Lesson Plan Relation
+LessonPlanRelation.lesson=Lesson
+LessonPlanRelation.plan=Plan
+
+ExamGrade=Exam Grade
+ExamGrade.gradeType=Grade Type
+ExamGrade.gradingMode=Mark Style
+ExamGrade.examStatus=Exam Status
+ExamGrade.score=Score
+ExamGrade.scoreText=Score Text
+ExamGrade.courseGrade=Course Grade
+ExamGrade.status=Status
+ExamGrade.passed=Passed
+ExamGrade.operator=Operator
+ExamGrade.percent=Percent
+
+ExamGradeState=Exam Grade State
+ExamGradeState.gradeType=Grade Type
+ExamGradeState.gradeState=Grade State
+ExamGradeState.remark=Remark
+ExamGradeState.percent=Percent
+
+ExamTake=Exam Take
+ExamTake.lesson=Lesson
+ExamTake.std=Std
+ExamTake.semester=Semester
+ExamTake.examRoom=Exam Room
+ExamTake.examType=Exam Type
+ExamTake.examStatus=Exam Status
+ExamTake.remark=Remark
+
+Lesson=Lesson
+Lesson.no=No
+Lesson.course=Course
+Lesson.courseType=Course Type
+Lesson.teachDepart=Teach Depart
+Lesson.teachers=Teachers
+Lesson.tags=Tags
+Lesson.campus=Campus
+Lesson.teachclass=Teach Class
+Lesson.semester=Semester
+Lesson.courseSchedule=Course Schedule
+Lesson.examSchedule=Exam Schedule
+Lesson.remark=Remark
+Lesson.examMode=Exam Mode
+Lesson.langType=Lang Type
+Lesson.group=Group
+Lesson.state=Audit Status
+
+SuggestActivity=Suggest Activity
+SuggestActivity.arrangeSuggest=Arrange Suggest
+SuggestActivity.time=Time
+SuggestActivity.teachers=Teachers
+
+LessonGroupBean=Lesson Group
+LessonGroupBean.name=Name
+LessonGroupBean.lessons=Lessons
+LessonGroupBean.lessonSize=Lesson Size
+LessonGroupBean.teachDepart=Teach Depart
+LessonGroupBean.semester=Semester
+
+CourseSchedule=Course Schedule
+CourseSchedule.lesson=Lesson
+CourseSchedule.startWeek=Start Week
+CourseSchedule.endWeek=End Week
+CourseSchedule.creditHours=Period
+CourseSchedule.activities=Activities
+CourseSchedule.roomType=Room Type
+CourseSchedule.status=Status
+CourseSchedule.weekState=Week State
+
+Restriction=Course Limit Group
+Restriction.name=Name
+Restriction.lesson=Lesson
+Restriction.items=Items
+Restriction.maxCount=Max Count
+Restriction.curCount=Cur Count
+Restriction.forClass=For Class
+
+TeachClass=Teach Class
+TeachClass.name=Name
+TeachClass.lesson=Lesson
+TeachClass.grade=Grade
+TeachClass.depart=Depart
+TeachClass.stdCount=Std Count
+TeachClass.limitCount=Limit Count
+TeachClass.limitLocked=Limit Locked
+TeachClass.reservedCount=Reserved Count
+TeachClass.courseTakers=Course Takers
+TeachClass.examTakers=Exam Takers
+TeachClass.limitGroups=Limit Groups
+
+ExamScheduleBean=Exam Schedule
+ExamScheduleBean.activities=Activities
+ExamScheduleBean.examTypes=Exam Types
+
+AbstractGradeState=Abstract Grade State
+AbstractGradeState.gradingMode=Score Mark Style
+AbstractGradeState.status=Status
+AbstractGradeState.precision=Precision
+AbstractGradeState.updatedAt=Inputed At
+AbstractGradeState.operator=Operator
+
+LessonTag=Lesson Tag
+LessonTag.name=Name
+LessonTag.enName=Eng Name
+LessonTag.color=Color
+
+CourseActivity=Course Activity
+CourseActivity.lesson=Lesson
+CourseActivity.time=Time
+CourseActivity.teachers=Teachers
+CourseActivity.rooms=Rooms
+CourseActivity.remark=Remark
+
+
+ExamTurnBean=Exam Turn
+ExamTurnBean.seqNo=Seq No
+ExamTurnBean.name=Name
+ExamTurnBean.enName=Eng Name
+ExamTurnBean.beginTime=Begin Time
+ExamTurnBean.endTime=End Time
+ExamTurnBean.scheme=Scheme
+
+ExamTurnSchemeBean=Exam Turn Scheme
+ExamTurnSchemeBean.name=Name
+ExamTurnSchemeBean.examType=Exam Type
+ExamTurnSchemeBean.project=Project
+ExamTurnSchemeBean.examTurns=Exam Turns

@@ -1,0 +1,18 @@
+
+LastMakeupTakeBean=Last Makeup Take
+LastMakeupTakeBean.task=Task
+LastMakeupTakeBean.std=Std
+LastMakeupTakeBean.courseType=Course Type
+
+LastMakeupTaskBean=Last Makeup Task
+LastMakeupTaskBean.seqNo=Seq No
+LastMakeupTaskBean.semester=Semester
+LastMakeupTaskBean.course=Course
+LastMakeupTaskBean.depart=Depart
+LastMakeupTaskBean.takers=Takers
+LastMakeupTaskBean.stdCount=Std Count
+LastMakeupTaskBean.submitGrade=Submit Grade
+LastMakeupTaskBean.published=Published
+LastMakeupTaskBean.teacher=Teacher
+LastMakeupTaskBean.classes=Classes
+LastMakeupTaskBean.inputAt=Input At

@@ -1,0 +1,24 @@
+
+ExecutionPlanCourseBean=Major Plan Course
+ExecutionPlanCourseBean.courseGroup=Course Group
+
+ExecutionPlanBean=Major Plan
+ExecutionPlanBean.program=Program
+ExecutionPlanBean.groups=Groups
+ExecutionPlanBean.startTerm=Start Term
+ExecutionPlanBean.endTerm=End Term
+ExecutionPlanBean.comments=Comments
+
+ReferenceGroupBean=Reference Group
+ReferenceGroupBean.shareCourseGroup=Share Course Group
+ReferenceGroupBean.requiredCourses=Required Courses
+ReferenceGroupBean.excludeCourses=Exclude Courses
+
+ExecutionPlanCourseGroupBean=Major Plan Course Group
+ExecutionPlanCourseGroupBean.microName=Micro Name
+ExecutionPlanCourseGroupBean.direction=Direction
+ExecutionPlanCourseGroupBean.referenceGroup=Reference Group
+ExecutionPlanCourseGroupBean.plan=Plan
+ExecutionPlanCourseGroupBean.parent=Parent
+ExecutionPlanCourseGroupBean.children=Children
+ExecutionPlanCourseGroupBean.planCourses=Plan Courses

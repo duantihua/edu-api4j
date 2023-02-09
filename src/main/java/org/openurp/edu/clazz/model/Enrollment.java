@@ -52,7 +52,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
    * 男女比例
    */
   @NotNull
-  @Type(type = "org.beangle.data.jpa.hibernate.udt.GenderRatioType")
+  @Type(type = "org.openurp.edu.clazz.util.GenderRatioType")
   private GenderRatio genderRatio = GenderRatio.empty;
 
   /**

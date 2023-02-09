@@ -1,0 +1,18 @@
+
+PersonalPlanBean=个人计划
+PersonalPlan.std=学生
+PersonalPlan.status=审核状态
+PersonalPlan.groups=课程组
+PersonalPlan.beginOn=开始日期
+PersonalPlan.endOn=结束日期 结束日期包括在有效期内
+PersonalPlan.remark=备注
+
+PersonalPlanCourseBean=个人计划的课程
+PersonalPlanCourse.courseGroup=课程组
+
+PersonalPlanCourseGroupBean=个人计划的课程组
+PersonalPlanCourseGroup.referenceGroup=引用课程组
+PersonalPlanCourseGroup.plan=个人计划
+PersonalPlanCourseGroup.parent=上级组
+PersonalPlanCourseGroup.children=下级组列表
+PersonalPlanCourseGroup.planCourses=计划课程列表

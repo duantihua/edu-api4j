@@ -1,0 +1,25 @@
+entity.program=Program
+courseGroup.credits=Credits
+
+AbstractAlternativeCourse=Abstract Course Substitution
+
+AbstractCoursePlan=Abstract Course Plan
+AbstractCoursePlan.credits=Credits
+AbstractCoursePlan.termsCount=Terms Count
+
+AbstractCourseGroup=Abstract Course Group
+AbstractCourseGroup.relation=Relation
+AbstractCourseGroup.courseType=Course Type
+AbstractCourseGroup.credits=Credits
+AbstractCourseGroup.courseNum=Course Num
+AbstractCourseGroup.remark=Remark
+AbstractCourseGroup.termCredits=Term Credits
+AbstractCourseGroup.indexno=Indexno
+
+AbstractPlanCourse=Abstract Plan Course
+AbstractPlanCourse.course=Course
+AbstractPlanCourse.terms=Terms
+AbstractPlanCourse.compulsory=Compulsory
+AbstractPlanCourse.department=Department
+AbstractPlanCourse.examMode=Exam Mode
+AbstractPlanCourse.remark=Remark

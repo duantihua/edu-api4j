@@ -1,0 +1,49 @@
+
+StdGraduation=Std Graduation
+StdGraduation.gpa=Gpa
+StdGraduation.noGradeCredits=No Grade Credits
+StdGraduation.credits=Credits
+StdGraduation.requiredCredits=Required Credits
+StdGraduation.graduateState=Graduate State
+StdGraduation.certificateNo=Certificate No
+StdGraduation.degree=Degree
+StdGraduation.degreeAwardOn=Degree Award On
+StdGraduation.diplomaNo=Diploma No
+
+GraduateAuditLog=Graduate Audit Log
+GraduateAuditLog.season=Season
+GraduateAuditLog.standardUsed=Standard Used
+GraduateAuditLog.std=Std
+GraduateAuditLog.auditBy=Audit By
+GraduateAuditLog.ip=Ip
+GraduateAuditLog.operateAt=Operate At
+GraduateAuditLog.passed=Passed
+GraduateAuditLog.detail=Detail
+
+GraduateAuditItemResult=Graduate Audit Item Result
+GraduateAuditItemResult.name=Name
+GraduateAuditItemResult.enName=Eng Name
+GraduateAuditItemResult.passed=Passed
+GraduateAuditItemResult.result=Result
+GraduateAuditItemResult.auditResult=Audit Result
+
+GraduateSeason=Graduate Audit Season
+GraduateSeason.name=Name
+GraduateSeason.graduateOn=Graduate On
+
+GraduateAuditStandard=Graduate Audit Standard
+GraduateAuditStandard.name=Name
+GraduateAuditStandard.studentScope=Student Scope
+GraduateAuditStandard.beginOn=Effective On
+GraduateAuditStandard.endOn=Invalid On
+GraduateAuditStandard.ruleConfigs=Rule Configs
+GraduateAuditStandard.remark=Remark
+
+GraduateAuditResult=Graduate Audit Result
+GraduateAuditResult.season=Season
+GraduateAuditResult.std=Std
+GraduateAuditResult.resultItems=Result Items
+GraduateAuditResult.passed=Passed
+GraduateAuditResult.graduateState=Graduate State
+GraduateAuditResult.published=Published
+GraduateAuditResult.remark=Remark

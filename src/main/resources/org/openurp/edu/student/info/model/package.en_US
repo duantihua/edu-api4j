@@ -1,0 +1,17 @@
+StdContact=Student Contact Info
+StdContact.email=Mail
+StdContact.phone=Phone
+StdContact.mobile=Mobile
+StdContact.address=Address
+
+StdHome=Std Home
+StdHome.phone=Phone
+StdHome.address=Address
+StdHome.postcode=Postcode
+StdHome.formerAddr=Former Addr
+StdHome.police=Police
+StdHome.policePhone=Police Phone
+StdHome.railwayStation=Railway Station
+StdHome.economicState=Economic State
+
+StdExaminee.enrollOn=Enroll On

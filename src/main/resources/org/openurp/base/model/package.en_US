@@ -1,0 +1,92 @@
+
+CalendarBean=Calendar
+CalendarBean.name=Name
+CalendarBean.school=School
+CalendarBean.beginOn=Effective At
+CalendarBean.endOn=Invalid At
+CalendarBean.semesters=Semesters
+
+
+CampusBean=Campus
+
+CourseUnit=Default Course Unit
+CourseUnit.indexno=Indexno
+CourseUnit.name=Name
+CourseUnit.enName=Eng Name
+CourseUnit.startTime=Start Time
+CourseUnit.endTime=End Time
+CourseUnit.color=Color
+CourseUnit.timeSetting=Time Setting
+
+Classroom=Classroom
+Classroom.capacity=Capacity
+Classroom.campus=Campus
+Classroom.building=Building
+Classroom.roomType=Type
+Classroom.department=Department
+Classroom.departments=Departments
+Classroom.usages=Usages
+Classroom.floor=Floor
+
+SemesterStageBean=Semester Stage
+SemesterStageBean.semester=Semester
+SemesterStageBean.name=Name
+SemesterStageBean.startWeek=Start Week
+SemesterStageBean.endWeek=End Week
+SemesterStageBean.remark=Remark
+
+Building=Building
+Building.campus=Campus
+Building.department=Department
+
+Semester=Semester
+Semester.code=Code
+Semester.schoolYear=School Year
+Semester.name=Name
+Semester.firstWeekday=First Weekday
+Semester.beginOn=Begin On
+Semester.endOn=End On
+Semester.calendar=Calendar
+Semester.remark=Remark
+Semester.archived=Archived
+Semester.stages=Stages
+
+Department=Department
+Department.college=College
+Department.teaching=Teaching
+Department.parent=Parent
+Department.children=Children
+Department.indexno=Indexno
+
+SchoolBean=School
+SchoolBean.institution=Institution
+
+AbstractBaseInfoBean=Abstract Base Info
+AbstractBaseInfoBean.school=School
+AbstractBaseInfoBean.code=Code
+AbstractBaseInfoBean.name=Name
+AbstractBaseInfoBean.enName=Eng Name
+AbstractBaseInfoBean.shortName=ShortName
+AbstractBaseInfoBean.remark=Remark
+AbstractBaseInfoBean.beginOn=Effective At
+AbstractBaseInfoBean.endOn=Invalid At
+
+HolidayBean=Holiday
+HolidayBean.name=Name
+HolidayBean.startOn=Start On
+HolidayBean.endOn=End On
+
+BuildingCourseUnitBean=Building Course Unit
+BuildingCourseUnitBean.timeSetting=Time Setting
+BuildingCourseUnitBean.unit=Unit
+BuildingCourseUnitBean.building=Building
+BuildingCourseUnitBean.startTime=Start Time
+BuildingCourseUnitBean.endTime=End Time
+
+TimeSetting=Time Setting
+TimeSetting.name=Name
+TimeSetting.school=School
+TimeSetting.semester=Semester
+TimeSetting.campus=Campus
+timeSetting.units=Default Units
+TimeSetting.buildingUnits=Building Units

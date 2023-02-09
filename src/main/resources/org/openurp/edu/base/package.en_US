@@ -1,0 +1,12 @@
+
+EducationBasedEntity=Education Based Entity
+
+EducationBasedObject=Education Based Object
+EducationBasedObject.level=Education
+
+StudentBasedEntity=Student Based Entity
+
+ProjectBasedEntity=Project Based Entity
+
+ProjectBasedObject=Project Based Object
+ProjectBasedObject.project=Project

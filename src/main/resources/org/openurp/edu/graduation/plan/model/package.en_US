@@ -1,0 +1,52 @@
+
+PlanAuditResultBean=Plan Audit Result
+PlanAuditResultBean.std=Std
+PlanAuditResultBean.auditStat=Audit Stat
+PlanAuditResultBean.groupResults=Group Results
+PlanAuditResultBean.passed=Passed
+PlanAuditResultBean.gpa=Gpa
+PlanAuditResultBean.remark=Remark
+PlanAuditResultBean.departOpinion=Depart Opinion
+PlanAuditResultBean.finalOpinion=Final Opinion
+PlanAuditResultBean.updates=Updates
+PlanAuditResultBean.published=Published
+PlanAuditResultBean.auditor=Auditor
+PlanAuditResultBean.partial=Partial
+
+PlanAuditStandard=Plan Audit Standard
+PlanAuditStandard.name=Name
+PlanAuditStandard.studentScope=Student Scope
+PlanAuditStandard.beginOn=Effective At
+PlanAuditStandard.endOn=Invalid At
+PlanAuditStandard.disauditCourseTypes=Disaudit Course Types
+PlanAuditStandard.convertableCourseTypes=Convertable Course Types
+PlanAuditStandard.convertTargetCourseType=Convert Target Course Type
+PlanAuditStandard.remark=Remark
+
+PlanAuditLog=Plan Audit Log
+PlanAuditLog.standardUsed=Standard Used
+PlanAuditLog.std=Std
+PlanAuditLog.auditBy=Audit By
+PlanAuditLog.ip=Ip
+PlanAuditLog.operateAt=Operate At
+PlanAuditLog.passed=Passed
+PlanAuditLog.detail=Detail
+
+CourseAuditResultBean=Course Audit Result
+CourseAuditResultBean.groupResult=Group Result
+CourseAuditResultBean.course=Course
+CourseAuditResultBean.scores=Scores
+CourseAuditResultBean.passed=Passed
+CourseAuditResultBean.compulsory=Compulsory
+CourseAuditResultBean.remark=Remark
+
+GroupAuditResultBean=Group Audit Result
+GroupAuditResultBean.name=Name
+GroupAuditResultBean.auditStat=Audit Stat
+GroupAuditResultBean.courseResults=Course Results
+GroupAuditResultBean.courseType=Course Type
+GroupAuditResultBean.parent=Parent
+GroupAuditResultBean.passed=Passed
+GroupAuditResultBean.children=Children
+GroupAuditResultBean.relation=Relation
+GroupAuditResultBean.planResult=Plan Result

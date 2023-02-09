@@ -3,5 +3,28 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean class="org.beangle.ems.app.security.DefaultModule"/>
+  <bean class="org.openurp.web.WebModule"/>
+
   <bean class="org.openurp.edu.DaoModule"/>
+  <bean class="org.openurp.edu.ServiceModule"/>
+
+  <bean id="edu.grade.service" class="org.openurp.edu.grade.GradeServiceModule"/>
+  <bean id="openurp.program" class="org.openurp.edu.program.DefaultModule"/>
+  <bean id="openurp.program.app" class="org.openurp.edu.program.app.DefaultModule"/>
+  <bean id="openurp.log.service" class="org.openurp.edu.room.RoomServiceModule"/>
+
+  <bean id="systemVersion" class="org.beangle.commons.config.Version">
+    <property name="name" value="OpenURP"/>
+    <property name="version" value="0.31.2"/>
+    <property name="majorVersion" value="0"/>
+    <property name="minorVersion" value="31"/>
+  </bean>
+
+  <bean id="baseInfoSearchHelper" autowire="byName"
+        class="org.openurp.web.helper.BaseInfoSearchHelper">
+  </bean>
+
+  <bean id="squadSearchHelper" autowire="byName"
+        class="org.openurp.web.helper.SquadSearchHelper">
+  </bean>
 </beans>

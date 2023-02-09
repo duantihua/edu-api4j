@@ -9,12 +9,13 @@
   <groupId>org.openurp.edu</groupId>
   <artifactId>openurp-edu-api4j</artifactId>
   <packaging>jar</packaging>
-  <version>0.31.1</version>
+  <version>0.31.2</version>
   <name>OpenURP Edu Java API</name>
 
   <properties>
-    <beangle3.version>3.10.0</beangle3.version>
     <java.version>17</java.version>
+    <beangle3.version>3.10.0</beangle3.version>
+    <quartz.version>1.8.5</quartz.version>
   </properties>
 
   <dependencies>
@@ -60,6 +61,26 @@
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.struts</groupId>
+      <artifactId>beangle-struts-s2</artifactId>
+      <version>${beangle3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quartz.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.jakarta</groupId>
+      <artifactId>beangle-jakarta-dwr</artifactId>
+      <version>${dwr.version}</version>
     </dependency>
   </dependencies>
 </project>

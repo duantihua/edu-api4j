@@ -1,0 +1,21 @@
+
+CheckinBean=Checkin
+CheckinBean.semester=Semester
+CheckinBean.std=Std
+CheckinBean.checkinAt=Checkin At
+CheckinBean.checkinBy=Checkin By
+CheckinBean.checkinFrom=Checkin From
+CheckinBean.reason=Reason
+CheckinBean.whereabouts=Whereabouts
+
+RegisterBean=Register
+RegisterBean.semester=Semester
+RegisterBean.std=Std
+RegisterBean.registerAt=Register At
+RegisterBean.registed=Registed
+RegisterBean.checkin=Checkin
+RegisterBean.tuitionPaid=Tuition Paid
+RegisterBean.reason=Reason
+RegisterBean.registerBy=Register By
+RegisterBean.registerFrom=Register From
+RegisterBean.remark=Remark

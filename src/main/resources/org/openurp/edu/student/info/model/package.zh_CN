@@ -1,0 +1,18 @@
+StdContact=学生联系信息
+StdContact.email=电子邮箱
+StdContact.phone=电话
+StdContact.mobile=移动电话
+StdContact.address=地址 入校后联系地址
+
+StdHome=学生家庭信息
+StdHome.phone=家庭电话
+StdHome.address=家庭地址
+StdHome.postcode=家庭地址邮编
+StdHome.formerAddr=户籍
+StdHome.police=派出所
+StdHome.policePhone=派出所电话
+StdHome.railwayStation=火车站 用于打印学生证
+StdHome.economicState=家庭经济状况
+
+
+StdExamine.enrollOn=入学报到日期

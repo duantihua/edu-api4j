@@ -1,0 +1,25 @@
+entity.program=培养方案
+courseGroup.credits=应修学分
+
+AbstractAlternativeCourse=抽象替代课程实现
+
+AbstractCoursePlan=抽象课程方案
+AbstractCoursePlan.credits=要求学分
+AbstractCoursePlan.termsCount=学期数量
+
+AbstractCourseGroup=课程设置中的课程组 </p>
+AbstractCourseGroup.relation=下级组关系
+AbstractCourseGroup.courseType=课程类别
+AbstractCourseGroup.credits=要求学分
+AbstractCourseGroup.courseNum=要求门数
+AbstractCourseGroup.remark=备注
+AbstractCourseGroup.termCredits=学期学分分布
+AbstractCourseGroup.indexno=index no
+
+AbstractPlanCourse=抽象计划内课程
+AbstractPlanCourse.course=课程
+AbstractPlanCourse.terms=开课学期
+AbstractPlanCourse.compulsory=是否必修
+AbstractPlanCourse.department=开课部门
+AbstractPlanCourse.examMode=开课部门
+AbstractPlanCourse.remark=备注

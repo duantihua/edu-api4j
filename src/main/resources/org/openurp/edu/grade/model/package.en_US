@@ -1,0 +1,42 @@
+
+GradeRateConfig=Grade Rate Config
+GradeRateConfig.gradingMode=Score Mark Style
+GradeRateConfig.project=Project
+GradeRateConfig.items=Items
+GradeRateConfig.passScore=Pass Score
+
+StdGpa=Std Gpa
+StdGpa.std=Std
+StdGpa.semesterGpas=Semester Gpas
+StdGpa.yearGpas=Year Gpas
+StdGpa.gpa=Gpa
+StdGpa.ga=Ga
+StdGpa.credits=Credits
+StdGpa.totalCredits=Total Credits
+StdGpa.count=Count
+
+StdYearGpa=Std Year Gpa
+StdYearGpa.stdGpa=Std Gpa
+StdYearGpa.schoolYear=School Year
+StdYearGpa.gpa=Gpa
+StdYearGpa.ga=Ga
+StdYearGpa.credits=Credits
+StdYearGpa.totalCredits=Total Credits
+StdYearGpa.count=Count
+
+StdSemesterGpa=Std Semester Gpa
+StdSemesterGpa.stdGpa=Std Gpa
+StdSemesterGpa.semester=Semester
+StdSemesterGpa.gpa=Gpa
+StdSemesterGpa.ga=Ga
+StdSemesterGpa.credits=Credits
+StdSemesterGpa.totalCredits=Total Credits
+StdSemesterGpa.count=Count
+
+GradeRateItem=Grade Rate Item
+GradeRateItem.config=Config
+GradeRateItem.grade=Grade
+GradeRateItem.minScore=Min Score
+GradeRateItem.maxScore=Max Score
+GradeRateItem.gpExp=Gp Exp
+GradeRateItem.defaultScore=Default Score

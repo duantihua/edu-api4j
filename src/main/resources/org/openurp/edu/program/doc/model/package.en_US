@@ -1,0 +1,27 @@
+
+ProgramDocMetaBean=Program Doc Meta
+ProgramDocMetaBean.name=Name
+ProgramDocMetaBean.maxlength=Maxlength
+ProgramDocMetaBean.indexno=Indexno
+ProgramDocMetaBean.template=Template
+
+ProgramDocSectionBean=Program Doc Section
+ProgramDocSectionBean.code=Code
+ProgramDocSectionBean.name=Name
+ProgramDocSectionBean.contents=Content
+ProgramDocSectionBean.doc=Doc
+ProgramDocSectionBean.parent=Parent
+ProgramDocSectionBean.children=Children
+
+ProgramDocBean=Program Doc
+ProgramDocBean.program=Program
+ProgramDocBean.locale=Locale
+ProgramDocBean.sections=Sections
+
+ProgramDocTemplateBean=Program Doc Template
+ProgramDocTemplateBean.name=Name
+ProgramDocTemplateBean.metas=Metas
+ProgramDocTemplateBean.locale=Locale
+ProgramDocTemplateBean.types=Types
+ProgramDocTemplateBean.beginOn=Effective At
+ProgramDocTemplateBean.endOn=Invalid At

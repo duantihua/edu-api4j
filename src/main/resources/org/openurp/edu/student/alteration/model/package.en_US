@@ -1,0 +1,18 @@
+
+StdAlterationBean=Std Alteration
+StdAlterationBean.semester=Semester
+StdAlterationBean.std=Std
+StdAlterationBean.code=Code
+StdAlterationBean.type=Type
+StdAlterationBean.reason=Reason
+StdAlterationBean.startOn=Start On
+StdAlterationBean.endOn=End On
+StdAlterationBean.effective=Effective
+StdAlterationBean.items=Items
+StdAlterationBean.remark=Remark
+
+StdAlterationItemBean=Std Alteration Item
+StdAlterationItemBean.alteration=Alteration
+StdAlterationItemBean.meta=Meta
+StdAlterationItemBean.oldvalue=Oldvalue
+StdAlterationItemBean.newvalue=Newvalue
