@@ -16,11 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.std.graduation.model;
+package org.openurp.std.graduation.app.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Strings;
 import org.openurp.base.std.model.Student;
+import org.openurp.std.graduation.model.GraduateAuditItem;
+import org.openurp.std.graduation.model.GraduateResult;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -20,6 +20,7 @@ package org.openurp.edu.program.plan.service;
 
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.StdPlan;
 
 public interface PersonalPlanService {
 
@@ -29,6 +30,7 @@ public interface PersonalPlanService {
    * @param std 肯定是已经有了个人计划的学生
    * @return
    */
-  ExecutionPlan getExecutionPlanForDiff(Student std) ;
+  ExecutionPlan getExecutionPlanForDiff(Student std);
 
+  public StdPlan genPersonalPlan(Student std);
 }
