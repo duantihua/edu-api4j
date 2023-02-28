@@ -18,7 +18,7 @@
  */
 package org.openurp.base.std.model;
 
-import org.beangle.commons.entity.pojo.IntegerIdObject;
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.edu.model.Project;
@@ -32,7 +32,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "org.openurp.base.std.model.GraduateSeason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class GraduateSeason extends IntegerIdObject {
+public class GraduateSeason extends LongIdObject {
 
   private String code;
 

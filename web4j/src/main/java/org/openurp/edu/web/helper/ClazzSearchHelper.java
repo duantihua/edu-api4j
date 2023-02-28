@@ -32,18 +32,18 @@ import org.beangle.struts2.helper.Params;
 import org.beangle.struts2.helper.QueryHelper;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.std.model.Squad;
 import org.openurp.base.edu.model.WeekTimeBuilder;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Department;
+import org.openurp.base.std.model.Squad;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.clazz.code.ClazzTag;
 import org.openurp.edu.clazz.model.ArrangeSuggest;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.RestrictionMeta;
 import org.openurp.edu.clazz.model.Schedule;
-import org.openurp.web.helper.SearchHelper;
 import org.openurp.edu.exam.model.ExamTaker;
+import org.openurp.web.helper.SearchHelper;
 
 import java.util.Iterator;
 import java.util.List;
@@ -120,6 +120,9 @@ public class ClazzSearchHelper extends SearchHelper {
     Boolean teacherIsNull = Params.getBoolean("fake.teacher.null");
     Integer teacherDepart = Params.getInt("fake.teacher.department.id");
     String teacherName = Params.get("teacher.name");
+    if (Strings.isBlank(teacherName)) {
+      teacherName = Params.get("clazz.teacher.name");
+    }
     if ((teacherDepart != null || Strings.isNotBlank(teacherName)) && null == teacherIsNull) teacherIsNull = false;
 
     if (teacherIsNull != null) {

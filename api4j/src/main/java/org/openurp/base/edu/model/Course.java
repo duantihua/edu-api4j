@@ -158,6 +158,17 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   private Set<Major> xmajors = CollectUtils.newHashSet();
 
   /**
+   * 先修课程
+   */
+  @ManyToMany
+  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  @JoinTable(name = "courses_prerequisites",
+      joinColumns = @JoinColumn(name = "course_id"),
+      inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
+  )
+  private Set<Course> prerequisites = CollectUtils.newHashSet();
+
+  /**
    * 常用教材
    */
   @ManyToMany
@@ -461,4 +472,11 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.calgp = calgp;
   }
 
+  public Set<Course> getPrerequisites() {
+    return prerequisites;
+  }
+
+  public void setPrerequisites(Set<Course> prerequisites) {
+    this.prerequisites = prerequisites;
+  }
 }
