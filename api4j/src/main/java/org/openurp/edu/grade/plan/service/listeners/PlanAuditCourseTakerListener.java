@@ -154,7 +154,9 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
     } else {
       existedResult.setRemark(existedResult.getRemark() + "/在读");
     }
-
+    if(null==existedResult.getScores()){
+      existedResult.setScores("--");
+    }
   }
 
   /**
