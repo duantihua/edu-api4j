@@ -18,26 +18,17 @@
  */
 package org.openurp.edu.grade.app.model;
 
-import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.std.model.StudentScope;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "org.openurp.edu.grade.app.model.AuditSetting")
 public class AuditSetting extends LongIdObject {
@@ -52,14 +43,17 @@ public class AuditSetting extends LongIdObject {
     super(id);
   }
 
-  public static AuditSetting empty() {
-    CourseType electiveType = new CourseType(-1);
-    electiveType.setName("计划外");
+  public static AuditSetting empty(CourseType ctype) {
+    CourseType electiveType = ctype;
+    if (null == electiveType) {
+      electiveType = new CourseType(-1);
+      electiveType.setName("计划外");
+    }
     return new AuditSetting(CollectUtils.newHashSet(), CollectUtils.newHashSet(), electiveType);
   }
 
   public AuditSetting(Set<CourseType> disauditCourseTypes, Set<CourseType> convertableCourseTypes,
-      CourseType convertTargetCourseType) {
+                      CourseType convertTargetCourseType) {
     super();
     this.excludes = disauditCourseTypes;
     this.convertables = convertableCourseTypes;
@@ -72,7 +66,9 @@ public class AuditSetting extends LongIdObject {
     }
   }
 
-  /** 不审核的课程类别 */
+  /**
+   * 不审核的课程类别
+   */
   @ManyToMany
   private Set<CourseType> excludes = new HashSet<CourseType>();
 
@@ -91,26 +87,34 @@ public class AuditSetting extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType convertTarget;
 
-  /** 名称 */
+  /**
+   * 名称
+   */
   @Size(max = 500)
   @NotNull
   private String name;
 
-  /** 学生范围 */
+  /**
+   * 学生范围
+   */
   @Embedded
   @AssociationOverrides({
       @AssociationOverride(name = "levels", joinTable = @JoinTable(name = "audit_settings_levels", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "level_id", referencedColumnName = "ID"))),
       @AssociationOverride(name = "stdTypes", joinTable = @JoinTable(name = "audit_settings_std_types", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "STD_TYPE_ID", referencedColumnName = "ID"))),
       @AssociationOverride(name = "departments", joinTable = @JoinTable(name = "audit_settings_departments", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DEPARTMENT_ID", referencedColumnName = "ID"))),
       @AssociationOverride(name = "majors", joinTable = @JoinTable(name = "audit_settings_majors", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "MAJOR_ID", referencedColumnName = "ID"))),
-      @AssociationOverride(name = "directions", joinTable = @JoinTable(name = "audit_settings_directions", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DIRECTION_ID", referencedColumnName = "ID"))) })
+      @AssociationOverride(name = "directions", joinTable = @JoinTable(name = "audit_settings_directions", joinColumns = @JoinColumn(name = "audit_setting_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "DIRECTION_ID", referencedColumnName = "ID")))})
   private StudentScope studentScope = new StudentScope();
 
-  /** 生效日期 */
+  /**
+   * 生效日期
+   */
   @NotNull
   private Date beginOn;
 
-  /** 失效日期 */
+  /**
+   * 失效日期
+   */
   private Date endOn;
 
   public boolean isConvertable(CourseType courseType) {
@@ -118,12 +122,16 @@ public class AuditSetting extends LongIdObject {
   }
 
   public boolean isDisaudit(CourseType courseType) {
-    if (CollectUtils.isNotEmpty(excludes)) { return excludes.contains(courseType); }
+    if (CollectUtils.isNotEmpty(excludes)) {
+      return excludes.contains(courseType);
+    }
     return false;
   }
 
   public boolean isConvertableCourseType(CourseType courseType) {
-    if (CollectUtils.isNotEmpty(convertables)) { return convertables.contains(courseType); }
+    if (CollectUtils.isNotEmpty(convertables)) {
+      return convertables.contains(courseType);
+    }
     return false;
   }
 

@@ -18,18 +18,19 @@
  */
 package org.openurp.edu.grade.plan.service.internal;
 
-import java.util.List;
-
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
+import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.std.model.Student;
 import org.openurp.base.std.model.StudentScope;
 import org.openurp.edu.grade.app.model.AuditSetting;
 import org.openurp.edu.grade.plan.service.AuditSettingService;
 
+import java.util.List;
+
 public class AuditSettingServiceImpl extends BaseServiceImpl implements AuditSettingService {
 
-  public AuditSetting getSetting(StudentScope studentScope) {
+  public AuditSetting getSetting(StudentScope studentScope, CourseType lastType) {
     OqlBuilder<AuditSetting> query = OqlBuilder.from(AuditSetting.class, "rule");
     query.where(
         "((current_date() between rule.beginOn and rule.endOn) or (current_date() >= rule.beginOn and rule.endOn is null))");
@@ -41,7 +42,7 @@ public class AuditSettingServiceImpl extends BaseServiceImpl implements AuditSet
     if (standards.size() == 1) {
       return standards.get(0);
     } else {
-      return AuditSetting.empty();
+      return AuditSetting.empty(lastType);
     }
   }
 
@@ -51,7 +52,7 @@ public class AuditSettingServiceImpl extends BaseServiceImpl implements AuditSet
     studentScope.setProject(student.getProject());
     studentScope.getLevels().add(student.getLevel());
     studentScope.getStdTypes().add(student.getStdType());
-    return getSetting(studentScope);
+    return getSetting(studentScope, null);
   }
 
 }

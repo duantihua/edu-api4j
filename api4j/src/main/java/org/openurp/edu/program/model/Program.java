@@ -25,7 +25,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.code.EducationType;
-import org.openurp.base.std.code.StdType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
@@ -33,6 +32,7 @@ import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
+import org.openurp.base.std.code.StdType;
 import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
@@ -94,8 +94,10 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   /**
    * 学生类别
    */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private StdType stdType;
+  @ManyToMany
+  @NotNull
+  @Cache(region = "openurp.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+  private Set<StdType> stdTypes = CollectUtils.newHashSet();
 
   /**
    * 专业
@@ -168,10 +170,13 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @JoinColumn(name = "program_id", nullable = true)
   private List<TermCampus> termCampuses = CollectUtils.newArrayList();
 
-  /**学位课程*/
+  /**
+   * 学位课程
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<Course> degreeCourses=CollectUtils.newHashSet();
+  private Set<Course> degreeCourses = CollectUtils.newHashSet();
+
   public Program() {
     super();
   }
@@ -212,12 +217,12 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
     this.level = level;
   }
 
-  public StdType getStdType() {
-    return stdType;
+  public Set<StdType> getStdTypes() {
+    return stdTypes;
   }
 
-  public void setStdType(StdType stdType) {
-    this.stdType = stdType;
+  public void setStdTypes(Set<StdType> stdTypes) {
+    this.stdTypes = stdTypes;
   }
 
   public Major getMajor() {

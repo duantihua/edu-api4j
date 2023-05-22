@@ -22,15 +22,15 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.openurp.base.edu.code.CourseType;
-import org.openurp.edu.program.plan.service.MajorPlanQueryBuilder;
 import org.openurp.base.edu.model.Course;
-import org.openurp.base.std.model.Squad;
 import org.openurp.base.model.AuditStatus;
+import org.openurp.base.std.model.Squad;
 import org.openurp.edu.program.major.service.MajorPlanGenParameter;
 import org.openurp.edu.program.major.service.MajorPlanService;
 import org.openurp.edu.program.model.*;
 import org.openurp.edu.program.plan.dao.PlanCommonDao;
 import org.openurp.edu.program.plan.dao.PlanCourseGroupCommonDao;
+import org.openurp.edu.program.plan.service.MajorPlanQueryBuilder;
 import org.openurp.edu.program.plan.util.ProgramNamingHelper;
 
 import java.util.*;
@@ -100,7 +100,7 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
       t_param.setDirection(plan.getProgram().getDirection());
       t_param.setLevel(plan.getProgram().getLevel());
       t_param.setMajor(plan.getProgram().getMajor());
-      t_param.setStdType(plan.getProgram().getStdType());
+      t_param.getStdTypes().addAll(plan.getProgram().getStdTypes());
       t_param.setStudyType(plan.getProgram().getStudyType());
       t_param.setName(ProgramNamingHelper.name(t_param, entityDao));
       genedPlans.add(genMajorPlan(plan, t_param));
@@ -224,11 +224,7 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
       } else {
         newProgram.setMajor(param.getMajor());
       }
-      if (param.getStdType() == null || param.getStdType().isTransient()) {
-        param.setStdType(null);
-      } else {
-        newProgram.setStdType(param.getStdType());
-      }
+      newProgram.getStdTypes().addAll(param.getStdTypes());
       if (param.getStudyType() == null || param.getStudyType().isTransient()) {
         newProgram.setStudyType(null);
       } else {

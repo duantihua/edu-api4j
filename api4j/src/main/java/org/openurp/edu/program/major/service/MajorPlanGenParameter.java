@@ -18,17 +18,19 @@
  */
 package org.openurp.edu.program.major.service;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Department;
+import org.openurp.base.std.code.StdType;
 import org.openurp.base.std.model.Grade;
+import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.Degree;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.StudyType;
-import org.openurp.base.std.code.StdType;
-import org.openurp.base.edu.model.Direction;
-import org.openurp.base.edu.model.Major;
-import org.openurp.base.std.model.Student;
 
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * 复制的是Program，不是 Plan
@@ -41,7 +43,7 @@ public class MajorPlanGenParameter {
 
   private EducationLevel level;
 
-  private StdType stdType;
+  private Set<StdType> stdTypes = CollectUtils.newHashSet();
 
   private Department department;
 
@@ -89,8 +91,12 @@ public class MajorPlanGenParameter {
     this.level = level;
   }
 
-  public void setStdType(StdType stdType) {
-    this.stdType = stdType;
+  public Set<StdType> getStdTypes() {
+    return stdTypes;
+  }
+
+  public void setStdTypes(Set<StdType> stdTypes) {
+    this.stdTypes = stdTypes;
   }
 
   public void setMajor(Major major) {
@@ -107,10 +113,6 @@ public class MajorPlanGenParameter {
 
   public EducationLevel getLevel() {
     return level;
-  }
-
-  public StdType getStdType() {
-    return stdType;
   }
 
   public Major getMajor() {

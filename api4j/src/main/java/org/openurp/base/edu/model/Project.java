@@ -91,7 +91,6 @@ public class Project extends NumberIdTimeObject<Integer> implements TimeEntity, 
   @ManyToMany(targetEntity = Department.class)
   @NotNull
   @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-  @OrderColumn(name = "idx")
   private List<Department> departments = CollectUtils.newArrayList();
 
   /**

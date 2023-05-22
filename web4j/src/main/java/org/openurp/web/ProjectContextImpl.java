@@ -393,7 +393,6 @@ public class ProjectContextImpl implements ProjectContext {
     this.semesterService = semesterService;
   }
 
-
   /**
    * 在本次调用范围内，缓存结果集
    */

@@ -18,10 +18,6 @@
  */
 package org.openurp.edu.grade.plan.service.listeners;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
@@ -34,6 +30,10 @@ import org.openurp.edu.grade.plan.service.PlanAuditListener;
 import org.openurp.edu.grade.plan.service.StdGrade;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 任意选修课监听<br>
@@ -62,7 +62,7 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
       courseResult.setCourse(course);
       List<CourseGrade> grades = stdGrade.useGrades(course);
       if (!grades.isEmpty() && !grades.get(0).getCourseType().getId().equals(electiveType.getId())) {
-        courseResult.setRemark("计划外");
+        courseResult.setRemark("原" + grades.get(0).getCourseType().getName());
       }
       courseResult.checkPassed(grades);
       groupResult.addCourseResult(courseResult);
@@ -80,7 +80,7 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
    * @param result
    */
   protected void processConvertCredits(GroupAuditResult target, PlanAuditResult result,
-      PlanAuditContext context) {
+                                       PlanAuditContext context) {
     // 从公选当前节点查找祖先
     Set<GroupAuditResult> parents = CollectUtils.newHashSet();
     // 同一级别的兄弟节点
@@ -126,12 +126,12 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
   }
 
   public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
-      PlanCourse planCourse) {
+                                  PlanCourse planCourse) {
     return true;
   }
 
   public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-      GroupAuditResult groupResult) {
+                                 GroupAuditResult groupResult) {
     return true;
   }
 

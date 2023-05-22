@@ -22,8 +22,9 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Strings;
 import org.hibernate.annotations.Type;
-import org.openurp.base.time.Terms;
 import org.openurp.base.edu.model.Course;
+import org.openurp.base.time.Terms;
+import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.program.model.PlanCourse;
 
@@ -138,7 +139,11 @@ public class CourseAuditResult extends LongIdObject {
       scores = "--";
     } else {
       for (CourseGrade grade : grades) {
-        sb.append(Strings.defaultIfBlank(grade.getScoreText(), "--")).append(" ");
+        if (grade.getCourseTakeType().getId().equals(CourseTakeType.Exemption)) {
+          sb.append(grade.getCourseTakeType().getName()).append(" ");
+        } else {
+          sb.append(Strings.defaultIfBlank(grade.getScoreText(), "--")).append(" ");
+        }
         if (!passed) passed = grade.isPassed();
       }
       scores = sb.toString();

@@ -58,7 +58,9 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
             ep.setEndTerm(plan.getEndTerm());
             ep.setDepartment(program.getDepartment());
             ep.setCampus(program.getCampus());
-            ep.setStdType(program.getStdType());
+            if(program.getStdTypes().size()==1) {
+              ep.setStdType(program.getStdTypes().iterator().next());
+            }
             ep.setCredits(plan.getCredits());
             entityDao.saveOrUpdate(ep);
             for (CourseGroup cg : plan.getGroups()) {

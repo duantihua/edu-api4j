@@ -18,26 +18,21 @@
  */
 package org.openurp.edu.program.plan.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.Range;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.orm.hibernate.HibernateEntityDao;
-import org.openurp.base.model.AuditStatus;
-import org.openurp.code.service.CodeService;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
-import org.openurp.edu.program.model.Program;
+import org.openurp.base.model.AuditStatus;
+import org.openurp.code.service.CodeService;
+import org.openurp.edu.program.model.*;
 import org.openurp.edu.program.plan.dao.PlanCommonDao;
-import org.openurp.edu.program.model.CourseGroup;
-import org.openurp.edu.program.model.CoursePlan;
-import org.openurp.edu.program.model.ExecutionPlan;
-import org.openurp.edu.program.model.PlanCourse;
-import org.openurp.edu.program.model.StdPlan;
-import org.openurp.edu.program.utils.PlanUtils;
 import org.openurp.edu.program.plan.util.ProgramHibernateClassGetter;
+import org.openurp.edu.program.utils.PlanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCommonDao {
 
@@ -123,7 +118,12 @@ public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCo
     }
     query.where("program.grade = :grade", program.getGrade());
     query.where("program.level.id = :levelId", program.getLevel().getId());
-    query.where("program.stdType.id = :stdTypeId", program.getStdType().getId());
+    if (program.getStdTypes().isEmpty()) {
+      query.where("size(program.stdTypes)==0");
+    } else {
+      query.where("exists(from program.stdTypes as stdType where stdType in(:stdTypes))", program.getStdTypes());
+    }
+
     query.where("program.department.id = :departmentId", program.getDepartment().getId());
     query.where("program.major.id = :majorId", program.getMajor().getId());
     if (program.getDirection() != null && program.getDirection().getId() != null) {
@@ -148,7 +148,7 @@ public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCo
       for (CourseGroup group : plan.getGroups()) {
         credit += PlanUtils.getGroupCredits(group, term);
       }
-      return new Float(credit);
+      return Float.valueOf(credit);
     }
   }
 

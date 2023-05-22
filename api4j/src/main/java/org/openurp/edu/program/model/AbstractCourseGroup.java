@@ -33,6 +33,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -255,6 +256,11 @@ public abstract class AbstractCourseGroup extends LongIdObject implements Course
       result.addAll(PlanUtils.getPlanCourses(this, termSeq[i]));
     }
     return new ArrayList<PlanCourse>(result);
+  }
+
+  public List<PlanCourse> getOrderedPlanCourses(){
+    Collections.sort(this.getPlanCourses(),new PlanCourseComparator());
+    return this.getPlanCourses();
   }
 
   public int compareTo(CourseGroup o) {

@@ -193,10 +193,11 @@ public class GroupAuditResult extends LongIdObject {
    */
   private void addPassedCourse(GroupAuditResult groupResult, Course course) {
     if (null == groupResult) { return; }
+    var std = groupResult.planResult.getStd();
     AuditStat auditStat = groupResult.getAuditStat();
     if (!auditStat.getPassedCourses().contains(course)) {
       auditStat.getPassedCourses().add(course);
-      auditStat.addCredits(course.getDefaultCredits());
+      auditStat.addCredits(course.getCredits(std.getLevel()));
       auditStat.addNum(1);
     }
     // 递归调用上级组，或者更新整个计划
@@ -205,7 +206,7 @@ public class GroupAuditResult extends LongIdObject {
       AuditStat planAuditStat = groupResult.getPlanResult().getAuditStat();
       if (!planAuditStat.getPassedCourses().contains(course)) {
         planAuditStat.getPassedCourses().add(course);
-        planAuditStat.addCredits(course.getDefaultCredits());
+        planAuditStat.addCredits(course.getCredits(std.getLevel()));
         planAuditStat.addNum(1);
       }
     }
