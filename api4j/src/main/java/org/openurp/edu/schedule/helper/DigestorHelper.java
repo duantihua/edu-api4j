@@ -24,7 +24,7 @@ import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.beangle.commons.text.i18n.TextResource;
 import org.openurp.base.edu.model.TimeSetting;
-import org.openurp.edu.clazz.model.Session;
+import org.openurp.edu.clazz.model.ClazzSession;
 import org.openurp.edu.clazz.util.ScheduleDigestor;
 
 /**
@@ -44,11 +44,11 @@ public class DigestorHelper {
     digestor = ScheduleDigestor.getInstance();
   }
 
-  public String digest(Session session, String format) {
+  public String digest(ClazzSession session, String format) {
     return digest(Collections.singleton(session), format);
   }
 
-  public String digest(Collection<Session> sessions, String format) {
+  public String digest(Collection<ClazzSession> sessions, String format) {
     return digestor.digest(textResource, timeSetting, sessions,
         StringUtils.isBlank(format) ? ScheduleDigestor.defaultFormat : format);
   }

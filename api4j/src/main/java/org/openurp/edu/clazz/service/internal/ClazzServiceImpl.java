@@ -235,10 +235,10 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
           Pair.of(WeekTimeBuilder.getOffset(semester, day), WeekTimeBuilder.getReverseOffset(semester, day)));
     }
     for (Clazz l : clazzes) {
-      Set<Session> activities = l.getSchedule().getSessions();
+      Set<ClazzSession> activities = l.getSchedule().getSessions();
       if (!activities.isEmpty()) {
         WeekState state = new WeekState(0);
-        for (Session ac : activities) {
+        for (ClazzSession ac : activities) {
           WeekTime time = ac.getTime();
           if (time.getStartOn().getYear() == semester.getBeginOn().getYear()) {
             state = new WeekState(
@@ -262,11 +262,11 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
    * 3.同步教学活动和教室占用表的不匹配现象
    */
   public void normalizeActivity(Clazz l) {
-    List<Session> newCas = CollectUtils.newArrayList();
-    for (Session ca : l.getSchedule().getSessions()) {
+    List<ClazzSession> newCas = CollectUtils.newArrayList();
+    for (ClazzSession ca : l.getSchedule().getSessions()) {
       if (WeekTimeBuilder.needNormalize(ca.getTime())) {
         WeekTime next = WeekTimeBuilder.normalize(ca.getTime());
-        Session newCa = new Session();
+        ClazzSession newCa = new ClazzSession();
         newCa.setClazz(l);
         newCa.setTime(next);
         newCa.getTeachers().addAll(ca.getTeachers());
@@ -277,9 +277,9 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
     if (!newCas.isEmpty()) {
       l.getSchedule().getSessions().addAll(newCas);
     }
-    List<Session> activityList = new ArrayList<Session>();
+    List<ClazzSession> activityList = new ArrayList<ClazzSession>();
     activityList.addAll(l.getSchedule().getSessions());
-    List<Session> mergedActivityList = Session.mergeActivites(activityList);
+    List<ClazzSession> mergedActivityList = ClazzSession.mergeActivites(activityList);
     l.getSchedule().getSessions().retainAll(mergedActivityList);
 
     OqlBuilder<Occupancy> oq = OqlBuilder.from(Occupancy.class, "occupancy");
@@ -296,9 +296,9 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
       occsOneDay.add(o);
     }
 
-    Map<java.sql.Date, List<Session>> caMaps = CollectUtils.newHashMap();
-    for (Session ca : l.getSchedule().getSessions()) {
-      List<Session> casOneDay = caMaps.get(ca.getTime().getStartOn());
+    Map<java.sql.Date, List<ClazzSession>> caMaps = CollectUtils.newHashMap();
+    for (ClazzSession ca : l.getSchedule().getSessions()) {
+      List<ClazzSession> casOneDay = caMaps.get(ca.getTime().getStartOn());
       if (null == casOneDay) {
         casOneDay = CollectUtils.newArrayList();
         caMaps.put(ca.getTime().getStartOn(), casOneDay);
@@ -306,12 +306,12 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
       casOneDay.add(ca);
     }
     List<Occupancy> savedOccupancies = new ArrayList<Occupancy>();
-    for (Map.Entry<java.sql.Date, List<Session>> entry : caMaps.entrySet()) {
+    for (Map.Entry<java.sql.Date, List<ClazzSession>> entry : caMaps.entrySet()) {
       java.sql.Date startOn = entry.getKey();
-      List<Session> cas = entry.getValue();
+      List<ClazzSession> cas = entry.getValue();
       List<Occupancy> ocs = occupancyMaps.get(startOn);
       if (null == ocs) ocs = new ArrayList<Occupancy>();
-      for (Session ca : cas) {
+      for (ClazzSession ca : cas) {
         for (Classroom r : ca.getRooms()) {
           Occupancy occupancy = null;
           if (cas.size() == 1 && ocs.size() == 1) {

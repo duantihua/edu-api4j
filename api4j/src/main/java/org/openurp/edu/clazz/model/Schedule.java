@@ -61,7 +61,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   @OneToMany(mappedBy = "clazz", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<Session> sessions = new HashSet<Session>();
+  private Set<ClazzSession> sessions = new HashSet<ClazzSession>();
 
   /**
    * 教室类型
@@ -86,7 +86,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   public Schedule clone() {
     try {
       Schedule info = (Schedule) super.clone();
-      info.setSessions(new HashSet<Session>());
+      info.setSessions(new HashSet<ClazzSession>());
       return info;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);
@@ -101,7 +101,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   public Set<Classroom> getRooms() {
     if (null != getSessions() && !getSessions().isEmpty()) {
       Set<Classroom> rooms = new HashSet<Classroom>();
-      for (Session session : getSessions()) {
+      for (ClazzSession session : getSessions()) {
         rooms.addAll(session.getRooms());
       }
       return rooms;
@@ -116,11 +116,11 @@ public class Schedule implements Serializable, Cloneable, Component {
     return (null != weekstate) ? weekstate.getLast() : 0;
   }
 
-  public Set<Session> getSessions() {
+  public Set<ClazzSession> getSessions() {
     return sessions;
   }
 
-  public void setSessions(Set<Session> sessions) {
+  public void setSessions(Set<ClazzSession> sessions) {
     this.sessions = sessions;
   }
 

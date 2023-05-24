@@ -30,7 +30,7 @@ import org.openurp.base.std.model.Student;
 import org.openurp.base.edu.model.Teacher;
 import org.openurp.base.edu.model.TimeSetting;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Session;
+import org.openurp.edu.clazz.model.ClazzSession;
 
 /**
  * 课程表
@@ -62,7 +62,7 @@ public class CourseTable {
 
   TimeSetting timeSetting;
 
-  List<Session> activities = CollectUtils.newArrayList();
+  List<ClazzSession> activities = CollectUtils.newArrayList();
 
   Float credits = null;
 
@@ -95,7 +95,7 @@ public class CourseTable {
   public void extractTaskFromActivity() {
     if (null == activities) { return; }
     Set<Clazz> clazzSet = CollectUtils.newHashSet();
-    for (Session activity : activities) {
+    for (ClazzSession activity : activities) {
       Clazz clazz = activity.getClazz();
       if (!clazzSet.contains(clazz)) {
         clazzSet.add(clazz);
@@ -128,11 +128,11 @@ public class CourseTable {
     this.clazzes = clazzes;
   }
 
-  public List<Session> getActivities() {
+  public List<ClazzSession> getActivities() {
     return activities;
   }
 
-  public void setActivities(List<Session> activities) {
+  public void setActivities(List<ClazzSession> activities) {
     this.activities = activities;
   }
 

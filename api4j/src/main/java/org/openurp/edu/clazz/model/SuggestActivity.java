@@ -208,8 +208,8 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
     return flattenedActivities;
   }
 
-  public Session toSession() {
-    Session activity = new Session();
+  public ClazzSession toSession() {
+    ClazzSession activity = new ClazzSession();
     activity.setClazz(this.arrangeSuggest.getClazz());
     activity.getTeachers().addAll(this.teachers);
     activity.setTime((WeekTime) this.time.clone());

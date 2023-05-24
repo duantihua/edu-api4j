@@ -26,7 +26,7 @@ import org.beangle.commons.lang.tuple.Pair;
 import org.beangle.commons.text.i18n.TextResource;
 import org.openurp.base.edu.model.*;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Session;
+import org.openurp.edu.clazz.model.ClazzSession;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -110,7 +110,7 @@ public class ScheduleDigestor {
    * @return
    */
   public String digest(TextResource textResource, TimeSetting timeSetting,
-                       Collection<Session> activities) {
+                       Collection<ClazzSession> activities) {
     return digest(textResource, timeSetting, activities, defaultFormat);
   }
 
@@ -122,7 +122,7 @@ public class ScheduleDigestor {
    * @return
    */
   public String digest(TextResource textResource, TimeSetting timeSetting,
-                       Collection<Session> activities, String format) {
+                       Collection<ClazzSession> activities, String format) {
     if (CollectUtils.isEmpty(activities)) return "";
     if (Strings.isEmpty(format)) format = defaultFormat;
 
@@ -133,11 +133,11 @@ public class ScheduleDigestor {
     boolean hasRoom = Strings.contains(format, room);
     boolean hasTeacher = Strings.contains(format, "teacher");
     if (hasTeacher) {
-      for (Session ca : activities) {
+      for (ClazzSession ca : activities) {
         if (CollectUtils.isNotEmpty(ca.getTeachers())) teachers.addAll(ca.getTeachers());
       }
     }
-    List<Session> mergedActivities = merge(semester, activities, hasTeacher, hasRoom);
+    List<ClazzSession> mergedActivities = merge(semester, activities, hasTeacher, hasRoom);
     // 是否添加老师
     boolean addTeacher = false;
     if (hasTeacher) {
@@ -155,7 +155,7 @@ public class ScheduleDigestor {
     StringBuffer CourseArrangeBuf = new StringBuffer();
     Collections.sort(mergedActivities, new MultiPropertyComparator("clazz.course.code,time.startOn"));
     // 合并后的教学活动
-    for (Session activity : mergedActivities) {
+    for (ClazzSession activity : mergedActivities) {
       CourseArrangeBuf.append(format);
       int replaceStart = 0;
       replaceStart = CourseArrangeBuf.indexOf(":teacher");
@@ -275,7 +275,7 @@ public class ScheduleDigestor {
    * @param room    是否考虑教室
    * @return
    */
-  private static boolean isSameActivityExcept(Session target, Session other, boolean teacher,
+  private static boolean isSameActivityExcept(ClazzSession target, ClazzSession other, boolean teacher,
                                               boolean room) {
     if (teacher) {
       if (!target.getTeachers().equals(other.getTeachers())) return false;
@@ -286,17 +286,17 @@ public class ScheduleDigestor {
     return WeekTimes.canMergerWith(target.getTime(), other.getTime());
   }
 
-  public static List<Session> merge(Semester semester, Collection<Session> activities,
-                                    boolean hasTeacher, boolean hasRoom) {
-    List<Session> mergedActivities = CollectUtils.newArrayList();
-    List<Session> activitiesList = CollectUtils.newArrayList();
-    for (Session ca : activities) {
-      activitiesList.add((Session) ca.clone());
+  public static List<ClazzSession> merge(Semester semester, Collection<ClazzSession> activities,
+                                         boolean hasTeacher, boolean hasRoom) {
+    List<ClazzSession> mergedActivities = CollectUtils.newArrayList();
+    List<ClazzSession> activitiesList = CollectUtils.newArrayList();
+    for (ClazzSession ca : activities) {
+      activitiesList.add((ClazzSession) ca.clone());
     }
     Collections.sort(activitiesList);
     // 合并相同时间点(不计年份)的教学活动
-    for (Session ca : activitiesList) {
-      Session activity = ca;
+    for (ClazzSession ca : activitiesList) {
+      ClazzSession activity = ca;
       if (ca.getTime().getStartYear() != semester.getStartYear()) {
         LocalDate nextYearStart = activity.getTime().getStartOn().toLocalDate();
         LocalDate thisYearStart = WeekTime.getStartOn(semester.getStartYear(), activity.getTime()
@@ -306,7 +306,7 @@ public class ScheduleDigestor {
         activity.getTime().setWeekstate(new WeekState(activity.getTime().getWeekstate().value << weeks));
       }
       boolean merged = false;
-      for (Session added : mergedActivities) {
+      for (ClazzSession added : mergedActivities) {
         if (added.getClazz().equals(activity.getClazz()) && isSameActivityExcept(added, activity, hasTeacher, hasRoom)) {
           if (added.getTime().getBeginAt().ge(activity.getTime().getBeginAt())) {
             added.getTime().setBeginAt(activity.getTime().getBeginAt());

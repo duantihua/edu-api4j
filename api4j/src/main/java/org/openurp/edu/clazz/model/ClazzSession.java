@@ -41,10 +41,10 @@ import org.openurp.code.edu.model.TeachingNature;
  *
  * @since 2005-11-22
  */
-@Entity(name = "org.openurp.edu.clazz.model.Session")
+@Entity(name = "org.openurp.edu.clazz.model.ClazzSession")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class Session extends LongIdObject implements Comparable<Session> {
+public class ClazzSession extends LongIdObject implements Comparable<ClazzSession> {
   private static final long serialVersionUID = 2498530728105897805L;
 
   /** 教学任务 */
@@ -83,7 +83,7 @@ public class Session extends LongIdObject implements Comparable<Session> {
   @ManyToOne(fetch = FetchType.LAZY)
   private Subclazz subclazz;
 
-  public Session() {
+  public ClazzSession() {
     super();
   }
 
@@ -112,7 +112,7 @@ public class Session extends LongIdObject implements Comparable<Session> {
     }
   }
 
-  public Session(Teacher teacher, Classroom room, WeekTime time) {
+  public ClazzSession(Teacher teacher, Classroom room, WeekTime time) {
     if (teacher != null) {
       getTeachers().add(teacher);
     }
@@ -121,7 +121,7 @@ public class Session extends LongIdObject implements Comparable<Session> {
   }
 
   public Object clone() {
-    Session session = new Session();
+    ClazzSession session = new ClazzSession();
     session.getRooms().addAll(getRooms());
     session.setTime(new WeekTime(getTime()));
     session.setClazz(clazz);
@@ -134,7 +134,7 @@ public class Session extends LongIdObject implements Comparable<Session> {
    *
    * @return
    */
-  public boolean canMergerWith(Session session) {
+  public boolean canMergerWith(ClazzSession session) {
     if(!Objects.equals(getTeachingNature(),session.getTeachingNature())){
       return false;
     }
@@ -172,10 +172,10 @@ public class Session extends LongIdObject implements Comparable<Session> {
   /**
    * 将两排课活动合并，前提是两活动可以合并
    *
-   * @see #canMergerWith(Session)
+   * @see #canMergerWith(ClazzSession)
    * @param other
    */
-  public void mergeWith(Session other) {
+  public void mergeWith(ClazzSession other) {
     getTeachers().addAll(other.getTeachers());
     getRooms().addAll(other.getRooms());
     WeekTimes.mergeWith(this.getTime(), other.getTime());
@@ -185,15 +185,15 @@ public class Session extends LongIdObject implements Comparable<Session> {
    * 合并在年份和教学周占用上,可以合并的教学活动<br>
    * 合并标准是年份,教学周,教室,教师,星期
    */
-  public static List<Session> mergeActivites(List<Session> tobeMerged) {
-    List<Session> mergedActivityList = CollectUtils.newArrayList();
+  public static List<ClazzSession> mergeActivites(List<ClazzSession> tobeMerged) {
+    List<ClazzSession> mergedActivityList = CollectUtils.newArrayList();
     if (CollectUtils.isEmpty(tobeMerged)) return mergedActivityList;
     Collections.sort(tobeMerged);
-    Iterator<Session> activityIter = tobeMerged.iterator();
-    Session toMerged = activityIter.next();
+    Iterator<ClazzSession> activityIter = tobeMerged.iterator();
+    ClazzSession toMerged = activityIter.next();
     mergedActivityList.add(toMerged);
     while (activityIter.hasNext()) {
-      Session session = activityIter.next();
+      ClazzSession session = activityIter.next();
       if (toMerged.canMergerWith(session)) toMerged.mergeWith(session);
       else {
         toMerged = session;
@@ -209,7 +209,7 @@ public class Session extends LongIdObject implements Comparable<Session> {
    *
    * @see java.lang.Comparable#compareTo(Object)
    */
-  public int compareTo(Session session) {
+  public int compareTo(ClazzSession session) {
     int rs = 0;
     // compare teacher
     if (rs == 0) rs = getTeachers().size() - session.getTeachers().size();

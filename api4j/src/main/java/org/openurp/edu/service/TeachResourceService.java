@@ -36,7 +36,7 @@ import org.openurp.base.std.model.Squad;
 import org.openurp.base.std.model.Student;
 import org.openurp.base.edu.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Session;
+import org.openurp.edu.clazz.model.ClazzSession;
 import org.openurp.service.security.DataRealm;
 
 /**
@@ -99,7 +99,7 @@ public interface TeachResourceService {
    * @param roomId
    * @return
    */
-  public boolean isSessionRoomOccupied(Session activity);
+  public boolean isSessionRoomOccupied(ClazzSession activity);
 
   /**
    * 查询指定id的教师在给定的时间上是否被占用
@@ -200,8 +200,8 @@ public interface TeachResourceService {
    * @param ratio
    * @return
    */
-  public Map<Session, Object[]> getRoomUtilizationOfCourse(List<Department> departments,
-      Semester semester, Float ratio);
+  public Map<ClazzSession, Object[]> getRoomUtilizationOfCourse(List<Department> departments,
+                                                                Semester semester, Float ratio);
 
   /**
    * 根据教学班学生人数统计课程教室利用率
@@ -212,8 +212,8 @@ public interface TeachResourceService {
    * @param ratio
    * @return
    */
-  public Map<Session, Object[]> getElectCountRoomUtilizationOfCourse(List<Department> departments,
-      Semester semester, Float ratio);
+  public Map<ClazzSession, Object[]> getElectCountRoomUtilizationOfCourse(List<Department> departments,
+                                                                          Semester semester, Float ratio);
 
   /**
    * 根据占用信息来详细查询班级
@@ -242,16 +242,16 @@ public interface TeachResourceService {
       Integer endWeek, Integer startWeekDay, Integer endWeekDay, Integer startUnit, Integer endUnit,
       boolean busy, DataRealm dataRealm);
 
-  public List<Session> getSquadActivities(Squad squad, WeekTime time, Semester semester);
+  public List<ClazzSession> getSquadActivities(Squad squad, WeekTime time, Semester semester);
 
-  public List<Session> getTeacherActivities(Teacher teacher, WeekTime time, Semester semester);
+  public List<ClazzSession> getTeacherActivities(Teacher teacher, WeekTime time, Semester semester);
 
-  public List<Session> getRoomActivities(Classroom room, WeekTime time, Semester semester);
+  public List<ClazzSession> getRoomActivities(Classroom room, WeekTime time, Semester semester);
 
-  public List<Session> getRoomActivities(Classroom room, WeekTime time, Semester semester,
-      List<Department> departments, Project project);
+  public List<ClazzSession> getRoomActivities(Classroom room, WeekTime time, Semester semester,
+                                              List<Department> departments, Project project);
 
-  public List<Session> getStdActivities(Student student, WeekTime time, Semester semester);
+  public List<ClazzSession> getStdActivities(Student student, WeekTime time, Semester semester);
 
   /**
    * 返回指定部门管理的在times上空闲的教师

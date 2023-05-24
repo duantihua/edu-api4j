@@ -20,15 +20,15 @@ package org.openurp.edu.clazz.service;
 
 import org.openurp.base.edu.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Session;
+import org.openurp.edu.clazz.model.ClazzSession;
 
 public class CourseOccupanceComment {
-  public static String generate(Session s) {
+  public static String generate(ClazzSession s) {
     Clazz clazz = s.getClazz();
     return clazz.getCourse().getName() + "(" + clazz.getCourse().getCode() + " " + getTeacherNames(s) + " " + clazz.getCrn() + ")";
   }
 
-  private static String getTeacherNames(Session s) {
+  private static String getTeacherNames(ClazzSession s) {
     if (null != s.getTeachers() && !s.getTeachers().isEmpty()) {
       StringBuffer buf = new StringBuffer(10);
       for (Teacher teacher : s.getTeachers()) {

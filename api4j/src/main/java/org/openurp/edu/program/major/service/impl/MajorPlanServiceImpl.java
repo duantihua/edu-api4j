@@ -224,6 +224,7 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
       } else {
         newProgram.setMajor(param.getMajor());
       }
+      newProgram.setStdTypes(new HashSet<>());
       newProgram.getStdTypes().addAll(param.getStdTypes());
       if (param.getStudyType() == null || param.getStudyType().isTransient()) {
         newProgram.setStudyType(null);
