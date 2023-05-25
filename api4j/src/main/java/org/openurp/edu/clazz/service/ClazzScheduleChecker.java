@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.beangle.commons.text.i18n.Message;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.ClazzSession;
+import org.openurp.edu.clazz.model.ClazzActivity;
 
 /**
  * 排课验证
@@ -32,5 +32,5 @@ import org.openurp.edu.clazz.model.ClazzSession;
  */
 public interface ClazzScheduleChecker {
 
-  public Message check(Clazz clazz, List<ClazzSession> activities);
+  public Message check(Clazz clazz, List<ClazzActivity> activities);
 }

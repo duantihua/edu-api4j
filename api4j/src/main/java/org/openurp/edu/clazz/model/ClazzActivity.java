@@ -18,12 +18,6 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.util.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Objects;
@@ -36,46 +30,65 @@ import org.openurp.base.edu.model.Teacher;
 import org.openurp.code.edu.model.TeachingMethod;
 import org.openurp.code.edu.model.TeachingNature;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.*;
+
 /**
  * 教学活动
  *
  * @since 2005-11-22
  */
-@Entity(name = "org.openurp.edu.clazz.model.ClazzSession")
+@Entity(name = "org.openurp.edu.clazz.model.ClazzActivity")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class ClazzSession extends LongIdObject implements Comparable<ClazzSession> {
+public class ClazzActivity extends LongIdObject implements Comparable<ClazzActivity> {
   private static final long serialVersionUID = 2498530728105897805L;
 
-  /** 教学任务 */
+  /**
+   * 教学任务
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   protected Clazz clazz;
 
-  /** 上课时间 */
+  /**
+   * 上课时间
+   */
   @Embedded
   protected WeekTime time;
 
-  /** 授课教师列表 */
+  /**
+   * 授课教师列表
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Teacher> teachers = CollectUtils.newHashSet();
 
-  /** 教室列表 */
+  /**
+   * 教室列表
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Classroom> rooms = CollectUtils.newHashSet();
 
-  /** 排课备注 */
+  /**
+   * 排课备注
+   */
   @Size(max = 500)
   private String places;
 
-  /** 授课性质 */
+  /**
+   * 授课性质
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
   protected TeachingNature teachingNature = new TeachingNature(1);
 
-  /** 授课方式 */
+  /**
+   * 授课方式
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
   protected TeachingMethod teachingMethod = new TeachingMethod(1);
@@ -83,7 +96,10 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
   @ManyToOne(fetch = FetchType.LAZY)
   private Subclazz subclazz;
 
-  public ClazzSession() {
+  private short beginUnit;
+  private short endUnit;
+
+  public ClazzActivity() {
     super();
   }
 
@@ -102,6 +118,7 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
 
   /**
    * 最后一次活动时间
+   *
    * @return
    */
   public java.sql.Date getLastActivityTime() {
@@ -112,7 +129,7 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
     }
   }
 
-  public ClazzSession(Teacher teacher, Classroom room, WeekTime time) {
+  public ClazzActivity(Teacher teacher, Classroom room, WeekTime time) {
     if (teacher != null) {
       getTeachers().add(teacher);
     }
@@ -121,7 +138,7 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
   }
 
   public Object clone() {
-    ClazzSession session = new ClazzSession();
+    ClazzActivity session = new ClazzActivity();
     session.getRooms().addAll(getRooms());
     session.setTime(new WeekTime(getTime()));
     session.setClazz(clazz);
@@ -134,28 +151,28 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
    *
    * @return
    */
-  public boolean canMergerWith(ClazzSession session) {
-    if(!Objects.equals(getTeachingNature(),session.getTeachingNature())){
+  public boolean canMergerWith(ClazzActivity session) {
+    if (!Objects.equals(getTeachingNature(), session.getTeachingNature())) {
       return false;
     }
-    if(!Objects.equals(getTeachingMethod(),session.getTeachingMethod())){
+    if (!Objects.equals(getTeachingMethod(), session.getTeachingMethod())) {
       return false;
     }
 
     if (!getTeachers().equals(session.getTeachers())) {
       //时间地点一致就合并
-       if(getTime().equals(session.getTime()) && getRooms().equals(session.getRooms())
-           && Objects.equals(getPlaces(),session.getPlaces())){
-         return true;
-       }else {
-         return false;
-       }
+      if (getTime().equals(session.getTime()) && getRooms().equals(session.getRooms())
+          && Objects.equals(getPlaces(), session.getPlaces())) {
+        return true;
+      } else {
+        return false;
+      }
     }
     if (!getRooms().equals(session.getRooms())) {
       //时间和人员一致就合并
-      if(getTime().equals(session.getTime()) && getTeachers().equals(session.getTeachers())){
+      if (getTime().equals(session.getTime()) && getTeachers().equals(session.getTeachers())) {
         return true;
-      }else {
+      } else {
         return false;
       }
     }
@@ -163,7 +180,7 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
         || (getPlaces() == null && session.getPlaces() != null)
         || (session.getPlaces() == null && getPlaces() != null))
       return false;
-    if(!Objects.equals(getSubclazz(),session.getSubclazz())){
+    if (!Objects.equals(getSubclazz(), session.getSubclazz())) {
       return false;
     }
     return WeekTimes.canMergerWith(getTime(), session.getTime());
@@ -172,10 +189,10 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
   /**
    * 将两排课活动合并，前提是两活动可以合并
    *
-   * @see #canMergerWith(ClazzSession)
    * @param other
+   * @see #canMergerWith(ClazzActivity)
    */
-  public void mergeWith(ClazzSession other) {
+  public void mergeWith(ClazzActivity other) {
     getTeachers().addAll(other.getTeachers());
     getRooms().addAll(other.getRooms());
     WeekTimes.mergeWith(this.getTime(), other.getTime());
@@ -185,15 +202,15 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
    * 合并在年份和教学周占用上,可以合并的教学活动<br>
    * 合并标准是年份,教学周,教室,教师,星期
    */
-  public static List<ClazzSession> mergeActivites(List<ClazzSession> tobeMerged) {
-    List<ClazzSession> mergedActivityList = CollectUtils.newArrayList();
+  public static List<ClazzActivity> mergeActivites(List<ClazzActivity> tobeMerged) {
+    List<ClazzActivity> mergedActivityList = CollectUtils.newArrayList();
     if (CollectUtils.isEmpty(tobeMerged)) return mergedActivityList;
     Collections.sort(tobeMerged);
-    Iterator<ClazzSession> activityIter = tobeMerged.iterator();
-    ClazzSession toMerged = activityIter.next();
+    Iterator<ClazzActivity> activityIter = tobeMerged.iterator();
+    ClazzActivity toMerged = activityIter.next();
     mergedActivityList.add(toMerged);
     while (activityIter.hasNext()) {
-      ClazzSession session = activityIter.next();
+      ClazzActivity session = activityIter.next();
       if (toMerged.canMergerWith(session)) toMerged.mergeWith(session);
       else {
         toMerged = session;
@@ -209,7 +226,7 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
    *
    * @see java.lang.Comparable#compareTo(Object)
    */
-  public int compareTo(ClazzSession session) {
+  public int compareTo(ClazzActivity session) {
     int rs = 0;
     // compare teacher
     if (rs == 0) rs = getTeachers().size() - session.getTeachers().size();
@@ -314,5 +331,21 @@ public class ClazzSession extends LongIdObject implements Comparable<ClazzSessio
 
   public void setSubclazz(Subclazz subclazz) {
     this.subclazz = subclazz;
+  }
+
+  public short getBeginUnit() {
+    return beginUnit;
+  }
+
+  public void setBeginUnit(short beginUnit) {
+    this.beginUnit = beginUnit;
+  }
+
+  public short getEndUnit() {
+    return endUnit;
+  }
+
+  public void setEndUnit(short endUnit) {
+    this.endUnit = endUnit;
   }
 }

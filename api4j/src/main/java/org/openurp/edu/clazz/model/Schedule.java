@@ -61,7 +61,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   @OneToMany(mappedBy = "clazz", orphanRemoval = true)
   @Cascade(CascadeType.ALL)
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<ClazzSession> sessions = new HashSet<ClazzSession>();
+  private Set<ClazzActivity> activities = new HashSet<ClazzActivity>();
 
   /**
    * 教室类型
@@ -86,7 +86,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   public Schedule clone() {
     try {
       Schedule info = (Schedule) super.clone();
-      info.setSessions(new HashSet<ClazzSession>());
+      info.setActivities(new HashSet<ClazzActivity>());
       return info;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);
@@ -99,9 +99,9 @@ public class Schedule implements Serializable, Cloneable, Component {
    * @return
    */
   public Set<Classroom> getRooms() {
-    if (null != getSessions() && !getSessions().isEmpty()) {
+    if (null != getActivities() && !getActivities().isEmpty()) {
       Set<Classroom> rooms = new HashSet<Classroom>();
-      for (ClazzSession session : getSessions()) {
+      for (ClazzActivity session : getActivities()) {
         rooms.addAll(session.getRooms());
       }
       return rooms;
@@ -116,12 +116,12 @@ public class Schedule implements Serializable, Cloneable, Component {
     return (null != weekstate) ? weekstate.getLast() : 0;
   }
 
-  public Set<ClazzSession> getSessions() {
-    return sessions;
+  public Set<ClazzActivity> getActivities() {
+    return activities;
   }
 
-  public void setSessions(Set<ClazzSession> sessions) {
-    this.sessions = sessions;
+  public void setActivities(Set<ClazzActivity> sessions) {
+    this.activities = sessions;
   }
 
   public WeekState getWeekstate() {
@@ -190,7 +190,7 @@ public class Schedule implements Serializable, Cloneable, Component {
   public Status getStatus() {
     if (creditHours == 0) return Status.DONT_ARRANGE;
     else {
-      return (getSessions().isEmpty()) ? Status.NEED_ARRANGE : Status.ARRANGED;
+      return (getActivities().isEmpty()) ? Status.NEED_ARRANGE : Status.ARRANGED;
     }
   }
 

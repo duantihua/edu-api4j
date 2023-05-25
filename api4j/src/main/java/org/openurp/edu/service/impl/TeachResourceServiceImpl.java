@@ -27,6 +27,7 @@ import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.beangle.orm.hibernate.udt.WeekTime;
 import org.openurp.base.edu.model.*;
+import org.openurp.edu.clazz.model.ClazzActivity;
 import org.openurp.edu.service.TeachResourceService;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.Room;
@@ -35,7 +36,6 @@ import org.openurp.base.std.model.Student;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.Restriction;
 import org.openurp.edu.clazz.model.RestrictionMeta;
-import org.openurp.edu.clazz.model.ClazzSession;
 import org.openurp.edu.clazz.service.CourseLimitUtils;
 import org.openurp.service.security.DataRealm;
 
@@ -64,7 +64,7 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return false;
   }
 
-  public boolean isSessionRoomOccupied(ClazzSession activity) {
+  public boolean isSessionRoomOccupied(ClazzActivity activity) {
     // TODO Auto-generated method stub
     return false;
   }
@@ -175,8 +175,8 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return entityDao.search(builder);
   }
 
-  public List<ClazzSession> getSquadActivities(Squad squad, WeekTime time, Semester semester) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity");
+  public List<ClazzActivity> getSquadActivities(Squad squad, WeekTime time, Semester semester) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity");
     builder.where("activity.clazz.semester =:semester", semester);
     builder.where("activity.clazz.project.id=:projectId", squad.getProject().getId());
     setTimeQuery(time, builder);
@@ -189,7 +189,7 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return entityDao.search(builder);
   }
 
-  protected void setTimeQuery(WeekTime time, OqlBuilder<ClazzSession> builder) {
+  protected void setTimeQuery(WeekTime time, OqlBuilder<ClazzActivity> builder) {
     if (time != null) {
       if (null != time.getStartOn()) {
         builder.where("activity.time.startOn =:startOn", time.getStartOn());
@@ -206,8 +206,8 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     }
   }
 
-  public List<ClazzSession> getTeacherActivities(Teacher teacher, WeekTime time, Semester semester) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity");
+  public List<ClazzActivity> getTeacherActivities(Teacher teacher, WeekTime time, Semester semester) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity");
     builder.join("activity.teachers", "teacher");
     builder.where("activity.clazz.semester =:semester", semester);
     setTimeQuery(time, builder);
@@ -215,8 +215,8 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return entityDao.search(builder);
   }
 
-  public List<ClazzSession> getRoomActivities(Classroom room, WeekTime time, Semester semester) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity");
+  public List<ClazzActivity> getRoomActivities(Classroom room, WeekTime time, Semester semester) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity");
     builder.join("activity.rooms", "room");
     builder.where("activity.clazz.semester =:semester", semester);
     setTimeQuery(time, builder);
@@ -224,9 +224,9 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return entityDao.search(builder);
   }
 
-  public List<ClazzSession> getRoomActivities(Classroom room, WeekTime time, Semester semester,
-                                              List<Department> departments, Project project) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity");
+  public List<ClazzActivity> getRoomActivities(Classroom room, WeekTime time, Semester semester,
+                                               List<Department> departments, Project project) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity");
     builder.join("activity.rooms", "room");
     builder.where("activity.clazz.semester =:semester", semester);
     if (CollectUtils.isNotEmpty(departments)) {
@@ -240,9 +240,9 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return entityDao.search(builder);
   }
 
-  public List<ClazzSession> getStdActivities(Student student, WeekTime time, Semester semester) {
+  public List<ClazzActivity> getStdActivities(Student student, WeekTime time, Semester semester) {
 
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity");
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity");
     builder.join("activity.clazz.enrollment.courseTakers", "taker");
     builder.where("activity.clazz.semester =:semester", semester);
     setTimeQuery(time, builder);
@@ -295,14 +295,14 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return null;
   }
 
-  public Map<ClazzSession, Object[]> getElectCountRoomUtilizationOfCourse(List<Department> departments,
-                                                                          Semester semester, Float ratio) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity")
+  public Map<ClazzActivity, Object[]> getElectCountRoomUtilizationOfCourse(List<Department> departments,
+                                                                           Semester semester, Float ratio) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity")
         .where("activity.clazz.semester=:semester", semester)
         .where("activity.clazz.teachDepart in (:depart)", departments);
-    List<ClazzSession> activitys = entityDao.search(builder);
-    Map<ClazzSession, Object[]> utilizations = CollectUtils.newHashMap();
-    for (ClazzSession courseActivity : activitys) {
+    List<ClazzActivity> activitys = entityDao.search(builder);
+    Map<ClazzActivity, Object[]> utilizations = CollectUtils.newHashMap();
+    for (ClazzActivity courseActivity : activitys) {
       Set<Classroom> rooms = courseActivity.getRooms();
       int capacity = 0;
       for (Classroom room : rooms) {
@@ -324,14 +324,14 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     return utilizations;
   }
 
-  public Map<ClazzSession, Object[]> getRoomUtilizationOfCourse(List<Department> departments, Semester semester,
-                                                                Float ratio) {
-    OqlBuilder<ClazzSession> builder = OqlBuilder.from(ClazzSession.class, "activity")
+  public Map<ClazzActivity, Object[]> getRoomUtilizationOfCourse(List<Department> departments, Semester semester,
+                                                                 Float ratio) {
+    OqlBuilder<ClazzActivity> builder = OqlBuilder.from(ClazzActivity.class, "activity")
         .where("activity.clazz.semester=:semester", semester)
         .where("activity.clazz.teachDepart in (:depart)", departments);
-    List<ClazzSession> activitys = entityDao.search(builder);
-    Map<ClazzSession, Object[]> utilizations = CollectUtils.newHashMap();
-    for (ClazzSession courseActivity : activitys) {
+    List<ClazzActivity> activitys = entityDao.search(builder);
+    Map<ClazzActivity, Object[]> utilizations = CollectUtils.newHashMap();
+    for (ClazzActivity courseActivity : activitys) {
       Set<Classroom> rooms = courseActivity.getRooms();
       int capacity = 0;
       for (Classroom room : rooms) {
@@ -360,9 +360,9 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
   }
 
   public int getTeacherPeriod(Clazz clazz, Teacher teacher) {
-    Set<ClazzSession> courseActivities = clazz.getSchedule().getSessions();
+    Set<ClazzActivity> courseActivities = clazz.getSchedule().getActivities();
     int period = 0;
-    for (ClazzSession courseActivity : courseActivities) {
+    for (ClazzActivity courseActivity : courseActivities) {
       if (courseActivity.getTeachers().contains(teacher)) {
         WeekTime time = courseActivity.getTime();
         period += Math.ceil(time.getEndAt().interval(time.getBeginAt()) / 45.0)

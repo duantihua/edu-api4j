@@ -159,8 +159,8 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   public Date getFirstCourseTime() {
     if (null != semester && semester.isPersisted()) {
       Date date = null;
-      if (null != this.getSchedule().getSessions()) {
-        for (ClazzSession session : getSchedule().getSessions()) {
+      if (null != this.getSchedule().getActivities()) {
+        for (ClazzActivity session : getSchedule().getActivities()) {
           Date myDate = session.getFirstActivityTime();
           if (date == null || myDate.before(date)) {
             date = myDate;
@@ -180,8 +180,8 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   public Date getLastCourseTime() {
     if (null != semester && semester.isPersisted()) {
       Date date = null;
-      if (null != this.getSchedule().getSessions()) {
-        for (ClazzSession session : getSchedule().getSessions()) {
+      if (null != this.getSchedule().getActivities()) {
+        for (ClazzActivity session : getSchedule().getActivities()) {
           Date myDate = session.getLastActivityTime();
           if (date == null || myDate.after(date)) {
             date = myDate;

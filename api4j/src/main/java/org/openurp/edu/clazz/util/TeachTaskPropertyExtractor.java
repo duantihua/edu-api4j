@@ -202,7 +202,7 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
     // 教室可容纳人数
     else if ("courseSchedule.activities.room.capacityOfCourse".equals(property)) {
       Set<Classroom> rooms = new HashSet<Classroom>();
-      for (ClazzSession activity : clazz.getSchedule().getSessions()) {
+      for (ClazzActivity activity : clazz.getSchedule().getActivities()) {
         rooms.addAll(activity.getRooms());
       }
       Integer[] seats = new Integer[rooms.size()];
@@ -216,7 +216,7 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
       return digestor.digest(textResource, timeSetting, clazz, ":day :units");
     } else if ("courseSchedule.activities.room".equals(property)) {
       Set<Classroom> rooms = new HashSet<Classroom>();
-      for (ClazzSession activity : clazz.getSchedule().getSessions()) {
+      for (ClazzActivity activity : clazz.getSchedule().getActivities()) {
         rooms.addAll(activity.getRooms());
       }
       String[] names = new String[rooms.size()];
