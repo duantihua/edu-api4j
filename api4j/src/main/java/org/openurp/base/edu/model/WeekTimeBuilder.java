@@ -18,26 +18,16 @@
  */
 package org.openurp.base.edu.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.beangle.commons.bean.comparators.PropertyComparator;
 import org.beangle.commons.collection.CollectUtils;
-import org.beangle.orm.hibernate.udt.HourMinute;
-import org.beangle.orm.hibernate.udt.WeekDay;
-import org.beangle.orm.hibernate.udt.WeekState;
-import org.beangle.orm.hibernate.udt.WeekTime;
-import org.beangle.orm.hibernate.udt.Weeks;
 import org.beangle.commons.lang.tuple.Pair;
+import org.beangle.orm.hibernate.udt.*;
 import org.openurp.base.time.NumberRangeDigestor;
 import org.openurp.base.time.NumberSequence;
+
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.*;
 
 public class WeekTimeBuilder {
 
@@ -175,6 +165,18 @@ public class WeekTimeBuilder {
     return build(weekday, weekIndices);
   }
 
+  public List<WeekTime> build(int startWeek, int endWeek) {
+    List<Integer> weekdays = new ArrayList<>();
+    for (int i = startWeek; i < endWeek; i++) {
+      weekdays.add(i);
+    }
+    List<WeekTime> times = new ArrayList<>();
+    for (WeekDay wd : WeekDay.getWeekdayArray(false)) {
+      times.addAll(build(wd, weekdays));
+    }
+    return times;
+  }
+
   public List<WeekTime> build(WeekDay weekday, int[] weeks) {
     Map<Integer, WeekTime> times = new HashMap<Integer, WeekTime>();
     LocalDate startDate = startOn;
@@ -241,14 +243,14 @@ public class WeekTimeBuilder {
 
   public static Pair<java.sql.Date, java.sql.Date> getDateRange(Semester semester, int weekIndex) {
     java.sql.Date beginOn = WeekTimeBuilder.on(semester)
-        .build(semester.getCalendar().getFirstWeekday(), new int[] { weekIndex }).get(0).getFirstDay();
+        .build(semester.getCalendar().getFirstWeekday(), new int[]{weekIndex}).get(0).getFirstDay();
     LocalDate ld = beginOn.toLocalDate();
     ld = ld.plusDays(6);
     return Pair.of(beginOn, java.sql.Date.valueOf(ld));
   }
 
   public static java.sql.Date getDate(Semester semester, int teachWeek, WeekDay weekday) {
-    return WeekTimeBuilder.on(semester).build(weekday, new int[] { teachWeek }).get(0).getFirstDay();
+    return WeekTimeBuilder.on(semester).build(weekday, new int[]{teachWeek}).get(0).getFirstDay();
   }
 
   public static int weekIndexOf(Semester semester, java.sql.Date oneday) {

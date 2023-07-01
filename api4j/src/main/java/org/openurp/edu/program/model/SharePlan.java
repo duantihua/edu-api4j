@@ -25,6 +25,7 @@ import org.hibernate.annotations.CascadeType;
 import org.openurp.base.std.model.Grade;
 import org.openurp.code.edu.model.AcademicLevel;
 import org.openurp.base.edu.model.Project;
+import org.openurp.code.edu.model.EducationLevel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -72,7 +73,7 @@ public class SharePlan extends LongIdObject implements Cloneable {
    * 培养层次
    */
   @ManyToOne(fetch = FetchType.LAZY)
-  private AcademicLevel level;
+  private EducationLevel level;
 
   /**
    * 共享课程组
@@ -153,11 +154,11 @@ public class SharePlan extends LongIdObject implements Cloneable {
     this.name = name;
   }
 
-  public AcademicLevel getLevel() {
+  public EducationLevel getLevel() {
     return level;
   }
 
-  public void setLevel(AcademicLevel level) {
+  public void setLevel(EducationLevel level) {
     this.level = level;
   }
 
