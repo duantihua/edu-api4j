@@ -93,7 +93,7 @@ public class CourseTakerOccupyProvider extends AbstractStdOccupyProvider {
     query.where("taker.std in (:stds)");
     query.where("taker.clazz.semester=:semester");
     query
-        .where("exists( from taker.clazz.schedule.sessions activity where activity.time.weekday=:weekId"
+        .where("exists( from taker.clazz.schedule.activities activity where activity.time.weekday=:weekId"
             + " and activity.time.startOn < :startOn" + " and activity.time.beginAt < :endTime"
             + " and activity.time.endAt >:startTime" + " and bitand(activity.time.weekstate,:weekState)>0 )");
     Map params = new HashMap();

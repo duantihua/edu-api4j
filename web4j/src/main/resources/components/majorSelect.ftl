@@ -6,7 +6,6 @@
 
   var majorNotNull=false;
 
-  var defaultStdTypeId="";
   var defaultDepartId="";
   var defaultMajorId="";
 
@@ -53,8 +52,6 @@
   }
 
   function initDefault(){
-//    if( null!=document.getElementById(stdTypeSelectId))
-//      initStdTypeSelect();
     if(null != document.getElementById(departSelectId)&&null != document.getElementById(majorSelectId)){
       initDepartSelect();
       setTimeout(initMajorSelect,200);

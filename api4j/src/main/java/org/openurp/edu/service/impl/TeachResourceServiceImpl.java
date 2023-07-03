@@ -152,7 +152,7 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
       }
     }
     StringBuilder hql = new StringBuilder(
-        "not exists (from org.openurp.edu.clazz.model.Clazz clazz join   clazz.schedule.sessions activity "
+        "not exists (from org.openurp.edu.clazz.model.Clazz clazz join clazz.schedule.activities activity "
             + "join activity.teachers actTeacher where actTeacher=teacher ");
     String occupy = "";
     for (int i = 0; i < times.length; i++) {

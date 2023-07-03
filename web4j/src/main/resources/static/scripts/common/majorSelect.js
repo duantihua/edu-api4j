@@ -80,12 +80,6 @@
             dwr.util.addOptions(curSelect.departSelectId,[{'id':'','name':'...'}],'id','name');
           }
         }
-        
-        if (0 != jQuery('#' + curSelect.stdTypeSelectId).length) {
-          defaultValues[curSelect.stdTypeSelectId] = jQuery('#' + curSelect.stdTypeSelectId).val();        
-          dwr.util.removeAllOptions(curSelect.stdTypeSelectId);
-          dwr.util.addOptions(curSelect.stdTypeSelectId,[{'id':'','name':'...'}],'id','name');
-        }
         var pselect= jQuery('#' + curSelect.projectSelectId);
         if (pselect.val() != "") {
              projectMajor3Select = curSelect;
@@ -107,15 +101,6 @@
         }
         if (defaultValues[projectMajor3Select.departSelectId] != null) {
             setSelected(jQuery('#' + projectMajor3Select.departSelectId), defaultValues[projectMajor3Select.departSelectId]);
-        }
-        if (null != projectMajor3Select.stdTypeSelectId) {
-          data = datas[2];
-            for (var i = 0; i < data.length; i++) {
-              dwr.util.addOptions(projectMajor3Select.stdTypeSelectId,[{'id':data[i][0],'name':data[i][1]}],'id','name');
-            }
-            if (defaultValues[projectMajor3Select.stdTypeSelectId] != null) {
-                setSelected(jQuery('#' + projectMajor3Select.stdTypeSelectId), defaultValues[projectMajor3Select.stdTypeSelectId]);
-            }
         }
      }
 
@@ -249,11 +234,10 @@
      *@param majorNullable 专业是否允许为空
      *@param directionNullable 专业方向是否为空
      */
-    function Major3Select(projectSelectId,levelSelectId,stdTypeSelectId,departSelectId,majorSelectId,directionSelectId,levelNullable,departNullable,majorNullable,directionNullable){
+    function Major3Select(projectSelectId,levelSelectId,departSelectId,majorSelectId,directionSelectId,levelNullable,departNullable,majorNullable,directionNullable){
      // alert(levelSelectId+":"+departSelectId+":"+majorSelectId+":"+directionSelectId);
       this.projectSelectId  = projectSelectId;
     this.levelSelectId  = levelSelectId;
-    this.stdTypeSelectId  = stdTypeSelectId;
     this.departSelectId    = departSelectId;
     this.majorSelectId    = majorSelectId;
     this.directionSelectId  = directionSelectId;

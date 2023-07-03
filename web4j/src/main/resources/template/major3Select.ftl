@@ -24,16 +24,6 @@
   [#else]
     [@b.select label=educatonLabel id=levelId name=levelName items=[] empty=emptyOption /]
   [/#if]
-  [#if extra['stdTypeId']??]
-    [#local stdTypeLabel = b.text('entity.studentType') /]
-    [#local stdTypeId = id + 'stdType' /]
-    [#local stdTypeName = extra['stdTypeId'] /]
-    [#if theme??]
-      [@b.select label=stdTypeLabel id=stdTypeId name=stdTypeName items=[] empty=emptyOption theme=theme/]
-    [#else]
-      [@b.select label=stdTypeLabel id=stdTypeId name=stdTypeName items=[] empty=emptyOption /]
-    [/#if]
-  [/#if]
 
   [#local departLabel = b.text("common.college") /]
   [#local departId = id + 'department' /]
@@ -65,14 +55,14 @@
   [/#if]
 
   <script src='${base}/dwr/interface/projectMajorDwr.js'></script>
-  <script src='${base}/static/scripts/common/majorSelect.js?v=20221214'></script>
+  <script src='${base}/static/scripts/common/majorSelect.js?v=20230702'></script>
   <script type="text/javascript">
     var projectArray = new Array();
     projectArray[0]={'id':"${thisProject.id}",'name':''};
   [#if !(levelNullable?exists)]
     [#assign levelNullable=false]
   [/#if]
-    var sds = new Major3Select("${id}project","${id}level",[#if extra['stdTypeId']??]"${id}stdType"[#else]null[/#if],"${id}department",[#if extra['majorId']??]"${id}major"[#else]null[/#if],[#if extra['directionId']??]"${id}direction"[#else]null[/#if],true,true,true,true);
+    var sds = new Major3Select("${id}project","${id}level","${id}department",[#if extra['majorId']??]"${id}major"[#else]null[/#if],[#if extra['directionId']??]"${id}direction"[#else]null[/#if],true,true,true,true);
     sds.displayCode=false;
     sds.init(projectArray, '${request.getServletPath()}');
   </script>

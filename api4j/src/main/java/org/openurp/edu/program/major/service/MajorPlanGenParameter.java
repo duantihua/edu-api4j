@@ -19,6 +19,7 @@
 package org.openurp.edu.program.major.service;
 
 import org.beangle.commons.collection.CollectUtils;
+import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Department;
@@ -42,6 +43,8 @@ public class MajorPlanGenParameter {
   private Grade grade;
 
   private EducationLevel level;
+
+  private Set<Course> degreeCourses = CollectUtils.newHashSet();
 
   private Set<StdType> stdTypes = CollectUtils.newHashSet();
 
@@ -191,4 +194,11 @@ public class MajorPlanGenParameter {
     this.student = student;
   }
 
+  public Set<Course> getDegreeCourses() {
+    return degreeCourses;
+  }
+
+  public void setDegreeCourses(Set<Course> degreeCourses) {
+    this.degreeCourses = degreeCourses;
+  }
 }

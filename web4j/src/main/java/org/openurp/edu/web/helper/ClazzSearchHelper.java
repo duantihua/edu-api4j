@@ -174,7 +174,7 @@ public class ClazzSearchHelper extends SearchHelper {
 
     if (null != buildingId || Strings.isNotBlank(courseUnit) || null != weekday || null != activityWeekState) {
       StringBuilder activityQuery = new StringBuilder(
-          "exists( from clazz.schedule.sessions as courseActivity where 1=1 ");
+          "exists( from clazz.schedule.activities as courseActivity where 1=1 ");
       if (Strings.isNotBlank(courseUnit)) {
         activityQuery.append("and courseActivity.time.beginAt <= :beginAt"
             + " and courseActivity.time.endAt >= :beginAt ");
@@ -200,9 +200,9 @@ public class ClazzSearchHelper extends SearchHelper {
       if (s.equals(Schedule.Status.DONT_ARRANGE)) {
         query.where("clazz.schedule.creditHours =0");
       } else if (s.equals(Schedule.Status.NEED_ARRANGE)) {
-        query.where("clazz.schedule.creditHours >0 and size(clazz.schedule.sessions)=0");
+        query.where("clazz.schedule.creditHours >0 and size(clazz.schedule.activities)=0");
       } else {
-        query.where("clazz.schedule.creditHours >0 and size(clazz.schedule.sessions)>0");
+        query.where("clazz.schedule.creditHours >0 and size(clazz.schedule.activities)>0");
       }
     }
 

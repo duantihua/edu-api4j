@@ -231,6 +231,8 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
       } else {
         newProgram.setStudyType(param.getStudyType());
       }
+      newProgram.setDegreeCourses(new HashSet<>());
+      newProgram.getDegreeCourses().addAll(param.getDegreeCourses());
       return newProgram;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);

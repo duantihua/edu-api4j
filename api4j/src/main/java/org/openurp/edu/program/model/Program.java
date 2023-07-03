@@ -362,4 +362,9 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   public void setEduType(EducationType eduType) {
     this.eduType = eduType;
   }
+
+  public StdType getStdType() {
+    if (null == stdTypes || stdTypes.isEmpty()) return null;
+    return stdTypes.iterator().next();
+  }
 }
