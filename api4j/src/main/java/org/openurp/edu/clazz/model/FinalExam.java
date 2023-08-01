@@ -18,27 +18,28 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
+import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.orm.hibernate.udt.HourMinute;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ClassroomType;
 import org.openurp.code.edu.model.ExamForm;
-import org.openurp.code.edu.model.ExamMode;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * 考试安排
  */
-@Embeddable
-public class Exam implements Serializable, Cloneable {
+@Entity(name = "org.openurp.edu.clazz.model.FinalExam")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+public class FinalExam extends LongIdObject {
 
   private static final long serialVersionUID = 8657880756173823301L;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Clazz clazz;
 
   private java.sql.Date examOn;
 
@@ -52,24 +53,22 @@ public class Exam implements Serializable, Cloneable {
   @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt = HourMinute.Zero;
 
-  /** 考核方式 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private ExamMode examMode;
-
-  /** 考试形式 */
+  /**
+   * 考试形式
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ExamForm examForm;
 
-  /** 考试教室类型 */
+  /**
+   * 考试教室类型
+   */
   @ManyToOne(fetch = FetchType.LAZY)
-  private ClassroomType examRoomType;
+  private ClassroomType roomType;
 
-  /** 时长(以分钟为单位) */
+  /**
+   * 时长(以分钟为单位)
+   */
   private short examDuration;
-
-  /** 是否有补考 */
-  private boolean hasMakeup;
 
   public java.sql.Date getExamOn() {
     return examOn;
@@ -79,9 +78,9 @@ public class Exam implements Serializable, Cloneable {
     this.examOn = examOn;
   }
 
-  public Exam clone() {
+  public FinalExam clone() {
     try {
-      Exam one = (Exam) super.clone();
+      FinalExam one = (FinalExam) super.clone();
       return one;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);
@@ -104,13 +103,6 @@ public class Exam implements Serializable, Cloneable {
     this.endAt = endAt;
   }
 
-  public ExamMode getExamMode() {
-    return examMode;
-  }
-
-  public void setExamMode(ExamMode examMode) {
-    this.examMode = examMode;
-  }
 
   public ExamForm getExamForm() {
     return examForm;
@@ -118,14 +110,6 @@ public class Exam implements Serializable, Cloneable {
 
   public void setExamForm(ExamForm examForm) {
     this.examForm = examForm;
-  }
-
-  public ClassroomType getExamRoomType() {
-    return examRoomType;
-  }
-
-  public void setExamRoomType(ClassroomType examRoomType) {
-    this.examRoomType = examRoomType;
   }
 
   public short getExamDuration() {
@@ -136,12 +120,19 @@ public class Exam implements Serializable, Cloneable {
     this.examDuration = examDuration;
   }
 
-  public boolean isHasMakeup() {
-    return hasMakeup;
+  public Clazz getClazz() {
+    return clazz;
   }
 
-  public void setHasMakeup(boolean hasMakeup) {
-    this.hasMakeup = hasMakeup;
+  public void setClazz(Clazz clazz) {
+    this.clazz = clazz;
   }
 
+  public ClassroomType getRoomType() {
+    return roomType;
+  }
+
+  public void setRoomType(ClassroomType roomType) {
+    this.roomType = roomType;
+  }
 }

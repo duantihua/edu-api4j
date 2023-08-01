@@ -42,7 +42,7 @@ public class CourseTakerInitMessage extends OutputMessage {
     StringBuilder sb = new StringBuilder();
     sb.append(textResource.getText(key));
     sb.append("[").append(clazz.getCourse().getName()).append(":").append(clazz.getCrn()).append("]")
-        .append(clazz.getName()).append(":");
+        .append(clazz.getClazzName()).append(":");
     if (Strings.isNotEmpty(getMessage())) sb.append(getMessage());
     return sb.toString();
   }

@@ -20,6 +20,7 @@ package org.openurp.edu.clazz.model;
 
 import org.beangle.commons.entity.Component;
 import org.beangle.commons.lang.Objects;
+import org.beangle.commons.lang.Strings;
 import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.*;
 import org.openurp.base.edu.model.Classroom;
@@ -48,6 +49,11 @@ public class Schedule implements Serializable, Cloneable, Component {
    */
   @NotNull
   private int creditHours;
+
+  /**
+   * 周课时
+   */
+  private int weekHours;
   /**
    * 周状态
    */
@@ -150,23 +156,6 @@ public class Schedule implements Serializable, Cloneable, Component {
     return num / mutilply;
   }
 
-  /**
-   * 周课时取整方法
-   * <ul>
-   * <li>0～0.2 取整</li>
-   * <li>0.3～0.6 取0.5</li>
-   * <li>0.7～0.9 取+1</li>
-   * </ul>
-   */
-  public float getWeekHours() {
-    int w = getWeeks();
-    if (0 != w) {
-      return calcWeekHours(creditHours, w);
-    } else {
-      return 0;
-    }
-  }
-
   public int getFirstWeek() {
     return (null != weekstate) ? weekstate.getFirst() : 0;
   }
@@ -205,6 +194,14 @@ public class Schedule implements Serializable, Cloneable, Component {
 
   public void setDepartArranged(boolean departArranged) {
     this.departArranged = departArranged;
+  }
+
+  public void setWeekHours(int weekHours) {
+    this.weekHours = weekHours;
+  }
+
+  public int getWeekHours() {
+    return weekHours;
   }
 
   public enum Status {

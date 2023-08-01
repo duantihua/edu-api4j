@@ -54,11 +54,11 @@ public class ClazzElectionUtil {
    * 会更新教学班的实际人数
    *
    * @param teachclass
-   * @param takers
+   * @param taker
    */
   public static void addCourseTaker(Enrollment teachclass, CourseTaker taker) {
     teachclass.getCourseTakers().add(taker);
-    teachclass.setActual(teachclass.getCourseTakers().size());
+    teachclass.setStdCount(teachclass.getCourseTakers().size());
   }
 
   /**

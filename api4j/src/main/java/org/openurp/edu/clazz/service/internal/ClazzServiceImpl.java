@@ -177,7 +177,7 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
       // 拷贝学生
       if (!params.isCopyCourseTakers()) {
         copy.getEnrollment().getCourseTakers().clear();
-        copy.getEnrollment().setActual(0);
+        copy.getEnrollment().setStdCount(0);
       } else {
         for (CourseTaker taker : copy.getEnrollment().getCourseTakers()) {
           taker.setSemester(params.getSemester());

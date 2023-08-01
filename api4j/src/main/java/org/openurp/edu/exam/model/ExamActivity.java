@@ -22,6 +22,8 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.orm.hibernate.udt.HourMinute;
 import org.hibernate.annotations.Type;
+import org.openurp.code.edu.model.ClassroomType;
+import org.openurp.code.edu.model.ExamForm;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.Semester;
@@ -91,7 +93,17 @@ public class ExamActivity extends LongIdObject {
    */
   @Type(type = "org.beangle.orm.hibernate.udt.HourMinuteType")
   private HourMinute endAt;
+  /**
+   * 考试形式
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ExamForm examForm;
+  /** 考试教室类型 */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ClassroomType roomType;
 
+  /** 时长(以分钟为单位) */
+  private short examDuration;
   /**
    * 备注
    */
@@ -278,4 +290,27 @@ public class ExamActivity extends LongIdObject {
     this.stdCount = stdCount;
   }
 
+  public ClassroomType getRoomType() {
+    return roomType;
+  }
+
+  public void setRoomType(ClassroomType roomType) {
+    this.roomType = roomType;
+  }
+
+  public short getExamDuration() {
+    return examDuration;
+  }
+
+  public void setExamDuration(short examDuration) {
+    this.examDuration = examDuration;
+  }
+
+  public ExamForm getExamForm() {
+    return examForm;
+  }
+
+  public void setExamForm(ExamForm examForm) {
+    this.examForm = examForm;
+  }
 }

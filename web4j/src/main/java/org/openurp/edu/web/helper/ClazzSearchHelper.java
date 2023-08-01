@@ -246,11 +246,11 @@ public class ClazzSearchHelper extends SearchHelper {
     // 实际人数
     Integer stdCountStart = Params.getInt("fake.stdCount.start");
     if (null != stdCountStart) {
-      query.where("clazz.enrollment.actual >= :stdCountStart", stdCountStart);
+      query.where("clazz.enrollment.stdCount >= :stdCountStart", stdCountStart);
     }
     Integer stdCountEnd = Params.getInt("fake.stdCount.end");
     if (null != stdCountEnd) {
-      query.where("clazz.enrollment.actual <= :stdCountEnd", stdCountEnd);
+      query.where("clazz.enrollment.stdCount <= :stdCountEnd", stdCountEnd);
     }
 
     // 查询跨院任务
@@ -311,7 +311,7 @@ public class ClazzSearchHelper extends SearchHelper {
       } else {
         op = ">";
       }
-      query.where("clazz.enrollment.actual " + op + " clazz.enrollment.capacity");
+      query.where("clazz.enrollment.stdCount " + op + " clazz.enrollment.capacity");
     }
 
     /** 排考相关查询条件 */

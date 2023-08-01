@@ -311,7 +311,7 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
       Object[] objs = new Object[2];
       objs[1] = capacity;
       if (capacity != 0) {
-        Float ratioNow = (float) courseActivity.getClazz().getEnrollment().getActual() / (float) capacity;
+        Float ratioNow = (float) courseActivity.getClazz().getEnrollment().getStdCount() / (float) capacity;
         if (ratioNow <= ratio) {
           objs[0] = ratioNow;
           utilizations.put(courseActivity, objs);

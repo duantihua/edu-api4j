@@ -20,6 +20,7 @@ package org.openurp.edu.clazz.model;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
+import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -65,7 +66,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
    * 学生人数
    */
   @NotNull
-  private int actual;
+  private int stdCount;
 
   /**
    * 最大人数
@@ -75,13 +76,13 @@ public class Enrollment implements Component, Cloneable, Serializable {
   /**
    * 是否锁定人数上限
    */
-  private boolean locked;
+  private boolean capacityLocked;
 
   /**
    * 保留人数<br>
-   * 一个任务的真实的人数上限 = capacity - reserved
+   * 一个任务的真实的人数上限 = capacity - reservedCount
    */
-  private int reserved;
+  private int reservedCount;
 
   /**
    * 上课名单
@@ -198,14 +199,6 @@ public class Enrollment implements Component, Cloneable, Serializable {
     return getCourseTaker(std.getId());
   }
 
-  public int getActual() {
-    return actual;
-  }
-
-  public void setActual(int stdCount) {
-    this.actual = stdCount;
-  }
-
   public Set<CourseTaker> getCourseTakers() {
     return courseTakers;
   }
@@ -262,20 +255,28 @@ public class Enrollment implements Component, Cloneable, Serializable {
     this.abilityRates = abilityRates;
   }
 
-  public boolean isLocked() {
-    return locked;
+  public int getStdCount() {
+    return stdCount;
   }
 
-  public void setLocked(boolean locked) {
-    this.locked = locked;
+  public void setStdCount(int stdCount) {
+    this.stdCount = stdCount;
   }
 
-  public int getReserved() {
-    return reserved;
+  public boolean isCapacityLocked() {
+    return capacityLocked;
   }
 
-  public void setReserved(int reserved) {
-    this.reserved = reserved;
+  public void setCapacityLocked(boolean capacityLocked) {
+    this.capacityLocked = capacityLocked;
+  }
+
+  public int getReservedCount() {
+    return reservedCount;
+  }
+
+  public void setReservedCount(int reservedCount) {
+    this.reservedCount = reservedCount;
   }
 
   public List<Subclazz> getSubclazzes() {

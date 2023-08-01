@@ -64,19 +64,19 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
   public void autoName(Clazz clazz) {
     Enrollment teachclass = clazz.getEnrollment();
     Pair<String, String> names = buildAll(teachclass.getRestrictions());
-    clazz.setName(names.getLeft());
+    clazz.setClazzName(names.getLeft());
     // 如果条件组为空，年级不为空，教学班名称为年级+全校
     if (clazz.getEnrollment().getRestrictions().isEmpty() && null != clazz.getEnrollment().getGrades()) {
-      clazz.setName(teachclass.getGrades() + names.getLeft());
+      clazz.setClazzName(teachclass.getGrades() + names.getLeft());
     }
     if (null != teachclass.getGenderRatio() && !teachclass.getGenderRatio().isEmpty()) {
       if (teachclass.getGenderRatio().isAllMale()) {
-        if (!clazz.getName().contains("男")) {
-          clazz.setName(clazz.getName() + "男");
+        if (!clazz.getClazzName().contains("男")) {
+          clazz.setClazzName(clazz.getClazzName() + "男");
         }
       } else if (teachclass.getGenderRatio().isAllFemale()) {
-        if (!clazz.getName().contains("女")) {
-          clazz.setName(clazz.getName() + "女");
+        if (!clazz.getClazzName().contains("女")) {
+          clazz.setClazzName(clazz.getClazzName() + "女");
         }
       }
     }

@@ -673,7 +673,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     // 检查是否需要自动命名
     boolean isAutoName = true;
     if (clazz.getId() != null) {
-      String teachclassName = clazz.getName();
+      String teachclassName = clazz.getClazzName();
       String autoName = teachclassNameStrategy.genName(clazz);
       if (teachclassName != null && !teachclassName.equals(autoName)) {
         isAutoName = false;

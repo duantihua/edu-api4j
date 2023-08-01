@@ -18,30 +18,30 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.metadata.Model;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
-import org.openurp.base.model.Campus;
-import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.TeachLangType;
 import org.openurp.base.edu.code.CourseType;
-import org.openurp.base.model.AuditStatus;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.model.AuditStatus;
+import org.openurp.base.model.Campus;
+import org.openurp.base.model.Department;
+import org.openurp.code.edu.model.ExamMode;
+import org.openurp.code.edu.model.TeachLangType;
 import org.openurp.edu.clazz.code.ClazzTag;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 教学任务
@@ -49,88 +49,128 @@ import org.openurp.edu.clazz.code.ClazzTag;
  * @since 2005-10-16
  */
 @Entity(name = "org.openurp.edu.clazz.model.Clazz")
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "crn", "semester_id", "project_id" }) })
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"crn", "semester_id", "project_id"})})
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
 public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   private static final long serialVersionUID = 1071972497531228225L;
 
-  /** 课程序号 */
+  /**
+   * 课程序号
+   */
   @Size(max = 32)
   private String crn;
 
-  /** 教学班简称 */
+  /**
+   * 教学班简称
+   */
   @NotNull
   @Size(max = 4000)
-  private String name;
+  private String clazzName;
 
-  /** 课程 */
+  /**
+   * 课程
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Course course;
 
-  /** 主题 */
+  /**
+   * 主题
+   */
   @Size(max = 200)
   private String subject;
-  /** 课程类别 */
+  /**
+   * 课程类别
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType courseType;
 
-  /** 开课院系 */
+  /**
+   * 开课院系
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Department teachDepart;
 
-  /** 授课教师 */
+  /**
+   * 授课教师
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   @OrderColumn(name = "idx", insertable = true, updatable = true, nullable = false)
   private List<Teacher> teachers = new ArrayList<Teacher>();
 
-  /** 教学任务标签 */
+  /**
+   * 教学任务标签
+   */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private List<ClazzTag> tags = new ArrayList<ClazzTag>();
 
-  /** 开课校区 */
+  /**
+   * 开课校区
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
 
-  /** 教学班 */
+  /**
+   * 教学班
+   */
   @Target(Enrollment.class)
   private Enrollment enrollment;
 
-  /** 教学日历 */
+  /**
+   * 教学日历
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Semester semester;
 
-  /** 课程安排 */
+  /**
+   * 课程安排
+   */
   private Schedule schedule;
 
-  /** 考试安排 */
-  private Exam exam;
-
-  /** 备注 */
-  @Size(max = 500)
-  private String remark;
-
-  /** 授课语言类型 */
+  /**
+   * 授课语言类型
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private TeachLangType langType;
 
-  /** 所属课程组 */
+  /**
+   * 所属课程组
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private ClazzGroup group;
 
-  /** 审核状态 */
+  /**
+   * 考核方式
+   */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private ExamMode examMode;
+  /**
+   * 是否有补考
+   */
+  private boolean hasMakeup;
+
+  /**
+   * 审核状态
+   */
   @NotNull
   @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
   private AuditStatus status = AuditStatus.UNSUBMITTED;
+
+  /**
+   * 备注
+   */
+  @Size(max = 500)
+  private String remark;
 
   /**
    * 默认构造函数
@@ -147,7 +187,6 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     Clazz task = (Clazz) Model.newInstance(Clazz.class);
     task.setEnrollment(new Enrollment());
     task.setSchedule(new Schedule());
-    task.setExam(new Exam());
     return task;
   }
 
@@ -201,8 +240,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   }
 
   /**
-   * @param semester
-   *          The semester to set.
+   * @param semester The semester to set.
    */
   public void setSemester(Semester semester) {
     this.semester = semester;
@@ -216,8 +254,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   }
 
   /**
-   * @param course
-   *          The course to set.
+   * @param course The course to set.
    */
   public void setCourse(Course course) {
     this.course = course;
@@ -239,8 +276,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   }
 
   /**
-   * @param courseType
-   *          The courseType to set.
+   * @param courseType The courseType to set.
    */
   public void setCourseType(CourseType courseType) {
     this.courseType = courseType;
@@ -263,7 +299,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   }
 
   public String toString() {
-    return " [id:" + getId() + "]  " + getCourse().getName() + " " + getName();
+    return " [id:" + getId() + "]  " + getCourse().getName() + " " + getClazzName();
   }
 
   public Schedule getSchedule() {
@@ -280,14 +316,6 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   public void setTeachers(List<Teacher> teachers) {
     this.teachers = teachers;
-  }
-
-  public Exam getExam() {
-    return exam;
-  }
-
-  public void setExam(Exam exam) {
-    this.exam = exam;
   }
 
   public Campus getCampus() {
@@ -374,12 +402,12 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
     this.status = status;
   }
 
-  public String getName() {
-    return name;
+  public String getClazzName() {
+    return clazzName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setClazzName(String clazzName) {
+    this.clazzName = clazzName;
   }
 
   /**
@@ -393,10 +421,9 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
       one.setGroup(null);
       one.setTags(new ArrayList<ClazzTag>());
       one.getTags().addAll(this.getTags());
-      one.setTeachers(CollectUtils.<Teacher> newArrayList());
+      one.setTeachers(CollectUtils.<Teacher>newArrayList());
       one.getTeachers().addAll(this.getTeachers());
       one.setSchedule(getSchedule().clone());
-      one.setExam(getExam().clone());
       one.setEnrollment(getEnrollment().clone());
       for (CourseTaker taker : one.getEnrollment().getCourseTakers()) {
         taker.setClazz(one);
@@ -419,5 +446,21 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   public void setSubject(String subject) {
     this.subject = subject;
+  }
+
+  public ExamMode getExamMode() {
+    return examMode;
+  }
+
+  public void setExamMode(ExamMode examMode) {
+    this.examMode = examMode;
+  }
+
+  public boolean isHasMakeup() {
+    return hasMakeup;
+  }
+
+  public void setHasMakeup(boolean hasMakeup) {
+    this.hasMakeup = hasMakeup;
   }
 }

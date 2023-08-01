@@ -131,7 +131,7 @@ public class ClazzLogBuilder {
     } else {
       append(sb, "校区", null);
     }
-    append(sb, "教学班", clazz.getName());
+    append(sb, "教学班", clazz.getClazzName());
     append(sb, "年级", clazz.getEnrollment().getGrades());
     if (clazz.getEnrollment().getDepart() != null) {
       append(sb, "上课院系", clazz.getEnrollment().getDepart().getName());
@@ -139,7 +139,7 @@ public class ClazzLogBuilder {
       append(sb, "上课院系", null);
     }
 
-    append(sb, "实际人数", clazz.getEnrollment().getActual());
+    append(sb, "实际人数", clazz.getEnrollment().getStdCount());
     append(sb, "人数上限", clazz.getEnrollment().getCapacity());
     append(sb, "起始周", clazz.getSchedule().getFirstWeek());
     append(sb, "结束周", clazz.getSchedule().getLastWeek());
