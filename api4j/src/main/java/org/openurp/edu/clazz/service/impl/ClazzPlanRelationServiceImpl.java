@@ -18,50 +18,90 @@
  */
 package org.openurp.edu.clazz.service.impl;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.dao.EntityDao;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
+import org.beangle.commons.dao.query.builder.OqlBuilder;
+import org.beangle.commons.lang.Strings;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.edu.clazz.dao.ClazzPlanRelationDao;
+import org.openurp.base.std.code.StdType;
+import org.openurp.base.std.model.Squad;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.ClazzPlanRelation;
 import org.openurp.edu.clazz.service.ClazzPlanRelationService;
+import org.openurp.edu.clazz.service.CourseLimitService;
 import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.plan.service.ExecutionPlanQueryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClazzPlanRelationServiceImpl extends BaseServiceImpl implements ClazzPlanRelationService {
 
-  private ClazzPlanRelationDao clazzPlanRelationDao;
+  private CourseLimitService courseLimitService;
+
+  private EntityDao entityDao;
 
   public List<Clazz> relatedClazzes(ExecutionPlan plan) {
-    return clazzPlanRelationDao.relatedClazzes(plan);
+    OqlBuilder query = OqlBuilder.from(Clazz.class, "clazz");
+    query.where("clazz.planId = :planId", plan.getId());
+    return entityDao.search(query);
   }
 
   public List<Clazz> relatedClazzes(ExecutionPlan plan, Semester semester) {
-    return clazzPlanRelationDao.relatedClazzes(plan, semester);
+    OqlBuilder query = OqlBuilder.from(Clazz.class, "clazz");
+    query.where("clazz.planId = :planId", plan.getId());
+    query.where("clazz.semester=:semester", semester);
+    return entityDao.search(query);
   }
 
-  public List<ExecutionPlan> relatedPlans(Clazz clazz) {
-    return clazzPlanRelationDao.relatedPlans(clazz);
-  }
-
-  public List<ClazzPlanRelation> relations(ExecutionPlan plan) {
-    return clazzPlanRelationDao.relations(plan);
-  }
-
-  public List<ClazzPlanRelation> relations(ExecutionPlan plan, Semester semester) {
-    return clazzPlanRelationDao.relations(plan, semester);
-  }
-
-  public List<ClazzPlanRelation> relations(Clazz clazz) {
-    return clazzPlanRelationDao.relations(clazz);
-  }
-
-  public void setClazzPlanRelationDao(ClazzPlanRelationDao clazzPlanRelationDao) {
-    this.clazzPlanRelationDao = clazzPlanRelationDao;
-  }
 
   public List<ExecutionPlan> possibleRelatePlans(Clazz clazz) {
-    return clazzPlanRelationDao.possibleRelatePlans(clazz);
+    List<ExecutionPlan> plans = new ArrayList<ExecutionPlan>();
+
+    List<Squad> squades = courseLimitService.extractSquades(clazz.getEnrollment());
+    // 如果有行政班的，那么就关联到行政班对应的培养计划
+    if (CollectUtils.isNotEmpty(squades)) {
+      for (Squad squad : squades) {
+        plans.addAll(entityDao.search(ExecutionPlanQueryBuilder.build(squad)));
+      }
+      return plans;
+    }
+
+    // 如果没有行政班，则通过年级、专业、方向来匹配到培养计划
+    String grade = courseLimitService.extractGrade(clazz.getEnrollment());
+    if (Strings.isEmpty(grade)) {
+      return CollectUtils.newArrayList();
+    }
+
+    List<Major> majors = courseLimitService.extractMajors(clazz.getEnrollment());
+    if (CollectUtils.isEmpty(majors)) {
+      return CollectUtils.newArrayList();
+    }
+
+    List<StdType> stdTypes = courseLimitService.extractStdTypes(clazz.getEnrollment());
+    if (CollectUtils.isEmpty(stdTypes)) {
+      stdTypes.add(null);
+    }
+
+    List<Direction> directions = courseLimitService.extractDirections(clazz.getEnrollment());
+    if (CollectUtils.isEmpty(directions)) {
+      directions.add(null);
+    }
+
+    for (Major major : majors) {
+      for (StdType stdType : stdTypes) {
+        for (Direction direction : directions) {
+          plans.addAll(entityDao.search(ExecutionPlanQueryBuilder.build(grade, stdType, major, direction)));
+        }
+      }
+    }
+    return plans;
   }
 
+  @Override
+  public void setEntityDao(EntityDao entityDao) {
+    this.entityDao = entityDao;
+  }
 }

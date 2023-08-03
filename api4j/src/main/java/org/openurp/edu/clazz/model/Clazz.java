@@ -172,6 +172,8 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   @Size(max = 500)
   private String remark;
 
+  private Long planId;
+
   /**
    * 默认构造函数
    */
@@ -184,7 +186,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
   }
 
   public static Clazz getDefault() {
-    Clazz task = (Clazz) Model.newInstance(Clazz.class);
+    Clazz task = Model.newInstance(Clazz.class);
     task.setEnrollment(new Enrollment());
     task.setSchedule(new Schedule());
     return task;
@@ -462,5 +464,13 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
 
   public void setHasMakeup(boolean hasMakeup) {
     this.hasMakeup = hasMakeup;
+  }
+
+  public Long getPlanId() {
+    return planId;
+  }
+
+  public void setPlanId(Long planId) {
+    this.planId = planId;
   }
 }

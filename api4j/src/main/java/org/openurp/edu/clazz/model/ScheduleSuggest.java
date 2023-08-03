@@ -45,8 +45,8 @@ import org.openurp.base.edu.model.Classroom;
  *         removed: weekdayArrange
  *         added: activities
  */
-@Entity(name = "org.openurp.edu.clazz.model.ArrangeSuggest")
-public class ArrangeSuggest extends LongIdObject {
+@Entity(name = "org.openurp.edu.clazz.model.ScheduleSuggest")
+public class ScheduleSuggest extends LongIdObject {
 
   private static final long serialVersionUID = -8849071317188023800L;
 
@@ -57,8 +57,8 @@ public class ArrangeSuggest extends LongIdObject {
   private Clazz clazz;
 
   /** 建议活动 */
-  @OneToMany(mappedBy = "arrangeSuggest", orphanRemoval = true, cascade = CascadeType.ALL)
-  private Set<SuggestActivity> activities = new HashSet<SuggestActivity>();
+  @OneToMany(mappedBy = "suggest", orphanRemoval = true, cascade = CascadeType.ALL)
+  private Set<ScheduleSuggestActivity> activities = new HashSet<ScheduleSuggestActivity>();
 
   /** 建议使用教室 */
   @ManyToMany
@@ -68,11 +68,11 @@ public class ArrangeSuggest extends LongIdObject {
   @Size(max = 500)
   private String remark;
 
-  public ArrangeSuggest() {
+  public ScheduleSuggest() {
     super();
   }
 
-  public ArrangeSuggest(Long id) {
+  public ScheduleSuggest(Long id) {
     super(id);
   }
 
@@ -116,21 +116,21 @@ public class ArrangeSuggest extends LongIdObject {
     return this.rooms.removeAll(rooms);
   }
 
-  public Set<SuggestActivity> getActivities() {
+  public Set<ScheduleSuggestActivity> getActivities() {
     return activities;
   }
 
-  public void setActivities(Set<SuggestActivity> activities) {
+  public void setActivities(Set<ScheduleSuggestActivity> activities) {
     this.activities = activities;
   }
 
-  public void addActivity(SuggestActivity activity) {
-    activity.setArrangeSuggest(this);
+  public void addActivity(ScheduleSuggestActivity activity) {
+    activity.setSuggest(this);
     this.activities.add(activity);
   }
 
-  public void addActivities(Collection<SuggestActivity> activities) {
-    for (SuggestActivity activity : activities) {
+  public void addActivities(Collection<ScheduleSuggestActivity> activities) {
+    for (ScheduleSuggestActivity activity : activities) {
       addActivity(activity);
     }
   }

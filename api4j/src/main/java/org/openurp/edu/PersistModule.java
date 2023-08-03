@@ -42,6 +42,8 @@ import org.openurp.code.sin.model.*;
 import org.openurp.code.std.model.*;
 import org.openurp.edu.clazz.config.ScheduleSetting;
 import org.openurp.edu.clazz.model.ClazzActivity;
+import org.openurp.edu.clazz.model.ScheduleSuggest;
+import org.openurp.edu.clazz.model.ScheduleSuggestActivity;
 import org.openurp.edu.extern.code.model.CertificateCategory;
 import org.openurp.edu.extern.code.model.CertificateSubject;
 import org.openurp.std.award.Punishment;
@@ -133,9 +135,8 @@ public class PersistModule extends AbstractPersistModule {
         ClazzActivity.class,
         org.openurp.edu.clazz.model.NormalClass.class, org.openurp.edu.clazz.model.Clazz.class,
         org.openurp.edu.clazz.model.CourseTaker.class, org.openurp.edu.clazz.model.ClazzGroup.class,
-        org.openurp.edu.clazz.model.ArrangeSuggest.class, org.openurp.edu.clazz.model.SuggestActivity.class,
+        ScheduleSuggest.class, ScheduleSuggestActivity.class,
         org.openurp.edu.clazz.model.Restriction.class, org.openurp.edu.clazz.model.RestrictionItem.class,
-        org.openurp.edu.clazz.model.ClazzPlanRelation.class,
         org.openurp.edu.clazz.config.ScheduleSetting.class,
 
         org.openurp.edu.clazz.model.Subclazz.class,

@@ -64,6 +64,7 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  @JoinTable(name="clazz_activities_teachers",joinColumns={@JoinColumn(name="activity_id")},inverseJoinColumns={@JoinColumn(name="teacher_id")})
   private Set<Teacher> teachers = CollectUtils.newHashSet();
 
   /**
@@ -71,6 +72,7 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+  @JoinTable(name="clazz_activities_rooms",joinColumns={@JoinColumn(name="activity_id")},inverseJoinColumns={@JoinColumn(name="classroom_id")})
   private Set<Classroom> rooms = CollectUtils.newHashSet();
 
   /**

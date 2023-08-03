@@ -25,7 +25,6 @@ import org.openurp.base.service.impl.*;
 import org.openurp.code.service.impl.CodeServiceImpl;
 import org.openurp.edu.clazz.dao.hibernate.internal.ClazzCRNGeneratorImpl;
 import org.openurp.edu.clazz.dao.hibernate.internal.ClazzDaoHibernate;
-import org.openurp.edu.clazz.dao.hibernate.internal.ClazzPlanRelationHibernateDao;
 import org.openurp.edu.clazz.dao.hibernate.internal.CoursePrefixSeqNoGeneratorImpl;
 import org.openurp.edu.clazz.service.ClazzFilterStrategy;
 import org.openurp.edu.clazz.service.ClazzLogHelper;
@@ -71,15 +70,6 @@ public class ServiceModule extends AbstractBindModule {
 
     bind("clazzDao", TransactionProxyFactoryBean.class).proxy("target", bean(ClazzDaoHibernate.class))
         .parent("baseTransactionProxy").property("transactionAttributes", props("*=PROPAGATION_REQUIRED"));
-
-    bind("clazzPlanRelationDao", TransactionProxyFactoryBean.class)
-        .proxy("target", bean(ClazzPlanRelationHibernateDao.class)).parent("baseTransactionProxy")
-        .property("transactionAttributes",
-            props("related*=PROPAGATION_REQUIRED,readOnly", "possible*=PROPAGATION_REQUIRED,readOnly",
-                "relations=PROPAGATION_REQUIRED,readOnly", "planAuditStatuses=PROPAGATION_REQUIRED,readOnly",
-                "operateViolationCheck=PROPAGATION_REQUIRED,readOnly", "state=PROPAGATION_REQUIRED,readOnly",
-                "save*=PROPAGATION_REQUIRED", "remove*=PROPAGATION_REQUIRED",
-                "update*=PROPAGATION_REQUIRED"));
 
     bind("clazzSeqNoGeneratorImpl", TransactionProxyFactoryBean.class)
         .proxy("target", ClazzCRNGeneratorImpl.class).parent("baseTransactionProxy").primary();

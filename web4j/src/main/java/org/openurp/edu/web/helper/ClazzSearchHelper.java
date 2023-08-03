@@ -38,7 +38,7 @@ import org.openurp.base.model.Department;
 import org.openurp.base.std.model.Squad;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.clazz.code.ClazzTag;
-import org.openurp.edu.clazz.model.ArrangeSuggest;
+import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.RestrictionMeta;
 import org.openurp.edu.clazz.model.Schedule;
@@ -421,10 +421,10 @@ public class ClazzSearchHelper extends SearchHelper {
     Boolean isPreScheduled = Params.getBoolean("fake.arrangeSuggest.status");
     if (isPreScheduled != null) {
       if (isPreScheduled) {
-        query.where("exists(from " + ArrangeSuggest.class.getName()
+        query.where("exists(from " + ScheduleSuggest.class.getName()
             + " suggest where suggest.clazz = clazz)");
       } else {
-        query.where("not exists(from " + ArrangeSuggest.class.getName()
+        query.where("not exists(from " + ScheduleSuggest.class.getName()
             + " suggest where suggest.clazz = clazz)");
       }
     }

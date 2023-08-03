@@ -31,15 +31,16 @@ import org.openurp.base.edu.model.Semester;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.edu.clazz.dao.ClazzCRNGenerator;
 import org.openurp.edu.clazz.dao.ClazzDao;
-import org.openurp.edu.clazz.dao.ClazzPlanRelationDao;
-import org.openurp.edu.clazz.model.*;
+import org.openurp.edu.clazz.model.Clazz;
+import org.openurp.edu.clazz.model.Restriction;
+import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.service.ClazzFilterStrategy;
 import org.openurp.edu.exam.model.ExamActivity;
 import org.openurp.edu.exam.model.ExamTaker;
 import org.openurp.edu.grade.course.model.CourseGradeState;
 import org.openurp.edu.program.model.ExecutionPlan;
-import org.openurp.edu.room.model.RoomOccupyApp;
 import org.openurp.edu.room.model.Occupancy;
+import org.openurp.edu.room.model.RoomOccupyApp;
 import org.openurp.edu.textbook.model.Material;
 
 import java.io.Serializable;
@@ -48,8 +49,6 @@ import java.util.*;
 public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
 
   private ClazzCRNGenerator clazzCRNGenerator;
-
-  private ClazzPlanRelationDao clazzPlanRelationDao;
 
   private void evictClazzRegion() {
     Cache cache = sessionFactory.getCache();
@@ -75,7 +74,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
   public List<Clazz> getClazzesByCategory(Serializable id, ClazzFilterStrategy strategy,
                                           Collection<Semester> semesters) {
     Query taskQuery = strategy.createQuery(getSession(), "select distinct task.id from Clazz as task ",
-            " and task.semester in (:semesters) ");
+        " and task.semester in (:semesters) ");
     taskQuery.setParameter("id", id);
     taskQuery.setParameterList("semesters", semesters);
 
@@ -94,7 +93,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
                                    Semester semester) {
     evictClazzRegion();
     String queryStr = strategy.getQueryString("update TeachTask set " + attr + " = :value ",
-            " and semester.id = :semesterId");
+        " and semester.id = :semesterId");
     return executeUpdate(queryStr, new Object[]{value, semester.getId()});
   }
 
@@ -120,7 +119,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
       entityQuery.where("clazz.teachDepart.id in (:departIds) ", departIds);
     }
     StringBuffer updateSql = new StringBuffer(
-            "update " + Clazz.class.getName() + " set " + attr + "=(:" + attr + ") where id in (");
+        "update " + Clazz.class.getName() + " set " + attr + "=(:" + attr + ") where id in (");
     updateSql.append(entityQuery.build().getStatement()).append(")");
     // debug("[updateTeachTaskByCriteria]:" + updateSql);
     newParamsMap.put(attr, value);
@@ -139,7 +138,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
 
   public int countClazz(Serializable id, ClazzFilterStrategy strategy, Semester semester) {
     Query countQuery = strategy.createQuery(getSession(),
-            "select count(task.id) from " + Clazz.class.getName() + " as task ", " and task.semester.id  = :semesterId");
+        "select count(task.id) from " + Clazz.class.getName() + " as task ", " and task.semester.id  = :semesterId");
     if (strategy.getName().equals("teacher"))
       id = "%" + id + "%";
     countQuery.setParameter("id", id);
@@ -166,13 +165,10 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
     List<Occupancy> occupancies = getOccupancies(clazz);
     removeEntities.addAll(occupancies);
 
-    List<ClazzPlanRelation> relations = clazzPlanRelationDao.relations(clazz);
-    removeEntities.addAll(relations);
-
     List<Material> clazzMaterials = get(Material.class, "clazz", clazz);
     removeEntities.addAll(clazzMaterials);
 
-    List<ArrangeSuggest> suggests = get(ArrangeSuggest.class, "clazz", clazz);
+    List<ScheduleSuggest> suggests = get(ScheduleSuggest.class, "clazz", clazz);
     removeEntities.addAll(suggests);
 
     List<ExamTaker> examTakers = get(ExamTaker.class, "clazz", clazz);
@@ -190,14 +186,17 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
 
   public List<Occupancy> getOccupancies(Clazz clazz) {
     OqlBuilder<Occupancy> builder = OqlBuilder.from(Occupancy.class, "occupancy").where(
-            "occupancy.activityId = :clazzId and occupancy.app.id in(:apps)", clazz.getId(),
-            new Integer[]{RoomOccupyApp.COURSE, RoomOccupyApp.EXAM});
+        "occupancy.activityId = :clazzId and occupancy.app.id in(:apps)", clazz.getId(),
+        new Integer[]{RoomOccupyApp.COURSE, RoomOccupyApp.EXAM});
     return search(builder);
   }
 
   public void saveGenResult(ExecutionPlan plan, Semester semester, List<Clazz> clazzes, boolean removeExists) {
     if (removeExists) {
-      List<Clazz> existsClazzes = clazzPlanRelationDao.relatedClazzes(plan, semester);
+      OqlBuilder<Clazz> query = OqlBuilder.from(Clazz.class, "clazz");
+      query.where("clazz.planId = :planId", plan.getId());
+      query.where("clazz.semester=:semester", semester);
+      var existsClazzes = search(query);
       for (Clazz clazz : existsClazzes) {
         remove(clazz);
       }
@@ -207,8 +206,8 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
     clazzCRNGenerator.genClazzSeqNos(clazzes);
     for (Clazz clazz : clazzes) {
       clazz.setStatus(AuditStatus.UNSUBMITTED);
+      clazz.setPlanId(plan.getId());
       super.saveOrUpdate(clazz);
-      clazzPlanRelationDao.saveRelation(plan, clazz);
     }
     // getSession().flush();
     // for(Clazz clazz : clazzes) {
@@ -230,10 +229,6 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
 
   public void setClazzCRNGenerator(ClazzCRNGenerator clazzSeqNoGenerator) {
     this.clazzCRNGenerator = clazzSeqNoGenerator;
-  }
-
-  public void setClazzPlanRelationDao(ClazzPlanRelationDao clazzPlanRelationDao) {
-    this.clazzPlanRelationDao = clazzPlanRelationDao;
   }
 
 }

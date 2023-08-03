@@ -18,78 +18,69 @@
  */
 package org.openurp.edu.clazz.model;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Objects;
 import org.beangle.orm.hibernate.udt.WeekTime;
 import org.beangle.orm.hibernate.udt.WeekTimes;
+import org.openurp.base.edu.model.Classroom;
 import org.openurp.base.edu.model.CourseUnit;
 import org.openurp.base.edu.model.Teacher;
 import org.openurp.base.edu.model.TimeSetting;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import java.util.*;
+
 /**
  * 建议教学活动
- *
- *
  */
-@Entity(name = "org.openurp.edu.clazz.model.SuggestActivity")
-public class SuggestActivity extends LongIdObject implements Comparable<SuggestActivity> {
+@Entity(name = "org.openurp.edu.clazz.model.ScheduleSuggestActivity")
+public class ScheduleSuggestActivity extends LongIdObject implements Comparable<ScheduleSuggestActivity> {
   private static final long serialVersionUID = 2498530728105897805L;
 
-  /** 教学任务 */
+  /**
+   * 教学任务
+   */
   @NotNull
-  @ManyToOne(targetEntity = ArrangeSuggest.class)
-  protected ArrangeSuggest arrangeSuggest;
+  @ManyToOne(targetEntity = ScheduleSuggest.class)
+  protected ScheduleSuggest suggest;
 
-  /** 上课时间 */
+  /**
+   * 上课时间
+   */
   @Embedded
   protected WeekTime time;
 
-  /** 授课教师列表 */
-  @ManyToMany
-  private Set<Teacher> teachers = CollectUtils.newHashSet();
+  /**
+   * 授课教师列表
+   */
+  @ManyToOne(targetEntity = ScheduleSuggest.class)
+  private Teacher teacher;
 
-  public SuggestActivity() {
+  private Classroom room;
+
+  public ScheduleSuggestActivity() {
     super();
   }
 
-  public SuggestActivity(Long id) {
+  public ScheduleSuggestActivity(Long id) {
     super(id);
   }
 
-  public SuggestActivity(Teacher teacher, WeekTime time) {
-    getTeachers().add(teacher);
+  public ScheduleSuggestActivity(Teacher teacher, WeekTime time) {
+    this.teacher = teacher;
     setTime(new WeekTime(time));
   }
 
-  public ArrangeSuggest getArrangeSuggest() {
-    return arrangeSuggest;
+  public ScheduleSuggest getSuggest() {
+    return suggest;
   }
 
-  public void setArrangeSuggest(ArrangeSuggest clazz) {
-    this.arrangeSuggest = clazz;
-  }
-
-  public Set<Teacher> getTeachers() {
-    return teachers;
-  }
-
-  public void setTeachers(Set<Teacher> teachers) {
-    this.teachers = teachers;
+  public void setSuggest(ScheduleSuggest clazz) {
+    this.suggest = clazz;
   }
 
   public WeekTime getTime() {
@@ -117,16 +108,16 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
   }
 
   public Object clone() {
-    SuggestActivity activity = new SuggestActivity();
+    ScheduleSuggestActivity activity = new ScheduleSuggestActivity();
     activity.setTime(new WeekTime(getTime()));
-    activity.setArrangeSuggest(arrangeSuggest);
-    activity.getTeachers().addAll(getTeachers());
+    activity.setSuggest(suggest);
+    activity.teacher = getTeacher();
     return activity;
   }
 
   @Override
   public String toString() {
-    return Objects.toStringBuilder(this).add("time", getTime().toString()).add("teachers", getTeachers())
+    return Objects.toStringBuilder(this).add("time", getTime().toString()).add("teacher", getTeacher())
         .add("id", this.id).toString();
   }
 
@@ -136,27 +127,29 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
    * @param activities
    * @return
    */
-  public static List<SuggestActivity> mergeActivities(List<SuggestActivity> activities) {
-    List<SuggestActivity> mergedActivities = CollectUtils.newArrayList();
-    if (CollectUtils.isEmpty(activities)) { return mergedActivities; }
+  public static List<ScheduleSuggestActivity> mergeActivities(List<ScheduleSuggestActivity> activities) {
+    List<ScheduleSuggestActivity> mergedActivities = CollectUtils.newArrayList();
+    if (CollectUtils.isEmpty(activities)) {
+      return mergedActivities;
+    }
     // 进行排序，将相邻的排课建议活动合并在一起
     Collections.sort(activities);
 
-    Iterator<SuggestActivity> activityIter = activities.iterator();
+    Iterator<ScheduleSuggestActivity> activityIter = activities.iterator();
 
     // 下一个要被合并的Activity
-    SuggestActivity nextToBeMergedActivity = activityIter.next();
+    ScheduleSuggestActivity nextToBeMergedActivity = activityIter.next();
     mergedActivities.add(nextToBeMergedActivity);
 
     while (activityIter.hasNext()) {
-      SuggestActivity activity = activityIter.next();
+      ScheduleSuggestActivity activity = activityIter.next();
       if (nextToBeMergedActivity.canMergerWith(activity)) {
         // 如果时间上可以合并，而且教师也是一样的
         nextToBeMergedActivity.mergeWith(activity);
       } else if (nextToBeMergedActivity.getTime().equals(activity.getTime())) {
         // 如果时间上一样，只不过教师不一样，那么还是合并，然后将教师合并
         nextToBeMergedActivity.mergeWith(activity);
-        nextToBeMergedActivity.getTeachers().addAll(activity.getTeachers());
+        nextToBeMergedActivity.setTeacher(activity.getTeacher());
       } else {
         nextToBeMergedActivity = activity;
         mergedActivities.add(nextToBeMergedActivity);
@@ -165,12 +158,14 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
     return mergedActivities;
   }
 
-  public boolean canMergerWith(SuggestActivity activity) {
-    if (!getTeachers().equals(activity.getTeachers())) { return false; }
+  public boolean canMergerWith(ScheduleSuggestActivity activity) {
+    if (!Objects.equals(getTeacher(), activity.getTeacher())) {
+      return false;
+    }
     return WeekTimes.canMergerWith(getTime(), activity.getTime());
   }
 
-  public void mergeWith(SuggestActivity other) {
+  public void mergeWith(ScheduleSuggestActivity other) {
     WeekTimes.mergeWith(this.getTime(), other.getTime());
   }
 
@@ -179,30 +174,28 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
    *
    * @param other
    */
-  public int compareTo(SuggestActivity other) {
+  public int compareTo(ScheduleSuggestActivity other) {
     int rs = 0;
     // compare weeks
     if (rs == 0) rs = getTime().getWeekstate().compareTo(other.getTime().getWeekstate());
     if (rs == 0) rs = getTime().getStartOn().compareTo(other.getTime().getStartOn());
     if (rs == 0) rs = getTime().getBeginAt().value - other.getTime().getBeginAt().value;
-    // compare teacher
-    if (rs == 0) rs = getTeachers().size() - other.getTeachers().size();
     return rs;
   }
 
-  public Set<SuggestActivity> flatten(Map<Integer, CourseUnit> unitMap) {
-    Set<SuggestActivity> flattenedActivities = CollectUtils.newHashSet();
-    for (Teacher teacher : teachers) {
+  public Set<ScheduleSuggestActivity> flatten(Map<Integer, CourseUnit> unitMap) {
+    Set<ScheduleSuggestActivity> flattenedActivities = CollectUtils.newHashSet();
+    if (null != teacher) {
       WeekTime flattenedTime = new WeekTime(time);
-      flattenedActivities.add(new SuggestActivity(teacher, flattenedTime));
+      flattenedActivities.add(new ScheduleSuggestActivity(teacher, flattenedTime));
     }
     return flattenedActivities;
   }
 
-  public static Set<SuggestActivity> flatten(Collection<SuggestActivity> activities,
-      TimeSetting timeSetting) {
-    Set<SuggestActivity> flattenedActivities = CollectUtils.newHashSet();
-    for (SuggestActivity activity : activities) {
+  public static Set<ScheduleSuggestActivity> flatten(Collection<ScheduleSuggestActivity> activities,
+                                                     TimeSetting timeSetting) {
+    Set<ScheduleSuggestActivity> flattenedActivities = CollectUtils.newHashSet();
+    for (ScheduleSuggestActivity activity : activities) {
       flattenedActivities.addAll(activity.flatten(timeSetting.getUnitMap()));
     }
     return flattenedActivities;
@@ -210,10 +203,28 @@ public class SuggestActivity extends LongIdObject implements Comparable<SuggestA
 
   public ClazzActivity toSession() {
     ClazzActivity activity = new ClazzActivity();
-    activity.setClazz(this.arrangeSuggest.getClazz());
-    activity.getTeachers().addAll(this.teachers);
+    activity.setClazz(this.suggest.getClazz());
+    if (null != this.teacher) {
+      activity.getTeachers().add(this.teacher);
+    }
+
     activity.setTime((WeekTime) this.time.clone());
     return activity;
   }
 
+  public Teacher getTeacher() {
+    return teacher;
+  }
+
+  public void setTeacher(Teacher teacher) {
+    this.teacher = teacher;
+  }
+
+  public Classroom getRoom() {
+    return room;
+  }
+
+  public void setRoom(Classroom room) {
+    this.room = room;
+  }
 }
