@@ -50,9 +50,6 @@ public class SquadQueryBuilder {
     Set<Department> departs= CollectUtils.newHashSet(plan.getDepartment());
     departs.addAll(plan.getDepartment().getChildren());
     query.where("squad.department in(:departments)", departs);
-    if (null != plan.getCampus()) {
-      query.where("squad.campus = :campus", plan.getCampus());
-    }
     if (null == program.getDirection()) {
       query.where("squad.direction is null");
     } else {

@@ -72,9 +72,6 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @ManyToOne(fetch = FetchType.LAZY)
   private Project project;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Campus campus;
-
   /**
    * 部门
    */
@@ -307,14 +304,6 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   public void setProject(Project project) {
     this.project = project;
-  }
-
-  public Campus getCampus() {
-    return campus;
-  }
-
-  public void setCampus(Campus campus) {
-    this.campus = campus;
   }
 
   /**

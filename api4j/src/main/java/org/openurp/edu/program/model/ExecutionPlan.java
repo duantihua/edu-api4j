@@ -54,12 +54,6 @@ public class ExecutionPlan extends AbstractCoursePlan {
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
-  /** 学生类别 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private StdType stdType;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Campus campus;
 
   /** 课程组 */
   @OneToMany(orphanRemoval = true, targetEntity = ExecutionCourseGroup.class, cascade = { CascadeType.ALL })
@@ -87,28 +81,12 @@ public class ExecutionPlan extends AbstractCoursePlan {
     return copy;
   }
 
-  public Campus getCampus() {
-    return campus;
-  }
-
-  public void setCampus(Campus campus) {
-    this.campus = campus;
-  }
-
   public Department getDepartment() {
     return department;
   }
 
   public void setDepartment(Department department) {
     this.department = department;
-  }
-
-  public StdType getStdType() {
-    return stdType;
-  }
-
-  public void setStdType(StdType stdType) {
-    this.stdType = stdType;
   }
 
   public Date getBeginOn() {
