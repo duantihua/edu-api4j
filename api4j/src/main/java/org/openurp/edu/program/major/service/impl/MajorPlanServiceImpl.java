@@ -125,7 +125,13 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
   }
 
   public float statPlanCredits(MajorPlan plan) {
-    return planCommonDao.statPlanCredits(plan);
+    for (CourseGroup group : plan.getTopCourseGroups()) {
+      planCourseGroupCommonDao.updateGroupTreeCredits(group);
+    }
+    float res = planCommonDao.statPlanCredits(plan);
+    plan.setCredits(res);
+    this.entityDao.saveOrUpdate(plan);
+    return res;
   }
 
   public boolean hasCourse(MajorCourseGroup cgroup, Course course) {

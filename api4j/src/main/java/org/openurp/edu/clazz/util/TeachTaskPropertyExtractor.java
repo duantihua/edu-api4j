@@ -33,7 +33,6 @@ import org.openurp.base.edu.model.TimeSetting;
 import org.openurp.base.service.SemesterService;
 import org.openurp.base.service.TimeSettingService;
 import org.openurp.code.edu.model.TeachingNature;
-import org.openurp.edu.clazz.service.ClazzPlanRelationService;
 import org.openurp.edu.clazz.model.*;
 import org.openurp.edu.clazz.service.CourseLimitService;
 import org.openurp.edu.exam.util.ExamActivityDigestor;
@@ -56,7 +55,6 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
 
   protected CourseLimitService courseLimitService;
 
-  protected ClazzPlanRelationService clazzPlanRelationService;
 
   protected EntityDao entityDao;
 
@@ -287,14 +285,6 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
 
   public void setCourseLimitService(CourseLimitService courseLimitService) {
     this.courseLimitService = courseLimitService;
-  }
-
-  public ClazzPlanRelationService getClazzPlanRelationService() {
-    return clazzPlanRelationService;
-  }
-
-  public void setClazzPlanRelationService(ClazzPlanRelationService clazzPlanRelationService) {
-    this.clazzPlanRelationService = clazzPlanRelationService;
   }
 
   public void setSessionFormat(String courseActivityFormat) {
