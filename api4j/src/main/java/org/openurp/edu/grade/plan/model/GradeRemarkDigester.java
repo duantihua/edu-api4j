@@ -32,7 +32,7 @@ import java.util.List;
 
 public class GradeRemarkDigester {
 
-  public String digest(List<CourseGrade> grades) {
+  public String digest(List<CourseGrade> grades,boolean hasCourse) {
     List<CourseGrade> newGrades = new ArrayList(grades);
     StringBuilder remarkSB = new StringBuilder();
     Collections.sort(newGrades, new PropertyComparator("semester"));
@@ -41,29 +41,36 @@ public class GradeRemarkDigester {
       remarkSB.append(brString);
       remarkSB.append(grade.getSemester().getSchoolYear()).append(grade.getSemester().getName())
               .append(" ");
-      GaGrade ga = grade.getGaGrade(new GradeType(GradeType.GA_ID));
-      remarkSB.append("期末");
-      if (null == ga || Strings.isBlank(ga.getScoreText() )) {
-        remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.END_ID))));
-      } else {
-        remarkSB.append(ga.getScoreText());
+      if(hasCourse){
+        remarkSB.append(grade.getCourse().getName()).append(" ");
       }
-
-      GaGrade delay = grade.getGaGrade(new GradeType(GradeType.DELAY_GA_ID));
-      if (null == delay) {
-        remarkSB.append("  补考");
-        GaGrade makeup = grade.getGaGrade(new GradeType(GradeType.MAKEUP_GA_ID));
-        if (null == makeup || Strings.isBlank(makeup.getScoreText() )) {
-          remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.MAKEUP_ID))));
+      if(grade.isPassed()){
+        remarkSB.append(grade.getScoreText());
+      }else {
+        GaGrade ga = grade.getGaGrade(new GradeType(GradeType.GA_ID));
+        remarkSB.append("期末");
+        if (null == ga || Strings.isBlank(ga.getScoreText())) {
+          remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.END_ID))));
         } else {
-          remarkSB.append(makeup.getScoreText());
+          remarkSB.append(ga.getScoreText());
         }
-      } else {
-        remarkSB.append("  缓考");
-        if (Strings.isBlank(delay.getScoreText())) {
-          remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.DELAY_ID))));
+
+        GaGrade delay = grade.getGaGrade(new GradeType(GradeType.DELAY_GA_ID));
+        if (null == delay) {
+          remarkSB.append("  补考");
+          GaGrade makeup = grade.getGaGrade(new GradeType(GradeType.MAKEUP_GA_ID));
+          if (null == makeup || Strings.isBlank(makeup.getScoreText())) {
+            remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.MAKEUP_ID))));
+          } else {
+            remarkSB.append(makeup.getScoreText());
+          }
         } else {
-          remarkSB.append(delay.getScoreText());
+          remarkSB.append("  缓考");
+          if (Strings.isBlank(delay.getScoreText())) {
+            remarkSB.append(disgetExamGrade(grade.getExamGrade(new GradeType(GradeType.DELAY_ID))));
+          } else {
+            remarkSB.append(delay.getScoreText());
+          }
         }
       }
       brString = "\n";

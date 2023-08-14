@@ -150,7 +150,7 @@ public class CourseAuditResult extends LongIdObject {
     }
 
     if (!passed && !grades.isEmpty()) {
-      remark = new GradeRemarkDigester().digest(grades);
+      remark = new GradeRemarkDigester().digest(grades, false);
     }
   }
 
@@ -175,7 +175,7 @@ public class CourseAuditResult extends LongIdObject {
       }
 
       if (passed) {
-        remark = new GradeRemarkDigester().digest(substituteGrades);
+        remark = new GradeRemarkDigester().digest(substituteGrades, true);
       }
     }
   }

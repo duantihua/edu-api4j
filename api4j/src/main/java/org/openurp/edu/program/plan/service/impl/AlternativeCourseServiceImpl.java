@@ -65,7 +65,7 @@ public class AlternativeCourseServiceImpl extends BaseServiceImpl implements Alt
       query.where("alternative.direction is null or alternative.direction = :direction",
           student.getDirection());
     }
-    query.cacheable();
+//    query.cacheable();
     return entityDao.search(query);
   }
 
