@@ -1,0 +1,41 @@
+
+FamilyEconomicState=Family Economic State
+
+VisaType=Visa Type
+
+StdPunishType=Std Punish Type
+StdPunishType.grade=Grade
+
+Residence=Residence
+
+StdAwardType=Std Award Type
+StdAwardType.grade=Grade
+
+PassportType=Passport Type
+
+RailwayStation=Railway Station
+RailwayStation.division=Division
+
+EducationMode=Education Mode
+
+AdmissionType=Admission Type
+
+StdAlterType=Std Alter Type
+StdAlterType.inschool=Inschool
+StdAlterType.status=Status
+
+UncheckinReason=Uncheckin Reason
+UncheckinReason.leave=Leave
+
+UnregisterReason=Unregister Reason
+
+StdAlterReason=Std Alter Reason
+StdAlterReason.alterMode=Alter Mode
+
+GraduateState=Graduate State
+
+ExamineeType=Examinee Type
+
+EnrollMode=Enroll Mode
+
+HschGradeType=Hsch Grade Type

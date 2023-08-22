@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.openurp.edu</groupId>
+    <artifactId>openurp-edu-parent4j</artifactId>
+    <version>0.31.4</version>
+  </parent>
+  <groupId>org.openurp.edu</groupId>
+  <artifactId>openurp-edu-web4j</artifactId>
+  <packaging>jar</packaging>
+  <name>OpenURP Edu Java Web API</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.openurp.edu</groupId>
+      <artifactId>openurp-edu-api4j</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.commons</groupId>
+      <artifactId>beangle-commons-web</artifactId>
+      <version>${beangle3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.struts</groupId>
+      <artifactId>beangle-struts-s2</artifactId>
+      <version>${beangle3.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.beangle.jakarta</groupId>
+      <artifactId>beangle-jakarta-dwr</artifactId>
+      <version>${dwr.version}</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,41 @@
+
+StudentProgramBean=Student Program
+StudentProgramBean.std=Std
+StudentProgramBean.program=Program
+
+StdAlternativeCourseBean=Std Course Substitution
+StdAlternativeCourseBean.std=Std
+StdAlternativeCourseBean.origins=Origins
+StdAlternativeCourseBean.substitutes=Substitutes
+StdAlternativeCourseBean.remark=Remark
+
+ExpressionGroupRelation=Expression Group Relation
+ExpressionGroupRelation.relation=Relation
+
+ProgramBean=Program
+ProgramBean.name=Name
+ProgramBean.grade=Grade
+ProgramBean.department=Department
+ProgramBean.level=Education
+ProgramBean.stdType=Std Type
+ProgramBean.major=Major
+ProgramBean.direction=Direction
+ProgramBean.duration=Duration
+ProgramBean.studyType=Study Type
+ProgramBean.degree=Degree
+ProgramBean.beginOn=Effective On
+ProgramBean.endOn=Invalid On
+ProgramBean.remark=Remark
+ProgramBean.status=Audit State
+
+MajorAlternativeCourseBean=Major Course Substitution
+MajorAlternativeCourseBean.grades=Grades
+MajorAlternativeCourseBean.level=Education
+MajorAlternativeCourseBean.project=Project
+MajorAlternativeCourseBean.department=Department
+MajorAlternativeCourseBean.stdType=Std Type
+MajorAlternativeCourseBean.major=Major
+MajorAlternativeCourseBean.direction=Direction
+MajorAlternativeCourseBean.remark=Remark
+MajorAlternativeCourseBean.origins=Origins
+MajorAlternativeCourseBean.substitutes=Substitutes

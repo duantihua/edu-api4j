@@ -7,15 +7,21 @@
     <version>0.4.11</version>
   </parent>
   <groupId>org.openurp.edu</groupId>
-  <artifactId>openurp-edu-api4j</artifactId>
-  <packaging>jar</packaging>
-  <version>0.31.1</version>
-  <name>OpenURP Edu Java API</name>
+  <artifactId>openurp-edu-parent4j</artifactId>
+  <packaging>pom</packaging>
+  <version>0.31.4</version>
+  <name>OpenURP Edu Java API Parent</name>
 
   <properties>
-    <beangle3.version>3.10.0</beangle3.version>
     <java.version>17</java.version>
+    <beangle3.version>3.10.1</beangle3.version>
+    <quartz.version>2.3.2</quartz.version>
   </properties>
+
+  <modules>
+    <module>api4j</module>
+    <module>web4j</module>
+  </modules>
 
   <dependencies>
    <dependency>
@@ -53,13 +59,25 @@
       <version>${beangle3.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.beangle.commons</groupId>
-      <artifactId>beangle-commons-web</artifactId>
-      <version>${beangle3.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <artifactId>jakarta.servlet-api</artifactId>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>${quartz.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0</version>
     </dependency>
   </dependencies>
 </project>

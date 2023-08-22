@@ -1,0 +1,60 @@
+
+PayBean=Pay
+PayBean.creator=Creator
+PayBean.invoice=Invoice
+PayBean.payType=Pay Type
+PayBean.paid=Paid
+PayBean.bill=Bill
+PayBean.createAt=Create At
+PayBean.payAt=Pay At
+PayBean.remark=Remark
+
+TuitionBean=Tuition
+TuitionBean.std=Std
+TuitionBean.semester=Semester
+TuitionBean.fee=Fee
+TuitionBean.completed=Completed
+TuitionBean.remark=Remark
+
+CheckFeeTypeBean=Check Fee Type
+CheckFeeTypeBean.feeType=Fee Type
+
+BillBean=Bill
+BillBean.code=Code
+BillBean.semester=Semester
+BillBean.state=State
+BillBean.username=Username
+BillBean.fullname=Fullname
+BillBean.feeType=Fee Type
+BillBean.amount=Amount
+BillBean.exempt=Exempt
+BillBean.paid=Paid
+BillBean.pays=Pays
+BillBean.beginPayAt=Begin Pay At
+BillBean.endPayAt=End Pay At
+BillBean.creator=Creator
+BillBean.remark=Remark
+
+
+BillLogBean=Bill Log
+BillLogBean.logType=Log Type
+BillLogBean.billCode=Bill Code
+BillLogBean.creator=Creator
+BillLogBean.semester=Semester
+BillLogBean.state=State
+BillLogBean.username=Username
+BillLogBean.feeType=Fee Type
+BillLogBean.amount=Amount
+BillLogBean.paid=Paid
+BillLogBean.remoteAddr=Remote Addr
+BillLogBean.createdAt=Created At
+BillLogBean.remark=Remark
+
+AbstractFeeConfigBean=Fee Config
+AbstractFeeConfigBean.openAt=Open At
+AbstractFeeConfigBean.closeAt=Close At
+AbstractFeeConfigBean.deadLine=Dead Line
+AbstractFeeConfigBean.payDuration=Pay Duration
+AbstractFeeConfigBean.feeType=Fee Type
+AbstractFeeConfigBean.feeRuleScript=Fee Rule Script
+AbstractFeeConfigBean.feeRuleState=Fee Rule State

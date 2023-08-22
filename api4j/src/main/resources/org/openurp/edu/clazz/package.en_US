@@ -1,0 +1,17 @@
+
+TeachClass=Teach Class
+
+ExamSchedule=Exam Schedule
+
+CourseTime=Course Time
+CourseTime.weekday=Weekday
+CourseTime.startUnit=Start Unit
+CourseTime.endUnit=End Unit
+CourseTime.startTime=Start Time
+CourseTime.endTime=End Time
+CourseTime.weekState=Week State
+CourseTime.weekStateNum=Week State Num
+
+CourseSchedule=Course Schedule
+
+GradeState=Grade State

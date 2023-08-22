@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+      <constant name="struts.custom.i18n.resources" value="beangle,eams,application"/>
+      <bean type="org.apache.struts2.views.TagLibraryModelProvider" name="eams" class="org.openurp.web.view.WebTagLibrary" />
+      <bean type="org.apache.struts2.views.TagLibraryModelProvider" name="ems" class="org.openurp.web.view.EmsTagLibrary" />
+
+      <package name="org.openurp.edu" extends="beangle">
+      <global-results>
+        <result name="redirector" type="redirectAction">/templates/redirector.ftl</result>
+        <result name="processDisplay" type="freemarker">/template/processDisplay.ftl</result>
+        <result name="actionResult" type="freemarker">/template/actionResult.ftl</result>
+        <result name="pretty-error" type="freemarker">/template/pretty-error.ftl</result>
+        <result name="error" type="freemarker">/template/error.ftl</result>
+      </global-results>
+      <global-exception-mappings>
+       <exception-mapping exception="org.openurp.service.EamsException" result="pretty-error"/>
+       <exception-mapping exception="java.lang.Exception" result="error"/>
+      </global-exception-mappings>
+     </package>
+</struts>

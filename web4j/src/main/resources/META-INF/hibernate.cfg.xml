@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <mapping class="org.openurp.edu.grade.app.model.AuditSetting"/>
+    <mapping class="org.openurp.edu.grade.app.model.GradeModifyApply"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionPlanCourseModify"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionPlanCourseModifyDetail"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionPlanCourseModifyDetailBefore"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionPlanCourseModifyDetailAfter"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionCourseGroupModify"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionCourseGroupModifyDetail"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionCourseGroupModifyDetailBefore"/>
+    <mapping class="org.openurp.edu.program.app.model.ExecutionCourseGroupModifyDetailAfter"/>
+    <mapping class="org.openurp.edu.program.app.model.AlternativeApply"/>
+    <mapping class="org.openurp.edu.program.app.model.CourseTypeChangeApply"/>
+  </session-factory>
+</hibernate-configuration>

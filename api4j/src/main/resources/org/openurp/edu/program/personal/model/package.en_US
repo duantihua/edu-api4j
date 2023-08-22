@@ -1,0 +1,18 @@
+
+PersonalPlanBean=Personal Plan
+PersonalPlanBean.std=Std
+PersonalPlanBean.status=Audit State
+PersonalPlanBean.groups=Groups
+PersonalPlanBean.beginOn=Effective On
+PersonalPlanBean.endOn=Invalid On
+PersonalPlanBean.remark=Remark
+
+PersonalPlanCourseBean=Personal Plan Course
+PersonalPlanCourseBean.courseGroup=Course Group
+
+PersonalPlanCourseGroupBean=Personal Plan Course Group
+PersonalPlanCourseGroupBean.referenceGroup=Reference Group
+PersonalPlanCourseGroupBean.plan=Plan
+PersonalPlanCourseGroupBean.parent=Parent
+PersonalPlanCourseGroupBean.children=Children
+PersonalPlanCourseGroupBean.planCourses=Plan Courses

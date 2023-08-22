@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd"
+    updateCheck="false" monitoring="autodetect"
+    dynamicConfig="true">
+
+  <diskStore path="java.io.tmpdir/eams"/>
+
+  <defaultCache maxElementsInMemory="100000" eternal="false" timeToIdleSeconds="120"
+    timeToLiveSeconds="1000" overflowToDisk="false"/>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="1000" timeToIdleSeconds="120"
+    name="org.hibernate.cache.spi.UpdateTimestampsCache"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="1000" timeToIdleSeconds="120"
+    name="org.hibernate.cache.internal.StandardQueryCache"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="1000"
+    timeToLiveSeconds="1000" timeToIdleSeconds="500"
+    name="beangle"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="1000" timeToIdleSeconds="500"
+    name="openurp.base"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="1000" timeToIdleSeconds="500"
+    name="eams.core"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="900" timeToIdleSeconds="900"
+    name="eams.teach"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="9000" timeToIdleSeconds="9000"
+    name="edu.exam"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="100000"
+    timeToLiveSeconds="900" timeToIdleSeconds="900"
+    name="eams.quality"></cache>
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="10000"
+    timeToLiveSeconds="300" timeToIdleSeconds="300"
+    name="user_profile"></cache>\
+
+  <cache eternal="false" overflowToDisk="false" maxElementsInMemory="10000"
+    timeToLiveSeconds="300" timeToIdleSeconds="300"
+    name="user_data_permission"></cache>
+</ehcache>

@@ -1,0 +1,18 @@
+
+MajorPlanBean=Major Plan
+MajorPlanBean.groups=Groups
+MajorPlanBean.program=Program
+MajorPlanBean.startTerm=Start Term
+MajorPlanBean.endTerm=End Term
+
+MajorPlanCourseGroupBean=Major Plan Course Group
+MajorPlanCourseGroupBean.microName=Micro Name
+MajorPlanCourseGroupBean.direction=Direction
+MajorPlanCourseGroupBean.referenceGroup=Reference Group
+MajorPlanCourseGroupBean.plan=Plan
+MajorPlanCourseGroupBean.parent=Parent
+MajorPlanCourseGroupBean.children=Children
+MajorPlanCourseGroupBean.planCourses=Plan Courses
+
+MajorPlanCourseBean=Major Plan Course
+MajorPlanCourseBean.courseGroup=Course Group

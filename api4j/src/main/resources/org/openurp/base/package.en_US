@@ -1,0 +1,32 @@
+
+BaseInfo=Base Info
+
+BankAccount=Bank Account
+BankAccount.account=Account
+BankAccount.bank=Bank
+IdType=Idcard Type
+
+Institution=Institution
+
+Country=Country
+Country.shortName=Short Name
+Country.shortEnName=Short Eng Name
+Country.shortCode=Short Code
+
+Division=Division
+Division.children=Children
+Division.parent=Parent
+
+Nation=Nation
+
+MaritalStatus=Marital Status
+
+Gender=Gender
+
+PoliticVisage=Politic Visage
+
+Language=Language
+
+
+ClassroomType=Classroom Type
+

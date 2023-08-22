@@ -1,0 +1,11 @@
+Person=Std Person
+Person.code=Code
+Person.formatedName=Formated Name
+Person.phoneticName=Phonetic Name
+Person.formerName=Former Name
+Person.gender=Gender
+Person.birthday=Birthday
+Person.idType=Idcard Type
+Person.country=Country
+Person.nation=Nation
+Person.homeTown=Home Town

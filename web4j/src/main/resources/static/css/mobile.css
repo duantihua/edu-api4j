@@ -1,0 +1,117 @@
+.mobile {
+  width: 100%;
+  font-family: 黑体;
+}
+.mobile .m-head {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  font-size: 12pt;
+  text-align: center;
+}
+.mobile .m-body {
+  width: 100%;
+}
+.mobile .m-item {
+  width: 100%;
+  position: relative;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: LightGrey;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.mobile .m-item span {
+  display: inline-block;
+}
+.mobile .m-item span.m-item-title {
+  font-size: 11pt;
+}
+.mobile .m-item span.m-item-more {
+  padding-top: 2px;
+}
+.mobile .menu-open {
+  padding-top: 5px;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.mobile .en_char {
+  padding-left: 3px;
+  padding-right: 3px;
+}
+.mobile .m-content {
+  padding: 5px;
+  word-break: break-all;
+}
+.mobile .close {
+  display: none;
+}
+.mobile .passed {
+  color: green;
+}
+.mobile .unpass {
+  color: red;
+}
+.mobile .noresult {
+  color: Gray;
+}
+.mobile .m-content .m-line {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: LightGrey;
+  background-color: LightYellow;
+}
+.mobile .m-content .m-line .l-no {
+  display: inline-block;
+  width: 20px;
+  margin-right: 3px;
+  float: left;
+}
+.mobile .m-content .m-line .l-caption {
+  font-weight: bold;
+}
+.mobile .m-content .m-line .l-value {
+  ;
+}
+.mobile .m-content .m-group {
+  position: relative;
+  padding-right: 10px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  background-color: PaleGoldenrod;
+}
+.mobile .m-content .m-group .l-group-title {
+  display: inline-block;
+  padding-left: 20px;
+  font-weight: bold;
+  text-indent: -20px;
+}
+.mobile .m-content .m-group .l-group-more {
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 10px;
+}
+.mobile .m-content .m-group .l-group-remark {
+  background-color: PaleGoldenrod;
+  font-size: 9pt;
+  color: blue;
+}
+.mobile .m-content .m-group-rows {
+  padding-left: 1px;
+}
+.mobile .m-content .m-group-rows .m-multi-row {
+  padding-top: 1px;
+  padding-left: 24px;
+  padding-bottom: 1px;
+  text-indent: -24px;
+}

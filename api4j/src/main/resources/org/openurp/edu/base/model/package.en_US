@@ -1,0 +1,176 @@
+Student=Student Info
+Student.state=State
+Student.labels=Student Label
+Student.duration=Duration
+Student.registed=Is Registed
+Student.beginOn=Regist On
+Student.endOn=End On
+Student.graduateOn=Graduate On
+Student.studyType=Study Type
+Student.tutor=Tutor
+Student.remark=Remark
+
+StudentState=Student Journal
+StudentState.grade=Grade
+StudentState.department=Department
+StudentState.majorDepart=Department In Major
+StudentState.major=Major
+StudentState.direction=Direction
+StudentState.squad=Squad
+StudentState.inschool=Inschool
+StudentState.status=Status
+StudentState.program=Major Program
+StudentState.campus=Campus
+StudentState.beginOn=Begin On
+StudentState.endOn=End On
+StudentState.remark=Remark
+
+Major=Major
+Major.code=Code
+Major.name=Name
+Major.enName=Eng Name
+Major.remark=Remark
+Major.beginOn=Effective At
+Major.endOn=Invalid At
+Major.project=Project
+Major.directions=Directions
+Major.category=Category
+Major.levels=Educations
+Major.duration=Duration
+Major.journals=Journals
+Major.shortName=ShortName
+
+ProjectClassroom=Project Classroom
+ProjectClassroom.room=Room
+ProjectClassroom.departs=Departs
+ProjectClassroom.reserved=Reserved
+
+StudentScope=Student Scope
+StudentScope.grades=Grades
+StudentScope.project=Project
+StudentScope.levels=Educations
+StudentScope.stdTypes=Std Types
+StudentScope.departments=Departments
+StudentScope.majors=Majors
+StudentScope.directions=Directions
+
+ProjectCode=Project Code
+ProjectCode.project=Project
+ProjectCode.meta=Meta
+ProjectCode.codeId=Code Id
+
+DirectionBean=Direction
+DirectionBean.code=Code
+DirectionBean.name=Name
+DirectionBean.enName=Eng Name
+DirectionBean.remark=Remark
+DirectionBean.beginOn=Effective At
+DirectionBean.endOn=Invalid At
+DirectionBean.major=Major
+DirectionBean.departs=Departs
+
+HabilitationBean=Habilitation
+HabilitationBean.teacher=Teacher
+HabilitationBean.beginOn=Effective On
+HabilitationBean.endOn=Invalid On
+HabilitationBean.qualified=Qualified
+
+TeacherBean=Teacher
+TeacherBean.code=Code
+TeacherBean.name=Name
+TeacherBean.staff=Staff
+TeacherBean.department=Department
+TeacherBean.parttimeDepart=Parttime Depart
+TeacherBean.title=Title
+TeacherBean.teacherType=Teacher Type
+TeacherBean.level=Education
+TeacherBean.graduateOn=Graduate On
+TeacherBean.degree=Degree
+TeacherBean.degreeAwardOn=Degree Award On
+TeacherBean.school=School
+TeacherBean.tutorType=Tutor Type
+TeacherBean.tutorAwardOn=Tutor Award On
+TeacherBean.state=State
+TeacherBean.teaching=Teaching
+TeacherBean.beginOn=Effective At
+TeacherBean.endOn=Invalid At
+TeacherBean.remark=Remark
+TeacherBean.journals=Journals
+TeacherBean.unit=Unit
+TeacherBean.unitType=Unit Type
+
+MajorJournalBean=Major Journal
+MajorJournalBean.code=Code
+MajorJournalBean.name=Name
+MajorJournalBean.enName=Eng Name
+MajorJournalBean.major=Major
+MajorJournalBean.disciplineCode=Discipline Code
+MajorJournalBean.category=Category
+MajorJournalBean.duration=Duration
+MajorJournalBean.level=Education
+MajorJournalBean.depart=Depart
+MajorJournalBean.beginOn=Effective At
+MajorJournalBean.endOn=Invalid At
+MajorJournalBean.remark=Remark
+
+ProjectConfigBean=Project Config
+ProjectConfigBean.properties=Properties
+
+Project=Project
+Project.name=Name
+Project.school=School
+Project.campuses=Campuses
+Project.departments=Departments
+Project.levels=Educations
+Project.labels=Labels
+Project.types=Types
+Project.calendar=Calendar
+Project.timeSettings=Time Settings
+Project.description=Description
+Project.minor=Minor
+Project.beginOn=Effective At
+Project.endOn=Invalid At
+
+DirectionJournalBean=Direction Journal
+DirectionJournalBean.direction=Direction
+DirectionJournalBean.level=Education
+DirectionJournalBean.depart=Depart
+DirectionJournalBean.beginOn=Effective At
+DirectionJournalBean.endOn=Invalid At
+DirectionJournalBean.remark=Remark
+
+ProjectPropertyBean=Project Property
+ProjectPropertyBean.config=Config
+ProjectPropertyBean.name=Name
+ProjectPropertyBean.value=Value
+
+TeacherJournalBean=Teacher Journal
+TeacherJournalBean.teacher=Teacher
+TeacherJournalBean.department=Department
+TeacherJournalBean.title=Title
+TeacherJournalBean.level=Education
+TeacherJournalBean.degree=Degree
+TeacherJournalBean.tutorType=Tutor Type
+TeacherJournalBean.beginOn=Begin On
+TeacherJournalBean.endOn=End On
+TeacherJournalBean.remark=Remark
+
+Squad=Squad
+Squad.code=Code
+Squad.name=Name
+Squad.shortName=ShortName
+Squad.remark=Remark
+Squad.grade=Grade
+Squad.department=Department
+Squad.major=Major
+Squad.direction=Direction
+Squad.stdType=Std Type
+Squad.planCount=Plan Count
+Squad.beginOn=Effective At
+Squad.endOn=Invalid At
+Squad.stdCount=Std Count
+Squad.instructors=Instructors
+Squad.tutors=Tutors
+Squad.students=Students
+
+

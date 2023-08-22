@@ -1,0 +1,17 @@
+
+TeachClass=教学任务中的教学班
+
+ExamSchedule=考试安排概要信息
+
+CourseTime=上课时间
+CourseTime.weekday=星期几
+CourseTime.startUnit=开始小节
+CourseTime.endUnit=结束小节
+CourseTime.startTime=开始时间
+CourseTime.endTime=结束时间
+CourseTime.weekState=周状态
+CourseTime.weekStateNum=周状态数字
+
+CourseSchedule=课程安排概要信息
+
+GradeState=成绩状态表

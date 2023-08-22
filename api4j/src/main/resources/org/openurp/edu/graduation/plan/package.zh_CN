@@ -1,0 +1,7 @@
+
+AuditStat=课程审核统计结果
+AuditStat.creditsRequired=要求学分
+AuditStat.creditsCompleted=总的通过学分
+AuditStat.numRequired=要求门数
+AuditStat.numCompleted=总的通过门数
+AuditStat.creditsConverted=转换学分（例如：非任选课多出的学分可以转换冲抵任选课的学分）

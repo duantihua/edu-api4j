@@ -1,0 +1,64 @@
+
+StdAbroadBean=Std Abroad
+StdAbroadBean.cscno=Cscno
+StdAbroadBean.HskLevel=Hskdegree
+StdAbroadBean.passportNo=Passport No
+StdAbroadBean.passportType=Passport Type
+StdAbroadBean.passportExpiredOn=Passport Expired On
+StdAbroadBean.visaNo=Visa No
+StdAbroadBean.visaType=Visa Type
+StdAbroadBean.visaExpiredOn=Visa Expired On
+StdAbroadBean.resideCaedNo=Reside Caed No
+StdAbroadBean.resideCaedExpiredOn=Reside Caed Expired On
+
+StudentLog=Student Log
+StudentLog.student=Student
+StudentLog.ip=Ip
+StudentLog.user=User
+StudentLog.operation=Operation
+StudentLog.time=Time
+StudentLog.type=Type
+
+StdHomeMemberBean=Std Home Member
+StdHomeMemberBean.home=Home
+StdHomeMemberBean.name=Name
+StdHomeMemberBean.relation=Relation
+StdHomeMemberBean.idcard=Idcard
+StdHomeMemberBean.phone=Phone
+StdHomeMemberBean.duty=Duty
+StdHomeMemberBean.workplace=Workplace
+StdHomeMemberBean.postcode=Postcode
+StdHomeMemberBean.address=Address
+
+StudentEquivalent=Student Equivalent
+StudentEquivalent.applyNo=Apply No
+StudentEquivalent.applyOn=Apply On
+StudentEquivalent.adminDuty=Admin Duty
+StudentEquivalent.specialDuty=Special Duty
+StudentEquivalent.workTime=Work Time
+StudentEquivalent.recommender1=Recommender1
+StudentEquivalent.recommender1Company=Recommender1 Company
+StudentEquivalent.recommender1SpecialDuty=Recommender1 Special Duty
+StudentEquivalent.recommender2=Recommender2
+StudentEquivalent.recommender2Company=Recommender2 Company
+StudentEquivalent.recommender2SpecialDuty=Recommender2 Special Duty
+StudentEquivalent.exam=Exam
+StudentEquivalent.examScore=Exam Score
+StudentEquivalent.examOn=Exam On
+StudentEquivalent.examCertificateNo=Exam Certificate No
+StudentEquivalent.language=Language
+StudentEquivalent.languageScore=Language Score
+StudentEquivalent.languageOn=Language On
+StudentEquivalent.languageCertificateNo=Language Certificate No
+
+StdWorkContactBean=Std Work Contact
+StdWorkContactBean.company=Company
+StdWorkContactBean.phone=Phone
+StdWorkContactBean.address=Address
+StdWorkContactBean.postcode=Postcode
+
+StdContactBean=Std Contact
+StdContactBean.email=e-Mail
+StdContactBean.phone=Phone
+StdContactBean.mobile=Mobile
+StdContactBean.address=Address

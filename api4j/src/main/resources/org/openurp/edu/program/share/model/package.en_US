@@ -1,0 +1,20 @@
+
+SharePlanCourseBean=Share Plan Course
+SharePlanCourseBean.courseGroup=Course Group
+
+SharePlanBean=Share Plan
+SharePlanBean.name=Name
+SharePlanBean.project=Project
+SharePlanBean.level=Education
+SharePlanBean.groups=Groups
+SharePlanBean.beginOn=Effective On
+SharePlanBean.endOn=Invalid On
+SharePlanBean.createdAt=Created At
+SharePlanBean.updatedAt=Updated At
+
+SharePlanCourseGroupBean=Share Plan Course Group
+SharePlanCourseGroupBean.plan=Plan
+SharePlanCourseGroupBean.parent=Parent
+SharePlanCourseGroupBean.children=Children
+SharePlanCourseGroupBean.planCourses=Plan Courses
+SharePlanCourseGroupBean.language=Language

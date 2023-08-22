@@ -1,0 +1,19 @@
+
+ExchangeSchoolBean=Exchange School
+ExchangeSchoolBean.code=Code
+ExchangeSchoolBean.name=Name
+ExchangeSchoolBean.enName=Eng Name
+ExchangeSchoolBean.country=Country
+ExchangeSchoolBean.beginOn=Effective At
+ExchangeSchoolBean.endOn=Invalid At
+
+ExchangeCourseBean=Exchange Course
+ExchangeCourseBean.code=Code
+ExchangeCourseBean.name=Name
+ExchangeCourseBean.enName=Eng Name
+ExchangeCourseBean.school=School
+ExchangeCourseBean.credits=Credits
+ExchangeCourseBean.period=Period
+ExchangeCourseBean.remark=Remark
+ExchangeCourseBean.beginOn=Effective At
+ExchangeCourseBean.endOn=Invalid At

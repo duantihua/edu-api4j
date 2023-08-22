@@ -1,0 +1,80 @@
+.extTable {
+    border : 1px solid #99BBE8;
+    border-collapse: collapse;
+    line-height: 1;
+    margin: 10px auto;
+    color : #222222;
+    font : tahoma,arial,verdana,sans-serif;
+}
+
+.extTable .normal {
+  color : #15428B;
+  font-weight : bold;
+  background : url("../images/bg-table-caption.gif") repeat-x scroll 0 -1px transparent;
+  border : 1px solid #99BBE8;
+  padding : 4px 5px 4px 5px;
+  text-align : center;
+  margin-bottom: -1px;
+}
+.extTable label.error {}
+.extTable .error {
+  font-weight : bold;
+  background : url("../images/bg-table-caption-error.png") repeat-x scroll 0 -1px transparent;
+  border : 1px solid #99BBE8;
+  padding : 4px 5px 4px 5px;
+  text-align : center;
+  margin-bottom: -1px;
+}
+
+.extTable thead tr th {
+  background : url("../images/bg-table-thead.gif") repeat-x scroll 0 bottom #F9F9F9;
+  border-left : 1px solid #EEEEEE;
+    border-right: 1px solid #D0D0D0;
+    padding: 0.3em 0em;
+    font-weight: normal;
+    text-align: center;
+}
+
+.extTable thead tr th:first-child {
+  border-left : 0px;
+}
+
+.extTable thead tr th:last-child {
+  border-right : 0px;
+}
+
+.extTable tbody tr td {
+  text-align : center;
+    padding : 0.3em 0em;
+  border : 1px solid  #D0D0D0;
+}
+
+.extTable tbody tr td.ready {
+  cursor: pointer;
+  background-color : #FCEFA1;
+}
+
+.extTable tbody tr td.readyToDelete{
+  text-decoration:line-through;
+  background-color:#FF4844;
+  cursor : pointer;
+}
+
+.extTable tbody tr td.readyToCopy{
+  background-color:#4BAEFF;
+  cursor : pointer;
+}
+
+div.compareunit {
+  clear:both;
+  float:left;
+  width:100%;
+}
+
+div.groupblock {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left:0px;
+    margin-right:0px;
+    float:left;
+}
