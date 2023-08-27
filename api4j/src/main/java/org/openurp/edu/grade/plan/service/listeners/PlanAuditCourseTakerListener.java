@@ -108,7 +108,7 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
     for (Map.Entry<Course, CourseType> entry : course2Types.entrySet()) {
       CourseGroup g = context.getCoursePlan().getGroup(entry.getValue());
       GroupAuditResult gr = null;
-      if (null == g || g.getPlanCourses().isEmpty()) {
+      if (null == g || (g.getCourseType().isOptional() && !g.isAutoAddup())) {
         gr = context.getResult().getGroupResult(entry.getValue());
       }
       if (null == gr) gr = lastTarget;

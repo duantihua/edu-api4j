@@ -46,6 +46,7 @@ import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.ScheduleSuggestActivity;
 import org.openurp.edu.extern.code.model.CertificateCategory;
 import org.openurp.edu.extern.code.model.CertificateSubject;
+import org.openurp.edu.program.model.ExemptCourse;
 import org.openurp.std.award.Punishment;
 import org.openurp.std.fee.config.TuitionConfig;
 import org.openurp.std.graduation.app.model.GraduateAuditLog;
@@ -217,8 +218,9 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.std.graduation.model.GraduateResult.class, DegreeResult.class,
         org.openurp.std.graduation.model.GraduateBatch.class,
         GraduateAuditLog.class,
-        GraduateAuditStandard.class
-        );
+        GraduateAuditStandard.class,
+        ExemptCourse.class
+    );
   }
 
 }

@@ -99,7 +99,7 @@ public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
         }
         // 增加原课程审核结果
         for (Course ori : sc.getOlds()) {
-          PlanCourse planCourse = (PlanCourse) courseMap.get(ori);
+          PlanCourse planCourse = courseMap.get(ori);
           if (needCheckTerm) {
             boolean inTerm = false;
             for (int j = 0; j < auditTerms.length; j++) {
@@ -109,6 +109,7 @@ public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
             if (!inTerm) continue;
           }
 
+          courseMap.remove(ori);
           CourseAuditResult planCourseResult = new CourseAuditResult(planCourse);
           planCourseResult.checkPassed(stdGrade.getGrades(ori), substituteGrades);
           groupResult.addCourseResult(planCourseResult);
