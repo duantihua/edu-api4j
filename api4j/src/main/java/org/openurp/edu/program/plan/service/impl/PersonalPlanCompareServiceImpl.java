@@ -46,7 +46,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
 
   private PlanCompareService planCompareService;
 
-  public Map<CourseType, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
+  public Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
                                                                                     StdPlan stdExecutionPlan) {
     return planCompareService.diff(executePlan, stdExecutionPlan);
   }

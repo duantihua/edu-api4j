@@ -18,22 +18,19 @@
  */
 package org.openurp.edu.program.plan.dao;
 
-import java.util.List;
-
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
-import org.openurp.edu.program.model.Program;
-import org.openurp.edu.program.model.CourseGroup;
-import org.openurp.edu.program.model.CoursePlan;
-import org.openurp.edu.program.model.ExecutionPlan;
-import org.openurp.edu.program.model.PlanCourse;
+import org.openurp.edu.program.model.*;
+
+import java.util.List;
+import java.util.Set;
 
 public interface PlanCommonDao {
 
   /**
    * 删除一个计划，这个计划可能是专业计划也可能是个人计划<br>
    *
-   * @param planId
+   * @param plan
    */
   public void removePlan(CoursePlan plan);
 
@@ -49,28 +46,18 @@ public interface PlanCommonDao {
    * 统计计划的总学分，总学分的值来自于顶级课程组的学分的累加，不保存，不采用递归统计<br>
    * 不递归统计的原因是，程序完全信赖计划中各个层级的课程组的学分要求的正确性
    *
-   * @see PlanCourseGroupCommonDao.updateGroupTreeCredits
    * @param plan
    * @return
+   * @see PlanCourseGroupCommonDao.updateGroupTreeCredits
    */
   public float statPlanCredits(CoursePlan plan);
 
   public boolean hasCourse(CourseGroup cgroup, Course course);
 
-  /**
-   * 列出某个培养计划所使用的课程类别
-   *
-   * @param plan
-   * @return
-   */
-  public List<CourseType> getUsedCourseTypes(CoursePlan plan);
+  public Set<String> getUsedCourseTypeNames(CoursePlan plan);
 
-  /**
-   * 列出某个培养计划还未使用的课程类别
-   *
-   * @param plan
-   * @return
-   */
+  public Set<String> getUnusedCourseTypeNames(CoursePlan plan);
+
   public List<CourseType> getUnusedCourseTypes(CoursePlan plan);
 
   public List<Program> getDuplicatePrograms(Program program);
@@ -81,8 +68,7 @@ public interface PlanCommonDao {
    * 查找对于固定学期培养计划中要求的学分值.
    *
    * @param plan
-   * @param term
-   *          [1..maxTerm]
+   * @param term [1..maxTerm]
    * @return
    */
   public Float getCreditByTerm(ExecutionPlan plan, int term);

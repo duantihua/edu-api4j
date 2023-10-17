@@ -25,6 +25,7 @@ import org.openurp.edu.program.model.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 培养计划服务接口
@@ -70,7 +71,6 @@ public interface MajorPlanService {
    * copy和原计划的区别在于grade, beginOn, endOn不同，他们的课程设置都是一样的<br>
    *
    * @param sourcePlans
-   * @param grade
    * @param partialParams 因为是批量生成计划，所以页面只传部分的参数：grade, beginOn, endOn
    * @return
    */
@@ -82,7 +82,7 @@ public interface MajorPlanService {
    * @param plan
    * @return
    */
-  List<CourseType> getUnusedCourseTypes(MajorPlan plan);
+  Set<String> getUnusedCourseTypeNames(MajorPlan plan);
 
   /**
    * 统计培养计划的总学分

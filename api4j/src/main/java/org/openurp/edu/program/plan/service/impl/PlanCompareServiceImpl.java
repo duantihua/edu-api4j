@@ -18,18 +18,9 @@
  */
 package org.openurp.edu.program.plan.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.ExecutionPlanCourse;
@@ -38,33 +29,32 @@ import org.openurp.edu.program.plan.service.PlanCompareService;
 import org.openurp.edu.program.plan.util.CourseTypeWrapper;
 import org.openurp.edu.program.plan.util.PlanCourseWrapper;
 
+import java.util.*;
+
 public class PlanCompareServiceImpl extends BaseServiceImpl implements PlanCompareService {
 
-  public Map<CourseType, List<? extends PlanCourse>[]> diff(CoursePlan leftExecutionPlan,
-      CoursePlan rightExecutionPlan) {
+  public Map<String, List<? extends PlanCourse>[]> diff(CoursePlan leftPlan, CoursePlan rightPlan) {
+    Map<String, List<? extends PlanCourse>[]> result = new HashMap<String, List<? extends PlanCourse>[]>();
 
-    Map<CourseType, List<? extends PlanCourse>[]> result = new HashMap<CourseType, List<? extends PlanCourse>[]>();
-
-    List<? extends CourseGroup> leftCourseGroups = leftExecutionPlan.getGroups();
+    List<? extends CourseGroup> leftCourseGroups = leftPlan.getGroups();
     Collection<CourseTypeWrapper> leftCourseTypes = new HashSet<CourseTypeWrapper>();
     for (CourseGroup courseGroup : leftCourseGroups) {
-      leftCourseTypes.add(new CourseTypeWrapper(courseGroup.getCourseType()));
+      leftCourseTypes.add(new CourseTypeWrapper(courseGroup.getName()));
     }
 
-    List<? extends CourseGroup> rightCourseGroups = rightExecutionPlan.getGroups();
+    List<? extends CourseGroup> rightCourseGroups = rightPlan.getGroups();
     Collection<CourseTypeWrapper> rightCourseTypes = new HashSet<CourseTypeWrapper>();
     for (CourseGroup courseGroup : rightCourseGroups) {
-      rightCourseTypes.add(new CourseTypeWrapper(courseGroup.getCourseType()));
+      rightCourseTypes.add(new CourseTypeWrapper(courseGroup.getName()));
     }
 
     // 获得只存在于leftPlan的课程组
-    Collection<CourseType> onlyInLeftCourseTypes = unWrapCourseTypes(
-        CollectionUtils.subtract(leftCourseTypes, rightCourseTypes));
+    Collection<String> onlyInLeftCourseTypes = unWrapCourseTypes(CollectionUtils.subtract(leftCourseTypes, rightCourseTypes));
     if (onlyInLeftCourseTypes.size() > 0) {
-      for (CourseType courseType : onlyInLeftCourseTypes) {
+      for (String courseType : onlyInLeftCourseTypes) {
         result.put(courseType, null);
         List<? extends PlanCourse>[] planCourses = new ArrayList[2];
-        planCourses[0] = new ArrayList(leftExecutionPlan.getGroup(courseType).getPlanCourses());
+        planCourses[0] = new ArrayList(getGroup(leftPlan, courseType).getPlanCourses());
         Collections.sort(planCourses[0], PlanCourseWrapper.COMPARATOR);
         planCourses[1] = new ArrayList();
         result.put(courseType, planCourses);
@@ -72,28 +62,26 @@ public class PlanCompareServiceImpl extends BaseServiceImpl implements PlanCompa
     }
 
     // 获得只存在于rightPlan的模块
-    Collection<CourseType> onlyInRightCourseTypes = unWrapCourseTypes(
-        CollectionUtils.subtract(rightCourseTypes, leftCourseTypes));
+    Collection<String> onlyInRightCourseTypes = unWrapCourseTypes(CollectionUtils.subtract(rightCourseTypes, leftCourseTypes));
     if (onlyInRightCourseTypes.size() > 0) {
-      for (CourseType courseType : onlyInRightCourseTypes) {
+      for (String courseType : onlyInRightCourseTypes) {
         result.put(courseType, null);
         List<ExecutionPlanCourse>[] planCourses = new ArrayList[2];
         planCourses[0] = new ArrayList();
-        planCourses[1] = new ArrayList(rightExecutionPlan.getGroup(courseType).getPlanCourses());
+        planCourses[1] = new ArrayList(getGroup(rightPlan, courseType).getPlanCourses());
         Collections.sort(planCourses[1], PlanCourseWrapper.COMPARATOR);
         result.put(courseType, planCourses);
       }
     }
 
     // 获得两者共有的模块
-    Collection<CourseType> shareCourseTypes = unWrapCourseTypes(
-        CollectionUtils.intersection(leftCourseTypes, rightCourseTypes));
-    if (shareCourseTypes.size() > 0) {
-      for (CourseType courseType : shareCourseTypes) {
+    Collection<String> shared = unWrapCourseTypes(CollectionUtils.intersection(leftCourseTypes, rightCourseTypes));
+    if (shared.size() > 0) {
+      for (String courseType : shared) {
         Collection<PlanCourseWrapper> wrappedLeftPlanCourses = wrapPlanCourses(
-            leftExecutionPlan.getGroup(courseType).getPlanCourses());
+            getGroup(leftPlan, courseType).getPlanCourses());
         Collection<PlanCourseWrapper> wrappedRightPlanCourses = wrapPlanCourses(
-            rightExecutionPlan.getGroup(courseType).getPlanCourses());
+            getGroup(rightPlan, courseType).getPlanCourses());
 
         Collection<PlanCourse> onlyInLeftPlanCourses = unWrapPlanCourses(
             CollectionUtils.subtract(wrappedLeftPlanCourses, wrappedRightPlanCourses));
@@ -115,6 +103,14 @@ public class PlanCompareServiceImpl extends BaseServiceImpl implements PlanCompa
     return result;
   }
 
+  public static CourseGroup getGroup(CoursePlan plan, String name) {
+    if (null == plan.getGroups()) return null;
+    for (CourseGroup group : plan.getGroups()) {
+      if (group.getName().equals(name)) return group;
+    }
+    return null;
+  }
+
   private Collection<PlanCourseWrapper> wrapPlanCourses(Collection<? extends PlanCourse> planCourses) {
     return CollectUtils.collect(planCourses, PlanCourseWrapper.WRAPPER);
   }
@@ -123,11 +119,11 @@ public class PlanCompareServiceImpl extends BaseServiceImpl implements PlanCompa
     return CollectUtils.collect(planCourseWrappers, PlanCourseWrapper.UNWRAPPER);
   }
 
-  private Collection<CourseTypeWrapper> wrapCourseTypes(Collection<CourseType> courseTypes) {
+  private Collection<CourseTypeWrapper> wrapCourseTypes(Collection<String> courseTypes) {
     return CollectUtils.collect(courseTypes, CourseTypeWrapper.WRAPPER);
   }
 
-  private Collection<CourseType> unWrapCourseTypes(Collection<CourseTypeWrapper> courseTypeWrappers) {
+  private Collection<String> unWrapCourseTypes(Collection<CourseTypeWrapper> courseTypeWrappers) {
     return CollectUtils.collect(courseTypeWrappers, CourseTypeWrapper.UNWRAPPER);
   }
 

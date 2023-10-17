@@ -108,8 +108,8 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
     return genedPlans;
   }
 
-  public List<CourseType> getUnusedCourseTypes(MajorPlan plan) {
-    return planCommonDao.getUnusedCourseTypes(plan);
+  public Set<String> getUnusedCourseTypeNames(MajorPlan plan) {
+    return planCommonDao.getUnusedCourseTypeNames(plan);
   }
 
   public void removeMajorPlan(MajorPlan plan) {

@@ -146,7 +146,7 @@ public class PersistModule extends AbstractPersistModule {
 
         org.openurp.edu.exam.model.ExamActivity.class, org.openurp.edu.exam.model.ExamRoom.class,
         org.openurp.edu.exam.model.ExamTaker.class, org.openurp.edu.exam.model.ExamTask.class,
-        org.openurp.edu.exam.model.ExamRoomGroup.class,
+        org.openurp.edu.exam.model.ExamRoomGroup.class,org.openurp.edu.exam.model.ExamNotice.class,
         org.openurp.edu.exam.model.ExamGroup.class, org.openurp.edu.exam.config.ExamAllocSetting.class,
         org.openurp.edu.exam.model.ExamTurn.class, org.openurp.edu.exam.model.Invigilation.class,
         org.openurp.edu.exam.model.InvigilationQuotaDetail.class,

@@ -39,7 +39,7 @@ public interface PersonalPlanCompareService {
    * @param stdExecutionPlan
    * @return List<PlanCourse>[0] 专业培养计划中的课程 List<PlanCourse>[1]培养计划中的课程
    */
-  Map<CourseType, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
+  Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
       StdPlan stdExecutionPlan);
 
   /**

@@ -36,7 +36,7 @@ public class MajorPlanQueryBuilder {
   public static OqlBuilder<MajorPlan> build(Squad squad) {
     OqlBuilder<MajorPlan> query = OqlBuilder.from(MajorPlan.class, "plan");
     query.where("plan.program.grade = :grade", squad.getGrade())
-        .where("plan.program.stdType = :stdType", squad.getStdType())
+        .where(":stdType in elements(plan.program.stdTypes)", squad.getStdType())
         .where("plan.program.major = :major", squad.getMajor());
 
     if (null == squad.getDirection()) {
@@ -52,7 +52,7 @@ public class MajorPlanQueryBuilder {
     query.where("plan.program.grade = :grade", grade).where("plan.program.major = :major", major);
 
     if (null != stdType) {
-      query.where("plan.program.stdType = :stdType", stdType);
+      query.where(":stdType in elements(plan.program.stdTypes)", stdType);
     }
 
     if (null == direction) {

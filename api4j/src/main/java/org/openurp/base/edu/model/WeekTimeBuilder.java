@@ -25,6 +25,7 @@ import org.beangle.orm.hibernate.udt.*;
 import org.openurp.base.time.NumberRangeDigestor;
 import org.openurp.base.time.NumberSequence;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.*;
@@ -58,12 +59,10 @@ public class WeekTimeBuilder {
    */
   public static String digestWeekTime(WeekTime time, Semester semester) {
     if (null == time) return "";
-    LocalDate beginOn = semester.getBeginOn().toLocalDate();
-    int firstWeekday = beginOn.getDayOfWeek().getValue();
+    var dayofWeek = DayOfWeek.of(time.getWeekday().getId());
+    var firstDay = DayOfWeek.of(semester.getCalendar().getFirstWeekday().getId());
+    var beginOn = toDay(firstDay, semester.getBeginOn().toLocalDate(), dayofWeek);
     LocalDate timeBeginOn = time.getStartOn().toLocalDate();
-    while (timeBeginOn.getDayOfWeek().getValue() != firstWeekday) {
-      timeBeginOn = timeBeginOn.plusDays(-1);
-    }
     int weeksDistance = Weeks.between(beginOn, timeBeginOn);
     long weekstate = time.getWeekstate().getValue();
     if (weeksDistance < 0) {
@@ -277,4 +276,35 @@ public class WeekTimeBuilder {
     return WeekDay.getWeekdayArray(isSundayFirst);
   }
 
+  public static WeekState collect(Semester semester, Collection<LocalDate> dates) {
+    var dayofWeek = DayOfWeek.of(semester.getCalendar().getFirstWeekday().getId());
+    var semesterFirstday = toDay(dayofWeek, semester.getBeginOn().toLocalDate(), dayofWeek);
+    Set<Integer> weeks = new HashSet<>();
+    for (LocalDate date : dates) {
+      var oneday = toDay(dayofWeek, date, dayofWeek);
+      var weekIdx = 1 + Weeks.between(semesterFirstday, oneday);
+      weeks.add(weekIdx);
+    }
+    return WeekState.of(new ArrayList<>(weeks));
+  }
+
+  private static LocalDate toDay(DayOfWeek firstDay, LocalDate date, DayOfWeek day) {
+    if (date.getDayOfWeek() == day) {
+      return date;
+    } else {
+      if (firstDay == DayOfWeek.MONDAY) {
+        var offset = day.getValue() - date.getDayOfWeek().getValue();
+        return date.plusDays(offset);
+      } else if (firstDay == DayOfWeek.SUNDAY) {
+        if (day == DayOfWeek.SUNDAY) {
+          var offset = day.getValue() - date.getDayOfWeek().getValue() - 7;
+          return date.plusDays(offset);
+        } else {
+          return date.plusDays(day.getValue() - date.getDayOfWeek().getValue());
+        }
+      } else {
+        throw new RuntimeException("Cannot accept first day " + firstDay);
+      }
+    }
+  }
 }

@@ -19,12 +19,14 @@
 package org.openurp.web.action.api;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
+import org.openurp.base.std.code.StdType;
 import org.openurp.edu.program.model.Program;
 import org.openurp.edu.web.action.AdminBaseAction;
 
@@ -102,19 +104,24 @@ public class ProgramAction extends AdminBaseAction {
       query.where("program.direction.id in (:directions)", directions);
     }
     String stdTypeStr = get("stdTypes");
+    var stdTypes = new HashSet<StdType>();
     if (Strings.isNotBlank(stdTypeStr) && !stdTypeStr.equals("null")) {
-      Integer[] stdTypes = Strings.splitToInt(stdTypeStr);
-      query.where("program.stdType.id in (:stdTypes)", stdTypes);
+      stdTypes = new HashSet(entityDao.get(StdType.class, Strings.splitToInt(stdTypeStr)));
     }
-
     List<Map<String, Object>> result = CollectUtils.newArrayList();
 
     List<Program> programs = entityDao.search(query);
     for (Program program : programs) {
-      Map<String, Object> entity = CollectUtils.newHashMap();
-      entity.put("id", program.getId());
-      entity.put("name", program.getName());
-      result.add(entity);
+      var stdTypeMatched = true;
+      if (!stdTypes.isEmpty() && CollectUtils.intersection(program.getStdTypes(), stdTypes).isEmpty()) {
+        stdTypeMatched = false;
+      }
+      if (stdTypeMatched) {
+        Map<String, Object> entity = CollectUtils.newHashMap();
+        entity.put("id", program.getId());
+        entity.put("name", program.getName());
+        result.add(entity);
+      }
     }
     put("programsJSON", new Gson().toJson(result));
     return forward();

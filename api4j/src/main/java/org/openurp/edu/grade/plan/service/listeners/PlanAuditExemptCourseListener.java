@@ -76,6 +76,7 @@ public class PlanAuditExemptCourseListener implements PlanAuditListener {
         if (!car.isPassed() && exemptCourses.contains(car.getCourse())) {
           car.setScores("免修");
           car.setPassed(true);
+          groupResult.updateCourseResult(car);
           groupResult.checkPassed(true);
         }
       }
