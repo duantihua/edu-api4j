@@ -35,11 +35,11 @@ import org.openurp.code.school;
  * @author chaostone
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.edu.extern.code.model.CertificateSubject")
+@Entity(name = "org.openurp.edu.extern.code.model.Certificate")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CertificateSubject extends Code<Integer> {
+public class Certificate extends Code<Integer> {
 
   private static final long serialVersionUID = 5479972774606103066L;
 
@@ -48,11 +48,11 @@ public class CertificateSubject extends Code<Integer> {
   @ManyToOne(fetch = FetchType.LAZY)
   private CertificateCategory category;
 
-  public CertificateSubject() {
+  public Certificate() {
     super();
   }
 
-  public CertificateSubject(Integer id) {
+  public Certificate(Integer id) {
     super(id);
   }
 

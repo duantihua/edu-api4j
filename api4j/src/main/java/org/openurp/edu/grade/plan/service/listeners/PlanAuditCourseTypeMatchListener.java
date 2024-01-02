@@ -19,10 +19,10 @@
 package org.openurp.edu.grade.plan.service.listeners;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.util.TermCalculator;
 import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.service.SemesterService;
+import org.openurp.base.util.TermCalculator;
 import org.openurp.edu.grade.app.model.AuditSetting;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.plan.model.CourseAuditResult;
@@ -78,7 +78,7 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
       if (null == groupResult) continue;
       // 计划里的必修组，不能按照类别匹配
       CourseGroup g = context.getCoursePlan().getGroup(groupResult.getCourseType());
-      if (null != g && !g.getChildren().isEmpty() && !g.getCourseType().isOptional()) continue;
+      if (null != g && !g.getCourseType().isOptional()) continue;
       stdGrade.useGrades(course);
 
       StringBuilder remark = new StringBuilder();
@@ -124,7 +124,7 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
        */
       CourseGroup courseGroup = context.getCoursePlan().getGroup(courseType);
       boolean outOfPlan = false;
-      if (null==courseGroup || !CollectUtils.isEmpty(courseGroup.getPlanCourses())) {
+      if (null == courseGroup || !CollectUtils.isEmpty(courseGroup.getPlanCourses())) {
         outOfPlan = true;
       }
 
@@ -153,14 +153,16 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
   }
 
   public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
-      PlanCourse planCourse) {
+                                  PlanCourse planCourse) {
     return true;
   }
 
   public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-      GroupAuditResult groupResult) {
+                                 GroupAuditResult groupResult) {
     AuditSetting standard = context.getSetting();
-    if (null != standard) { return !standard.isDisaudit(courseGroup.getCourseType()); }
+    if (null != standard) {
+      return !standard.isDisaudit(courseGroup.getCourseType());
+    }
     return true;
   }
 

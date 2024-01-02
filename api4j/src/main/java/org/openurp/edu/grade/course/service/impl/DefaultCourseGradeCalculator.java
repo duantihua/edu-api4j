@@ -32,7 +32,10 @@ import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.course.model.CourseGradeState;
 import org.openurp.edu.grade.course.model.ExamGrade;
 import org.openurp.edu.grade.course.model.GaGrade;
-import org.openurp.edu.grade.course.service.*;
+import org.openurp.edu.grade.course.service.CourseGradeCalculator;
+import org.openurp.edu.grade.course.service.GradeRateService;
+import org.openurp.edu.grade.course.service.NumPrecisionReserveMethod;
+import org.openurp.edu.grade.course.service.ScoreConverter;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -52,7 +55,6 @@ public class DefaultCourseGradeCalculator implements CourseGradeCalculator {
 
   protected EntityDao entityDao;
   protected GradeRateService gradeRateService;
-  protected CourseGradeSettings settings;
 
   protected ProjectPropertyService projectPropertyService;
 
@@ -479,10 +481,6 @@ public class DefaultCourseGradeCalculator implements CourseGradeCalculator {
 
   public GradeRateService getGradeRateService() {
     return gradeRateService;
-  }
-
-  public void setSettings(CourseGradeSettings settings) {
-    this.settings = settings;
   }
 
   public float getMinEndScore() {

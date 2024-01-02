@@ -18,39 +18,36 @@
  */
 package org.openurp.edu.grade.transcript.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
+import org.openurp.base.std.model.Graduate;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.transcript.service.TranscriptDataProvider;
-import org.openurp.base.std.model.Graduate;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 学位信息提供者
  *
  * @since 2012-06-07
  */
-public class TranscriptStdGraduateProvider extends BaseServiceImpl implements TranscriptDataProvider {
+public class TranscriptGraduateProvider extends BaseServiceImpl implements TranscriptDataProvider {
 
   public Object getDatas(List<Student> stds, Map<String, String> options) {
-    OqlBuilder<Graduate> query = OqlBuilder.from(Graduate.class, "Graduate");
-    query.where("Graduate.std in (:std)", stds);
+    OqlBuilder<Graduate> query = OqlBuilder.from(Graduate.class, "g");
+    query.where("g.std in (:std)", stds);
     List<Graduate> stdGraduates = entityDao.search(query);
-    Map<Student, List<Graduate>> datas = CollectUtils.newHashMap();
-    for (Graduate stdGraduate : stdGraduates) {
-      if (!datas.containsKey(stdGraduate.getStd())) {
-        datas.put(stdGraduate.getStd(), CollectUtils.newArrayList());
-      }
-      datas.get(stdGraduate.getStd()).add(stdGraduate);
+    Map<Student, Graduate> datas = CollectUtils.newHashMap();
+    for (Graduate g : stdGraduates) {
+      datas.put(g.getStd(), g);
     }
     return datas;
   }
 
   public String getDataName() {
-    return "stdGraduates";
+    return "graduates";
   }
 
 }

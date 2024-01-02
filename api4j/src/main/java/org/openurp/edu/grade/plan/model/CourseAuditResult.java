@@ -157,7 +157,7 @@ public class CourseAuditResult extends LongIdObject {
   public void checkPassed(List<CourseGrade> grades, List<CourseGrade> substituteGrades) {
     checkPassed(grades);
 
-    if (!this.passed && !substituteGrades.isEmpty()) {
+    if (!substituteGrades.isEmpty()) {
       // 处理一个替代课程有多个成绩的情况
       Map<Long, Boolean> courseId2passed = CollectUtils.newHashMap();
       for (CourseGrade subGrade : substituteGrades) {
@@ -169,9 +169,11 @@ public class CourseAuditResult extends LongIdObject {
         courseId2passed.put(subGrade.getCourse().getId(), courseIdPassed);
       }
 
-      this.passed = true;
-      for (Long courseId : courseId2passed.keySet()) {
-        this.passed &= courseId2passed.get(courseId);
+      if (!this.passed) {
+        this.passed = true;
+        for (Long courseId : courseId2passed.keySet()) {
+          this.passed &= courseId2passed.get(courseId);
+        }
       }
 
       if (passed) {

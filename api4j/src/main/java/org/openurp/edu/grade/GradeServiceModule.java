@@ -68,7 +68,7 @@ public class GradeServiceModule extends AbstractBindModule {
     bind(MoreHalfReserveMethod.class, More01ReserveMethod.class).shortName();
 
     bind(TranscriptPlanCourseProvider.class, TranscriptGpaProvider.class,
-        TranscriptPublishedGradeProvider.class, TranscriptStdGraduateProvider.class,
+        TranscriptPublishedGradeProvider.class, TranscriptGraduateProvider.class,
         SpringTranscriptDataProviderRegistry.class, TranscriptCertificateGradeProvider.class)
         .shortName();
 

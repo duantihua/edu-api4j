@@ -45,7 +45,7 @@ import org.openurp.edu.clazz.model.ClazzActivity;
 import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.ScheduleSuggestActivity;
 import org.openurp.edu.extern.code.model.CertificateCategory;
-import org.openurp.edu.extern.code.model.CertificateSubject;
+import org.openurp.edu.extern.code.model.Certificate;
 import org.openurp.edu.program.model.ExemptCourse;
 import org.openurp.std.award.Punishment;
 import org.openurp.std.fee.config.TuitionConfig;
@@ -72,7 +72,7 @@ public class PersistModule extends AbstractPersistModule {
         TeachingNature.class, CourseType.class, CourseCategory.class, CourseNature.class, TeachingMethod.class,
         CourseTakeType.class, EducationLevel.class, ExamMode.class, ExamForm.class, ExamStatus.class,
         ElectionMode.class, ExamType.class, GradeType.class, GradingMode.class, StdLabel.class,
-        StdLabelType.class, StdType.class, TeachLangType.class)
+        StdLabelType.class, StdType.class, TeachLangType.class,ExamDeferReason.class)
         .cache("openurp.base");
 
     add(org.openurp.base.model.School.class,
@@ -147,11 +147,14 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.exam.model.ExamActivity.class, org.openurp.edu.exam.model.ExamRoom.class,
         org.openurp.edu.exam.model.ExamTaker.class, org.openurp.edu.exam.model.ExamTask.class,
         org.openurp.edu.exam.model.ExamRoomGroup.class,org.openurp.edu.exam.model.ExamNotice.class,
-        org.openurp.edu.exam.model.ExamGroup.class, org.openurp.edu.exam.config.ExamAllocSetting.class,
+        org.openurp.edu.exam.model.ExamGroup.class,
         org.openurp.edu.exam.model.ExamTurn.class, org.openurp.edu.exam.model.Invigilation.class,
         org.openurp.edu.exam.model.InvigilationQuotaDetail.class,
         org.openurp.edu.exam.model.InvigilationQuota.class,
         org.openurp.edu.exam.model.InvigilationClazzQuota.class,
+        org.openurp.edu.exam.model.ExamDeferApply.class,
+        org.openurp.edu.exam.config.ExamDeferSetting.class,
+        org.openurp.edu.exam.config.ExamAllocSetting.class,
 
         org.openurp.edu.grade.course.model.ExamGradeState.class,
         org.openurp.edu.grade.course.model.ExamGrade.class,
@@ -191,7 +194,7 @@ public class PersistModule extends AbstractPersistModule {
         UnregisteredReason.class,
 
         org.openurp.edu.extern.model.CertificateGrade.class,
-        CertificateSubject.class, CertificateCategory.class,
+        Certificate.class, CertificateCategory.class,
 
         org.openurp.edu.evaluation.course.model.EvaluateResult.class,
         org.openurp.edu.evaluation.course.model.QuestionnaireClazz.class,
