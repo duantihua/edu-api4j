@@ -1,6 +1,6 @@
 Person=Std Person
 Person.code=Code
-Person.formatedName=Formated Name
+Person.formattedName=Formated Name
 Person.phoneticName=Phonetic Name
 Person.formerName=Former Name
 Person.gender=Gender

@@ -21,7 +21,7 @@ package org.openurp.base.service;
 import java.util.Collection;
 import java.util.List;
 
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 public interface TeacherService {
 

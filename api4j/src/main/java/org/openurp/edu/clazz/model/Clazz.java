@@ -28,7 +28,7 @@ import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;

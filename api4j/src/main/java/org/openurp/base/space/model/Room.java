@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.base.space.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -26,12 +26,16 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.model.AbstractBaseInfo;
+import org.openurp.base.model.Campus;
+import org.openurp.base.model.Department;
+import org.openurp.base.model.School;
 import org.openurp.code.asset.model.RoomType;
 
 /**
  * 教室基本信息
  */
-@Entity(name = "org.openurp.base.model.Room")
+@Entity(name = "org.openurp.base.space.model.Room")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Room extends AbstractBaseInfo {

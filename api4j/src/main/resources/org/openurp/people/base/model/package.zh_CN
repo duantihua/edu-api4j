@@ -1,6 +1,6 @@
 Person=学生基本信息
 Person.code=证件号码
-Person.formatedName=姓名
+Person.formattedName=姓名
 Person.phoneticName=英文名
 Person.formerName=曾用名
 Person.gender=性别

@@ -6,20 +6,6 @@ CalendarBean.beginOn=生效时间
 CalendarBean.endOn=失效时间
 CalendarBean.semesters=包含学期
 
-StaffBean=教职工人员基本信息
-StaffBean.code=人员编码
-StaffBean.name=姓名
-StaffBean.department=部门
-StaffBean.gender=性别
-StaffBean.birthday=出生年月
-StaffBean.idType=证件类型 身份证/护照等
-StaffBean.idcard=身份证
-StaffBean.country=国家地区
-StaffBean.nation=民族
-StaffBean.politicVisage=政治面貌
-StaffBean.bankAccount=银行账户
-StaffBean.charactor=特长爱好以及个人说明
-
 CampusBean=校区信息
 
 CourseUnit=默认作息时间

@@ -25,14 +25,14 @@ import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.beangle.struts2.helper.Params;
 import org.beangle.struts2.helper.QueryHelper;
-import org.openurp.base.model.Building;
-import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.space.model.Building;
+import org.openurp.base.space.model.Classroom;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.std.model.Squad;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 public class BaseInfoSearchHelper extends SearchHelper {
 

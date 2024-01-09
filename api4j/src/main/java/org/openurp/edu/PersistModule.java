@@ -23,6 +23,11 @@ import org.openurp.base.edu.code.*;
 import org.openurp.base.edu.model.MajorDiscipline;
 import org.openurp.base.edu.model.ProjectProperty;
 import org.openurp.base.edu.model.SchoolLength;
+import org.openurp.base.hr.model.Staff;
+import org.openurp.base.hr.model.Teacher;
+import org.openurp.base.space.model.Building;
+import org.openurp.base.space.model.Classroom;
+import org.openurp.base.space.model.Room;
 import org.openurp.base.std.code.StdLabel;
 import org.openurp.base.std.code.StdLabelType;
 import org.openurp.base.std.code.StdType;
@@ -76,23 +81,23 @@ public class PersistModule extends AbstractPersistModule {
         .cache("openurp.base");
 
     add(org.openurp.base.model.School.class,
-        org.openurp.base.model.Room.class,
-        org.openurp.base.model.Building.class, org.openurp.base.model.Campus.class,
+        Room.class,
+        Building.class, org.openurp.base.model.Campus.class,
         org.openurp.base.model.Department.class, org.openurp.base.model.User.class,
-        org.openurp.base.model.Staff.class, org.openurp.base.std.model.GraduateSeason.class,
+        Staff.class, org.openurp.base.std.model.GraduateSeason.class,
 
         org.openurp.base.edu.model.Calendar.class,
         org.openurp.base.edu.model.CalendarStage.class,
         org.openurp.base.edu.model.Semester.class, org.openurp.base.edu.model.SemesterStage.class,
         org.openurp.base.edu.model.TimeSetting.class, org.openurp.base.edu.model.CourseUnit.class,
 
-        org.openurp.base.edu.model.Teacher.class,
+        Teacher.class,
         org.openurp.base.edu.model.MajorJournal.class, SchoolLength.class, org.openurp.base.edu.model.Major.class,
         MajorDiscipline.class, org.openurp.base.edu.model.DirectionJournal.class, org.openurp.base.edu.model.Direction.class,
 
         org.openurp.base.edu.model.Project.class,
         org.openurp.base.edu.model.ProjectCode.class, org.openurp.base.edu.model.Course.class,
-        org.openurp.base.edu.model.Classroom.class, org.openurp.base.edu.model.CourseHour.class,
+        Classroom.class, org.openurp.base.edu.model.CourseHour.class,
         org.openurp.base.edu.model.Textbook.class, org.openurp.edu.clazz.model.StdCourseAbility.class,
         org.openurp.base.edu.model.CourseLevel.class,
 

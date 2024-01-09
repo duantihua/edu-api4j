@@ -42,7 +42,7 @@ public class TuitionConfig extends IntegerIdObject {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  /** 学历层次 */
+  /** 培养层次 */
   private EducationLevel level;
 
   /**

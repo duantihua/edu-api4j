@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.beangle.commons.lang.Strings;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
 
 public class ClazzLogBuilder {

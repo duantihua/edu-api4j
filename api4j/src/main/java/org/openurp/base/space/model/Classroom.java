@@ -16,12 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.base.space.model;
 
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.*;
+import org.openurp.base.space.model.Building;
 import org.openurp.code.edu.model.ClassroomType;
 
 import javax.persistence.*;
@@ -29,7 +31,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "org.openurp.base.edu.model.Classroom")
+@Entity(name = "org.openurp.base.space.model.Classroom")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Classroom extends NumberIdTimeObject<Long> {

@@ -16,11 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.model;
+package org.openurp.base.hr.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.model.Department;
+import org.openurp.base.model.School;
 import org.openurp.code.hr.model.WorkStatus;
 import org.openurp.code.job.model.ProfessionalTitle;
 import org.openurp.code.person.model.Gender;
@@ -31,7 +33,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-@Entity(name = "org.openurp.base.model.Staff")
+@Entity(name = "org.openurp.base.hr.model.Staff")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Staff extends LongIdObject {

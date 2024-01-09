@@ -19,7 +19,7 @@
 package org.openurp.base.service;
 
 import org.beangle.orm.hibernate.udt.WeekTime;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 public interface TeacherTimeService {
 

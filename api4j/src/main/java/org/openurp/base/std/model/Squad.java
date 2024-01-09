@@ -26,7 +26,7 @@ import org.openurp.base.edu.model.EduLevelBasedObject;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Staff;
+import org.openurp.base.hr.model.Staff;
 import org.openurp.base.std.code.StdType;
 
 import javax.persistence.*;

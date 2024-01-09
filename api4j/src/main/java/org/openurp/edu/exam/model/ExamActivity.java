@@ -25,7 +25,7 @@ import org.hibernate.annotations.Type;
 import org.openurp.code.edu.model.ClassroomType;
 import org.openurp.code.edu.model.ExamForm;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.space.model.Classroom;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.edu.clazz.model.Clazz;
 

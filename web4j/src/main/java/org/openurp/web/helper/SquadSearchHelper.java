@@ -24,7 +24,7 @@ import org.beangle.commons.lang.Strings;
 import org.beangle.struts2.helper.Params;
 import org.beangle.struts2.helper.QueryHelper;
 import org.openurp.base.std.model.Squad;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 public class SquadSearchHelper extends SearchHelper {
 

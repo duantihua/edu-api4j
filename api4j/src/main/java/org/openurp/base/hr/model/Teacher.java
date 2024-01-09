@@ -16,14 +16,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.model;
+package org.openurp.base.hr.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.base.edu.model.Project;
 import org.openurp.base.model.Department;
-import org.openurp.base.model.Staff;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,7 +32,7 @@ import java.util.Set;
 /**
  * 教师信息默认实现
  */
-@Entity(name = "org.openurp.base.edu.model.Teacher")
+@Entity(name = "org.openurp.base.hr.model.Teacher")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Teacher extends LongIdObject {
