@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.clazz.service.limit.impl;
 
-import org.openurp.base.std.code.StdLabel;
+import org.openurp.code.std.model.StdLabel;
 import org.openurp.edu.clazz.model.RestrictionMeta;
 
 public class CourseLimitStdLabelProvider extends AbstractCourseLimitEntityProvider<StdLabel> {

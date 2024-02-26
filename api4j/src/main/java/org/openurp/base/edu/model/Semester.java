@@ -18,26 +18,20 @@
  */
 package org.openurp.base.edu.model;
 
-import java.sql.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.NumberIdObject;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.*;
+
+import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * 学年学期 教学日历代表的是具体学年度的 学期设置，每个学期的起始时间和结束时间，教学周个数数.<br>
@@ -45,7 +39,6 @@ import org.hibernate.annotations.NaturalId;
  * [start,finish]
  *
  * @hibernate.class
- *
  * @depend - - - Calendar
  */
 @Entity(name = "org.openurp.base.edu.model.Semester")
@@ -55,44 +48,63 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
 
   private static final long serialVersionUID = 1418209086970834483L;
 
-  /** 编码 */
+  /**
+   * 编码
+   */
   @NotNull
   @NaturalId(mutable = true)
   @Size(max = 32)
   private String code;
 
-  /** 学年度,格式2005-2006 */
+  /**
+   * 学年度,格式2005-2006
+   */
   @NotNull
   @Size(max = 50)
   private String schoolYear;
 
-  /** 学期名称 */
+  /**
+   * 学期名称
+   */
   @NotNull
   @Size(max = 100)
   private String name;
 
-  /** 起始日期 */
+  /**
+   * 起始日期
+   */
   @NotNull
   private java.sql.Date beginOn;
 
-  /** 截止日期 */
+  /**
+   * 截止日期
+   */
   @NotNull
   private java.sql.Date endOn;
 
-  /** 教学日历方案类别 */
+  /**
+   * 教学日历方案类别
+   */
   @NotNull
   @NaturalId(mutable = true)
   @ManyToOne(fetch = FetchType.LAZY)
   private Calendar calendar;
 
-  /** 备注 */
+  /**
+   * 备注
+   */
   @Size(max = 200)
   private String remark;
 
-  /** 包含阶段 */
+  /**
+   * 包含阶段
+   */
   @OneToMany(mappedBy = "semester", orphanRemoval = true)
-  @Cascade({ CascadeType.ALL })
+  @Cascade({CascadeType.ALL})
   private List<SemesterStage> stages;
+
+  @NotNull
+  private boolean archived;
 
   public String getRemark() {
     return remark;
@@ -177,7 +189,9 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
     this.endOn = endOn;
   }
 
-  /** 是否是小学期 暑期、寒假学期等(时间<=2月) */
+  /**
+   * 是否是小学期 暑期、寒假学期等(时间<=2月)
+   */
   public boolean isShorter() {
     return getWeeks() <= 8;
   }
@@ -224,7 +238,7 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
   /**
    * 返回每周的日历
    *
-   * @return 包含一个每周七天的集合,如果开始日期和结束日期不在星期的第一和最后一天，将向两边延伸
+   * @return 包含一个每周七天的集合, 如果开始日期和结束日期不在星期的第一和最后一天，将向两边延伸
    */
   public List<List<java.util.Date>> getWeekDates() {
     List<List<java.util.Date>> dates = CollectUtils.newArrayList();
@@ -283,15 +297,19 @@ public class Semester extends NumberIdObject<Integer> implements Comparable<Seme
         .add(this.beginOn, other.getBeginOn()).toComparison();
   }
 
-  public boolean isArchived() {
-    return false;
-  }
-
   public List<SemesterStage> getStages() {
     return stages;
   }
 
   public void setStages(List<SemesterStage> stages) {
     this.stages = stages;
+  }
+
+  public boolean isArchived() {
+    return archived;
+  }
+
+  public void setArchived(boolean archived) {
+    this.archived = archived;
   }
 }

@@ -19,7 +19,7 @@
 package org.openurp.edu.program.plan.service;
 
 import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.std.model.Squad;

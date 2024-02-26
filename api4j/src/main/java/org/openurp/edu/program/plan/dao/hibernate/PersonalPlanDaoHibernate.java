@@ -24,7 +24,7 @@ import java.util.List;
 import org.apache.commons.lang3.Range;
 import org.beangle.commons.entity.util.ValidEntityPredicate;
 import org.beangle.commons.lang.Strings;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.edu.program.plan.dao.PersonalPlanDao;
 import org.openurp.edu.program.model.ExecutionPlan;
 

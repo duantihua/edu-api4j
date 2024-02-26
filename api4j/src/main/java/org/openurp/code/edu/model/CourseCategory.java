@@ -16,13 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.extern.code.model;
+package org.openurp.code.edu.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -30,38 +27,24 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 其他资格考试科目
+ * 课程类别
  *
- * @author chaostone
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.edu.extern.code.model.Certificate")
+@Entity(name = "org.openurp.code.edu.model.CourseCategory")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class Certificate extends Code<Integer> {
+public class CourseCategory extends Code<Integer> {
 
-  private static final long serialVersionUID = 5479972774606103066L;
+  private static final long serialVersionUID = 8232522018765348618L;
 
-  /** 其他资格考试类型 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CertificateCategory category;
-
-  public Certificate() {
+  public CourseCategory() {
     super();
   }
 
-  public Certificate(Integer id) {
+  public CourseCategory(Integer id) {
     super(id);
-  }
-
-  public CertificateCategory getCategory() {
-    return category;
-  }
-
-  public void setCategory(CertificateCategory category) {
-    this.category = category;
   }
 
 }

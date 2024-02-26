@@ -18,7 +18,6 @@
  */
 package org.openurp.edu.program.major.service;
 
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Squad;
 import org.openurp.edu.program.model.*;

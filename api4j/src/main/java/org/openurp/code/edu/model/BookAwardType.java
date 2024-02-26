@@ -16,19 +16,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
+package org.openurp.code.edu.model;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-
-@Entity(name = "org.openurp.base.edu.code.EducationType")
+/**
+ * 图书获奖类型
+ *
+ *
+ * @since 2005-9-7
+ */
+@Entity(name = "org.openurp.code.edu.model.BookAwardType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class EducationType extends Code<Integer> {
+public class BookAwardType extends Code<Integer> {
+  private static final long serialVersionUID = 5465216670041477926L;
+
 }

@@ -16,12 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.std.code;
+package org.openurp.code.std.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -29,29 +27,17 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 学生分类标签
+ * 学生分类标签类型
  *
  *
  * @since 3.0.0
  */
-@Entity(name = "org.openurp.base.std.code.StdLabel")
+@Entity(name = "org.openurp.code.std.model.StdLabelType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class StdLabel extends Code<Integer> {
+public class StdLabelType extends Code<Integer> {
 
-  private static final long serialVersionUID = 4577754153764356671L;
-
-  /** 类型 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private StdLabelType labelType;
-
-  public StdLabelType getLabelType() {
-    return labelType;
-  }
-
-  public void setLabelType(StdLabelType type) {
-    this.labelType = type;
-  }
+  private static final long serialVersionUID = 8465979929860832080L;
 
 }

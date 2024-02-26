@@ -37,7 +37,7 @@ import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Department;
 import org.openurp.base.std.model.Squad;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.edu.clazz.code.ClazzTag;
+import org.openurp.code.edu.model.ClazzTag;
 import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.RestrictionMeta;

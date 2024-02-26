@@ -18,14 +18,11 @@
  */
 package org.openurp.edu.program.plan.service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Squad;
-import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.ExecutionCourseGroup;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.ExecutionPlanCourse;

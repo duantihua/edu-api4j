@@ -29,7 +29,7 @@ import org.beangle.orm.hibernate.udt.WeekDay;
 import org.beangle.orm.hibernate.udt.WeekState;
 import org.beangle.orm.hibernate.udt.WeekTime;
 import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.*;
 import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.model.AuditStatus;

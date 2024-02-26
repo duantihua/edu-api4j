@@ -19,7 +19,6 @@
 package org.openurp.edu;
 
 import org.beangle.commons.entity.orm.AbstractPersistModule;
-import org.openurp.base.edu.code.*;
 import org.openurp.base.edu.model.MajorDiscipline;
 import org.openurp.base.edu.model.ProjectProperty;
 import org.openurp.base.edu.model.SchoolLength;
@@ -28,9 +27,6 @@ import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.space.model.Building;
 import org.openurp.base.space.model.Classroom;
 import org.openurp.base.space.model.Room;
-import org.openurp.base.std.code.StdLabel;
-import org.openurp.base.std.code.StdLabelType;
-import org.openurp.base.std.code.StdType;
 import org.openurp.code.asset.model.BuildingType;
 import org.openurp.code.asset.model.RoomType;
 import org.openurp.code.edu.model.*;
@@ -49,8 +45,8 @@ import org.openurp.edu.clazz.config.ScheduleSetting;
 import org.openurp.edu.clazz.model.ClazzActivity;
 import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.ScheduleSuggestActivity;
-import org.openurp.edu.extern.code.model.CertificateCategory;
-import org.openurp.edu.extern.code.model.Certificate;
+import org.openurp.code.edu.model.Certificate;
+import org.openurp.code.edu.model.CertificateCategory;
 import org.openurp.edu.program.model.ExemptCourse;
 import org.openurp.std.award.Punishment;
 import org.openurp.std.fee.config.TuitionConfig;
@@ -77,7 +73,7 @@ public class PersistModule extends AbstractPersistModule {
         TeachingNature.class, CourseType.class, CourseCategory.class, CourseNature.class, TeachingMethod.class,
         CourseTakeType.class, EducationLevel.class, ExamMode.class, ExamForm.class, ExamStatus.class,
         ElectionMode.class, ExamType.class, GradeType.class, GradingMode.class, StdLabel.class,
-        StdLabelType.class, StdType.class, TeachLangType.class,ExamDeferReason.class)
+        StdLabelType.class, StdType.class, TeachLangType.class, ExamDeferReason.class)
         .cache("openurp.base");
 
     add(org.openurp.base.model.School.class,
@@ -137,7 +133,7 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.program.model.StdPlanCourse.class,
         org.openurp.edu.program.model.StdCourseGroup.class,
 
-        org.openurp.edu.clazz.code.ClazzTag.class,
+        ClazzTag.class,
         ClazzActivity.class,
         org.openurp.edu.clazz.model.NormalClass.class, org.openurp.edu.clazz.model.Clazz.class,
         org.openurp.edu.clazz.model.CourseTaker.class, org.openurp.edu.clazz.model.ClazzGroup.class,
@@ -151,7 +147,7 @@ public class PersistModule extends AbstractPersistModule {
 
         org.openurp.edu.exam.model.ExamActivity.class, org.openurp.edu.exam.model.ExamRoom.class,
         org.openurp.edu.exam.model.ExamTaker.class, org.openurp.edu.exam.model.ExamTask.class,
-        org.openurp.edu.exam.model.ExamRoomGroup.class,org.openurp.edu.exam.model.ExamNotice.class,
+        org.openurp.edu.exam.model.ExamRoomGroup.class, org.openurp.edu.exam.model.ExamNotice.class,
         org.openurp.edu.exam.model.ExamGroup.class,
         org.openurp.edu.exam.model.ExamTurn.class, org.openurp.edu.exam.model.Invigilation.class,
         org.openurp.edu.exam.model.InvigilationQuotaDetail.class,
@@ -192,7 +188,7 @@ public class PersistModule extends AbstractPersistModule {
 
         Punishment.class,
 
-        org.openurp.base.std.code.FeeType.class, org.openurp.std.fee.model.Bill.class,
+        FeeType.class, org.openurp.std.fee.model.Bill.class,
         TuitionConfig.class,
         StdPunishmentType.class,
         UncheckinReason.class,

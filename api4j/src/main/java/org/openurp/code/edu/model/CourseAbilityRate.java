@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
+package org.openurp.code.edu.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -27,25 +27,34 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
 /**
- * 教材类型
+ * 课程能力等级
  *
- *
- * @since 2005-9-7
+ * @since 2011-09-19
  */
-@Entity(name = "org.openurp.base.edu.code.BookType")
+@Entity(name = "org.openurp.code.edu.model.CourseAbilityRate")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class BookType extends Code<Integer> {
+public class CourseAbilityRate extends Code<Integer> {
 
-  private static final long serialVersionUID = 4209414762577924870L;
+  private static final long serialVersionUID = 478622629471793724L;
 
-  public BookType() {
-    super();
+  public int getRate() {
+    return rate;
   }
 
-  public BookType(Integer id) {
-    super(id);
+  public void setRate(int rate) {
+    this.rate = rate;
   }
 
+  public boolean sameLevel(int rate) {
+    return this.rate == rate;
+  }
+
+  public boolean sameLevel(CourseAbilityRate o) {
+    if (null != o) return rate == o.getRate();
+    else return false;
+  }
+
+  private int rate;
 }

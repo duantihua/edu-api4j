@@ -20,7 +20,7 @@ package org.openurp.std.fee.config;
 
 import org.beangle.commons.entity.pojo.IntegerIdObject;
 import org.openurp.base.model.Department;
-import org.openurp.base.std.code.FeeType;
+import org.openurp.code.std.model.FeeType;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.base.edu.model.Major;
 

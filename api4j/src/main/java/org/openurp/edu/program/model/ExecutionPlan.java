@@ -35,9 +35,7 @@ import javax.validation.constraints.NotNull;
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
-import org.openurp.base.std.code.StdType;
 
 /**
  * 专业计划

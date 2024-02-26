@@ -20,7 +20,7 @@ package org.openurp.edu.clazz.service.internal;
 
 import org.beangle.commons.entity.Entity;
 import org.beangle.commons.lang.Strings;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.std.model.Squad;

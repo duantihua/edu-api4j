@@ -21,7 +21,6 @@ package org.openurp.edu.program.major.service.impl;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.std.model.Squad;

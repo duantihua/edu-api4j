@@ -24,7 +24,7 @@ import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.User;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.code.edu.model.EducationLevel;
 
 import java.util.List;

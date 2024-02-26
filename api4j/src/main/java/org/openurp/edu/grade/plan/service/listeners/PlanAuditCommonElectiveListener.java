@@ -19,7 +19,7 @@
 package org.openurp.edu.grade.plan.service.listeners;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.plan.model.CourseAuditResult;

@@ -21,7 +21,6 @@ package org.openurp.edu.program.plan.service;
 import java.util.List;
 import java.util.Map;
 
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.model.StdPlan;

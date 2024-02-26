@@ -22,7 +22,7 @@ import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.std.model.Student;
-import org.openurp.edu.extern.code.model.Certificate;
+import org.openurp.code.edu.model.Certificate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

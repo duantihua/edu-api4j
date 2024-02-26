@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 
 /**
  * 专业计划课程组修改明细

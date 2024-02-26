@@ -24,7 +24,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.ProjectBasedObject;
 import org.openurp.base.edu.model.Semester;
@@ -34,7 +34,7 @@ import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.ExamMode;
 import org.openurp.code.edu.model.TeachLangType;
-import org.openurp.edu.clazz.code.ClazzTag;
+import org.openurp.code.edu.model.ClazzTag;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

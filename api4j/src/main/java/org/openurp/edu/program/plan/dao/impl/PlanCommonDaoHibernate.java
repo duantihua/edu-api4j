@@ -22,7 +22,7 @@ import org.apache.commons.lang3.Range;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.orm.hibernate.HibernateEntityDao;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.code.service.CodeService;

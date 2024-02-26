@@ -16,45 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+package org.openurp.code.std.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+
 /**
- * 课程能力等级
+ * 收费类型
+ * @author chaostone
  *
- * @since 2011-09-19
  */
-@Entity(name = "org.openurp.base.edu.code.CourseAbilityRate")
+@Entity(name = "org.openurp.code.std.model.FeeType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseAbilityRate extends Code<Integer> {
+public class FeeType extends Code<Integer> {
 
-  private static final long serialVersionUID = 478622629471793724L;
+  private static final long serialVersionUID = 1690716122640060437L;
 
-  public int getRate() {
-    return rate;
+  /** 学费 */
+  public static final Integer TUITION = 1;
+
+  public FeeType() {
   }
 
-  public void setRate(int rate) {
-    this.rate = rate;
+  public FeeType(String code) {
+    super(Integer.valueOf(code));
+    setCode(code);
   }
 
-  public boolean sameLevel(int rate) {
-    return this.rate == rate;
+  public FeeType(Integer id) {
+    super(id);
   }
-
-  public boolean sameLevel(CourseAbilityRate o) {
-    if (null != o) return rate == o.getRate();
-    else return false;
-  }
-
-  private int rate;
 }

@@ -33,7 +33,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.std.model.Student;
 
 /**

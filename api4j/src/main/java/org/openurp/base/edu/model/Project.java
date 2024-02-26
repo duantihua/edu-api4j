@@ -25,12 +25,12 @@ import org.beangle.commons.entity.pojo.TemporalEntity;
 import org.beangle.commons.lang.functor.Predicate;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.edu.code.EducationType;
+import org.openurp.code.edu.model.EducationType;
 import org.openurp.base.model.Campus;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.School;
-import org.openurp.base.std.code.StdLabel;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdLabel;
+import org.openurp.code.std.model.StdType;
 import org.openurp.code.edu.model.EduCategory;
 import org.openurp.code.edu.model.EducationLevel;
 

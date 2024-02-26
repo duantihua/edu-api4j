@@ -16,28 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.std.code;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
+package org.openurp.code.edu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.school;
 
-/**
- * 学生分类标签类型
- *
- *
- * @since 3.0.0
- */
-@Entity(name = "org.openurp.base.std.code.StdLabelType")
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+
+@Entity(name = "org.openurp.code.edu.model.ExamDeferReason")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class StdLabelType extends Code<Integer> {
-
-  private static final long serialVersionUID = 8465979929860832080L;
-
+public class ExamDeferReason extends Code<Integer> {
 }

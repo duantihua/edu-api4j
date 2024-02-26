@@ -19,7 +19,7 @@
 package org.openurp.edu.program.plan.service.impl;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.program.model.*;
 import org.openurp.edu.program.plan.dao.PlanCommonDao;
 import org.openurp.edu.program.plan.dao.PlanCourseCommonDao;

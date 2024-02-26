@@ -24,7 +24,7 @@ import org.beangle.commons.lang.Numbers;
 import org.beangle.commons.lang.Strings;
 import org.hibernate.annotations.Type;
 import org.openurp.base.time.Terms;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.program.utils.PlanUtils;
 
 import javax.persistence.FetchType;

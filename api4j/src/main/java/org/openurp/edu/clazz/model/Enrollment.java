@@ -20,11 +20,10 @@ package org.openurp.edu.clazz.model;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Component;
-import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.openurp.base.edu.code.CourseAbilityRate;
+import org.openurp.code.edu.model.CourseAbilityRate;
 import org.openurp.base.std.model.Student;
 import org.openurp.base.model.Department;
 import org.openurp.edu.clazz.util.GenderRatio;

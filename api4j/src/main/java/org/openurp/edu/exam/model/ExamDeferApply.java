@@ -19,7 +19,7 @@
 package org.openurp.edu.exam.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.edu.code.ExamDeferReason;
+import org.openurp.code.edu.model.ExamDeferReason;
 import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.clazz.model.Clazz;

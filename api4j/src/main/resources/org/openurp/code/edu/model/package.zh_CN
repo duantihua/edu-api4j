@@ -1,0 +1,6 @@
+
+FeeOrigin=招生信息之费用来源
+
+PayState=支付状态
+PayState.shortName=简称
+PayState.remark=备注

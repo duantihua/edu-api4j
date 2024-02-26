@@ -89,3 +89,15 @@ TimeSetting.semester=学期
 TimeSetting.campus=校区
 timeSetting.units=默认小节列表
 TimeSetting.buildingUnits=教学楼小节列表
+
+Person=学生基本信息
+Person.code=证件号码
+Person.formattedName=姓名
+Person.phoneticName=英文名
+Person.formerName=曾用名
+Person.gender=性别
+Person.birthday=出生年月
+Person.idType=证件类型 身份证/护照等
+Person.country=国家地区
+Person.nation=民族 留学生使用外国民族
+Person.homeTown=籍贯

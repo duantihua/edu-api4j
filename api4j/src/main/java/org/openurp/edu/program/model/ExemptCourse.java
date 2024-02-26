@@ -23,7 +23,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.edu.model.Course;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.std.model.Grade;
 
 import javax.persistence.*;

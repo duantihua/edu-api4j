@@ -34,7 +34,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Direction;
 
 /**

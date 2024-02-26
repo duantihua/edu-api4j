@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.grade.course.service;
 
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Student;
 

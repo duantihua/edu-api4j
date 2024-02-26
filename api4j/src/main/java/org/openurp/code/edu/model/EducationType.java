@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.edu.code;
+package org.openurp.code.edu.model;
 
 import org.beangle.commons.entity.pojo.Code;
 import org.hibernate.annotations.Cache;
@@ -26,9 +26,9 @@ import org.openurp.code.school;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 
-@Entity(name = "org.openurp.base.edu.code.ExamDeferReason")
+@Entity(name = "org.openurp.code.edu.model.EducationType")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class ExamDeferReason extends Code<Integer> {
+public class EducationType extends Code<Integer> {
 }

@@ -19,7 +19,7 @@
 package org.openurp.edu.program.model;
 
 import org.beangle.commons.entity.Entity;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 
 import java.sql.Date;
 import java.util.List;

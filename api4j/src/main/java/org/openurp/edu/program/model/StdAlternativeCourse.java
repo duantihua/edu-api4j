@@ -53,12 +53,12 @@ public class StdAlternativeCourse extends AbstractCourseSubstitution {
   /** 被替代的课程 */
   @ManyToMany
   @JoinColumn(nullable = false)
-  @JoinTable(name = "std_alt_courses_olds", joinColumns = @JoinColumn(name = "std_alternative_course_id"))
+  @JoinTable(name = "std_alt_courses_olds", joinColumns = @JoinColumn(name = "std_alt_course_id"))
   private Set<Course> olds = CollectUtils.newHashSet();
   /** 已替代的课程 */
   @ManyToMany
   @JoinColumn(nullable = false)
-  @JoinTable(name = "std_alt_courses_news", joinColumns = @JoinColumn(name = "std_alternative_course_id"))
+  @JoinTable(name = "std_alt_courses_news", joinColumns = @JoinColumn(name = "std_alt_course_id"))
   private Set<Course> news = CollectUtils.newHashSet();
 
   /** 备注 */
