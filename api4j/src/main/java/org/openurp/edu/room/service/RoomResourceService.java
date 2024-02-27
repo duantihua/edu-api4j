@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.beangle.orm.hibernate.udt.WeekTime;
-import org.openurp.base.model.Room;
+import org.openurp.base.space.model.Room;
 
 /**
  * 管理所有的牵涉到教室的资源调用,如申请占用\取消占用等

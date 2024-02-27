@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
-import org.openurp.base.edu.code.EducationType;
+import org.openurp.code.edu.model.EducationType;
 import org.openurp.code.edu.model.EducationLevel;
 
 /**

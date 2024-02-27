@@ -27,7 +27,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.orm.hibernate.udt.WeekTime;
-import org.openurp.base.model.Room;
+import org.openurp.base.space.model.Room;
 import org.openurp.edu.room.service.RoomResourceService;
 
 public class RoomResourceServiceImpl extends BaseServiceImpl implements RoomResourceService {

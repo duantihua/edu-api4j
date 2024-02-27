@@ -21,13 +21,13 @@ package org.openurp.edu.clazz.model;
 import org.beangle.commons.entity.Entity;
 import org.beangle.commons.entity.metadata.Model;
 import org.beangle.commons.lang.IDEnum;
-import org.openurp.base.edu.code.EducationType;
+import org.openurp.code.edu.model.EducationType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.std.model.Squad;
 import org.openurp.base.model.Department;
-import org.openurp.base.std.code.StdLabel;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdLabel;
+import org.openurp.code.std.model.StdType;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.person.model.Gender;
 

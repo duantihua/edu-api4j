@@ -19,7 +19,7 @@
 package org.openurp.edu.exam.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
 
 import javax.persistence.Entity;

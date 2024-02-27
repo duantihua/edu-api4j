@@ -26,7 +26,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.program.model.ExecutionCourseGroup;
 
 /**

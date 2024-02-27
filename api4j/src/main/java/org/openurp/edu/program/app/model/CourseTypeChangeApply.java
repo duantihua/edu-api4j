@@ -20,7 +20,7 @@ package org.openurp.edu.program.app.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.User;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Student;
 

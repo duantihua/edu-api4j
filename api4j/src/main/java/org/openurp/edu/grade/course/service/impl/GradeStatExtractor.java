@@ -23,7 +23,7 @@ import java.util.List;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.text.i18n.TextResource;
 import org.beangle.commons.transfer.exporter.DefaultPropertyExtractor;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.grade.course.model.CourseGradeState;
 

@@ -23,7 +23,7 @@ import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.model.Department;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.std.model.Grade;
 import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.Degree;

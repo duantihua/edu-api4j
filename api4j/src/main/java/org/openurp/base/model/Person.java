@@ -47,7 +47,7 @@ public class Person extends NumberIdTimeObject<Long> {
 
   /** 姓名 */
   @NotNull
-  protected String formatedName;
+  protected String formattedName;
 
   /** 英文名 */
   @Size(max = 255)
@@ -136,12 +136,12 @@ public class Person extends NumberIdTimeObject<Long> {
     this.nation = nation;
   }
 
-  public String getFormatedName() {
-    return formatedName;
+  public String getFormattedName() {
+    return formattedName;
   }
 
-  public void setFormatedName(String name) {
-    this.formatedName = name;
+  public void setFormattedName(String name) {
+    this.formattedName = name;
   }
 
   public String getPhoneticName() {

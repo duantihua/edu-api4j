@@ -1,20 +1,15 @@
 [#ftl]
-<tr>
-  <td class="search-item">
-    [#assign minField = tag.minField /]
-    [#assign maxField = tag.maxField /]
-    <div style="display:inline">
-    [#if minField.label??]
-    <div style="display:inline;float:left;"><label for="${minField.id}">${minField.label}:</label></div>
-    [/#if]
-    <div style="display:inline;float:left;"><input type="text" id="${minField.id}" name="${minField.name}" value="${minField.value!}"${minField.parameterString}/>&nbsp;-&nbsp;</div>
-    [#if maxField.label??]
-    <div style="display:inline;float:left;"><label for="${maxField.id}">${maxField.label}:</label></div>
-    [/#if]
-    <div style="display:inline;float:left;"><input type="text" id="${maxField.id}" name="${maxField.name}" value="${maxField.value!}"${maxField.parameterString}/></div>
-    </div>
-  </td>
-</tr>
+<div class="search-item">
+  [#assign minField = tag.minField /]
+  [#assign maxField = tag.maxField /]
+  [#if minField.label??]
+  <label style="font-weight:inherit" for="${minField.id}">${minField.label}:</label>
+  [/#if]
+  <div style="display:inline-block;width:6.25rem;text-align:left">
+    <input type="text" id="${minField.id}" name="${minField.name}" value="${minField.value!}"${minField.parameterString}/>&nbsp;-&nbsp;
+    <input type="text" id="${maxField.id}" [#if maxField.label??]placeholder="${maxField.label}"[/#if] name="${maxField.name}" value="${maxField.value!}"${maxField.parameterString}/>
+  </div>
+</div>
 <script>
   jQuery(document).ready(function(){
     [@blur minField/]

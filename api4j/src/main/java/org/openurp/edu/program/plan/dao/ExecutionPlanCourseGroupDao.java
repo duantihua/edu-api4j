@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.program.plan.dao;
 
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 
 /**
  * 培养计划课程组信息存取类

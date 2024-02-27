@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.clazz.service;
 
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.ClazzActivity;
 

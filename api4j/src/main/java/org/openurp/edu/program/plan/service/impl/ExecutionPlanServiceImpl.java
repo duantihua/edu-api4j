@@ -18,23 +18,19 @@
  */
 package org.openurp.edu.program.plan.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
-import org.openurp.base.edu.code.CourseType;
-import org.openurp.edu.program.plan.service.ExecutionPlanQueryBuilder;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Squad;
-import org.openurp.edu.program.plan.dao.PlanCommonDao;
 import org.openurp.edu.program.model.ExecutionCourseGroup;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.ExecutionPlanCourse;
 import org.openurp.edu.program.model.PlanCourse;
+import org.openurp.edu.program.plan.dao.PlanCommonDao;
+import org.openurp.edu.program.plan.service.ExecutionPlanQueryBuilder;
 import org.openurp.edu.program.plan.service.ExecutionPlanService;
+
+import java.util.*;
 
 /**
  * 培养计划服务接口
@@ -43,8 +39,8 @@ public class ExecutionPlanServiceImpl extends BaseServiceImpl implements Executi
 
   private PlanCommonDao planCommonDao;
 
-  public List<CourseType> getUnusedCourseTypes(ExecutionPlan plan) {
-    return planCommonDao.getUnusedCourseTypes(plan);
+  public Set<String> getUnusedCourseTypeNames(ExecutionPlan plan) {
+    return planCommonDao.getUnusedCourseTypeNames(plan);
   }
 
   public void removeExecutionPlan(ExecutionPlan plan) {
@@ -81,9 +77,11 @@ public class ExecutionPlanServiceImpl extends BaseServiceImpl implements Executi
   }
 
   public List<ExecutionPlanCourse> getPlanCourses(ExecutionPlan plan) {
-    if (CollectUtils.isEmpty(plan.getGroups())) { return Collections.EMPTY_LIST; }
+    if (CollectUtils.isEmpty(plan.getGroups())) {
+      return Collections.EMPTY_LIST;
+    }
     List<ExecutionPlanCourse> planCourses = new ArrayList<ExecutionPlanCourse>();
-    for (Iterator iter = plan.getGroups().iterator(); iter.hasNext();) {
+    for (Iterator iter = plan.getGroups().iterator(); iter.hasNext(); ) {
       ExecutionCourseGroup group = (ExecutionCourseGroup) iter.next();
       planCourses.addAll((List) group.getPlanCourses());
     }

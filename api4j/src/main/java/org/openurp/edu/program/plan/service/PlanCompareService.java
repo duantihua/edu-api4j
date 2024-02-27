@@ -18,12 +18,11 @@
  */
 package org.openurp.edu.program.plan.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.PlanCourse;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 培养计划和培养计划的对比服务类<br>
@@ -37,15 +36,13 @@ public interface PlanCompareService {
    *
    * @param leftPlan
    * @param rightPlan
-   * @return
-   *
-   *         <pre>
+   * @return <pre>
    *     CourseType<br>
    *       List<? extends ExecutionPlanCourse>[]<br>
    *         [0]  leftPlan的课程<br>
    *         [1]  rightPlan中的课程
    *         </pre>
    */
-  Map<CourseType, List<? extends PlanCourse>[]> diff(CoursePlan leftPlan, CoursePlan rightPlan);
+  Map<String, List<? extends PlanCourse>[]> diff(CoursePlan leftPlan, CoursePlan rightPlan);
 
 }

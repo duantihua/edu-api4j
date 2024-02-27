@@ -19,6 +19,7 @@
 package org.openurp.web.action;
 
 import com.opensymphony.xwork2.util.ValueStack;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.beangle.commons.bean.comparators.PropertyComparator;
 import org.beangle.commons.collection.CollectUtils;
@@ -31,16 +32,20 @@ import org.beangle.security.core.context.SecurityContext;
 import org.beangle.security.core.userdetail.DefaultAccount;
 import org.beangle.security.core.userdetail.Profile;
 import org.beangle.struts2.annotation.Action;
-import org.openurp.base.model.Building;
+import org.openurp.base.edu.model.Direction;
+import org.openurp.base.edu.model.Major;
+import org.openurp.base.edu.model.Project;
+import org.openurp.base.edu.model.Semester;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.model.Department;
-import org.openurp.base.edu.model.*;
+import org.openurp.base.space.model.Building;
+import org.openurp.base.space.model.Classroom;
 import org.openurp.base.std.model.Student;
+import org.openurp.edu.web.action.RestrictionSupportAction;
 import org.openurp.service.EamsException;
 import org.openurp.service.security.EamsUserCategory;
 import org.openurp.web.view.component.semester.SemesterCalendar;
-import org.openurp.edu.web.action.RestrictionSupportAction;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -57,6 +62,7 @@ public class DataQueryAction extends RestrictionSupportAction {
     getDatas(type);
     return forward(getView(view));
   }
+
   protected void getDatas(DataType type) {
     put("entityId", getLong("entityId"));
     if (type == DataType.PROJECT) {
@@ -75,7 +81,7 @@ public class DataQueryAction extends RestrictionSupportAction {
         } else {
           OqlBuilder<Project> builder = OqlBuilder.from(Teacher.class.getName(), "teacher");
           builder.where("teacher.staff.code = :me", Securities.getUsername())
-              .join("teacher.projects","project").where("project.endOn is null");
+              .join("teacher.projects", "project").where("project.endOn is null");
           builder.select("project");
           projects = entityDao.search(builder);
           if (null != projects) {
@@ -110,9 +116,9 @@ public class DataQueryAction extends RestrictionSupportAction {
     } else if (type == DataType.BUILDINGCASCADE) {
       put("datas", getBuildingCascade());
     } else if (type == DataType.SEMESTERCALENDAR) {
-      Integer projectId=getIntId("project");
-      if(null==projectId){
-        projectId= projectContext.getProject().getId();
+      Integer projectId = getIntId("project");
+      if (null == projectId) {
+        projectId = projectContext.getProject().getId();
       }
       Map<String, List<Semester>> semesterCalendar = getSemesterCalendar(projectId);
       Integer semesterId = getInt("value");
@@ -143,14 +149,15 @@ public class DataQueryAction extends RestrictionSupportAction {
     if (projectId == null) return Collections.emptyList();
     Project p = entityDao.get(Project.class, projectId);
     OqlBuilder<Semester> builder = OqlBuilder.from(Semester.class, "s")
-      .where("s.calendar = :calendar", p.getCalendar()).orderBy("s.beginOn").cacheable();
+        .where("s.calendar = :calendar", p.getCalendar()).orderBy("s.beginOn")
+        .where("s.archived=false").cacheable();
     return entityDao.search(builder);
   }
 
   protected Map<String, List<Semester>> getSemesterCalendar(Integer projectId) {
     HttpServletRequest request = getRequest();
     SemesterCalendar calendar = new SemesterCalendar((ValueStack) request.getAttribute("struts.valueStack"),
-      false);
+        false);
     calendar.setEmpty(get("empty"));
     calendar.setFormat(get("format"));
     calendar.setItems(getSemesters(projectId));
@@ -198,9 +205,9 @@ public class DataQueryAction extends RestrictionSupportAction {
       return CollectUtils.newArrayList();
     }
     OqlBuilder<Major> builder = OqlBuilder
-      .from(Major.class)
-      .where("exists(from major.journals md where md.depart in (:departs))", departs)
-      .where("major.beginOn <= :now and (major.endOn is null or major.endOn >= :now)", new java.util.Date());
+        .from(Major.class)
+        .where("exists(from major.journals md where md.depart in (:departs))", departs)
+        .where("major.beginOn <= :now and (major.endOn is null or major.endOn >= :now)", new java.util.Date());
     return entityDao.search(builder);
   }
 
@@ -208,7 +215,7 @@ public class DataQueryAction extends RestrictionSupportAction {
     Integer departId = getInt("departId");
     Integer levelId = getInt("levelId");
     OqlBuilder<Major> builder = OqlBuilder.from(Major.class, "major").where(
-      "major.beginOn <= :now and (major.endOn is null or major.endOn >= :now)", new java.util.Date());
+        "major.beginOn <= :now and (major.endOn is null or major.endOn >= :now)", new java.util.Date());
     if (null != levelId) {
       builder.where("exists(from major.journals md where md.level.id =:levelId)", levelId);
     }
@@ -222,8 +229,8 @@ public class DataQueryAction extends RestrictionSupportAction {
 
   private List<Building> getBuildingCascade() {
     OqlBuilder<Building> builder = OqlBuilder.<Building>from(Classroom.class.getName(), "cl").where(
-      "cl.room.building.beginOn <= :now and (cl.room.building.endOn is null or cl.room.building.endOn >= :now)",
-      new java.util.Date());
+        "cl.room.building.beginOn <= :now and (cl.room.building.endOn is null or cl.room.building.endOn >= :now)",
+        new java.util.Date());
 
     Integer campusId = getInt("campusId");
     if (campusId == null) {
@@ -240,8 +247,8 @@ public class DataQueryAction extends RestrictionSupportAction {
 
   private List<Direction> getDirectionCascade() {
     OqlBuilder<Direction> builder = OqlBuilder.from(Direction.class, "direction").where(
-      "direction.beginOn <= :now and (direction.endOn is null or direction.endOn >= :now)",
-      new java.util.Date());
+        "direction.beginOn <= :now and (direction.endOn is null or direction.endOn >= :now)",
+        new java.util.Date());
     Integer majorId = getInt("majorId");
     if (majorId == null) {
       return CollectUtils.newArrayList();

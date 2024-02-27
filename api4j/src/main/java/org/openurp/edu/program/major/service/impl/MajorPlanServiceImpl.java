@@ -21,7 +21,6 @@ package org.openurp.edu.program.major.service.impl;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.std.model.Squad;
@@ -108,8 +107,8 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
     return genedPlans;
   }
 
-  public List<CourseType> getUnusedCourseTypes(MajorPlan plan) {
-    return planCommonDao.getUnusedCourseTypes(plan);
+  public Set<String> getUnusedCourseTypeNames(MajorPlan plan) {
+    return planCommonDao.getUnusedCourseTypeNames(plan);
   }
 
   public void removeMajorPlan(MajorPlan plan) {

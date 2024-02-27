@@ -21,7 +21,6 @@ package org.openurp.edu.program.plan.service;
 import java.util.List;
 import java.util.Map;
 
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.model.StdPlan;
@@ -39,7 +38,7 @@ public interface PersonalPlanCompareService {
    * @param stdExecutionPlan
    * @return List<PlanCourse>[0] 专业培养计划中的课程 List<PlanCourse>[1]培养计划中的课程
    */
-  Map<CourseType, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
+  Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
       StdPlan stdExecutionPlan);
 
   /**

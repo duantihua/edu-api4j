@@ -22,7 +22,7 @@ import org.apache.commons.lang3.Range;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.orm.hibernate.HibernateEntityDao;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.code.service.CodeService;
@@ -31,8 +31,9 @@ import org.openurp.edu.program.plan.dao.PlanCommonDao;
 import org.openurp.edu.program.plan.util.ProgramHibernateClassGetter;
 import org.openurp.edu.program.utils.PlanUtils;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCommonDao {
 
@@ -93,22 +94,24 @@ public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCo
     return !res.isEmpty();
   }
 
-  public List<CourseType> getUsedCourseTypes(CoursePlan plan) {
-    OqlBuilder query = OqlBuilder.from(ProgramHibernateClassGetter.hibernateClass(plan), "plan");
-    query.select("courseGroup.courseType").join("plan.groups", "courseGroup").where("plan.id=:planId",
-        plan.getId());
-    return (List<CourseType>) search(query);
+  public Set<String> getUsedCourseTypeNames(CoursePlan plan) {
+    return plan.getGroups().stream().map(x -> x.getName()).collect(Collectors.toSet());
   }
 
   public List<CourseType> getUnusedCourseTypes(CoursePlan plan) {
     List<CourseType> allCourseTypes = codeService.getCodes(CourseType.class);
-    List<CourseType> usedCourseTypes = getUsedCourseTypes(plan);
+    List<CourseType> usedCourseTypes = plan.getGroups().stream().map(x -> x.getCourseType()).collect(Collectors.toList());
 
-    ArrayList<CourseType> list = new ArrayList<CourseType>(allCourseTypes);
-    for (CourseType courseType : usedCourseTypes) {
-      list.remove(courseType);
-    }
-    return list;
+    allCourseTypes.removeAll(usedCourseTypes);
+    return allCourseTypes;
+  }
+
+  public Set<String> getUnusedCourseTypeNames(CoursePlan plan) {
+    Set<String> allCourseTypes = codeService.getCodes(CourseType.class).stream().map(x -> x.getName()).collect(Collectors.toSet());
+    Set<String> usedCourseTypes = getUsedCourseTypeNames(plan);
+
+    allCourseTypes.removeAll(usedCourseTypes);
+    return allCourseTypes;
   }
 
   public List<Program> getDuplicatePrograms(Program program) {

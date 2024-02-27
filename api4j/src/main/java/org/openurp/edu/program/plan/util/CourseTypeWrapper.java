@@ -19,29 +19,26 @@
 package org.openurp.edu.program.plan.util;
 
 import org.beangle.commons.lang.functor.Transformer;
-import org.openurp.base.edu.code.CourseType;
 
 /**
- * TODO 应该使用EqualsBuilder
- * CourseGroupWrapper的包装类，用于提供不同的equals逻辑
- * 从eams-3shufe移植
+ *
  */
 public class CourseTypeWrapper {
 
   public static final Transformer WRAPPER = new WrapperTransformer();
   public static final Transformer UNWRAPPER = new UnWrapperTransformer();
 
-  private CourseType courseType;
+  private String courseType;
 
-  public CourseTypeWrapper(CourseType object) {
+  public CourseTypeWrapper(String object) {
     this.courseType = object;
   }
 
-  public CourseType getCourseType() {
+  public String getCourseType() {
     return courseType;
   }
 
-  public void setCourseType(CourseType courseType) {
+  public void setCourseType(String courseType) {
     this.courseType = courseType;
   }
 
@@ -63,13 +60,15 @@ public class CourseTypeWrapper {
 
     if (courseType == null) {
       if (other.courseType != null) return false;
-    } else if (!courseType.getId().equals(other.courseType.getId())) return false;
+    } else if (!courseType.equals(other.courseType)) return false;
     return true;
   }
 
   private static class WrapperTransformer implements Transformer {
     public Object apply(Object object) {
-      if (object.getClass().equals(CourseType.class)) { return new CourseTypeWrapper((CourseType) object); }
+      if (object.getClass().equals(String.class)) {
+        return new CourseTypeWrapper((String) object);
+      }
       throw new IllegalArgumentException("cannot accept object other than stdType of CourseType");
     }
   }
@@ -77,7 +76,9 @@ public class CourseTypeWrapper {
   private static class UnWrapperTransformer implements Transformer {
     public Object apply(Object object) {
       if (object.getClass()
-          .equals(CourseTypeWrapper.class)) { return ((CourseTypeWrapper) object).getCourseType(); }
+          .equals(CourseTypeWrapper.class)) {
+        return ((CourseTypeWrapper) object).getCourseType();
+      }
       throw new IllegalArgumentException("cannot accept object other than stdType of CourseTypeWrapper");
     }
   }

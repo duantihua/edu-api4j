@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.orm.hibernate.HibernateEntityDao;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.program.plan.dao.ExecutionPlanCourseGroupDao;
 import org.openurp.edu.program.model.ExecutionCourseGroup;
 

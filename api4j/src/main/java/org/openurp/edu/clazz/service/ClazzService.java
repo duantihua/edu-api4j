@@ -30,10 +30,10 @@ import java.util.List;
 
 import org.beangle.commons.entity.Entity;
 import org.openurp.base.model.Department;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.clazz.model.Clazz;
 
 /**

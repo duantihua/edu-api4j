@@ -21,7 +21,7 @@ package org.openurp.edu.web.action;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.security.Securities;
 import org.openurp.base.edu.model.Project;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 import java.util.List;
 

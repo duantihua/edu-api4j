@@ -1,0 +1,6 @@
+
+PayType=支付方式
+PayType.shortName=简称
+PayType.remark=备注
+
+FeeType=收费项目

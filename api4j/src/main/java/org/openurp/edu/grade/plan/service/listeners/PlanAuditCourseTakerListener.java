@@ -28,7 +28,7 @@ import org.beangle.commons.dao.EntityDao;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.edu.clazz.model.CourseTaker;
 import org.openurp.edu.grade.Grade;
@@ -108,7 +108,7 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
     for (Map.Entry<Course, CourseType> entry : course2Types.entrySet()) {
       CourseGroup g = context.getCoursePlan().getGroup(entry.getValue());
       GroupAuditResult gr = null;
-      if (null == g || g.getPlanCourses().isEmpty()) {
+      if (null == g || (g.getCourseType().isOptional() && !g.isAutoAddup())) {
         gr = context.getResult().getGroupResult(entry.getValue());
       }
       if (null == gr) gr = lastTarget;

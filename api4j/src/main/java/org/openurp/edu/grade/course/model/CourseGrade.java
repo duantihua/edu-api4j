@@ -36,7 +36,7 @@ import org.hibernate.annotations.NaturalId;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.ExamMode;
 import org.openurp.code.edu.model.GradeType;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.CourseTaker;

@@ -68,11 +68,7 @@ public class StdAlteration extends NumberIdTimeObject<Long> {
 
   /** 变动开始日期 */
   @NotNull
-  private Date beginOn;
-
-  /** 变动日期结束日期 */
-  @NotNull
-  private java.sql.Date endOn;
+  private Date alterOn;
 
   /** 变动项 */
   @OneToMany(mappedBy = "alteration", orphanRemoval = true, fetch = FetchType.EAGER)
@@ -99,14 +95,6 @@ public class StdAlteration extends NumberIdTimeObject<Long> {
 
   public void setStd(Student std) {
     this.std = std;
-  }
-
-  public java.sql.Date getEndOn() {
-    return endOn;
-  }
-
-  public void setEndOn(java.sql.Date endOn) {
-    this.endOn = endOn;
   }
 
   public String getRemark() {
@@ -149,12 +137,12 @@ public class StdAlteration extends NumberIdTimeObject<Long> {
     this.alterType = alterType;
   }
 
-  public Date getBeginOn() {
-    return beginOn;
+  public Date getAlterOn() {
+    return alterOn;
   }
 
-  public void setBeginOn(Date beginOn) {
-    this.beginOn = beginOn;
+  public void setAlterOn(Date alterOn) {
+    this.alterOn = alterOn;
   }
 
   public boolean isEffective() {

@@ -33,8 +33,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.sin.model.BookCategory;
 import org.openurp.code.sin.model.Press;
-import org.openurp.base.edu.code.BookAwardType;
-import org.openurp.base.edu.code.BookType;
+import org.openurp.code.edu.model.BookAwardType;
+import org.openurp.code.edu.model.BookType;
 
 /**
  * 教材

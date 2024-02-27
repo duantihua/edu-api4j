@@ -1,0 +1,6 @@
+
+FeeOrigin=Fee Origin
+
+PayState=Pay State
+PayState.shortName=ShortName
+PayState.remark=Remark

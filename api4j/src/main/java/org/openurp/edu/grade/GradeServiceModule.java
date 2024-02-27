@@ -23,43 +23,14 @@ import org.openurp.edu.grade.app.service.impl.GradeInputSwithServiceImpl;
 import org.openurp.edu.grade.app.service.impl.TranscriptTemplateServiceImpl;
 import org.openurp.edu.grade.course.service.CourseGradePublishStack;
 import org.openurp.edu.grade.course.service.GradingModeHelper;
-import org.openurp.edu.grade.course.service.impl.BestGpaStatService;
-import org.openurp.edu.grade.course.service.impl.BestGradeFilter;
-import org.openurp.edu.grade.course.service.impl.BestOriginGradeFilter;
-import org.openurp.edu.grade.course.service.impl.DefaultCourseGradeCalculator;
-import org.openurp.edu.grade.course.service.impl.DefaultGpaPolicy;
-import org.openurp.edu.grade.course.service.impl.DefaultGpaService;
-import org.openurp.edu.grade.course.service.impl.DefaultGradeTypePolicy;
-import org.openurp.edu.grade.course.service.impl.DefaultGradingModeStrategy;
-import org.openurp.edu.grade.course.service.impl.ExamTakerGeneratePublishListener;
-import org.openurp.edu.grade.course.service.impl.MakeupByExamStrategy;
-import org.openurp.edu.grade.course.service.impl.MakeupGradeFilter;
-import org.openurp.edu.grade.course.service.impl.More01ReserveMethod;
-import org.openurp.edu.grade.course.service.impl.MoreHalfReserveMethod;
-import org.openurp.edu.grade.course.service.impl.PassedGradeFilter;
-import org.openurp.edu.grade.course.service.impl.RecalcGpPublishListener;
-import org.openurp.edu.grade.course.service.impl.ScriptGradeFilter;
-import org.openurp.edu.grade.course.service.impl.SpringGradeFilterRegistry;
-import org.openurp.edu.grade.course.service.impl.StdGradeServiceImpl;
-import org.openurp.edu.grade.course.service.internal.BestGradeCourseGradeProviderImpl;
-import org.openurp.edu.grade.course.service.internal.CourseGradeProviderImpl;
-import org.openurp.edu.grade.course.service.internal.CourseGradeServiceImpl;
-import org.openurp.edu.grade.course.service.internal.GradeCourseTypeProviderImpl;
-import org.openurp.edu.grade.course.service.internal.GradeRateServiceImpl;
-import org.openurp.edu.grade.setting.service.impl.CourseGradeSettingsImpl;
-import org.openurp.edu.grade.transcript.service.impl.SpringTranscriptDataProviderRegistry;
-import org.openurp.edu.grade.transcript.service.impl.TranscriptGpaProvider;
-import org.openurp.edu.grade.transcript.service.impl.TranscriptPlanCourseProvider;
-import org.openurp.edu.grade.transcript.service.impl.TranscriptCertificateGradeProvider;
-import org.openurp.edu.grade.transcript.service.impl.TranscriptPublishedGradeProvider;
-import org.openurp.edu.grade.transcript.service.impl.TranscriptStdGraduateProvider;
+import org.openurp.edu.grade.course.service.impl.*;
+import org.openurp.edu.grade.course.service.internal.*;
 import org.openurp.edu.grade.plan.service.internal.AuditSettingServiceImpl;
 import org.openurp.edu.grade.plan.service.internal.PlanAuditServiceImpl;
-import org.openurp.edu.grade.plan.service.listeners.PlanAuditAlternativeCourseListener;
-import org.openurp.edu.grade.plan.service.listeners.PlanAuditCommonElectiveListener;
-import org.openurp.edu.grade.plan.service.listeners.PlanAuditCourseTakerListener;
-import org.openurp.edu.grade.plan.service.listeners.PlanAuditCourseTypeMatchListener;
+import org.openurp.edu.grade.plan.service.listeners.*;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditPersistObserver;
+import org.openurp.edu.grade.setting.service.impl.CourseGradeSettingsImpl;
+import org.openurp.edu.grade.transcript.service.impl.*;
 
 public class GradeServiceModule extends AbstractBindModule {
   @Override
@@ -97,21 +68,23 @@ public class GradeServiceModule extends AbstractBindModule {
     bind(MoreHalfReserveMethod.class, More01ReserveMethod.class).shortName();
 
     bind(TranscriptPlanCourseProvider.class, TranscriptGpaProvider.class,
-        TranscriptPublishedGradeProvider.class, TranscriptStdGraduateProvider.class,
+        TranscriptPublishedGradeProvider.class, TranscriptGraduateProvider.class,
         SpringTranscriptDataProviderRegistry.class, TranscriptCertificateGradeProvider.class)
-            .shortName();
+        .shortName();
 
     // 这些监听器再配置文件中顺序应该按照以下顺序
     bind("planAuditAlternativeCourseListener", PlanAuditAlternativeCourseListener.class);
     bind("planAuditCourseTakerListener", PlanAuditCourseTakerListener.class);
+    bind("planAuditExemptCourseListener", PlanAuditExemptCourseListener.class);
     bind("planAuditCourseTypeMatchListener", PlanAuditCourseTypeMatchListener.class);
     bind("planAuditCommonElectiveListener", PlanAuditCommonElectiveListener.class);
-
     bind("planAuditPersistObserver", PlanAuditPersistObserver.class);
 
     bind("planAuditService", PlanAuditServiceImpl.class).property("listeners",
         list(ref("planAuditAlternativeCourseListener"),
-            ref("planAuditCourseTakerListener"), ref("planAuditCourseTypeMatchListener"),
+            ref("planAuditCourseTakerListener"),
+            ref("planAuditExemptCourseListener"),
+            ref("planAuditCourseTypeMatchListener"),
             ref("planAuditCommonElectiveListener")));
 
     bind("auditSettingService", AuditSettingServiceImpl.class);

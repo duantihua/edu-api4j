@@ -29,7 +29,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Semester;
 
 /**

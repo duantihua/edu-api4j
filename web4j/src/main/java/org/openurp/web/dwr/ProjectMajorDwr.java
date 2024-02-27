@@ -28,7 +28,7 @@ import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.security.core.userdetail.Profile;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Project;

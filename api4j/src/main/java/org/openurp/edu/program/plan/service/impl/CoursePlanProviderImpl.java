@@ -24,6 +24,7 @@ import org.beangle.commons.collection.Order;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.openurp.base.edu.model.Semester;
+import org.openurp.base.model.Department;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.program.model.*;
 import org.openurp.edu.program.plan.service.CoursePlanProvider;
@@ -40,16 +41,29 @@ public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePla
       query.where("plan.program.grade=:grade", student.getGrade());
       query.where("plan.program.level=:level", student.getLevel());
       query.where("plan.program.major=:major", student.getState().getMajor());
+      var departs = new ArrayList<Department>();
+      departs.add(student.getDepartment());
+      if (null != student.getDepartment().getParent()) {
+        departs.add(student.getDepartment().getParent());
+      }
+      query.where("plan.program.department in(:departments)", departs);
       if (student.getState().getDirection() == null) {
         query.where("plan.program.direction is null");
       } else {
-        query.where("plan.program.direction=:direction", student.getState().getDirection());
+        query.where("plan.program.direction is null or plan.program.direction=:direction", student.getState().getDirection());
       }
       List<ExecutionPlan> plans = entityDao.search(query);
       if (plans.isEmpty()) {
         return null;
       } else {
-        return plans.get(0);//注意此处还需考虑其他条件，暂时做此处理
+        List<ExecutionPlan> suitables = new ArrayList<>();
+        for (ExecutionPlan plan : plans) {
+          var program = plan.getProgram();
+          if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
+            suitables.add(plan);
+          }
+        }
+        return suitables.isEmpty() ? null : suitables.get(0);
       }
     }
   }

@@ -19,7 +19,7 @@
 package org.openurp.base.service.event;
 
 import org.beangle.commons.event.BusinessEvent;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 public class TeacherCreationEvent extends BusinessEvent {
 

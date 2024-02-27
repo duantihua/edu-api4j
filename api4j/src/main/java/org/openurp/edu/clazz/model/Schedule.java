@@ -20,10 +20,9 @@ package org.openurp.edu.clazz.model;
 
 import org.beangle.commons.entity.Component;
 import org.beangle.commons.lang.Objects;
-import org.beangle.commons.lang.Strings;
 import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.*;
-import org.openurp.base.edu.model.Classroom;
+import org.openurp.base.space.model.Classroom;
 import org.openurp.code.edu.model.ClassroomType;
 
 import javax.persistence.Embeddable;

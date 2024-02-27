@@ -22,7 +22,7 @@ import org.beangle.commons.entity.pojo.NumberIdTimeObject;
 import org.openurp.code.edu.model.ExamStatus;
 import org.openurp.code.edu.model.GradingMode;
 import org.openurp.base.std.model.Student;
-import org.openurp.edu.extern.code.model.CertificateSubject;
+import org.openurp.code.edu.model.Certificate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,14 +67,14 @@ public class CertificateGrade extends NumberIdTimeObject<Long> {
   /** 考试科目 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private CertificateSubject subject;
+  private Certificate certificate;
 
   /** 准考证号 */
   @Size(max = 50)
   private String examNo;
 
   /** 证书编号 */
-  private String certificate;
+  private String certificateNo;
 
   /***/
   private java.sql.Date acquiredOn;
@@ -123,12 +123,12 @@ public class CertificateGrade extends NumberIdTimeObject<Long> {
     this.passed = passed;
   }
 
-  public CertificateSubject getSubject() {
-    return subject;
+  public Certificate getCertificate() {
+    return certificate;
   }
 
-  public void setSubject(CertificateSubject subject) {
-    this.subject = subject;
+  public void setCertificate(Certificate certificate) {
+    this.certificate = certificate;
   }
 
   public String getExamNo() {
@@ -139,12 +139,12 @@ public class CertificateGrade extends NumberIdTimeObject<Long> {
     this.examNo = examNo;
   }
 
-  public String getCertificate() {
-    return certificate;
+  public String getCertificateNo() {
+    return certificateNo;
   }
 
-  public void setCertificate(String certificate) {
-    this.certificate = certificate;
+  public void setCertificateNo(String certificateNo) {
+    this.certificateNo = certificateNo;
   }
 
   public java.sql.Date getAcquiredOn() {

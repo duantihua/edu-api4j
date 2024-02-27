@@ -45,7 +45,7 @@ import org.openurp.base.service.SemesterService;
 import org.openurp.base.model.Department;
 import org.openurp.base.model.User;
 import org.openurp.base.service.ProjectContext;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.service.EamsException;
 

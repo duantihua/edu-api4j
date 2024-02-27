@@ -26,7 +26,7 @@ import org.beangle.commons.dao.query.builder.Condition;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.openurp.base.model.Department;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.service.security.DataRealm;
 
 public class DataRealmUtils {

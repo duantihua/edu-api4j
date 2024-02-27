@@ -18,14 +18,14 @@
  */
 package org.openurp.base.std.model;
 
+import org.openurp.code.edu.model.Degree;
+import org.openurp.code.edu.model.EducationResult;
+import org.openurp.std.info.model.StudentInfoBean;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
-import org.openurp.code.edu.model.Degree;
-import org.openurp.code.edu.model.EducationResult;
-import org.openurp.std.info.model.StudentInfoBean;
 
 /**
  * 毕业信息实现
@@ -39,27 +39,46 @@ public class Graduate extends StudentInfoBean {
   @ManyToOne(fetch = FetchType.LAZY)
   private GraduateSeason season;
 
-  /** 毕业证书编号（电子注册号） */
+  /**
+   * 毕业证书编号（电子注册号）
+   */
   private String certificateNo;
 
-  /** 毕结业日期 */
+
+  /**
+   * 毕业证书序列号
+   */
+  private String certificateSeqNo;
+  /**
+   * 毕结业日期
+   */
   private java.sql.Date graduateOn;
 
-  /** 毕结业情况 */
+  /**
+   * 毕结业情况
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationResult result;
 
-  /** 学位 */
+  /**
+   * 学位
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   private Degree degree;
 
-  /** 学位授予日期 */
+  /**
+   * 学位授予日期
+   */
   private java.sql.Date degreeAwardOn;
 
-  /** 学位证书号 */
+  /**
+   * 学位证书号
+   */
   private String diplomaNo;
 
-  /** 外语通过年月 */
+  /**
+   * 外语通过年月
+   */
   private java.sql.Date foreignLangPassedOn;
 
   public java.sql.Date getDegreeAwardOn() {
@@ -130,5 +149,13 @@ public class Graduate extends StudentInfoBean {
 
   public void setSeason(GraduateSeason season) {
     this.season = season;
+  }
+
+  public String getCertificateSeqNo() {
+    return certificateSeqNo;
+  }
+
+  public void setCertificateSeqNo(String certificateSeqNo) {
+    this.certificateSeqNo = certificateSeqNo;
   }
 }

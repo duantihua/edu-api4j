@@ -22,7 +22,7 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.lang.Strings;
 import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.std.model.Squad;

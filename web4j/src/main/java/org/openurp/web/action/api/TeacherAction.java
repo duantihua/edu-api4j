@@ -23,7 +23,7 @@ import java.util.Date;
 import org.beangle.commons.collection.page.PageLimit;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.edu.web.action.BaseAction;
 
 /**

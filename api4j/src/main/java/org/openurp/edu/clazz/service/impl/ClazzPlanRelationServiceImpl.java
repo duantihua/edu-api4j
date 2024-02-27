@@ -26,7 +26,7 @@ import org.beangle.commons.lang.Strings;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.std.model.Squad;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.service.ClazzPlanRelationService;

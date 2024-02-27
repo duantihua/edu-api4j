@@ -25,8 +25,8 @@ import org.beangle.orm.hibernate.udt.WeekTime;
 import org.beangle.orm.hibernate.udt.WeekTimes;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.edu.model.Classroom;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.space.model.Classroom;
+import org.openurp.base.hr.model.Teacher;
 import org.openurp.code.edu.model.TeachingMethod;
 import org.openurp.code.edu.model.TeachingNature;
 

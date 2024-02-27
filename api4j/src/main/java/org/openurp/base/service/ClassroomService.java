@@ -20,8 +20,8 @@ package org.openurp.base.service;
 
 import java.util.List;
 
-import org.openurp.base.model.Building;
-import org.openurp.base.model.Room;
+import org.openurp.base.space.model.Building;
+import org.openurp.base.space.model.Room;
 
 public interface ClassroomService {
 

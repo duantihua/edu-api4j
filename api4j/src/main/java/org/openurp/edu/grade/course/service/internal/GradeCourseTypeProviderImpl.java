@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.course.service.GradeCourseTypeProvider;

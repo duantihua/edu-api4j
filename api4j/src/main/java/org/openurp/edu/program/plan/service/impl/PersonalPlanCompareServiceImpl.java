@@ -19,7 +19,7 @@
 package org.openurp.edu.program.plan.service.impl;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.program.model.*;
 import org.openurp.edu.program.plan.dao.PlanCommonDao;
 import org.openurp.edu.program.plan.dao.PlanCourseCommonDao;
@@ -46,7 +46,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
 
   private PlanCompareService planCompareService;
 
-  public Map<CourseType, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
+  public Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
                                                                                     StdPlan stdExecutionPlan) {
     return planCompareService.diff(executePlan, stdExecutionPlan);
   }

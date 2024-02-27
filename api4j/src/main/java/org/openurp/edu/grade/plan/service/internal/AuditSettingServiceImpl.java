@@ -20,7 +20,7 @@ package org.openurp.edu.grade.plan.service.internal;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.std.model.Student;
 import org.openurp.base.std.model.StudentScope;
 import org.openurp.edu.grade.app.model.AuditSetting;

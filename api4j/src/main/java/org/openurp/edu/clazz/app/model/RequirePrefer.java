@@ -20,7 +20,7 @@ package org.openurp.edu.clazz.app.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.edu.model.Course;
-import org.openurp.base.edu.model.Teacher;
+import org.openurp.base.hr.model.Teacher;
 
 /**
  * 教师的教材要求偏好<br>

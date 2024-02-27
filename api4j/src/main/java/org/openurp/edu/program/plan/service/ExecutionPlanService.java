@@ -18,13 +18,11 @@
  */
 package org.openurp.edu.program.plan.service;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-import org.openurp.base.edu.code.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Squad;
-import org.openurp.edu.program.model.CoursePlan;
 import org.openurp.edu.program.model.ExecutionCourseGroup;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.program.model.ExecutionPlanCourse;
@@ -64,7 +62,7 @@ public interface ExecutionPlanService {
    * @param plan
    * @return
    */
-  List<CourseType> getUnusedCourseTypes(ExecutionPlan plan);
+  Set<String> getUnusedCourseTypeNames(ExecutionPlan plan);
 
   /**
    * 统计培养计划的总学分

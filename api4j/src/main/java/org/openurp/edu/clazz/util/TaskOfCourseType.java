@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.clazz.util;
 
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.std.model.Squad;
 
 /**

@@ -45,21 +45,20 @@ public class NumberRangeDigestor {
   /**
    * 根据输入的数字序列，返回[1-10]单，[2-10]双，[4-12]之类的文字
    *
-   * @param numberSequence
+   * @param numberSequence <pre>
    *
-   *          <pre>
-   *
-   * 数字序列，顺序无所谓。会自动排序。
-   * 从而达到对周状态Digestor的效果
-   *          </pre>
-   *
-   * @param textResource 国际化资源
-   * @param formatter 格式配置
+   *                       数字序列，顺序无所谓。会自动排序。
+   *                       从而达到对周状态Digestor的效果
+   *                                </pre>
+   * @param textResource   国际化资源
+   * @param formatter      格式配置
    * @return 如果输入的是null或者长度为0的数组，返回""
    */
   public static String digest(int[] numberSequence, TextResource textResource,
-      NumberRangeFormatter formatter) {
-    if (numberSequence == null || numberSequence.length == 0) { return ""; }
+                              NumberRangeFormatter formatter) {
+    if (numberSequence == null || numberSequence.length == 0) {
+      return "";
+    }
     Arrays.sort(numberSequence);
 
     List<NumberRange> patterns = CollectUtils.newArrayList();
@@ -73,7 +72,7 @@ public class NumberRangeDigestor {
       }
     }
     StringBuilder sb = new StringBuilder();
-    for (Iterator<NumberRange> iterator = patterns.iterator(); iterator.hasNext();) {
+    for (Iterator<NumberRange> iterator = patterns.iterator(); iterator.hasNext(); ) {
       NumberRange pattern = iterator.next();
       if (!pattern.isAbandon()) {
         sb.append(formatter.format(pattern, textResource, iterator.hasNext()));
@@ -83,13 +82,15 @@ public class NumberRangeDigestor {
   }
 
   /**
-   * @see #digest(int[], TextResource)
    * @param numberSequence
    * @param textResource
    * @return
+   * @see #digest(int[], TextResource)
    */
   public static String digest(Integer[] numberSequence, TextResource textResource) {
-    if (numberSequence == null || numberSequence.length == 0) { return ""; }
+    if (numberSequence == null || numberSequence.length == 0) {
+      return "";
+    }
     int[] integers = new int[numberSequence.length];
     for (int i = 0; i < numberSequence.length; i++) {
       integers[i] = numberSequence[i];
@@ -98,15 +99,17 @@ public class NumberRangeDigestor {
   }
 
   /**
-   * @see #digest(int[], TextResource, NumberRangeFormatter)
    * @param numberSequence
    * @param textResource
    * @param formatter
    * @return
+   * @see #digest(int[], TextResource, NumberRangeFormatter)
    */
   public static String digest(Integer[] numberSequence, TextResource textResource,
-      NumberRangeFormatter formatter) {
-    if (numberSequence == null || numberSequence.length == 0) { return null; }
+                              NumberRangeFormatter formatter) {
+    if (numberSequence == null || numberSequence.length == 0) {
+      return null;
+    }
     int[] integers = new int[numberSequence.length];
     for (int i = 0; i < numberSequence.length; i++) {
       integers[i] = numberSequence[i];
@@ -120,5 +123,9 @@ public class NumberRangeDigestor {
     String digest = NumberRangeDigestor.digest(weekIndecies, null);
     return digest.replace("[", "").replace("]", "").replace("number.range.odd", "单")
         .replace("number.range.even", "双");
+  }
+
+  public static void main(String[] args) {
+    String digest = NumberRangeDigestor.digest(new int[]{1, 3, 5, 7}, null);
   }
 }

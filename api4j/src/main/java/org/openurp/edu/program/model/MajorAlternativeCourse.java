@@ -36,8 +36,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
 import org.openurp.base.std.model.Grade;
-import org.openurp.code.edu.model.AcademicLevel;
-import org.openurp.base.std.code.StdType;
+import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
@@ -91,14 +90,14 @@ public class MajorAlternativeCourse extends AbstractCourseSubstitution {
   /** 被替代的课程 */
   @ManyToMany
   @JoinColumn(nullable = false)
-  @JoinTable(name = "major_alt_courses_olds", joinColumns = @JoinColumn(name = "major_alternative_course_id"))
+  @JoinTable(name = "major_alt_courses_olds", joinColumns = @JoinColumn(name = "major_alt_course_id"))
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Course> olds = CollectUtils.newHashSet();
 
   /** 已替代的课程 */
   @ManyToMany
   @JoinColumn(nullable = false)
-  @JoinTable(name = "major_alt_courses_news", joinColumns = @JoinColumn(name = "major_alternative_course_id"))
+  @JoinTable(name = "major_alt_courses_news", joinColumns = @JoinColumn(name = "major_alt_course_id"))
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Course> news = CollectUtils.newHashSet();
 

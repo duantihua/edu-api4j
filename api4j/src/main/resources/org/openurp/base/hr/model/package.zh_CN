@@ -1,0 +1,13 @@
+Staff=教职工人员基本信息
+Staff.code=人员编码
+Staff.name=姓名
+Staff.department=部门
+Staff.gender=性别
+Staff.birthday=出生年月
+Staff.idType=证件类型 身份证/护照等
+Staff.idcard=身份证
+Staff.country=国家地区
+Staff.nation=民族
+Staff.politicVisage=政治面貌
+Staff.bankAccount=银行账户
+Staff.charactor=特长爱好以及个人说明

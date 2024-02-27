@@ -60,7 +60,7 @@ public class StudentDwrServiceImpl extends BaseServiceImpl {
     stdMap.put("code", std.getCode());
 
     Map person = new HashMap();
-    person.put("formatedName", std.getPerson().getFormatedName());
+    person.put("formattedName", std.getPerson().getFormattedName());
     stdMap.put("person", person);
 
     Map state = new HashMap();

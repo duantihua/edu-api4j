@@ -21,7 +21,7 @@ package org.openurp.edu.schedule.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.clazz.model.Clazz;
 
 public class TableTaskGroup {

@@ -20,7 +20,7 @@ package org.openurp.edu.grade.plan.adapters;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.functor.Predicate;
-import org.openurp.base.edu.code.CourseType;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.time.Terms;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.CoursePlan;
