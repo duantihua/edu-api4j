@@ -26,7 +26,7 @@ import org.beangle.commons.lang.tuple.Pair;
 import org.beangle.commons.text.i18n.TextResource;
 import org.openurp.base.edu.model.*;
 import org.openurp.base.hr.model.Teacher;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.ClazzActivity;
 

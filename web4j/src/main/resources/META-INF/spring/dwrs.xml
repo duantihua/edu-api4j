@@ -47,7 +47,7 @@
       <dwr:include method="name"/>
       <dwr:include method="code"/>
     </dwr:convert>
-    <dwr:convert type="bean" class="org.openurp.base.space.model.Building"/>
+    <dwr:convert type="bean" class="org.openurp.base.resource.model.Building"/>
     <dwr:convert type="bean" class="org.openurp.base.std.model.Student">
       <dwr:include method="id"/>
       <dwr:include method="name"/>

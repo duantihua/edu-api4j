@@ -34,7 +34,7 @@ import org.openurp.base.edu.model.*;
 import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Department;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.code.edu.model.ActivityType;
 import org.openurp.code.edu.model.ElectionMode;
 import org.openurp.edu.clazz.dao.ClazzDao;

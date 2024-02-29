@@ -57,10 +57,31 @@ public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePla
         return null;
       } else {
         List<ExecutionPlan> suitables = new ArrayList<>();
-        for (ExecutionPlan plan : plans) {
-          var program = plan.getProgram();
-          if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
-            suitables.add(plan);
+        if (null == student.getState().getDirection()) {//non direction
+          for (ExecutionPlan plan : plans) {
+            var program = plan.getProgram();
+            if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
+              suitables.add(plan);
+            }
+          }
+        } else {// has direction
+          for (ExecutionPlan plan : plans) {//first try
+            var program = plan.getProgram();
+            if (plan.getProgram().getDirection() != null && program.getDirection().equals(student.getState().getDirection())) {
+              if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
+                suitables.add(plan);
+              }
+            }
+          }
+          if (suitables.isEmpty()) {
+            for (ExecutionPlan plan : plans) {
+              var program = plan.getProgram();
+              if (program.getDirection() == null) {
+                if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
+                  suitables.add(plan);
+                }
+              }
+            }
           }
         }
         return suitables.isEmpty() ? null : suitables.get(0);

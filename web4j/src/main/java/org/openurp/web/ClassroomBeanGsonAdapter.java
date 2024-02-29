@@ -20,7 +20,7 @@ package org.openurp.web;
 
 import java.lang.reflect.Type;
 
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

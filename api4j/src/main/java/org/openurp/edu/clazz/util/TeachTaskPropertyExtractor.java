@@ -26,7 +26,7 @@ import org.beangle.commons.text.i18n.TextResource;
 import org.beangle.commons.transfer.exporter.DefaultPropertyExtractor;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.edu.model.ExamType;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.edu.model.Textbook;
 import org.openurp.base.edu.model.TimeSetting;

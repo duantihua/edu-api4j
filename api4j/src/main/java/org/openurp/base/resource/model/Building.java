@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.space.model;
+package org.openurp.base.resource.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -28,54 +28,29 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.AbstractBaseInfo;
 import org.openurp.base.model.Campus;
-import org.openurp.base.model.Department;
 import org.openurp.base.model.School;
-import org.openurp.code.asset.model.RoomType;
+import org.openurp.code.asset.model.BuildingType;
 
 /**
- * 教室基本信息
+ * 学校教学楼
+ *
+ * @depend - - - Campus
+ * @depend - - - Department
  */
-@Entity(name = "org.openurp.base.space.model.Room")
+@Entity(name = "org.openurp.base.resource.model.Building")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Room extends AbstractBaseInfo {
+public class Building extends AbstractBaseInfo {
 
-  private static final long serialVersionUID = 3229044942979160250L;
+  private static final long serialVersionUID = -5856318772633333467L;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private BuildingType buildingType;
 
   /** 所在校区 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Campus campus;
-
-  /** 学校 */
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private School school;
-
-  /** 设备配置代码 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private RoomType roomType;
-
-  /** 管理部门 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Department department;
-
-  public Room() {
-  }
-
-  public Room(Integer id) {
-    super(id);
-  }
-
-  public Room(String code) {
-    super(Integer.valueOf(code));
-    setCode(code);
-  }
-
-  public Room(Integer id, String name) {
-    this.id = id;
-    this.name = name;
-  }
 
   public School getSchool() {
     return school;
@@ -85,6 +60,11 @@ public class Room extends AbstractBaseInfo {
     this.school = school;
   }
 
+  /** 学校 */
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  private School school;
+
   public Campus getCampus() {
     return campus;
   }
@@ -93,20 +73,12 @@ public class Room extends AbstractBaseInfo {
     this.campus = campus;
   }
 
-  public RoomType getRoomType() {
-    return roomType;
+  public BuildingType getBuildingType() {
+    return buildingType;
   }
 
-  public void setRoomType(RoomType type) {
-    this.roomType = type;
-  }
-
-  public Department getDepartment() {
-    return department;
-  }
-
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setBuildingType(BuildingType buildingType) {
+    this.buildingType = buildingType;
   }
 
 }

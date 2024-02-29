@@ -23,7 +23,7 @@ import org.beangle.commons.entity.pojo.LongIdObject;
 import org.beangle.commons.lang.Objects;
 import org.beangle.orm.hibernate.udt.WeekTime;
 import org.beangle.orm.hibernate.udt.WeekTimes;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.base.edu.model.CourseUnit;
 import org.openurp.base.hr.model.Teacher;
 import org.openurp.base.edu.model.TimeSetting;
