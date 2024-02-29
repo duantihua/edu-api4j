@@ -21,7 +21,7 @@ package org.openurp.edu.room.domain;
 import java.util.Collection;
 
 import org.beangle.orm.hibernate.udt.WeekTime;
-import org.openurp.base.space.model.Room;
+import org.openurp.base.resource.model.Room;
 import org.openurp.code.edu.model.ActivityType;
 
 public final class OccupyUnit {

@@ -34,7 +34,7 @@ import javax.validation.constraints.Size;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.NaturalId;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 
 /**
  * 排课建议

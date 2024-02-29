@@ -22,8 +22,8 @@ import java.sql.Date;
 import java.util.List;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
-import org.openurp.base.space.model.Building;
-import org.openurp.base.space.model.Room;
+import org.openurp.base.resource.model.Building;
+import org.openurp.base.resource.model.Room;
 import org.openurp.base.service.ClassroomService;
 
 public class ClassroomServiceImpl extends BaseServiceImpl implements ClassroomService {

@@ -24,7 +24,7 @@ import java.util.Set;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.Entity;
-import org.openurp.base.space.model.Classroom;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.base.std.model.Squad;
 import org.openurp.base.std.model.Student;
 import org.openurp.base.hr.model.Teacher;
