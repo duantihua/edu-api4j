@@ -311,7 +311,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   public Integer getHour(TeachingNature type) {
     for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext(); ) {
       CourseHour courseHour = iter.next();
-      if (null != type && courseHour.getTeachingNature().equals(type)) {
+      if (null != type && courseHour.getNature().equals(type)) {
         return courseHour.getCreditHours();
       }
     }
@@ -322,7 +322,7 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     for (Iterator<CourseHour> iter = hours.iterator(); iter.hasNext(); ) {
       CourseHour courseHour = iter.next();
       if (null != typeId
-          && courseHour.getTeachingNature().getId().equals(typeId)) {
+          && courseHour.getNature().getId().equals(typeId)) {
         return courseHour.getCreditHours();
       }
     }
