@@ -36,8 +36,8 @@ import org.openurp.base.resource.model.Room;
 import org.openurp.base.std.model.Squad;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Restriction;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestriction;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.service.CourseLimitUtils;
 import org.openurp.service.security.DataRealm;
 
@@ -182,9 +182,9 @@ public class TeachResourceServiceImpl extends BaseServiceImpl implements TeachRe
     builder.where("activity.clazz.semester =:semester", semester);
     builder.where("activity.clazz.project.id=:projectId", squad.getProject().getId());
     setTimeQuery(time, builder);
-    Condition con = CourseLimitUtils.build(RestrictionMeta.Squad, "lgi", squad.getId().toString());
+    Condition con = CourseLimitUtils.build(ClazzRestrictionMeta.Squad, "lgi", squad.getId().toString());
     List<?> params = con.getParams();
-    builder.where("exists(from " + Restriction.class.getName()
+    builder.where("exists(from " + ClazzRestriction.class.getName()
         + " lg  join lg.items as lgi where lg.clazz=activity.clazz and " + con.getContent()
         + ")", params.get(0), params.get(1), params.get(2));
 

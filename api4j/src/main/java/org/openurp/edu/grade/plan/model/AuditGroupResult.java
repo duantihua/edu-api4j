@@ -18,32 +18,31 @@
  */
 package org.openurp.edu.grade.plan.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
+import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
 import org.openurp.edu.program.model.CourseGroup;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 课程组审核结果
  */
-@Entity(name = "org.openurp.edu.grade.plan.model.GroupAuditResult")
-public class GroupAuditResult extends LongIdObject {
+@Entity(name = "org.openurp.edu.grade.plan.model.AuditGroupResult")
+public class AuditGroupResult extends LongIdObject {
 
   private static final long serialVersionUID = -6622283837918622674L;
 
-  /** 组名 */
+  /**
+   * 组名
+   */
   @Size(max = 200)
   @NotNull
   private String name;
@@ -51,42 +50,58 @@ public class GroupAuditResult extends LongIdObject {
   @Size(max = 100)
   private String indexno;
 
-  /** 学分审核结果 */
+  /**
+   * 学分审核结果
+   */
   private AuditStat auditStat = new AuditStat();
 
-  /** 各课程审核结果 */
-  @OneToMany(mappedBy = "groupResult", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<CourseAuditResult> courseResults = CollectUtils.newArrayList();
+  /**
+   * 各课程审核结果
+   */
+  @OneToMany(mappedBy = "groupResult", orphanRemoval = true, cascade = {CascadeType.ALL})
+  private List<AuditCourseResult> courseResults = CollectUtils.newArrayList();
 
-  /** 课程类别 */
+  /**
+   * 课程类别
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType courseType;
 
-  /** 上级课程组 */
+  /**
+   * 上级课程组
+   */
   @ManyToOne(fetch = FetchType.LAZY)
-  private GroupAuditResult parent;
+  private AuditGroupResult parent;
 
-  /** 是否通过 */
+  /**
+   * 是否通过
+   */
   private boolean passed;
 
-  /** 子组 */
-  @OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = { CascadeType.ALL })
-  private List<GroupAuditResult> children = CollectUtils.newArrayList();
+  /**
+   * 子组
+   */
+  @OneToMany(mappedBy = "parent", orphanRemoval = true, cascade = {CascadeType.ALL})
+  private List<AuditGroupResult> children = CollectUtils.newArrayList();
 
-  /** 要求完成组数量 */
+  /**
+   * 要求完成组数量
+   */
   private short subCount;
 
   private String remark;
-  /** 计划审核结果 */
+  /**
+   * 计划审核结果
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private PlanAuditResult planResult;
+  private AuditPlanResult planResult;
 
-  public void attachTo(PlanAuditResult planResult) {
+  public void attachTo(AuditPlanResult planResult) {
     setPlanResult(planResult);
     planResult.getGroupResults().add(this);
-    for (GroupAuditResult groupResult : children) {
+    for (AuditGroupResult groupResult : children) {
       groupResult.attachTo(planResult);
     }
   }
@@ -94,7 +109,7 @@ public class GroupAuditResult extends LongIdObject {
   public void detach() {
     if (null != getPlanResult()) getPlanResult().getGroupResults().remove(this);
     setPlanResult(null);
-    for (GroupAuditResult groupResult : children)
+    for (AuditGroupResult groupResult : children)
       groupResult.detach();
   }
 
@@ -106,11 +121,11 @@ public class GroupAuditResult extends LongIdObject {
     this.name = name;
   }
 
-  public GroupAuditResult() {
+  public AuditGroupResult() {
     super();
   }
 
-  public GroupAuditResult(CourseGroup group) {
+  public AuditGroupResult(CourseGroup group) {
     this.name = group.getName();
     this.courseType = group.getCourseType();
     this.indexno = group.getIndexno();
@@ -132,19 +147,35 @@ public class GroupAuditResult extends LongIdObject {
     this.auditStat = auditStat;
   }
 
-  public List<CourseAuditResult> getCourseResults() {
+  public List<AuditCourseResult> getCourseResults() {
     return courseResults;
   }
 
-  public void setCourseResults(List<CourseAuditResult> planCourseAuditResults) {
+  public AuditCourseResult getCourseResult(Course course) {
+    Map<Course, AuditCourseResult> results = new HashMap<>();
+    for (AuditCourseResult car : getCourseResults()) {
+      if (course.equals(car.getCourse())) return car;
+    }
+    return null;
+  }
+
+  public Map<Course, AuditCourseResult> getCourseResultMap() {
+    Map<Course, AuditCourseResult> results = new HashMap<>();
+    for (AuditCourseResult car : getCourseResults()) {
+      results.put(car.getCourse(), car);
+    }
+    return results;
+  }
+
+  public void setCourseResults(List<AuditCourseResult> planCourseAuditResults) {
     this.courseResults = planCourseAuditResults;
   }
 
-  public List<GroupAuditResult> getChildren() {
+  public List<AuditGroupResult> getChildren() {
     return children;
   }
 
-  public void setChildren(List<GroupAuditResult> children) {
+  public void setChildren(List<AuditGroupResult> children) {
     this.children = children;
   }
 
@@ -154,15 +185,15 @@ public class GroupAuditResult extends LongIdObject {
    *
    * @return
    */
-  public GroupAuditResult getSuperResult() {
+  public AuditGroupResult getSuperResult() {
     return (null != planResult) ? new GroupResultAdapter(planResult) : null;
   }
 
-  public GroupAuditResult getParent() {
+  public AuditGroupResult getParent() {
     return parent;
   }
 
-  public void setParent(GroupAuditResult parent) {
+  public void setParent(AuditGroupResult parent) {
     this.parent = parent;
   }
 
@@ -171,7 +202,7 @@ public class GroupAuditResult extends LongIdObject {
    *
    * @param courseResult
    */
-  public void addCourseResult(CourseAuditResult courseResult) {
+  public void addCourseResult(AuditCourseResult courseResult) {
     courseResult.setGroupResult(this);
     getCourseResults().add(courseResult);
     // 设置该组的通过门数及通过的学分
@@ -180,7 +211,7 @@ public class GroupAuditResult extends LongIdObject {
     }
   }
 
-  public void updateCourseResult(CourseAuditResult rs) {
+  public void updateCourseResult(AuditCourseResult rs) {
     if (rs.isPassed()) addPassedCourse(rs.getGroupResult(), rs.getCourse());
   }
 
@@ -191,8 +222,10 @@ public class GroupAuditResult extends LongIdObject {
    * @param auditStat
    * @param course
    */
-  private void addPassedCourse(GroupAuditResult groupResult, Course course) {
-    if (null == groupResult) { return; }
+  private void addPassedCourse(AuditGroupResult groupResult, Course course) {
+    if (null == groupResult) {
+      return;
+    }
     var std = groupResult.planResult.getStd();
     AuditStat auditStat = groupResult.getAuditStat();
     if (!auditStat.getPassedCourses().contains(course)) {
@@ -212,24 +245,26 @@ public class GroupAuditResult extends LongIdObject {
     }
   }
 
-  public void addChild(GroupAuditResult gr) {
+  public void addChild(AuditGroupResult gr) {
     gr.setParent(this);
     this.children.add(gr);
   }
 
-  public void removeChild(GroupAuditResult gr) {
+  public void removeChild(AuditGroupResult gr) {
     gr.setParent(null);
     this.children.remove(gr);
   }
 
-  public static void checkPassed(GroupAuditResult groupResult, boolean isRecursive) {
-    if (null == groupResult) { return; }
+  public static void checkPassed(AuditGroupResult groupResult, boolean isRecursive) {
+    if (null == groupResult) {
+      return;
+    }
     boolean childrenPassed = true;
     int requiredSubCount = groupResult.getSubCount();
     if (requiredSubCount < 0) requiredSubCount = groupResult.getChildren().size();
     if (requiredSubCount > 0) {
       int groupPassedNum = 0;
-      for (GroupAuditResult childResult : groupResult.getChildren()) {
+      for (AuditGroupResult childResult : groupResult.getChildren()) {
         if (childResult.isPassed()) groupPassedNum += 1;
       }
       childrenPassed = (groupPassedNum >= requiredSubCount);
@@ -253,11 +288,11 @@ public class GroupAuditResult extends LongIdObject {
     this.passed = passed;
   }
 
-  public PlanAuditResult getPlanResult() {
+  public AuditPlanResult getPlanResult() {
     return planResult;
   }
 
-  public void setPlanResult(PlanAuditResult planResult) {
+  public void setPlanResult(AuditPlanResult planResult) {
     this.planResult = planResult;
   }
 

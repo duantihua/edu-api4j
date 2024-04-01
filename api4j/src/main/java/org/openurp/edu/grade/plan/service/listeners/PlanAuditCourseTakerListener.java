@@ -18,33 +18,32 @@
  */
 package org.openurp.edu.grade.plan.service.listeners;
 
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.dao.EntityDao;
+import org.beangle.commons.dao.query.builder.OqlBuilder;
+import org.beangle.commons.lang.tuple.Pair;
+import org.openurp.base.edu.model.Course;
+import org.openurp.code.edu.model.CourseType;
+import org.openurp.edu.clazz.model.CourseTaker;
+import org.openurp.edu.grade.Grade;
+import org.openurp.edu.grade.course.model.CourseGrade;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+import org.openurp.edu.grade.plan.service.AuditPlanListener;
+import org.openurp.edu.program.model.CourseGroup;
+import org.openurp.edu.program.model.PlanCourse;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
-import org.beangle.commons.collection.CollectUtils;
-import org.beangle.commons.dao.EntityDao;
-import org.beangle.commons.dao.query.builder.OqlBuilder;
-import org.beangle.commons.lang.Strings;
-import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.code.edu.model.CourseType;
-import org.openurp.base.edu.model.Course;
-import org.openurp.edu.clazz.model.CourseTaker;
-import org.openurp.edu.grade.Grade;
-import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
-import org.openurp.edu.grade.plan.service.PlanAuditListener;
-import org.openurp.edu.program.model.CourseGroup;
-import org.openurp.edu.program.model.PlanCourse;
-
 /**
  * 在读课程审核监听器
  */
-public class PlanAuditCourseTakerListener implements PlanAuditListener {
+public class PlanAuditCourseTakerListener implements AuditPlanListener {
 
   private EntityDao entityDao;
   private static final String TakeCourse2Types = "takeCourse2Types";
@@ -54,8 +53,8 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
    */
   private boolean defaultPassed = false;
 
-  @SuppressWarnings({ "unchecked" })
-  public boolean startPlanAudit(PlanAuditContext context) {
+  @SuppressWarnings({"unchecked"})
+  public boolean startPlanAudit(AuditPlanContext context) {
     @SuppressWarnings("rawtypes")
     OqlBuilder builder = OqlBuilder.from(CourseTaker.class, "ct").where("ct.std=:std", context.getStd());
     builder.where("not exists(from " + CourseGrade.class.getName()
@@ -68,46 +67,46 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
       course2Types.put((Course) ((Object[]) c)[0], (CourseType) ((Object[]) c)[1]);
     }
     context.getParams().put(TakeCourse2Types, course2Types);
-    context.getParams().put(Group2CoursesKey, new ArrayList<Pair<GroupAuditResult, Course>>());
+    context.getParams().put(Group2CoursesKey, new ArrayList<Pair<AuditGroupResult, Course>>());
     return true;
   }
 
-  public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-      GroupAuditResult groupResult) {
+  public boolean startGroupAudit(AuditPlanContext context, CourseGroup courseGroup,
+                                 AuditGroupResult groupResult) {
     return true;
   }
 
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
-      PlanCourse planCourse) {
+  @SuppressWarnings({"unchecked", "rawtypes"})
+  public boolean startCourseAudit(AuditPlanContext context, AuditGroupResult groupResult,
+                                  PlanCourse planCourse) {
     if (((Map<Course, CourseType>) context.getParams().get(TakeCourse2Types))
         .containsKey(planCourse.getCourse())) {
-      ((ArrayList<Pair<GroupAuditResult, Course>>) (context.getParams().get(Group2CoursesKey)))
+      ((ArrayList<Pair<AuditGroupResult, Course>>) (context.getParams().get(Group2CoursesKey)))
           .add(new Pair(groupResult, planCourse.getCourse()));
     }
     return true;
   }
 
-  @SuppressWarnings({ "unchecked" })
-  public void endPlanAudit(PlanAuditContext context) {
+  @SuppressWarnings({"unchecked"})
+  public void endPlanAudit(AuditPlanContext context) {
     Map<Course, CourseType> course2Types = (Map<Course, CourseType>) context.getParams()
         .remove(TakeCourse2Types);
-    ArrayList<Pair<GroupAuditResult, Course>> results = (ArrayList<Pair<GroupAuditResult, Course>>) context
+    ArrayList<Pair<AuditGroupResult, Course>> results = (ArrayList<Pair<AuditGroupResult, Course>>) context
         .getParams().remove(Group2CoursesKey);
 
-    Set<GroupAuditResult> used = CollectUtils.newHashSet();
+    Set<AuditGroupResult> used = CollectUtils.newHashSet();
     // 先按照代码进行匹配
-    for (Pair<GroupAuditResult, Course> tuple : results) {
+    for (Pair<AuditGroupResult, Course> tuple : results) {
       add2Group(tuple.getRight(), tuple.getLeft());
       course2Types.remove(tuple.getRight());
       used.add(tuple.getLeft());
     }
 
-    GroupAuditResult lastTarget = getTargetGroupResult(context);
+    AuditGroupResult lastTarget = getTargetGroupResult(context);
     /* 考虑剩余课程，匹配到相应类别(一定没有课程),匹配失败到目标类别(一般是通识选修或者任意选修) */
     for (Map.Entry<Course, CourseType> entry : course2Types.entrySet()) {
       CourseGroup g = context.getCoursePlan().getGroup(entry.getValue());
-      GroupAuditResult gr = null;
+      AuditGroupResult gr = null;
       if (null == g || (g.getCourseType().isOptional() && !g.isAutoAddup())) {
         gr = context.getResult().getGroupResult(entry.getValue());
       }
@@ -117,7 +116,7 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
         used.add(gr);
       }
     }
-    for (GroupAuditResult aur : used) {
+    for (AuditGroupResult aur : used) {
       aur.checkPassed(true);
     }
 
@@ -129,32 +128,29 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
    * @param groupResult
    * @param course
    */
-  private void add2Group(Course course, GroupAuditResult groupResult) {
-    CourseAuditResult existedResult = null;
-    for (CourseAuditResult cr : groupResult.getCourseResults()) {
+  private void add2Group(Course course, AuditGroupResult groupResult) {
+    AuditCourseResult existedResult = null;
+    for (AuditCourseResult cr : groupResult.getCourseResults()) {
       if (cr.getCourse().equals(course)) {
         existedResult = cr;
         break;
       }
     }
-    // 存在在读课程的审核结果，皆为预审结果
+
     // groupResult.getPlanResult().setPartial(true);
     if (existedResult == null) {
-      existedResult = new CourseAuditResult();
+      existedResult = new AuditCourseResult();
       existedResult.setCourse(course);
       existedResult.setPassed(defaultPassed);
       groupResult.addCourseResult(existedResult);
     } else {
-      if (defaultPassed) existedResult.setPassed(defaultPassed);
-      existedResult.getGroupResult().updateCourseResult(existedResult);
+      
+      //if (defaultPassed) existedResult.setPassed(defaultPassed);
+      //existedResult.getGroupResult().updateCourseResult(existedResult);
     }
 
-    if (Strings.isEmpty(existedResult.getRemark())) {
-      existedResult.setRemark("在读");
-    } else {
-      existedResult.setRemark(existedResult.getRemark() + "/在读");
-    }
-    if(null==existedResult.getScores()){
+    existedResult.addRemark("在读");
+    if (null == existedResult.getScores()) {
       existedResult.setScores("--");
     }
   }
@@ -165,13 +161,13 @@ public class PlanAuditCourseTakerListener implements PlanAuditListener {
    * @param context
    * @return
    */
-  private GroupAuditResult getTargetGroupResult(PlanAuditContext context) {
+  private AuditGroupResult getTargetGroupResult(AuditPlanContext context) {
     CourseType electiveType = context.getSetting().getConvertTarget();
-    PlanAuditResult result = context.getResult();
-    GroupAuditResult groupResult = result.getGroupResult(electiveType);
+    AuditPlanResult result = context.getResult();
+    AuditGroupResult groupResult = result.getGroupResult(electiveType);
     // 如果计划中没有任意选修课，那么就在审核结果中添加一个任意选修课
     if (null == groupResult) {
-      GroupAuditResult groupRs = new GroupAuditResult();
+      AuditGroupResult groupRs = new AuditGroupResult();
       groupRs.setIndexno("99.99");
       groupRs.setCourseType(electiveType);
       groupRs.setName(electiveType.getName());

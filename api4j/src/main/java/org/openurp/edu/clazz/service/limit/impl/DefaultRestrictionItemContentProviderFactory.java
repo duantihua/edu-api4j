@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.clazz.service.limit.impl;
 
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.service.limit.RestrictionItemContentProvider;
 import org.openurp.edu.clazz.service.limit.RestrictionItemContentProviderFactory;
 
@@ -28,15 +28,15 @@ import java.util.Map;
 public class DefaultRestrictionItemContentProviderFactory implements RestrictionItemContentProviderFactory {
 
   @SuppressWarnings("rawtypes")
-  private Map<RestrictionMeta, RestrictionItemContentProvider> providers = new HashMap<RestrictionMeta, RestrictionItemContentProvider>();
+  private Map<ClazzRestrictionMeta, RestrictionItemContentProvider> providers = new HashMap<ClazzRestrictionMeta, RestrictionItemContentProvider>();
 
   @SuppressWarnings("rawtypes")
-  public RestrictionItemContentProvider getProvider(RestrictionMeta courseLimitMeta) {
+  public RestrictionItemContentProvider getProvider(ClazzRestrictionMeta courseLimitMeta) {
     return providers.get(courseLimitMeta);
   }
 
   public void setProviders(
-      @SuppressWarnings("rawtypes") Map<RestrictionMeta, RestrictionItemContentProvider> providers) {
+      @SuppressWarnings("rawtypes") Map<ClazzRestrictionMeta, RestrictionItemContentProvider> providers) {
     this.providers = providers;
   }
 }

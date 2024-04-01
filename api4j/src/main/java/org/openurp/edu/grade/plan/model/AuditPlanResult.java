@@ -39,8 +39,8 @@ import org.openurp.base.std.model.Student;
 /**
  * 计划完成审核结果<br>
  */
-@Entity(name = "org.openurp.edu.grade.plan.model.PlanAuditResult")
-public class PlanAuditResult extends NumberIdTimeObject<Long> {
+@Entity(name = "org.openurp.edu.grade.plan.model.AuditPlanResult")
+public class AuditPlanResult extends NumberIdTimeObject<Long> {
 
   private static final long serialVersionUID = -3096429906586836701L;
 
@@ -57,7 +57,7 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
   /** 各课程组审核结果 */
   @OneToMany(mappedBy = "planResult", orphanRemoval = true, cascade = { CascadeType.ALL })
   @OrderBy("indexno")
-  private List<GroupAuditResult> groupResults = CollectUtils.newArrayList();
+  private List<AuditGroupResult> groupResults = CollectUtils.newArrayList();
 
   /** 是否通过 */
   private boolean passed;
@@ -76,17 +76,17 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
    */
   private boolean archived = false;
 
-  public PlanAuditResult() {
+  public AuditPlanResult() {
     super();
   }
 
-  public PlanAuditResult(Student student) {
+  public AuditPlanResult(Student student) {
     setStd(student);
   }
 
-  public List<GroupAuditResult> getTopGroupResults() {
-    List<GroupAuditResult> results = CollectUtils.newArrayList();
-    for (GroupAuditResult result : groupResults) {
+  public List<AuditGroupResult> getTopGroupResults() {
+    List<AuditGroupResult> results = CollectUtils.newArrayList();
+    for (AuditGroupResult result : groupResults) {
       if (null == result.getParent()) {
         results.add(result);
       }
@@ -94,11 +94,11 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
     return results;
   }
 
-  public List<GroupAuditResult> getGroupResults() {
+  public List<AuditGroupResult> getGroupResults() {
     return groupResults;
   }
 
-  public void setGroupResults(List<GroupAuditResult> groupAuditResults) {
+  public void setGroupResults(List<AuditGroupResult> groupAuditResults) {
     this.groupResults = groupAuditResults;
   }
 
@@ -110,12 +110,12 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
     this.auditStat = auditStat;
   }
 
-  public void addGroupResult(GroupAuditResult rs) {
+  public void addGroupResult(AuditGroupResult rs) {
     rs.setPlanResult(this);
     this.groupResults.add(rs);
   }
 
-  public void removeGroupResult(GroupAuditResult rs) {
+  public void removeGroupResult(AuditGroupResult rs) {
     rs.setPlanResult(null);
     this.groupResults.remove(rs);
   }
@@ -126,10 +126,10 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
    * @param stdType
    * @return
    */
-  public GroupAuditResult getGroupResult(CourseType type) {
+  public AuditGroupResult getGroupResult(CourseType type) {
     if (null == groupResults) { return null; }
-    for (GroupAuditResult groupAuditResult : groupResults) {
-      GroupAuditResult res = getGroupResult(groupAuditResult, type);
+    for (AuditGroupResult groupAuditResult : groupResults) {
+      AuditGroupResult res = getGroupResult(groupAuditResult, type);
       if (null != res) { return res; }
     }
     return null;
@@ -142,10 +142,10 @@ public class PlanAuditResult extends NumberIdTimeObject<Long> {
    * @param stdType
    * @return
    */
-  private GroupAuditResult getGroupResult(GroupAuditResult groupResult, CourseType type) {
+  private AuditGroupResult getGroupResult(AuditGroupResult groupResult, CourseType type) {
     if (type.equals(groupResult.getCourseType())) { return groupResult; }
-    for (GroupAuditResult childResult : groupResult.getChildren()) {
-      GroupAuditResult res = getGroupResult(childResult, type);
+    for (AuditGroupResult childResult : groupResult.getChildren()) {
+      AuditGroupResult res = getGroupResult(childResult, type);
       if (null != res) return res;
     }
     return null;

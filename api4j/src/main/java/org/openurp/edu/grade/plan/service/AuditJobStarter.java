@@ -26,6 +26,8 @@ import org.openurp.edu.grade.plan.service.observers.PlanAuditPersistObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalTime;
+
 public class AuditJobStarter implements Initializing {
 
   protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,25 +40,34 @@ public class AuditJobStarter implements Initializing {
 
   private PlanAuditPersistObserver planAuditPersistObserver;
 
-  /** 间隔 60 secs 自动刷新 */
-  private static final long refreshInterval = 1000 * 60;
-
+  /**
+   * 间隔 1hours 自动刷新
+   */
+  private static final long refreshInterval = 1000 * 60 * 60;
   @Override
   public void init() throws Exception {
+
+  }
+  public void init1() throws Exception {
     System.out.println("gew job starting...");
     new Thread(new Runnable() {
 
       public void run() {
         try {
           System.out.println("gew job started");
+          var startTime = LocalTime.of(8,0,0);
+          var endTime = LocalTime.of(22,0,0);
           while (true) {
-            AutoBatchAuditor auditor = new AutoBatchAuditor();
-            auditor.setPlanAuditPersistObserver(planAuditPersistObserver);
-            auditor.setBulkSize(15);
-            auditor.setPlanAuditService(planAuditService);
-            auditor.setEntityDao(entityDao);
-            auditor.setSessionFactory(sessionFactory);
-            auditor.execute();
+            var now = LocalTime.now();
+            //只在白天自动统计，晚上数据变化很小
+            if(now.isAfter(startTime) && now.isBefore(endTime)) {
+              AutoBatchAuditor auditor = new AutoBatchAuditor();
+              auditor.setPlanAuditPersistObserver(planAuditPersistObserver);
+              auditor.setPlanAuditService(planAuditService);
+              auditor.setEntityDao(entityDao);
+              auditor.setSessionFactory(sessionFactory);
+              auditor.execute();
+            }
             Thread.sleep(refreshInterval);
           }
         } catch (InterruptedException e) {

@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.openurp.code.person.model.Gender;
 import org.openurp.code.service.CodeService;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public class CourseLimitGenderProvider extends AbstractCourseLimitEntityProvider<Gender> {
   protected CodeService codeService;
@@ -52,7 +52,7 @@ public class CourseLimitGenderProvider extends AbstractCourseLimitEntityProvider
   }
 
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.Gender;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.Gender;
   }
 }

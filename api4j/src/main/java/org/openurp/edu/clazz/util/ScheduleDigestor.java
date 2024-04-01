@@ -229,8 +229,8 @@ public class ScheduleDigestor {
             roomStr.append(",");
           }
         }
-        if (roomStr.length() == 0 && null != activity.getPlaces()) {
-          roomStr.append(activity.getPlaces());
+        if (roomStr.length() == 0 && null != activity.getRemark()) {
+          roomStr.append(activity.getRemark());
         }
         CourseArrangeBuf.replace(replaceStart, replaceStart + room.length(), roomStr.toString());
 

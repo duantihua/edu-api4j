@@ -25,11 +25,11 @@ import org.openurp.base.service.SemesterService;
 import org.openurp.base.util.TermCalculator;
 import org.openurp.edu.grade.app.model.AuditSetting;
 import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
-import org.openurp.edu.grade.plan.service.PlanAuditListener;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+import org.openurp.edu.grade.plan.service.AuditPlanListener;
 import org.openurp.edu.grade.plan.service.StdGrade;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
@@ -44,26 +44,26 @@ import java.util.Map;
  *
  * @since 2012.03.19
  */
-public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
+public class PlanAuditCourseTypeMatchListener implements AuditPlanListener {
 
-  protected void addGroupResult(Map<CourseType, GroupAuditResult> results, GroupAuditResult gr) {
+  protected void addGroupResult(Map<CourseType, AuditGroupResult> results, AuditGroupResult gr) {
     results.put(gr.getCourseType(), gr);
-    for (GroupAuditResult child : gr.getChildren()) {
+    for (AuditGroupResult child : gr.getChildren()) {
       addGroupResult(results, child);
     }
   }
 
   private SemesterService semesterService;
 
-  public void endPlanAudit(PlanAuditContext context) {
+  public void endPlanAudit(AuditPlanContext context) {
     String[] auditTerms = context.getAuditTerms();
 
-    Map<CourseType, GroupAuditResult> results = CollectUtils.newHashMap();
+    Map<CourseType, AuditGroupResult> results = CollectUtils.newHashMap();
     StdGrade stdGrade = context.getStdGrade();
     Collection<Course> restCourses = stdGrade.getRestCourses();
     if (!restCourses.isEmpty()) {
-      PlanAuditResult result = context.getResult();
-      for (GroupAuditResult gr : result.getGroupResults()) {
+      AuditPlanResult result = context.getResult();
+      for (AuditGroupResult gr : result.getGroupResults()) {
         addGroupResult(results, gr);
       }
     }
@@ -74,7 +74,7 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
       if (grades.isEmpty()) continue;
       else courseType = grades.get(0).getCourseType();
 
-      GroupAuditResult groupResult = results.get(courseType);
+      AuditGroupResult groupResult = results.get(courseType);
       if (null == groupResult) continue;
       // 计划里的必修组，不能按照类别匹配
       CourseGroup g = context.getCoursePlan().getGroup(groupResult.getCourseType());
@@ -82,13 +82,6 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
       stdGrade.useGrades(course);
 
       StringBuilder remark = new StringBuilder();
-      // 登记交流成绩，外校课程名称
-      // if (course.isExchange()) {
-      // for (CourseGrade grade : grades) {
-      // for (ExternCourse ec : grade.getExchanges())
-      // remark.append(ec.getName()).append(' ');
-      // }
-      // }
       /*
        * 如果是部分审核，那么就要看这个课程获得的成绩是否在审核的学期内
        * 如果在就添加这个课程的审核结果，如果不在的话就不添加这个课程的审核结果
@@ -128,16 +121,16 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
         outOfPlan = true;
       }
 
-      CourseAuditResult existResult = null;
+      AuditCourseResult existResult = null;
       boolean existed = false;
-      for (CourseAuditResult cr : groupResult.getCourseResults()) {
+      for (AuditCourseResult cr : groupResult.getCourseResults()) {
         if (cr.getCourse().equals(course)) {
           existResult = cr;
           existed = true;
           break;
         }
       }
-      if (existResult == null) existResult = new CourseAuditResult();
+      if (existResult == null) existResult = new AuditCourseResult();
 
       existResult.setCourse(course);
       existResult.checkPassed(grades);
@@ -152,13 +145,13 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
     }
   }
 
-  public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
+  public boolean startCourseAudit(AuditPlanContext context, AuditGroupResult groupResult,
                                   PlanCourse planCourse) {
     return true;
   }
 
-  public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-                                 GroupAuditResult groupResult) {
+  public boolean startGroupAudit(AuditPlanContext context, CourseGroup courseGroup,
+                                 AuditGroupResult groupResult) {
     AuditSetting standard = context.getSetting();
     if (null != standard) {
       return !standard.isDisaudit(courseGroup.getCourseType());
@@ -166,7 +159,7 @@ public class PlanAuditCourseTypeMatchListener implements PlanAuditListener {
     return true;
   }
 
-  public boolean startPlanAudit(PlanAuditContext context) {
+  public boolean startPlanAudit(AuditPlanContext context) {
     return true;
   }
 

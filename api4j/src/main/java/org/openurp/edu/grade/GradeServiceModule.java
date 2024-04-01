@@ -26,7 +26,7 @@ import org.openurp.edu.grade.course.service.GradingModeHelper;
 import org.openurp.edu.grade.course.service.impl.*;
 import org.openurp.edu.grade.course.service.internal.*;
 import org.openurp.edu.grade.plan.service.internal.AuditSettingServiceImpl;
-import org.openurp.edu.grade.plan.service.internal.PlanAuditServiceImpl;
+import org.openurp.edu.grade.plan.service.internal.AuditPlanServiceImpl;
 import org.openurp.edu.grade.plan.service.listeners.*;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditPersistObserver;
 import org.openurp.edu.grade.setting.service.impl.CourseGradeSettingsImpl;
@@ -80,12 +80,12 @@ public class GradeServiceModule extends AbstractBindModule {
     bind("planAuditCommonElectiveListener", PlanAuditCommonElectiveListener.class);
     bind("planAuditPersistObserver", PlanAuditPersistObserver.class);
 
-    bind("planAuditService", PlanAuditServiceImpl.class).property("listeners",
+    bind("planAuditService", AuditPlanServiceImpl.class).property("listeners",
         list(ref("planAuditAlternativeCourseListener"),
-            ref("planAuditCourseTakerListener"),
             ref("planAuditExemptCourseListener"),
             ref("planAuditCourseTypeMatchListener"),
-            ref("planAuditCommonElectiveListener")));
+            ref("planAuditCommonElectiveListener"),
+            ref("planAuditCourseTakerListener")));
 
     bind("auditSettingService", AuditSettingServiceImpl.class);
   }

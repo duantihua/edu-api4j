@@ -18,7 +18,7 @@
  */
 package org.openurp.edu.grade.plan.service.observers;
 
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
 
 /**
  * 在审核的时候Observer的notifyBegin先执行<br>
@@ -29,9 +29,9 @@ public interface PlanAuditObserver {
 
   public void notifyStart();
 
-  public boolean notifyBegin(PlanAuditContext context, int index);
+  public boolean notifyBegin(AuditPlanContext context, int index);
 
-  public void notifyEnd(PlanAuditContext context, int index);
+  public void notifyEnd(AuditPlanContext context, int index);
 
   public void finish();
 

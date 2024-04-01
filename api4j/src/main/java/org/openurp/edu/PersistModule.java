@@ -42,11 +42,12 @@ import org.openurp.code.person.model.*;
 import org.openurp.code.sin.model.*;
 import org.openurp.code.std.model.*;
 import org.openurp.edu.clazz.config.ScheduleSetting;
-import org.openurp.edu.clazz.model.ClazzActivity;
-import org.openurp.edu.clazz.model.ScheduleSuggest;
-import org.openurp.edu.clazz.model.ScheduleSuggestActivity;
+import org.openurp.edu.clazz.model.*;
 import org.openurp.code.edu.model.Certificate;
 import org.openurp.code.edu.model.CertificateCategory;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
 import org.openurp.edu.program.model.ExemptCourse;
 import org.openurp.std.award.Punishment;
 import org.openurp.std.fee.config.TuitionConfig;
@@ -138,12 +139,10 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.clazz.model.NormalClass.class, org.openurp.edu.clazz.model.Clazz.class,
         org.openurp.edu.clazz.model.CourseTaker.class, org.openurp.edu.clazz.model.ClazzGroup.class,
         ScheduleSuggest.class, ScheduleSuggestActivity.class,
-        org.openurp.edu.clazz.model.Restriction.class, org.openurp.edu.clazz.model.RestrictionItem.class,
+        ClazzRestriction.class, ClazzRestrictionItem.class,
         org.openurp.edu.clazz.config.ScheduleSetting.class,
 
         org.openurp.edu.clazz.model.Subclazz.class,
-        org.openurp.edu.clazz.model.Lesson.class,
-        org.openurp.edu.clazz.model.TeachingPlan.class,
 
         org.openurp.edu.exam.model.ExamActivity.class, org.openurp.edu.exam.model.ExamRoom.class,
         org.openurp.edu.exam.model.ExamTaker.class, org.openurp.edu.exam.model.ExamTask.class,
@@ -170,9 +169,9 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.grade.course.model.StdGpa.class,
         org.openurp.edu.grade.course.model.StdSemesterGpa.class,
         org.openurp.edu.grade.course.model.StdYearGpa.class,
-        org.openurp.edu.grade.plan.model.GroupAuditResult.class,
-        org.openurp.edu.grade.plan.model.PlanAuditResult.class,
-        org.openurp.edu.grade.plan.model.CourseAuditResult.class,
+        AuditGroupResult.class,
+        AuditPlanResult.class,
+        AuditCourseResult.class,
 
         org.openurp.edu.room.model.Occupancy.class,
         org.openurp.edu.room.model.RoomOccupyApp.class,

@@ -37,10 +37,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * 课程限制条件组
  */
-@Entity(name = "org.openurp.edu.clazz.model.Restriction")
+@Entity(name = "org.openurp.edu.clazz.model.ClazzRestriction")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class Restriction extends LongIdObject implements Cloneable {
+public class ClazzRestriction extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -6284931594985772061L;
 
@@ -52,7 +52,7 @@ public class Restriction extends LongIdObject implements Cloneable {
   /** 条件列表 */
   @OneToMany(mappedBy = "restriction", orphanRemoval = true, cascade = CascadeType.ALL)
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private List<RestrictionItem> items = CollectUtils.newArrayList();
+  private List<ClazzRestrictionItem> items = CollectUtils.newArrayList();
 
   /** 最大人数 */
   @NotNull
@@ -65,11 +65,11 @@ public class Restriction extends LongIdObject implements Cloneable {
   /** 授课对象? */
   private boolean prime = true;
 
-  public List<RestrictionItem> getItems() {
+  public List<ClazzRestrictionItem> getItems() {
     return items;
   }
 
-  public void setItems(List<RestrictionItem> items) {
+  public void setItems(List<ClazzRestrictionItem> items) {
     this.items = items;
   }
 
@@ -91,12 +91,12 @@ public class Restriction extends LongIdObject implements Cloneable {
 
   public Object clone() {
     try {
-      Restriction clone = (Restriction) super.clone();
+      ClazzRestriction clone = (ClazzRestriction) super.clone();
       clone.setId(null);
       clone.setClazz(null);
-      clone.setItems(new ArrayList<RestrictionItem>());
-      for (RestrictionItem item : getItems()) {
-        RestrictionItem clone_item = (RestrictionItem) item.clone();
+      clone.setItems(new ArrayList<ClazzRestrictionItem>());
+      for (ClazzRestrictionItem item : getItems()) {
+        ClazzRestrictionItem clone_item = (ClazzRestrictionItem) item.clone();
         clone_item.setRestriction(clone);
         clone.getItems().add(clone_item);
       }

@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull;
 @Entity(name = "org.openurp.edu.clazz.model.FinalExam")
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class FinalExam extends LongIdObject {
+public class ClazzFinalExam extends LongIdObject {
 
   private static final long serialVersionUID = 8657880756173823301L;
   @NotNull
@@ -78,9 +78,9 @@ public class FinalExam extends LongIdObject {
     this.examOn = examOn;
   }
 
-  public FinalExam clone() {
+  public ClazzFinalExam clone() {
     try {
-      FinalExam one = (FinalExam) super.clone();
+      ClazzFinalExam one = (ClazzFinalExam) super.clone();
       return one;
     } catch (CloneNotSupportedException e) {
       throw new RuntimeException(e);

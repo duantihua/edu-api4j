@@ -91,14 +91,14 @@ public class ClazzServiceImpl extends BaseServiceImpl implements ClazzService {
 
   public List<Department> attendDepartsOfSemester(List<Project> projects, Semester semester) {
     if (CollectUtils.isNotEmpty(projects)) {
-      OqlBuilder<RestrictionItem> qq = OqlBuilder.from(Clazz.class.getName() + " clazz");
+      OqlBuilder<ClazzRestrictionItem> qq = OqlBuilder.from(Clazz.class.getName() + " clazz");
       qq.join("clazz.enrollment.limitGroups", "lgroup").join("lgroup.items", "litem")
-          .where("litem.meta = :meta", RestrictionMeta.Department)
+          .where("litem.meta = :meta", ClazzRestrictionMeta.Department)
           .where("clazz.semester = :semester", semester).where("clazz.project in (:projects)", projects);
       qq.select("litem").cacheable();
-      List<RestrictionItem> limitItems = entityDao.search(qq);
+      List<ClazzRestrictionItem> limitItems = entityDao.search(qq);
       StringBuilder sb = new StringBuilder();
-      for (RestrictionItem item : limitItems) {
+      for (ClazzRestrictionItem item : limitItems) {
         String[] ids = item.getContents().split(",");
         sb.append(Strings.join(ids, ",")).append(',');
       }

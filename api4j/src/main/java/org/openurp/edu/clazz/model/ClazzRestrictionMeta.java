@@ -31,7 +31,7 @@ import org.openurp.code.std.model.StdType;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.person.model.Gender;
 
-public enum RestrictionMeta implements IDEnum {
+public enum ClazzRestrictionMeta implements IDEnum {
 
   Grade(1, String.class, "年级"), StdType(2, StdType.class, "学生类别"),
   Gender(3, Gender.class, "性别"), Department(4, Department.class, "院系"),
@@ -43,14 +43,14 @@ public enum RestrictionMeta implements IDEnum {
   private final String title;
   private final Class<?> contentType;
 
-  RestrictionMeta(int id, Class<?> contentType, String title) {
+  ClazzRestrictionMeta(int id, Class<?> contentType, String title) {
     this.id = id;
     this.title = title;
     this.contentType = contentType;
   }
 
-  public static RestrictionMeta of(int id) {
-    for (RestrictionMeta meta : values()) {
+  public static ClazzRestrictionMeta of(int id) {
+    for (ClazzRestrictionMeta meta : values()) {
       if (meta.getId() == id) return meta;
     }
     return null;

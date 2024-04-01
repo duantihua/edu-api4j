@@ -18,9 +18,9 @@
  */
 package org.openurp.edu.clazz.service.limit;
 
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public interface RestrictionItemContentProviderFactory {
-  public RestrictionItemContentProvider<?> getProvider(RestrictionMeta courseLimitMeta);
+  public RestrictionItemContentProvider<?> getProvider(ClazzRestrictionMeta courseLimitMeta);
 
 }

@@ -40,7 +40,7 @@ import org.openurp.code.edu.model.ExamType;
 import org.openurp.code.edu.model.ClazzTag;
 import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.model.Schedule;
 import org.openurp.edu.exam.model.ExamTaker;
 import org.openurp.web.helper.SearchHelper;
@@ -282,7 +282,7 @@ public class ClazzSearchHelper extends SearchHelper {
         squadCondition
             .append("exists (")
             .append("select litem.id from clazz.enrollment.restrictions lgroup join lgroup.items litem where")
-            .append(" litem.meta=").append(RestrictionMeta.Squad.getId()).append(" and ")
+            .append(" litem.meta=").append(ClazzRestrictionMeta.Squad.getId()).append(" and ")
             .append(" litem.included=true ").append(" and (");
         for (Iterator<Squad> iter = squades.iterator(); iter.hasNext(); ) {
           Squad squad = iter.next();
@@ -432,37 +432,37 @@ public class ClazzSearchHelper extends SearchHelper {
     /**
      * 查找存在符合查询条件的授课对象组的教学任务
      */
-    List<Pair<RestrictionMeta, Object>> limitItemConditions = CollectUtils.newArrayList();
+    List<Pair<ClazzRestrictionMeta, Object>> limitItemConditions = CollectUtils.newArrayList();
     Integer levelId = Params.getInt("limitGroup.level.id");
     if (null != levelId) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Level,
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Level,
           levelId));
     }
     Integer stdTypeId = Params.getInt("limitGroup.stdType.id");
     if (null != stdTypeId) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.StdType, stdTypeId));
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.StdType, stdTypeId));
     }
     Integer departId = Params.getInt("limitGroup.depart.id");
     if (null != departId) {
       limitItemConditions
-          .add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Department, departId));
+          .add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Department, departId));
     }
     Integer majorId = Params.getInt("limitGroup.major.id");
     if (null != majorId) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Major, majorId));
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Major, majorId));
     }
     Integer directionId = Params.getInt("limitGroup.direction.id");
     if (null != directionId) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Direction,
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Direction,
           directionId));
     }
     Integer genderId = Params.getInt("limitGroup.gender.id");
     if (null != genderId) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Gender, genderId));
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Gender, genderId));
     }
     String grade = Params.get("limitGroup.grade");
     if (StringUtils.isNotBlank(grade)) {
-      limitItemConditions.add(new Pair<RestrictionMeta, Object>(RestrictionMeta.Grade, grade));
+      limitItemConditions.add(new Pair<ClazzRestrictionMeta, Object>(ClazzRestrictionMeta.Grade, grade));
     }
     if (CollectUtils.isNotEmpty(limitItemConditions)) {
       query.where(limitGroupCondition(limitItemConditions));
@@ -480,12 +480,12 @@ public class ClazzSearchHelper extends SearchHelper {
     return entityDao.search(buildQuery());
   }
 
-  private String limitGroupCondition(List<Pair<RestrictionMeta, Object>> limitItemConditions) {
+  private String limitGroupCondition(List<Pair<ClazzRestrictionMeta, Object>> limitItemConditions) {
     StringBuilder condition = new StringBuilder();
     condition.append("exists (").append("select lgroup.id from clazz.enrollment.restrictions lgroup where ");
     for (int i = 0; i < limitItemConditions.size(); i++) {
-      Pair<RestrictionMeta, Object> limitItemCondition = limitItemConditions.get(i);
-      RestrictionMeta field = limitItemCondition._1;
+      Pair<ClazzRestrictionMeta, Object> limitItemCondition = limitItemConditions.get(i);
+      ClazzRestrictionMeta field = limitItemCondition._1;
       Object value = limitItemCondition._2;
       condition.append(" exists ( from lgroup.items litem where").append(" litem.meta=")
           .append(field.getId()).append(" and ").append(" litem.included=true")

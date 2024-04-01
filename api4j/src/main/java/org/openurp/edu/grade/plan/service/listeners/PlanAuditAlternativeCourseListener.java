@@ -18,29 +18,28 @@
  */
 package org.openurp.edu.grade.plan.service.listeners;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.edu.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.course.service.impl.GradeComparator;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
-import org.openurp.edu.grade.plan.service.PlanAuditListener;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+import org.openurp.edu.grade.plan.service.AuditPlanListener;
 import org.openurp.edu.grade.plan.service.StdGrade;
+import org.openurp.edu.program.model.AlternativeCourse;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.plan.service.AlternativeCourseService;
-import org.openurp.edu.program.model.AlternativeCourse;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 替代课程不支持重复利用成绩
  */
-public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
+public class PlanAuditAlternativeCourseListener implements AuditPlanListener {
 
   private AlternativeCourseService alternativeCourseService;
 
@@ -50,23 +49,23 @@ public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
     return courseGroup.getName() + "c";
   }
 
-  public boolean startPlanAudit(PlanAuditContext context) {
+  public boolean startPlanAudit(AuditPlanContext context) {
     context.getParams().put(alternatives_str,
         alternativeCourseService.getAlternativeCourses(context.getResult().getStd()));
     return true;
   }
 
-  public void endPlanAudit(PlanAuditContext context) {
+  public void endPlanAudit(AuditPlanContext context) {
   }
 
-  public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
-      PlanCourse planCourse) {
+  public boolean startCourseAudit(AuditPlanContext context, AuditGroupResult groupResult,
+                                  PlanCourse planCourse) {
     Set<?> substituted = (Set<?>) context.getParams().get(getGroupKey(planCourse.getGroup()));
     return !(substituted.contains(planCourse.getCourse()));
   }
 
-  public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-      GroupAuditResult groupResult) {
+  public boolean startGroupAudit(AuditPlanContext context, CourseGroup courseGroup,
+                                 AuditGroupResult groupResult) {
     @SuppressWarnings("unchecked")
     Set<Course> substituted = (Set<Course>) context.getParams().get(getGroupKey(courseGroup));
     if (null == substituted) {
@@ -109,12 +108,16 @@ public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
             if (!inTerm) continue;
           }
 
-          courseMap.remove(ori);
-          CourseAuditResult planCourseResult = new CourseAuditResult(planCourse);
+
+          AuditCourseResult planCourseResult = new AuditCourseResult(planCourse);
           planCourseResult.checkPassed(stdGrade.getGrades(ori), substituteGrades);
-          groupResult.addCourseResult(planCourseResult);
-          groupResult.checkPassed(false);
-          substituted.add(ori);
+          if (planCourseResult.isPassed()) {
+            courseMap.remove(ori);
+            stdGrade.addNoGradeCourse(ori);
+            groupResult.addCourseResult(planCourseResult);
+            groupResult.checkPassed(false);
+            substituted.add(ori);
+          }
         }
       }
     }
@@ -125,8 +128,7 @@ public class PlanAuditAlternativeCourseListener implements PlanAuditListener {
    * 把替换课程List转换成Map Map（原始课程ID，替换课程）<br>
    * 课程必须在满足两边组都有成绩的情况下，才能按照平均绩点进行比较
    *
-   * @param substituteCourseList
-   *          ：替换课程LIst
+   * @param substituteCourseList ：替换课程LIst
    * @return
    */
   protected boolean isSubstitutes(StdGrade stdGrade, AlternativeCourse alternative) {

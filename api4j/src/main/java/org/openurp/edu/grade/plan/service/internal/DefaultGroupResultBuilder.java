@@ -22,16 +22,16 @@ import java.util.Set;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.base.edu.model.Course;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.utils.PlanUtils;
 
 public class DefaultGroupResultBuilder implements GroupResultBuilder {
 
-  public GroupAuditResult buildResult(PlanAuditContext context, CourseGroup group) {
-    GroupAuditResult result = new GroupAuditResult();
+  public AuditGroupResult buildResult(AuditPlanContext context, CourseGroup group) {
+    AuditGroupResult result = new AuditGroupResult();
 
     // 课程组的学分要求应该根据审核学期的变化而变化
     float requiredCredits = group.getCredits();

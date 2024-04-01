@@ -34,7 +34,7 @@ import org.openurp.base.std.model.Squad;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.CourseTaker;
 import org.openurp.edu.clazz.model.Enrollment;
-import org.openurp.edu.clazz.model.Restriction;
+import org.openurp.edu.clazz.model.ClazzRestriction;
 import org.openurp.edu.clazz.model.RestrictionPair;
 
 public interface CourseLimitService {
@@ -58,40 +58,40 @@ public interface CourseLimitService {
   @Deprecated
   public void merge(Long mergeType, Enrollment target, Enrollment source);
 
-  public Map<Restriction, Pair<Boolean, List<EducationLevel>>> xtractEducationLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<EducationLevel>>> xtractEducationLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(Restriction group);
+  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<Squad>>> xtractSquadLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<Squad>>> xtractSquadLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<Squad>> xtractSquadLimit(Restriction group);
+  public Pair<Boolean, List<Squad>> xtractSquadLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<String>>> xtractGradeLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<String>>> xtractGradeLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<String>> xtractGradeLimit(Restriction group);
+  public Pair<Boolean, List<String>> xtractGradeLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<StdType>>> xtractStdTypeLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<StdType>>> xtractStdTypeLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(Restriction group);
+  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<Department>>> xtractAttendDepartLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<Department>>> xtractAttendDepartLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(Restriction group);
+  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<Major>>> xtractMajorLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<Major>>> xtractMajorLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<Major>> xtractMajorLimit(Restriction group);
+  public Pair<Boolean, List<Major>> xtractMajorLimit(ClazzRestriction group);
 
-  public Map<Restriction, Pair<Boolean, List<Direction>>> xtractDirectionLimit(
+  public Map<ClazzRestriction, Pair<Boolean, List<Direction>>> xtractDirectionLimit(
       Enrollment teachclass);
 
-  public Pair<Boolean, List<Direction>> xtractDirectionLimit(Restriction group);
+  public Pair<Boolean, List<Direction>> xtractDirectionLimit(ClazzRestriction group);
 
   public void limitEnrollment(boolean operator, Enrollment teachclass, String... grades);
 
@@ -105,7 +105,7 @@ public interface CourseLimitService {
    */
   public List<EducationLevel> extractEducations(Enrollment teachclass);
 
-  public List<EducationLevel> extractEducations(Restriction group);
+  public List<EducationLevel> extractEducations(ClazzRestriction group);
 
   /**
    * 提取教学任务中的行政班
@@ -115,7 +115,7 @@ public interface CourseLimitService {
    */
   public List<Squad> extractSquades(Enrollment teachclass);
 
-  public List<Squad> extractSquades(Restriction group);
+  public List<Squad> extractSquades(ClazzRestriction group);
 
   /**
    * 提交教学班中的年级
@@ -125,7 +125,7 @@ public interface CourseLimitService {
    */
   public String extractGrade(Enrollment teachclass);
 
-  public String extractGrade(Restriction group);
+  public String extractGrade(ClazzRestriction group);
 
   /**
    * 提取教学班中的学生类别
@@ -135,7 +135,7 @@ public interface CourseLimitService {
    */
   public List<StdType> extractStdTypes(Enrollment teachclass);
 
-  public List<StdType> extractStdTypes(Restriction group);
+  public List<StdType> extractStdTypes(ClazzRestriction group);
 
   /**
    * 提取教学班中的专业
@@ -145,7 +145,7 @@ public interface CourseLimitService {
    */
   public List<Major> extractMajors(Enrollment teachclass);
 
-  public List<Major> extractMajors(Restriction group);
+  public List<Major> extractMajors(ClazzRestriction group);
 
   /**
    * 提取教学班中的方向
@@ -155,7 +155,7 @@ public interface CourseLimitService {
    */
   public List<Direction> extractDirections(Enrollment teachclass);
 
-  public List<Direction> extractDirections(Restriction group);
+  public List<Direction> extractDirections(ClazzRestriction group);
 
   /**
    * 提取教学班中的上课院系
@@ -165,7 +165,7 @@ public interface CourseLimitService {
    */
   public List<Department> extractAttendDeparts(Enrollment teachclass);
 
-  public List<Department> extractAttendDeparts(Restriction group);
+  public List<Department> extractAttendDeparts(ClazzRestriction group);
 
   /**
    * 提取教学班中的性别
@@ -179,7 +179,7 @@ public interface CourseLimitService {
 
   // TODO 无人使用
   @Deprecated
-  public Gender extractGender(Restriction group);
+  public Gender extractGender(ClazzRestriction group);
 
   /**
    * 获得构建器
@@ -220,6 +220,6 @@ public interface CourseLimitService {
    */
   public boolean isAutoName(Clazz clazz);
 
-  public RestrictionPair xtractLimitGroup(Restriction group);
+  public RestrictionPair xtractLimitGroup(ClazzRestriction group);
 
 }

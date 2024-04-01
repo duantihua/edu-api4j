@@ -28,12 +28,12 @@ import org.openurp.edu.grade.course.service.CourseGradeProvider;
 import org.openurp.edu.grade.plan.adapters.CourseGroupAdapter;
 import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
 import org.openurp.edu.grade.plan.model.AuditStat;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
 import org.openurp.edu.grade.plan.service.AuditSettingService;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
-import org.openurp.edu.grade.plan.service.PlanAuditListener;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+import org.openurp.edu.grade.plan.service.AuditPlanListener;
 import org.openurp.edu.grade.plan.service.PlanAuditService;
 import org.openurp.edu.grade.plan.service.observers.ObserverUtils;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditObserverStack;
@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
 import java.text.MessageFormat;
 import java.util.*;
 
-public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditService {
+public class AuditPlanServiceImpl extends BaseServiceImpl implements PlanAuditService {
 
-  private Logger logger = LoggerFactory.getLogger(PlanAuditServiceImpl.class);
+  private Logger logger = LoggerFactory.getLogger(AuditPlanServiceImpl.class);
 
   protected CoursePlanProvider coursePlanProvider;
 
@@ -61,21 +61,21 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
 
   protected GroupResultBuilder groupResultBuilder = new DefaultGroupResultBuilder();
 
-  protected List<PlanAuditListener> listeners = new ArrayList<PlanAuditListener>();
+  protected List<AuditPlanListener> listeners = new ArrayList<AuditPlanListener>();
 
-  public PlanAuditResult audit(final Student student) {
+  public AuditPlanResult audit(final Student student) {
     var plan = coursePlanProvider.getCoursePlan(student);
     var setting = auditSettingService.getSetting(student);
     if (setting.isTransient() && null != plan && null != plan.getProgram().getOffsetType()) {
       setting.setConvertTarget(plan.getProgram().getOffsetType());
     }
-    PlanAuditContext context = new PlanAuditContext(student, plan, setting);
+    AuditPlanContext context = new AuditPlanContext(student, plan, setting);
     return audit(student, context);
   }
 
-  public PlanAuditResult audit(final Student student, PlanAuditContext context) {
+  public AuditPlanResult audit(final Student student, AuditPlanContext context) {
     logger.debug("start audit {}", student.getCode());
-    PlanAuditResult planAuditResult = new PlanAuditResult(student);
+    AuditPlanResult planAuditResult = new AuditPlanResult(student);
     planAuditResult.setPassed(false);
     planAuditResult.setRemark(null);
     planAuditResult.setUpdatedAt(new Date());
@@ -85,13 +85,14 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
     // 获得学生对应的计划
     CoursePlan plan = context.getCoursePlan();
     if (null == plan) {
+      planAuditResult.setRemark("没有匹配的培养计划");
       return context.getResult();
     }
 
     context.setStdGrade(new StdGradeImpl(courseGradeProvider.getPublished(student)));
 
     // context里面已经设置好了result，不管是空的还是怎样
-    for (PlanAuditListener listener : listeners) {
+    for (AuditPlanListener listener : listeners) {
       if (!listener.startPlanAudit(context)) {
         return planAuditResult;
       }
@@ -99,7 +100,7 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
 
     // 构建了一个虚拟的顶层组，这个顶层组在CoursePlan的结构中是没有的，这个顶层组可以认为是CoursePlan
     CourseGroupAdapter courseGroupAdapter = new CourseGroupAdapter(context.getCoursePlan());
-    GroupAuditResult groupResultAdapter = new GroupResultAdapter(planAuditResult);
+    AuditGroupResult groupResultAdapter = new GroupResultAdapter(planAuditResult);
 
     // 培养计划的学分要求和门数要求需要根据审核学期来发生变化
     float requiredCredits = context.getCoursePlan().getCredits();
@@ -128,11 +129,11 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
 
     auditGroup(context, courseGroupAdapter, groupResultAdapter);
 
-    for (PlanAuditListener listener : listeners) {
+    for (AuditPlanListener listener : listeners) {
       listener.endPlanAudit(context);
     }
 
-    GroupAuditResult lastTarget = context.getResult().getGroupResult(context.getSetting().getConvertTarget());
+    AuditGroupResult lastTarget = context.getResult().getGroupResult(context.getSetting().getConvertTarget());
     if (null != lastTarget) {
       if (lastTarget.getAuditStat().getPassedCredits() == 0
           && lastTarget.getAuditStat().getRequiredCredits() == 0 && lastTarget.getCourseResults().isEmpty()) {
@@ -149,20 +150,20 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
    * @param courseGroup
    * @param groupAuditResult
    */
-  private void auditGroup(PlanAuditContext context, CourseGroup courseGroup,
-                          GroupAuditResult groupAuditResult) {
+  private void auditGroup(AuditPlanContext context, CourseGroup courseGroup,
+                          AuditGroupResult groupAuditResult) {
     // 循环子组的结果,将结果放入该组
     List<CourseGroup> courseGroups = courseGroup.getChildren();
-    PlanAuditResult planAuditResult = context.getResult();
+    AuditPlanResult planAuditResult = context.getResult();
 
     groupAudit:
     for (Iterator<CourseGroup> it = courseGroups.iterator(); it.hasNext(); ) {
       CourseGroup children = it.next();
-      GroupAuditResult childResult = groupResultBuilder.buildResult(context, children);
+      AuditGroupResult childResult = groupResultBuilder.buildResult(context, children);
       groupAuditResult.addChild(childResult);
       planAuditResult.addGroupResult(childResult);
-      for (Iterator<PlanAuditListener> it1 = listeners.iterator(); it1.hasNext(); ) {
-        PlanAuditListener listener = it1.next();
+      for (Iterator<AuditPlanListener> it1 = listeners.iterator(); it1.hasNext(); ) {
+        AuditPlanListener listener = it1.next();
         if (!listener.startGroupAudit(context, children, childResult)) {
           planAuditResult.getAuditStat().reduceRequired(childResult.getAuditStat().getRequiredCredits(),
               childResult.getAuditStat().getRequiredCount());
@@ -179,13 +180,13 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
     courseAudit:
     for (Iterator<PlanCourse> iter = myPlanCourses.iterator(); iter.hasNext(); ) {
       PlanCourse planCourse = iter.next();
-      for (PlanAuditListener listener : listeners) {
+      for (AuditPlanListener listener : listeners) {
         if (!listener.startCourseAudit(context, groupAuditResult, planCourse)) {
           continue courseAudit;
         }
       }
 
-      CourseAuditResult planCourseAuditResult = new CourseAuditResult(planCourse);
+      AuditCourseResult planCourseAuditResult = new AuditCourseResult(planCourse);
       List<CourseGrade> courseGrades = context.getStdGrade().useGrades(planCourse.getCourse());
       if (courseGrades.isEmpty()) {
         if (!planCourse.isCompulsory() && !courseGroup.isAutoAddup()) continue;
@@ -197,10 +198,10 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
     groupAuditResult.checkPassed(false);
   }
 
-  public PlanAuditResult getResult(Student std) {
-    OqlBuilder<PlanAuditResult> query = OqlBuilder.from(PlanAuditResult.class, "planResult");
+  public AuditPlanResult getResult(Student std) {
+    OqlBuilder<AuditPlanResult> query = OqlBuilder.from(AuditPlanResult.class, "planResult");
     query.where("planResult.std = :std", std);
-    List<PlanAuditResult> results = entityDao.search(query);
+    List<AuditPlanResult> results = entityDao.search(query);
     if (results.size() > 0) {
       return results.get(0);
     }
@@ -228,13 +229,17 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
       if (setting.isTransient() && null != plan && null != plan.getProgram().getOffsetType()) {
         setting.setConvertTarget(plan.getProgram().getOffsetType());
       }
-      PlanAuditContext context = new PlanAuditContext(student, plan, setting);
+      AuditPlanContext context = new AuditPlanContext(student, plan, setting);
       context.getParams().put("_weboutput", weboutput);
       context.setAuditTerms(auditTerms);
 
       if (null == context.getCoursePlan()) {
         msg = MessageFormat.format("无法找到 {0} {1} 的培养计划，审核失败。", student.getName(),
             student.getCode());
+        if (observerStack.notifyBegin(context, count)) {
+          audit(student, context);
+          observerStack.notifyEnd(context, count);
+        }
         ObserverUtils.outputMessage(context, OutputObserver.error, msg, true);
       } else {
         String auditTermsStr = "";
@@ -271,11 +276,11 @@ public class PlanAuditServiceImpl extends BaseServiceImpl implements PlanAuditSe
     this.courseGradeProvider = courseGradeProvider;
   }
 
-  public List<PlanAuditListener> getListeners() {
+  public List<AuditPlanListener> getListeners() {
     return listeners;
   }
 
-  public void setListeners(List<PlanAuditListener> listeners) {
+  public void setListeners(List<AuditPlanListener> listeners) {
     this.listeners = listeners;
   }
 

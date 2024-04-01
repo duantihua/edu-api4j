@@ -29,11 +29,11 @@ public class RestrictionHelper {
   private static RestrictionComparator comparator = new RestrictionComparator();
 
   public static void autoMatches(Clazz clazz) {
-    List<Restriction> groups = clazz.getEnrollment().getRestrictions();
+    List<ClazzRestriction> groups = clazz.getEnrollment().getRestrictions();
     Collections.sort(groups, comparator);
-    Map<Restriction, Integer> cnts = CollectUtils.newHashMap();
+    Map<ClazzRestriction, Integer> cnts = CollectUtils.newHashMap();
     for (CourseTaker taker : clazz.getEnrollment().getCourseTakers()) {
-      Restriction limitGroup = RestrictionHelper.getMatchRestriction(clazz, taker.getStd());
+      ClazzRestriction limitGroup = RestrictionHelper.getMatchRestriction(clazz, taker.getStd());
       if (null != limitGroup) {
         Integer old = cnts.get(limitGroup);
         if (null == old) {
@@ -45,39 +45,39 @@ public class RestrictionHelper {
     }
   }
 
-  public static Restriction getMatchRestriction(Clazz clazz, Student student) {
-    for (Restriction group : clazz.getEnrollment().getRestrictions()) {
+  public static ClazzRestriction getMatchRestriction(Clazz clazz, Student student) {
+    for (ClazzRestriction group : clazz.getEnrollment().getRestrictions()) {
       boolean groupPass = true;
-      for (RestrictionItem item : group.getItems()) {
+      for (ClazzRestrictionItem item : group.getItems()) {
         boolean itemPass = true;
-        RestrictionMeta meta = item.getMeta();
+        ClazzRestrictionMeta meta = item.getMeta();
         Set<String> values = CollectUtils.newHashSet(item.getContents().split(","));
         String value = null;
-        if (meta.equals(RestrictionMeta.Squad)) {
+        if (meta.equals(ClazzRestrictionMeta.Squad)) {
           if (student.getSquad() == null) {
             value = "";
           } else {
             value = student.getSquad().getId() + "";
           }
-        } else if (meta.equals(RestrictionMeta.Department)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Department)) {
           value = student.getDepartment().getId() + "";
-        } else if (meta.equals(RestrictionMeta.Direction)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Direction)) {
           if (student.getDirection() == null) {
             value = "";
           } else {
             value = student.getDirection().getId() + "";
           }
-        } else if (meta.equals(RestrictionMeta.Level)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Level)) {
           value = student.getLevel().getId() + "";
-        } else if (meta.equals(RestrictionMeta.Gender)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Gender)) {
           value = student.getGender().getId() + "";
-        } else if (meta.equals(RestrictionMeta.Grade)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Grade)) {
           value = student.getGrade().getCode();
-        } else if (meta.equals(RestrictionMeta.Major)) {
+        } else if (meta.equals(ClazzRestrictionMeta.Major)) {
           value = student.getMajor().getId() + "";
-        } else if (meta.equals(RestrictionMeta.StdType)) {
+        } else if (meta.equals(ClazzRestrictionMeta.StdType)) {
           value = student.getStdType().getId() + "";
-        }else if (meta.equals(RestrictionMeta.EduType)) {
+        }else if (meta.equals(ClazzRestrictionMeta.EduType)) {
           value = student.getEduType().getId() + "";
         }
         if (item.isIncluded()) {
@@ -101,7 +101,7 @@ public class RestrictionHelper {
     return comparator;
   }
 
-  private static class RestrictionComparator implements Comparator<Restriction> {
+  private static class RestrictionComparator implements Comparator<ClazzRestriction> {
 
     private static final int MAXPRIORITY = 20000;
     private static final int HIGHPRIORITY = 10000;
@@ -109,11 +109,11 @@ public class RestrictionHelper {
     private static final int LOWPRIORITY = 2500;
     private static final int ZEROPRIORITY = 500;
 
-    private List<RestrictionMeta> restrictionMetas = CollectUtils.newArrayList(RestrictionMeta.Squad,
-        RestrictionMeta.Direction, RestrictionMeta.Major,
-        RestrictionMeta.Department);
+    private List<ClazzRestrictionMeta> restrictionMetas = CollectUtils.newArrayList(ClazzRestrictionMeta.Squad,
+        ClazzRestrictionMeta.Direction, ClazzRestrictionMeta.Major,
+        ClazzRestrictionMeta.Department);
 
-    public int compare(Restriction o1, Restriction o2) {
+    public int compare(ClazzRestriction o1, ClazzRestriction o2) {
       int priorty1 = getPriority(o1);
       int priorty2 = getPriority(o2);
       if (priorty1 == priorty2) {
@@ -123,34 +123,34 @@ public class RestrictionHelper {
       }
     }
 
-    private int getPriority(Restriction group) {
+    private int getPriority(ClazzRestriction group) {
       int priority = 0;
       boolean hasMax = false;
-      for (RestrictionItem courseLimitItem : group.getItems()) {
+      for (ClazzRestrictionItem courseLimitItem : group.getItems()) {
         if (!courseLimitItem.isIncluded()) {
-          if (RestrictionMeta.Squad.equals(courseLimitItem.getMeta())) {
+          if (ClazzRestrictionMeta.Squad.equals(courseLimitItem.getMeta())) {
             if (!hasMax) {
               priority += MAXPRIORITY / 2;
             }
-          } else if (RestrictionMeta.Direction.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Direction.equals(courseLimitItem.getMeta())) {
             priority += HIGHPRIORITY / 2;
-          } else if (RestrictionMeta.Major.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Major.equals(courseLimitItem.getMeta())) {
             priority += NORMALPRIORITY / 2;
-          } else if (RestrictionMeta.Department.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Department.equals(courseLimitItem.getMeta())) {
             priority += LOWPRIORITY / 2;
           } else if (!restrictionMetas.contains(courseLimitItem.getMeta())) {
             priority += ZEROPRIORITY / 2;
           }
         } else {
-          if (RestrictionMeta.Squad.equals(courseLimitItem.getMeta())) {
+          if (ClazzRestrictionMeta.Squad.equals(courseLimitItem.getMeta())) {
             if (!hasMax) {
               priority += MAXPRIORITY;
             }
-          } else if (RestrictionMeta.Direction.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Direction.equals(courseLimitItem.getMeta())) {
             priority += HIGHPRIORITY;
-          } else if (RestrictionMeta.Major.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Major.equals(courseLimitItem.getMeta())) {
             priority += NORMALPRIORITY;
-          } else if (RestrictionMeta.Department.equals(courseLimitItem.getMeta())) {
+          } else if (ClazzRestrictionMeta.Department.equals(courseLimitItem.getMeta())) {
             priority += LOWPRIORITY;
           } else if (!restrictionMetas.contains(courseLimitItem.getMeta())) {
             priority += ZEROPRIORITY;

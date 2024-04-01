@@ -151,6 +151,10 @@ public class TermCalculator {
     } else {
       term = Integer.valueOf(semesterService.getTermsBetween(enrollSemester, semester, omitSmallTerm));
     }
+    //如果是小学期的课程，在忽略小学期的情况，默认生成下个学期
+    if (semester.isShorter() && omitSmallTerm) {
+      term += 1;
+    }
     logger.info("enrollSemester is " + enrollSemester.getCode());
     logger.info("calculate a term for [{}~{}] and calculate term is " + term, begOn.toString(), endOn.toString());
     termCalcCache.put(begOn.toString() + "~" + endOn.toString(), term);

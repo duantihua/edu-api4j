@@ -21,19 +21,18 @@ package org.openurp.edu.clazz.service.limit.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.service.limit.RestrictionMetaFilter;
 import org.openurp.edu.clazz.service.limit.RestrictionMetaProvider;
 
 public class DefaultRestrictionMetaProvider implements RestrictionMetaProvider {
   private List<RestrictionMetaFilter> filters = new ArrayList<RestrictionMetaFilter>();
 
-  private static final RestrictionMeta[] enums = RestrictionMeta.values();
+  private static final ClazzRestrictionMeta[] enums = ClazzRestrictionMeta.values();
 
-  public List<RestrictionMeta> getRestrictionMetas() {
-    List<RestrictionMeta> results = new ArrayList<RestrictionMeta>();
-    for (RestrictionMeta courseLimitMetaEnum : enums) {
+  public List<ClazzRestrictionMeta> getRestrictionMetas() {
+    List<ClazzRestrictionMeta> results = new ArrayList<ClazzRestrictionMeta>();
+    for (ClazzRestrictionMeta courseLimitMetaEnum : enums) {
       boolean append = true;
       for (RestrictionMetaFilter filter : filters) {
         if (!filter.accept(courseLimitMetaEnum)) {

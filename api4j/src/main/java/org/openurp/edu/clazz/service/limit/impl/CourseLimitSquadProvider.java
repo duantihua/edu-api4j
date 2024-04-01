@@ -23,21 +23,21 @@ import java.util.Map;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.openurp.base.std.model.Squad;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public class CourseLimitSquadProvider  extends AbstractCourseLimitEntityProvider<Squad> {
 
   @Override
-  protected void addCascadeQuery(OqlBuilder<Squad> builder, Map<RestrictionMeta, String> cascadeField) {
+  protected void addCascadeQuery(OqlBuilder<Squad> builder, Map<ClazzRestrictionMeta, String> cascadeField) {
     builder.where("entity.project = :project",projectContext.getProject());
 
     if (cascadeField.isEmpty()) { return; }
-    String grades = cascadeField.get(RestrictionMeta.Grade);
-    String levelIds = cascadeField.get(RestrictionMeta.Level);
-    String stdTypeIds = cascadeField.get(RestrictionMeta.StdType);
-    String departIds = cascadeField.get(RestrictionMeta.Department);
-    String majorIds = cascadeField.get(RestrictionMeta.Major);
-    String directionIds = cascadeField.get(RestrictionMeta.Direction);
+    String grades = cascadeField.get(ClazzRestrictionMeta.Grade);
+    String levelIds = cascadeField.get(ClazzRestrictionMeta.Level);
+    String stdTypeIds = cascadeField.get(ClazzRestrictionMeta.StdType);
+    String departIds = cascadeField.get(ClazzRestrictionMeta.Department);
+    String majorIds = cascadeField.get(ClazzRestrictionMeta.Major);
+    String directionIds = cascadeField.get(ClazzRestrictionMeta.Direction);
     if (Strings.isNotBlank(grades)) {
       builder.where("entity.grade in (:grades)", Strings.split(grades));
     }
@@ -59,7 +59,7 @@ public class CourseLimitSquadProvider  extends AbstractCourseLimitEntityProvider
   }
 
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.Squad;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.Squad;
   }
 }

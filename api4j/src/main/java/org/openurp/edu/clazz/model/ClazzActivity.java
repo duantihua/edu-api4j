@@ -79,21 +79,14 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    * 排课备注
    */
   @Size(max = 500)
-  private String places;
+  private String remark;
 
   /**
    * 授课性质
    */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
-  protected TeachingNature teachingNature = new TeachingNature(1);
-
-  /**
-   * 授课方式
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  @NotNull
-  protected TeachingMethod teachingMethod = new TeachingMethod(1);
+  protected TeachingNature nature = new TeachingNature(1);
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Subclazz subclazz;
@@ -154,17 +147,14 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    * @return
    */
   public boolean canMergerWith(ClazzActivity session) {
-    if (!Objects.equals(getTeachingNature(), session.getTeachingNature())) {
-      return false;
-    }
-    if (!Objects.equals(getTeachingMethod(), session.getTeachingMethod())) {
+    if (!Objects.equals(getNature(), session.getNature())) {
       return false;
     }
 
     if (!getTeachers().equals(session.getTeachers())) {
       //时间地点一致就合并
       if (getTime().equals(session.getTime()) && getRooms().equals(session.getRooms())
-          && Objects.equals(getPlaces(), session.getPlaces())) {
+          && Objects.equals(getRemark(), session.getRemark())) {
         return true;
       } else {
         return false;
@@ -178,9 +168,9 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
         return false;
       }
     }
-    if ((getPlaces() != null && session.getPlaces() != null && !getPlaces().equals(session.getPlaces()))
-        || (getPlaces() == null && session.getPlaces() != null)
-        || (session.getPlaces() == null && getPlaces() != null))
+    if ((getRemark() != null && session.getRemark() != null && !getRemark().equals(session.getRemark()))
+        || (getRemark() == null && session.getRemark() != null)
+        || (session.getRemark() == null && getRemark() != null))
       return false;
     if (!Objects.equals(getSubclazz(), session.getSubclazz())) {
       return false;
@@ -303,28 +293,20 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
     return clazz.getCrn();
   }
 
-  public String getPlaces() {
-    return places;
+  public String getRemark() {
+    return remark;
   }
 
-  public void setPlaces(String places) {
-    this.places = places;
+  public void setRemark(String remark) {
+    this.remark = remark;
   }
 
-  public TeachingNature getTeachingNature() {
-    return teachingNature;
+  public TeachingNature getNature() {
+    return nature;
   }
 
-  public void setTeachingNature(TeachingNature teachingNature) {
-    this.teachingNature = teachingNature;
-  }
-
-  public TeachingMethod getTeachingMethod() {
-    return teachingMethod;
-  }
-
-  public void setTeachingMethod(TeachingMethod teachingMethod) {
-    this.teachingMethod = teachingMethod;
+  public void setNature(TeachingNature nature) {
+    this.nature = nature;
   }
 
   public Subclazz getSubclazz() {

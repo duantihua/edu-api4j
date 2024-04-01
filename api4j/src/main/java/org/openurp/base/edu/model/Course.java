@@ -22,9 +22,6 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.lang.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.edu.model.CourseAbilityRate;
-import org.openurp.code.edu.model.CourseCategory;
-import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.*;
 
@@ -133,9 +130,8 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   /**
    * 成绩记录方式
    */
-  @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<GradingMode> gradingModes = CollectUtils.newHashSet();
+  @ManyToOne(fetch = FetchType.LAZY)
+  private GradingMode gradingMode;
 
   /**
    * 能力等级
@@ -143,36 +139,6 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<CourseAbilityRate> abilityRates = CollectUtils.newHashSet();
-
-  /**
-   * 针对专业
-   */
-  @ManyToMany
-  private Set<Major> majors = CollectUtils.newHashSet();
-
-  /**
-   * 排除专业
-   */
-  @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  private Set<Major> xmajors = CollectUtils.newHashSet();
-
-  /**
-   * 先修课程
-   */
-  @ManyToMany
-  @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  @JoinTable(name = "courses_prerequisites",
-      joinColumns = @JoinColumn(name = "course_id"),
-      inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
-  )
-  private Set<Course> prerequisites = CollectUtils.newHashSet();
-
-  /**
-   * 常用教材
-   */
-  @ManyToMany
-  private Set<Textbook> textbooks = CollectUtils.newHashSet();
 
   private java.sql.Date beginOn;
 
@@ -325,30 +291,6 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.abilityRates = abilityRates;
   }
 
-  public Set<Major> getMajors() {
-    return majors;
-  }
-
-  public void setMajors(Set<Major> majors) {
-    this.majors = majors;
-  }
-
-  public Set<Major> getXmajors() {
-    return xmajors;
-  }
-
-  public void setXmajors(Set<Major> xmajors) {
-    this.xmajors = xmajors;
-  }
-
-  public Set<Textbook> getTextbooks() {
-    return textbooks;
-  }
-
-  public void setTextbooks(Set<Textbook> textbooks) {
-    this.textbooks = textbooks;
-  }
-
   public String getCreditHourString() {
     if (hours.isEmpty()) {
       return "";
@@ -408,12 +350,12 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     this.levels = levels;
   }
 
-  public Set<GradingMode> getGradingModes() {
-    return gradingModes;
+  public GradingMode getGradingMode() {
+    return gradingMode;
   }
 
-  public void setGradingModes(Set<GradingMode> gradingModes) {
-    this.gradingModes = gradingModes;
+  public void setGradingMode(GradingMode gradingMode) {
+    this.gradingMode = gradingMode;
   }
 
   public boolean isEnabled() {
@@ -470,13 +412,5 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
 
   public void setCalgp(boolean calgp) {
     this.calgp = calgp;
-  }
-
-  public Set<Course> getPrerequisites() {
-    return prerequisites;
-  }
-
-  public void setPrerequisites(Set<Course> prerequisites) {
-    this.prerequisites = prerequisites;
   }
 }

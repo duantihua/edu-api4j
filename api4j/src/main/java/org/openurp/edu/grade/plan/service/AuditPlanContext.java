@@ -21,10 +21,10 @@ package org.openurp.edu.grade.plan.service;
 import org.beangle.ems.rule.model.SimpleContext;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.app.model.AuditSetting;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
 import org.openurp.edu.program.model.CoursePlan;
 
-public class PlanAuditContext extends SimpleContext {
+public class AuditPlanContext extends SimpleContext {
 
   /**
    * 本次审核的学生
@@ -44,7 +44,7 @@ public class PlanAuditContext extends SimpleContext {
   /**
    * 结果
    */
-  private PlanAuditResult result;
+  private AuditPlanResult result;
 
   /**
    * 学生的所有成绩
@@ -70,7 +70,7 @@ public class PlanAuditContext extends SimpleContext {
     return setting;
   }
 
-  public PlanAuditContext(Student std, CoursePlan coursePlan, AuditSetting setting) {
+  public AuditPlanContext(Student std, CoursePlan coursePlan, AuditSetting setting) {
     this.coursePlan = coursePlan;
     this.std = std;
     this.setting = setting;
@@ -84,11 +84,11 @@ public class PlanAuditContext extends SimpleContext {
     this.stdGrade = stdGrade;
   }
 
-  public PlanAuditResult getResult() {
+  public AuditPlanResult getResult() {
     return result;
   }
 
-  public void setResult(PlanAuditResult result) {
+  public void setResult(AuditPlanResult result) {
     this.result = result;
   }
 

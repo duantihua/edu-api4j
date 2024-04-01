@@ -22,11 +22,11 @@ import org.beangle.commons.collection.CollectUtils;
 import org.openurp.code.edu.model.CourseType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
-import org.openurp.edu.grade.plan.service.PlanAuditListener;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+import org.openurp.edu.grade.plan.service.AuditPlanListener;
 import org.openurp.edu.grade.plan.service.StdGrade;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
@@ -39,16 +39,16 @@ import java.util.Set;
  * 任意选修课监听<br>
  * 将其他模块多出的课程和学分，转换到任意选修课
  */
-public class PlanAuditCommonElectiveListener implements PlanAuditListener {
+public class PlanAuditCommonElectiveListener implements AuditPlanListener {
 
-  public void endPlanAudit(PlanAuditContext context) {
-    PlanAuditResult result = context.getResult();
+  public void endPlanAudit(AuditPlanContext context) {
+    AuditPlanResult result = context.getResult();
     StdGrade stdGrade = context.getStdGrade();
     CourseType electiveType = context.getSetting().getConvertTarget();
-    GroupAuditResult groupResult = result.getGroupResult(electiveType);
+    AuditGroupResult groupResult = result.getGroupResult(electiveType);
     // 如果计划中没有任意选修课，那么就在审核结果中添加一个任意选修课
     if (null == groupResult) {
-      GroupAuditResult groupRs = new GroupAuditResult();
+      AuditGroupResult groupRs = new AuditGroupResult();
       groupRs.setCourseType(electiveType);
       groupRs.setName(electiveType.getName());
       groupRs.setSubCount((short) 0);
@@ -58,14 +58,18 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
     }
     Collection<Course> restCourses = stdGrade.getRestCourses();
     for (Course course : restCourses) {
-      CourseAuditResult courseResult = new CourseAuditResult();
+      AuditCourseResult courseResult = groupResult.getCourseResult(course);
+      if(null==courseResult){
+        courseResult = new AuditCourseResult();
+        groupResult.addCourseResult(courseResult);
+      }
       courseResult.setCourse(course);
       List<CourseGrade> grades = stdGrade.useGrades(course);
       if (!grades.isEmpty() && !grades.get(0).getCourseType().getId().equals(electiveType.getId())) {
-        courseResult.setRemark("原" + grades.get(0).getCourseType().getName());
+        courseResult.addRemark("原" + grades.get(0).getCourseType().getName());
       }
       courseResult.checkPassed(grades);
-      groupResult.addCourseResult(courseResult);
+      groupResult.updateCourseResult(courseResult);
     }
     // 设置该组的课程审核结果
     processConvertCredits(groupResult, result, context);
@@ -79,19 +83,19 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
    *
    * @param result
    */
-  protected void processConvertCredits(GroupAuditResult target, PlanAuditResult result,
-                                       PlanAuditContext context) {
+  protected void processConvertCredits(AuditGroupResult target, AuditPlanResult result,
+                                       AuditPlanContext context) {
     // 从公选当前节点查找祖先
-    Set<GroupAuditResult> parents = CollectUtils.newHashSet();
+    Set<AuditGroupResult> parents = CollectUtils.newHashSet();
     // 同一级别的兄弟节点
-    Set<GroupAuditResult> sibling = CollectUtils.newHashSet();
+    Set<AuditGroupResult> sibling = CollectUtils.newHashSet();
 
-    GroupAuditResult start = target.getParent();
+    AuditGroupResult start = target.getParent();
     while (null != start && !parents.contains(start)) {
       parents.add(start);
       start = start.getParent();
     }
-    GroupAuditResult parent = target.getParent();
+    AuditGroupResult parent = target.getParent();
     if (null != parent) {
       sibling.addAll(parent.getChildren());
       sibling.remove(target);
@@ -99,7 +103,7 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
 
     float otherConverted = 0f;
     float siblingConverted = 0f;
-    for (GroupAuditResult gr : result.getGroupResults()) {
+    for (AuditGroupResult gr : result.getGroupResults()) {
       if (!context.getSetting().isConvertable(gr.getCourseType())) continue;
       // 自己和父节点过滤掉
       if (gr.equals(target) || parents.contains(gr)) continue;
@@ -117,21 +121,21 @@ public class PlanAuditCommonElectiveListener implements PlanAuditListener {
 
     // 将转换学分累计到公选课及其父组上
     target.getAuditStat().setConvertedCredits(otherConverted + siblingConverted);
-    for (GroupAuditResult r : parents)
+    for (AuditGroupResult r : parents)
       r.getAuditStat().setConvertedCredits(otherConverted);
   }
 
-  public boolean startPlanAudit(PlanAuditContext context) {
+  public boolean startPlanAudit(AuditPlanContext context) {
     return true;
   }
 
-  public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
+  public boolean startCourseAudit(AuditPlanContext context, AuditGroupResult groupResult,
                                   PlanCourse planCourse) {
     return true;
   }
 
-  public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-                                 GroupAuditResult groupResult) {
+  public boolean startGroupAudit(AuditPlanContext context, CourseGroup courseGroup,
+                                 AuditGroupResult groupResult) {
     return true;
   }
 
