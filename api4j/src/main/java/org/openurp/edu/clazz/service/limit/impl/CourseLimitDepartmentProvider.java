@@ -24,7 +24,7 @@ import org.beangle.commons.collection.page.PageLimit;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Arrays;
 import org.openurp.base.model.Department;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public class CourseLimitDepartmentProvider extends AbstractCourseLimitEntityProvider<Department> {
 
@@ -43,7 +43,7 @@ public class CourseLimitDepartmentProvider extends AbstractCourseLimitEntityProv
   }
 
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.Department;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.Department;
   }
 }

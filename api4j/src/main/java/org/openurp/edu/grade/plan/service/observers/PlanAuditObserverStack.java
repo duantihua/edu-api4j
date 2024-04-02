@@ -23,7 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
 
 public class PlanAuditObserverStack extends Observable implements PlanAuditObserver {
 
@@ -47,7 +47,7 @@ public class PlanAuditObserverStack extends Observable implements PlanAuditObser
     }
   }
 
-  public boolean notifyBegin(PlanAuditContext context, int index) {
+  public boolean notifyBegin(AuditPlanContext context, int index) {
     boolean canAudit = true;
     for (Iterator<PlanAuditObserver> iterator = observers.iterator(); iterator.hasNext();) {
       PlanAuditObserver observer = iterator.next();
@@ -56,7 +56,7 @@ public class PlanAuditObserverStack extends Observable implements PlanAuditObser
     return canAudit;
   }
 
-  public void notifyEnd(PlanAuditContext context, int index) {
+  public void notifyEnd(AuditPlanContext context, int index) {
     for (Iterator<PlanAuditObserver> iterator = observers.iterator(); iterator.hasNext();) {
       PlanAuditObserver observer = iterator.next();
       observer.notifyEnd(context, index);

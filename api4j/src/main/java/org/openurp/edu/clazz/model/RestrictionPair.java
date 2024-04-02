@@ -24,7 +24,7 @@ import java.util.List;
 
 public class RestrictionPair {
 
-  private Restriction restriction;
+  private ClazzRestriction restriction;
   private Pair<Boolean, List<?>> gradeLimit;
   private Pair<Boolean, List<?>> genderLimit;
   private Pair<Boolean, List<?>> levelLimit;
@@ -39,15 +39,15 @@ public class RestrictionPair {
     super();
   }
 
-  public RestrictionPair(Restriction restriction) {
+  public RestrictionPair(ClazzRestriction restriction) {
     this.restriction = restriction;
   }
 
-  public Restriction getRestriction() {
+  public ClazzRestriction getRestriction() {
     return restriction;
   }
 
-  public void setRestriction(Restriction restriction) {
+  public void setRestriction(ClazzRestriction restriction) {
     this.restriction = restriction;
   }
 

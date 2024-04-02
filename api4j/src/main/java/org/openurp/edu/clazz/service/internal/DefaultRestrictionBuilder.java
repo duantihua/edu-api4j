@@ -27,14 +27,14 @@ import org.openurp.base.std.model.Squad;
 import org.openurp.base.model.Department;
 import org.openurp.code.edu.model.EducationLevel;
 import org.openurp.code.person.model.Gender;
-import org.openurp.edu.clazz.model.Restriction;
-import org.openurp.edu.clazz.model.RestrictionItem;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestriction;
+import org.openurp.edu.clazz.model.ClazzRestrictionItem;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.service.RestrictionBuilder;
 
 public class DefaultRestrictionBuilder implements RestrictionBuilder {
 
-  Restriction group = new Restriction();
+  ClazzRestriction group = new ClazzRestriction();
 
   DefaultTeachClassNameStrategy strategy = new DefaultTeachClassNameStrategy();
 
@@ -42,21 +42,21 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
     super();
   }
 
-  public DefaultRestrictionBuilder(Restriction group) {
+  public DefaultRestrictionBuilder(ClazzRestriction group) {
     super();
     this.group = group;
   }
 
   public RestrictionBuilder inGrades(String... grades) {
     if (grades.length > 0 && grades[0] != null) {
-      RestrictionItem item = getOrCreateItem(RestrictionMeta.Grade);
+      ClazzRestrictionItem item = getOrCreateItem(ClazzRestrictionMeta.Grade);
       addValues(item, true, grades);
     }
     return this;
   }
 
   public RestrictionBuilder notInGrades(String... grades) {
-    RestrictionItem item = getOrCreateItem(RestrictionMeta.Grade);
+    ClazzRestrictionItem item = getOrCreateItem(ClazzRestrictionMeta.Grade);
     addValues(item, false, grades);
     return this;
   }
@@ -64,16 +64,16 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
   public <T extends Entity<?>> RestrictionBuilder in(T... entities) {
     if (entities.length > 0 && entities[0] != null) {
       T first = entities[0];
-      RestrictionItem item = getItem(first);
+      ClazzRestrictionItem item = getItem(first);
       addValues(item, true, getIds(entities));
     }
     if (entities.length > 0 && entities[0] instanceof Squad) {
-      clear(RestrictionMeta.Grade);
-      clear(RestrictionMeta.StdType);
-      clear(RestrictionMeta.Department);
-      clear(RestrictionMeta.Major);
-      clear(RestrictionMeta.Direction);
-      clear(RestrictionMeta.Level);
+      clear(ClazzRestrictionMeta.Grade);
+      clear(ClazzRestrictionMeta.StdType);
+      clear(ClazzRestrictionMeta.Department);
+      clear(ClazzRestrictionMeta.Major);
+      clear(ClazzRestrictionMeta.Direction);
+      clear(ClazzRestrictionMeta.Level);
     }
 
     return this;
@@ -82,15 +82,15 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
   public <T extends Entity<?>> RestrictionBuilder notIn(T... entities) {
     if (entities.length >= 0 && entities[0] != null) {
       T first = entities[0];
-      RestrictionItem item = getItem(first);
+      ClazzRestrictionItem item = getItem(first);
       addValues(item, false, getIds(entities));
     }
     return this;
   }
 
-  public RestrictionBuilder clear(RestrictionMeta meta) {
-    RestrictionItem removed = null;
-    for (RestrictionItem item : group.getItems()) {
+  public RestrictionBuilder clear(ClazzRestrictionMeta meta) {
+    ClazzRestrictionItem removed = null;
+    for (ClazzRestrictionItem item : group.getItems()) {
       if (item.getMeta().equals(meta)) {
         removed = item;
       }
@@ -101,7 +101,7 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
     return this;
   }
 
-  public Restriction build() {
+  public ClazzRestriction build() {
     return group;
   }
 
@@ -128,7 +128,7 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
    * @param item
    * @param values
    */
-  private void addValues(RestrictionItem item, boolean contain, String... values) {
+  private void addValues(ClazzRestrictionItem item, boolean contain, String... values) {
     String old = item.getContents();
     if (old.length() > 0) {
       old = Strings.concat(old, ",", Strings.join(values, ","));
@@ -143,13 +143,13 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
     item.setIncluded(contain);
   }
 
-  private RestrictionItem getOrCreateItem(RestrictionMeta meta) {
-    for (RestrictionItem item : group.getItems()) {
+  private ClazzRestrictionItem getOrCreateItem(ClazzRestrictionMeta meta) {
+    for (ClazzRestrictionItem item : group.getItems()) {
       if (item.getMeta().equals(meta)) {
         return item;
       }
     }
-    RestrictionItem item = new RestrictionItem();
+    ClazzRestrictionItem item = new ClazzRestrictionItem();
     item.setMeta(meta);
     item.setIncluded(true);
     item.setContents("");
@@ -158,22 +158,22 @@ public class DefaultRestrictionBuilder implements RestrictionBuilder {
     return item;
   }
 
-  private <T> RestrictionItem getItem(T first) {
-    RestrictionItem item = null;
+  private <T> ClazzRestrictionItem getItem(T first) {
+    ClazzRestrictionItem item = null;
     if (first instanceof Gender) {
-      item = getOrCreateItem(RestrictionMeta.Gender);
+      item = getOrCreateItem(ClazzRestrictionMeta.Gender);
     } else if (first instanceof StdType) {
-      item = getOrCreateItem(RestrictionMeta.StdType);
+      item = getOrCreateItem(ClazzRestrictionMeta.StdType);
     } else if (first instanceof Department) {
-      item = getOrCreateItem(RestrictionMeta.Department);
+      item = getOrCreateItem(ClazzRestrictionMeta.Department);
     } else if (first instanceof Major) {
-      item = getOrCreateItem(RestrictionMeta.Major);
+      item = getOrCreateItem(ClazzRestrictionMeta.Major);
     } else if (first instanceof Direction) {
-      item = getOrCreateItem(RestrictionMeta.Direction);
+      item = getOrCreateItem(ClazzRestrictionMeta.Direction);
     } else if (first instanceof Squad) {
-      item = getOrCreateItem(RestrictionMeta.Squad);
+      item = getOrCreateItem(ClazzRestrictionMeta.Squad);
     } else if (first instanceof EducationLevel) {
-      item = getOrCreateItem(RestrictionMeta.Level);
+      item = getOrCreateItem(ClazzRestrictionMeta.Level);
     } else {
       throw new RuntimeException("no support limit meta class " + first.getClass().getName());
     }

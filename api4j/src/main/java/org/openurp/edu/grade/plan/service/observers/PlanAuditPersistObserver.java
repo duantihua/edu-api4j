@@ -18,21 +18,21 @@
  */
 package org.openurp.edu.grade.plan.service.observers;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.plan.adapters.GroupResultAdapter;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 计划审核保存
@@ -45,21 +45,23 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
   public void finish() {
   }
 
-  public boolean notifyBegin(PlanAuditContext context, int index) {
+  public boolean notifyBegin(AuditPlanContext context, int index) {
     return true;
   }
 
-  private PlanAuditResult getResult(Student std) {
-    OqlBuilder<PlanAuditResult> query = OqlBuilder.from(PlanAuditResult.class, "planResult");
+  private AuditPlanResult getResult(Student std) {
+    OqlBuilder<AuditPlanResult> query = OqlBuilder.from(AuditPlanResult.class, "planResult");
     query.where("planResult.std = :std", std);
-    List<PlanAuditResult> results = entityDao.search(query);
-    if (results.size() > 0) { return results.get(0); }
+    List<AuditPlanResult> results = entityDao.search(query);
+    if (results.size() > 0) {
+      return results.get(0);
+    }
     return null;
   }
 
-  public void notifyEnd(PlanAuditContext context, int index) {
-    PlanAuditResult newResult = context.getResult();
-    PlanAuditResult existedResult = getResult(context.getStd());
+  public void notifyEnd(AuditPlanContext context, int index) {
+    AuditPlanResult newResult = context.getResult();
+    AuditPlanResult existedResult = getResult(context.getStd());
     if (null != existedResult) {
       existedResult.setRemark(newResult.getRemark());
 
@@ -77,12 +79,16 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
     } else {
       existedResult = newResult;
     }
-    entityDao.saveOrUpdate(existedResult);
+    try {
+      entityDao.saveOrUpdate(existedResult);
+    } catch (Exception e) {
+      logger.error("save {} plan audit result error.", context.getStd().getCode());
+    }
     context.setResult(existedResult);
   }
 
-  private void mergeGroupResult(PlanAuditResult existedResult, GroupAuditResult target,
-      GroupAuditResult source, StringBuilder updates) {
+  private void mergeGroupResult(AuditPlanResult existedResult, AuditGroupResult target,
+                                AuditGroupResult source, StringBuilder updates) {
     // 统计完成学分的变化
     float delta = source.getAuditStat().getPassedCredits() - target.getAuditStat().getPassedCredits();
     if (Float.compare(delta, 0) != 0) {
@@ -95,25 +101,25 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
     target.setPassed(source.isPassed());
     target.setIndexno(source.getIndexno());
     // 收集课程组[groupName->groupResult]
-    Map<String, GroupAuditResult> targetGroupResults = CollectUtils.newHashMap();
-    Map<String, GroupAuditResult> sourceGroupResults = CollectUtils.newHashMap();
-    for (GroupAuditResult result : target.getChildren())
+    Map<String, AuditGroupResult> targetGroupResults = CollectUtils.newHashMap();
+    Map<String, AuditGroupResult> sourceGroupResults = CollectUtils.newHashMap();
+    for (AuditGroupResult result : target.getChildren())
       targetGroupResults.put(result.getName(), result);
-    for (GroupAuditResult result : source.getChildren())
+    for (AuditGroupResult result : source.getChildren())
       sourceGroupResults.put(result.getName(), result);
 
     // 收集课程结果[course->courseResult]
-    Map<Course, CourseAuditResult> targetCourseResults = CollectUtils.newHashMap();
-    Map<Course, CourseAuditResult> sourceCourseResults = CollectUtils.newHashMap();
-    for (CourseAuditResult courseResult : target.getCourseResults())
+    Map<Course, AuditCourseResult> targetCourseResults = CollectUtils.newHashMap();
+    Map<Course, AuditCourseResult> sourceCourseResults = CollectUtils.newHashMap();
+    for (AuditCourseResult courseResult : target.getCourseResults())
       targetCourseResults.put(courseResult.getCourse(), courseResult);
-    for (CourseAuditResult courseResult : source.getCourseResults())
+    for (AuditCourseResult courseResult : source.getCourseResults())
       sourceCourseResults.put(courseResult.getCourse(), courseResult);
 
     // 删除没有的课程组
     Set<String> removed = CollectUtils.subtract(targetGroupResults.keySet(), sourceGroupResults.keySet());
     for (String groupName : removed) {
-      GroupAuditResult gg = targetGroupResults.get(groupName);
+      AuditGroupResult gg = targetGroupResults.get(groupName);
       gg.detach();
       target.removeChild(gg);
     }
@@ -121,7 +127,7 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
     // 添加课程组
     Set<String> added = CollectUtils.subtract(sourceGroupResults.keySet(), targetGroupResults.keySet());
     for (String groupName : added) {
-      GroupAuditResult groupResult = (GroupAuditResult) sourceGroupResults.get(groupName);
+      AuditGroupResult groupResult = (AuditGroupResult) sourceGroupResults.get(groupName);
       target.addChild(groupResult);
       groupResult.attachTo(existedResult);
     }
@@ -137,14 +143,14 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
     Set<Course> removedCourses = CollectUtils.subtract(targetCourseResults.keySet(),
         sourceCourseResults.keySet());
     for (Course course : removedCourses) {
-      CourseAuditResult courseResult = (CourseAuditResult) targetCourseResults.get(course);
+      AuditCourseResult courseResult = (AuditCourseResult) targetCourseResults.get(course);
       target.getCourseResults().remove(courseResult);
     }
     // 添加新的课程结果
     Set<Course> addedCourses = CollectUtils.subtract(sourceCourseResults.keySet(),
         targetCourseResults.keySet());
     for (Course course : addedCourses) {
-      CourseAuditResult courseResult = (CourseAuditResult) sourceCourseResults.get(course);
+      AuditCourseResult courseResult = (AuditCourseResult) sourceCourseResults.get(course);
       courseResult.getGroupResult().getCourseResults().remove(courseResult);
       courseResult.setGroupResult(target);
       target.getCourseResults().add(courseResult);
@@ -153,8 +159,8 @@ public class PlanAuditPersistObserver extends BaseServiceImpl implements PlanAud
     Set<Course> commonCourses = CollectUtils.intersection(sourceCourseResults.keySet(),
         targetCourseResults.keySet());
     for (Course course : commonCourses) {
-      CourseAuditResult targetCourseResult = targetCourseResults.get(course);
-      CourseAuditResult sourceCourseResult = sourceCourseResults.get(course);
+      AuditCourseResult targetCourseResult = targetCourseResults.get(course);
+      AuditCourseResult sourceCourseResult = sourceCourseResults.get(course);
       targetCourseResult.setPassed(sourceCourseResult.isPassed());
       targetCourseResult.setScores(sourceCourseResult.getScores());
       targetCourseResult.setCompulsory(sourceCourseResult.isCompulsory());

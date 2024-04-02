@@ -25,7 +25,7 @@ import org.beangle.commons.entity.Entity;
 import org.beangle.commons.entity.metadata.Model;
 import org.beangle.commons.lang.Arrays;
 import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.base.service.ProjectContext;
 
 import java.util.LinkedHashMap;
@@ -59,13 +59,13 @@ public abstract class AbstractCourseLimitEntityProvider<T extends Entity<?>> ext
 
   @Override
   protected List<T> getCascadeContents(Object[] content, String term, PageLimit limit,
-                                       Map<RestrictionMeta, String> cascadeField) {
+                                       Map<ClazzRestrictionMeta, String> cascadeField) {
     OqlBuilder<T> builder = getQueryBuilder(content, term, limit);
     addCascadeQuery(builder, cascadeField);
     return entityDao.search(builder);
   }
 
-  protected void addCascadeQuery(OqlBuilder<T> builder, Map<RestrictionMeta, String> cascadeField) {
+  protected void addCascadeQuery(OqlBuilder<T> builder, Map<ClazzRestrictionMeta, String> cascadeField) {
 
   }
 

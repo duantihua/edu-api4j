@@ -39,8 +39,8 @@ import java.util.Map;
 /**
  * 培养计划课程审核结果
  */
-@Entity(name = "org.openurp.edu.grade.plan.model.CourseAuditResult")
-public class CourseAuditResult extends LongIdObject {
+@Entity(name = "org.openurp.edu.grade.plan.model.AuditCourseResult")
+public class AuditCourseResult extends LongIdObject {
 
   private static final long serialVersionUID = 7271307757012360755L;
 
@@ -49,7 +49,7 @@ public class CourseAuditResult extends LongIdObject {
    */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private GroupAuditResult groupResult;
+  private AuditGroupResult groupResult;
 
   /**
    * 课程
@@ -86,26 +86,26 @@ public class CourseAuditResult extends LongIdObject {
   @Size(max = 500)
   private String remark;
 
-  public CourseAuditResult() {
+  public AuditCourseResult() {
     super();
   }
 
-  public CourseAuditResult(PlanCourse planCourse) {
+  public AuditCourseResult(PlanCourse planCourse) {
     this.course = planCourse.getCourse();
     this.compulsory = planCourse.isCompulsory();
   }
 
-  public CourseAuditResult init(PlanCourse planCourse) {
+  public AuditCourseResult init(PlanCourse planCourse) {
     this.course = planCourse.getCourse();
     this.compulsory = planCourse.isCompulsory();
     return this;
   }
 
-  public GroupAuditResult getGroupResult() {
+  public AuditGroupResult getGroupResult() {
     return groupResult;
   }
 
-  public void setGroupResult(GroupAuditResult groupResult) {
+  public void setGroupResult(AuditGroupResult groupResult) {
     this.groupResult = groupResult;
   }
 
@@ -123,6 +123,14 @@ public class CourseAuditResult extends LongIdObject {
 
   public void setRemark(String remark) {
     this.remark = remark;
+  }
+
+  public void addRemark(String remark) {
+    if (this.remark == null) {
+      this.remark = remark;
+    } else {
+      this.remark = this.remark + " " + remark;
+    }
   }
 
   public boolean isPassed() {

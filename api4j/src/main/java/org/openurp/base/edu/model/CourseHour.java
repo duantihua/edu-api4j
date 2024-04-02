@@ -18,16 +18,16 @@
  */
 package org.openurp.base.edu.model;
 
+import org.beangle.commons.entity.pojo.LongIdObject;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.openurp.code.edu.model.TeachingNature;
+
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-
-import org.beangle.commons.entity.pojo.LongIdObject;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.code.edu.model.TeachingNature;
 
 /**
  * 课程分类课时信息
@@ -39,19 +39,27 @@ public class CourseHour extends LongIdObject {
 
   private static final long serialVersionUID = 4265945906585570325L;
 
-  /** 课时类型 */
+  /**
+   * 课时类型
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @NotNull
-  private TeachingNature teachingNature;
+  private TeachingNature nature;
 
-  /** 学时/总课时 */
+  /**
+   * 学时/总课时
+   */
   @NotNull
   private int creditHours;
 
-  /** 周数 */
+  /**
+   * 周数
+   */
   private int weeks;
 
-  /** 课程 */
+  /**
+   * 课程
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Course course;
@@ -64,12 +72,12 @@ public class CourseHour extends LongIdObject {
     this.course = course;
   }
 
-  public TeachingNature getTeachingNature() {
-    return teachingNature;
+  public TeachingNature getNature() {
+    return nature;
   }
 
-  public void setTeachingNature(TeachingNature teachingNature) {
-    this.teachingNature = teachingNature;
+  public void setNature(TeachingNature nature) {
+    this.nature = nature;
   }
 
   public int getCreditHours() {

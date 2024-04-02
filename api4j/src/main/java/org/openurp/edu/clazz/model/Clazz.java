@@ -430,7 +430,7 @@ public class Clazz extends ProjectBasedObject<Long> implements Cloneable {
       for (CourseTaker taker : one.getEnrollment().getCourseTakers()) {
         taker.setClazz(one);
       }
-      for (Restriction group : one.getEnrollment().getRestrictions()) {
+      for (ClazzRestriction group : one.getEnrollment().getRestrictions()) {
         group.setClazz(one);
       }
       Date createdAt = new Date(System.currentTimeMillis());

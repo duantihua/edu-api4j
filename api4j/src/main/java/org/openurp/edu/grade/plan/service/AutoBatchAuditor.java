@@ -18,15 +18,15 @@
  */
 package org.openurp.edu.grade.plan.service;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
+import org.beangle.commons.collection.CollectUtils;
+import org.beangle.commons.dao.query.QueryPage;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.openurp.base.std.model.Student;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditObserverStack;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditPersistObserver;
+
+import java.util.Date;
+import java.util.List;
 
 public class AutoBatchAuditor extends AbstractJob {
 
@@ -34,29 +34,33 @@ public class AutoBatchAuditor extends AbstractJob {
 
   private PlanAuditPersistObserver planAuditPersistObserver;
 
-  private int bulkSize = 15;
+  private int bulkSize = 300;
 
   @Override
   protected void doExecute() {
     OqlBuilder<Student> query = OqlBuilder.from(Student.class, "s");
-    query.where("not exists(from " + PlanAuditResult.class.getName()
-        + " r where r.std=s and r.updatedAt > :updatedAt)", java.sql.Date.valueOf(LocalDate.now()));
-
+//    query.where("not exists(from " + PlanAuditResult.class.getName()
+//        + " r where r.std=s and r.updatedAt > :updatedAt)", java.sql.Date.valueOf(LocalDate.now()));
     query.where("s.state.inschool=true");
-    query.where("s.beginOn <= :now and s.endOn >= :now and s.registed = true",new Date());
+    query.where("s.beginOn <= :now and s.endOn >= :now", new Date());
     query.orderBy("s.code");
+    var page = new QueryPage<>(query, entityDao);
     query.limit(1, bulkSize);
-    List<Student> stds = entityDao.search(query);
     long startAt = System.currentTimeMillis();
     logger.info("start auto gew ...");
-    PlanAuditObserverStack observerStack = new PlanAuditObserverStack(planAuditPersistObserver);
-    planAuditService.batchAudit(stds, null, observerStack, null);
-    if (stds.size() > 0) {
+    List<Student> stds = CollectUtils.newArrayList();
+    var stdIter = page.iterator();
+    while (stdIter.hasNext()) {
+      int i = 0;
+      while (stdIter.hasNext() && i < bulkSize) {
+        stds.add(stdIter.next());
+      }
+      PlanAuditObserverStack observerStack = new PlanAuditObserverStack(planAuditPersistObserver);
+      planAuditService.batchAudit(stds, null, observerStack, null);
       logger.info("auto gew: " + stds.get(0).getCode() + "~" + stds.get(stds.size() - 1).getCode() + "["
           + stds.size() + "] using " + (System.currentTimeMillis() - startAt) / 1000.0 + "s");
-    } else {
-      logger.info("auto gew: all result is updated today!");
     }
+    logger.info("auto gew: all result is updated today!");
   }
 
   public int getBulkSize() {

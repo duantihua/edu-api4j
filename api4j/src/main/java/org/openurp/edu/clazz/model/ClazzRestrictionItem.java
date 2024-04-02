@@ -29,22 +29,22 @@ import org.hibernate.annotations.Type;
 /**
  * 课程限制项
  */
-@Entity(name = "org.openurp.edu.clazz.model.RestrictionItem")
+@Entity(name = "org.openurp.edu.clazz.model.ClazzRestrictionItem")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class RestrictionItem extends LongIdObject implements Cloneable {
+public class ClazzRestrictionItem extends LongIdObject implements Cloneable {
 
   private static final long serialVersionUID = -6697398004696236934L;
 
   /** 限制具体项目 */
   @NotNull
   @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
-  private RestrictionMeta meta;
+  private ClazzRestrictionMeta meta;
 
   /** 所在限制组 */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  private Restriction restriction;
+  private ClazzRestriction restriction;
 
   private boolean included;
 
@@ -52,22 +52,22 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   @NotNull
   private String contents;
 
-  public RestrictionItem() {
+  public ClazzRestrictionItem() {
     super();
   }
 
-  public RestrictionItem(RestrictionMeta meta, String contents, boolean included) {
+  public ClazzRestrictionItem(ClazzRestrictionMeta meta, String contents, boolean included) {
     super();
     this.meta = meta;
     this.contents = contents;
     this.included = included;
   }
 
-  public RestrictionMeta getMeta() {
+  public ClazzRestrictionMeta getMeta() {
     return meta;
   }
 
-  public void setMeta(RestrictionMeta meta) {
+  public void setMeta(ClazzRestrictionMeta meta) {
     this.meta = meta;
   }
 
@@ -79,11 +79,11 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
     this.contents = contents;
   }
 
-  public Restriction getRestriction() {
+  public ClazzRestriction getRestriction() {
     return restriction;
   }
 
-  public void setRestriction(Restriction restriction) {
+  public void setRestriction(ClazzRestriction restriction) {
     this.restriction = restriction;
   }
 
@@ -97,7 +97,7 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
 
   public Object clone() {
     try {
-      RestrictionItem clone = (RestrictionItem) super.clone();
+      ClazzRestrictionItem clone = (ClazzRestrictionItem) super.clone();
       clone.setId(null);
       return clone;
     } catch (CloneNotSupportedException e) {
@@ -110,7 +110,7 @@ public class RestrictionItem extends LongIdObject implements Cloneable {
   @Deprecated
   public String getContentForHql() {
     if (null != contents) {
-      if (null != meta && RestrictionMeta.Grade.equals(meta)) {
+      if (null != meta && ClazzRestrictionMeta.Grade.equals(meta)) {
         contents = "'" + contents + "'";
       }
     }

@@ -23,7 +23,7 @@ import java.util.Collection;
 import org.openurp.base.std.model.Student;
 import org.openurp.service.OutputObserver;
 import org.openurp.edu.grade.app.model.AuditSetting;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
 import org.openurp.edu.grade.plan.service.observers.PlanAuditObserverStack;
 
 /**
@@ -31,7 +31,7 @@ import org.openurp.edu.grade.plan.service.observers.PlanAuditObserverStack;
  */
 public interface PlanAuditService {
 
-  PlanAuditResult audit(Student student, PlanAuditContext context);
+  AuditPlanResult audit(Student student, AuditPlanContext context);
 
   /**
    * 即时审核一个学生，结果不保存<br>
@@ -39,7 +39,7 @@ public interface PlanAuditService {
    * @param student
    * @return
    */
-  PlanAuditResult audit(Student student);
+  AuditPlanResult audit(Student student);
 
   void batchAudit(Collection<Student> stds, String[] auditTerms, PlanAuditObserverStack observerStack,
       OutputObserver webObserver);
@@ -52,7 +52,7 @@ public interface PlanAuditService {
    * @param std
    * @return
    */
-  PlanAuditResult getResult(Student std);
+  AuditPlanResult getResult(Student std);
 
   AuditSetting getSetting(Student student);
 

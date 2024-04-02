@@ -52,7 +52,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
 
   @Deprecated
   public void merge(Long mergeType, Enrollment target, Enrollment source) {
-    if (RestrictionMeta.Squad.equals(mergeType)) {
+    if (ClazzRestrictionMeta.Squad.equals(mergeType)) {
       Set<Squad> tmp_collection = new HashSet<Squad>();
       List<Squad> targetCollection = extractSquades(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -64,7 +64,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
         tmp_collection.addAll(sourceCollection);
       }
       limitEnrollment(true, target, tmp_collection.toArray(new Squad[0]));
-    } else if (RestrictionMeta.Department.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Department.equals(mergeType)) {
       Set<Department> tmp_collection = new HashSet<Department>();
       List<Department> targetCollection = extractAttendDeparts(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -76,7 +76,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
         tmp_collection.addAll(sourceCollection);
       }
       limitEnrollment(true, target, tmp_collection.toArray(new Department[0]));
-    } else if (RestrictionMeta.StdType.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.StdType.equals(mergeType)) {
       Set<StdType> tmp_collection = new HashSet<StdType>();
       List<StdType> targetCollection = extractStdTypes(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -88,7 +88,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
         tmp_collection.addAll(sourceCollection);
       }
       limitEnrollment(true, target, tmp_collection.toArray(new StdType[0]));
-    } else if (RestrictionMeta.Direction.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Direction.equals(mergeType)) {
       Set<Direction> tmp_collection = new HashSet<Direction>();
       List<Direction> targetCollection = extractDirections(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -100,7 +100,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
         tmp_collection.addAll(sourceCollection);
       }
       limitEnrollment(true, target, tmp_collection.toArray(new Direction[0]));
-    } else if (RestrictionMeta.Gender.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Gender.equals(mergeType)) {
       Gender targetGender = extractGender(target);
       Gender sourceGender = extractGender(source);
 
@@ -119,7 +119,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
       if (tmp_gender != null) {
         limitEnrollment(true, target, tmp_gender);
       }
-    } else if (RestrictionMeta.Grade.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Grade.equals(mergeType)) {
       String tmp_grade = "";
       String targetGrade = extractGrade(target);
       if (Strings.isNotBlank(targetGrade)) {
@@ -133,7 +133,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
       if (grades.length > 0) {
         limitEnrollment(true, target, grades);
       }
-    } else if (RestrictionMeta.Major.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Major.equals(mergeType)) {
       Set<Major> tmp_collection = new HashSet<Major>();
       List<Major> targetCollection = extractMajors(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -145,7 +145,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
         tmp_collection.addAll(sourceCollection);
       }
       limitEnrollment(true, target, tmp_collection.toArray(new Major[0]));
-    } else if (RestrictionMeta.Level.equals(mergeType)) {
+    } else if (ClazzRestrictionMeta.Level.equals(mergeType)) {
       Set<EducationLevel> tmp_collection = new HashSet<EducationLevel>();
       List<EducationLevel> targetCollection = extractEducations(target);
       if (CollectUtils.isNotEmpty(targetCollection)) {
@@ -163,7 +163,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<EducationLevel> extractEducations(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<EducationLevel>>> res = xtractEducationLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<EducationLevel>>> res = xtractEducationLimit(teachclass);
     List<EducationLevel> levels = CollectUtils.newArrayList();
     for (Pair<Boolean, List<EducationLevel>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -177,7 +177,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return levels;
   }
 
-  public List<EducationLevel> extractEducations(Restriction group) {
+  public List<EducationLevel> extractEducations(ClazzRestriction group) {
     Pair<Boolean, List<EducationLevel>> res = xtractEducationLimit(group);
     if (res._1) {
       return res._2;
@@ -186,7 +186,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<Squad> extractSquades(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<Squad>>> res = xtractSquadLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<Squad>>> res = xtractSquadLimit(teachclass);
     List<Squad> squades = CollectUtils.newArrayList();
     for (Pair<Boolean, List<Squad>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -200,7 +200,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return squades;
   }
 
-  public List<Squad> extractSquades(Restriction group) {
+  public List<Squad> extractSquades(ClazzRestriction group) {
     Pair<Boolean, List<Squad>> res = xtractSquadLimit(group);
     if (res._1) {
       return res._2;
@@ -209,7 +209,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public String extractGrade(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<String>>> res = xtractGradeLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<String>>> res = xtractGradeLimit(teachclass);
     Set<String> grades = CollectUtils.newHashSet();
     for (Pair<Boolean, List<String>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -226,7 +226,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return grade;
   }
 
-  public String extractGrade(Restriction group) {
+  public String extractGrade(ClazzRestriction group) {
     Pair<Boolean, List<String>> res = xtractGradeLimit(group);
     if (res._1) {
       if (CollectUtils.isNotEmpty(res._2)) {
@@ -237,7 +237,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<StdType> extractStdTypes(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<StdType>>> res = xtractStdTypeLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<StdType>>> res = xtractStdTypeLimit(teachclass);
     List<StdType> stdTypes = CollectUtils.newArrayList();
     for (Pair<Boolean, List<StdType>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -251,7 +251,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return stdTypes;
   }
 
-  public List<StdType> extractStdTypes(Restriction group) {
+  public List<StdType> extractStdTypes(ClazzRestriction group) {
     Pair<Boolean, List<StdType>> res = xtractStdTypeLimit(group);
     if (res._1) {
       return res._2;
@@ -260,7 +260,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<Major> extractMajors(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<Major>>> res = xtractMajorLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<Major>>> res = xtractMajorLimit(teachclass);
     List<Major> majors = CollectUtils.newArrayList();
     for (Pair<Boolean, List<Major>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -274,7 +274,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return majors;
   }
 
-  public List<Major> extractMajors(Restriction group) {
+  public List<Major> extractMajors(ClazzRestriction group) {
     Pair<Boolean, List<Major>> res = xtractMajorLimit(group);
     if (res._1) {
       return res._2;
@@ -283,7 +283,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<Direction> extractDirections(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<Direction>>> res = xtractDirectionLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<Direction>>> res = xtractDirectionLimit(teachclass);
     List<Direction> directions = CollectUtils.newArrayList();
     for (Pair<Boolean, List<Direction>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -297,7 +297,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return directions;
   }
 
-  public List<Direction> extractDirections(Restriction group) {
+  public List<Direction> extractDirections(ClazzRestriction group) {
     Pair<Boolean, List<Direction>> res = xtractDirectionLimit(group);
     if (res._1) {
       return res._2;
@@ -306,7 +306,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   public List<Department> extractAttendDeparts(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<Department>>> res = xtractAttendDepartLimit(teachclass);
+    Map<ClazzRestriction, Pair<Boolean, List<Department>>> res = xtractAttendDepartLimit(teachclass);
     List<Department> departments = CollectUtils.newArrayList();
     for (Pair<Boolean, List<Department>> tmpRes : res.values()) {
       if (tmpRes._1) {
@@ -320,7 +320,7 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return departments;
   }
 
-  public List<Department> extractAttendDeparts(Restriction group) {
+  public List<Department> extractAttendDeparts(ClazzRestriction group) {
     Pair<Boolean, List<Department>> res = xtractAttendDepartLimit(group);
     if (res._1) {
       return res._2;
@@ -330,13 +330,13 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
 
   @Deprecated
   public Gender extractGender(Enrollment teachclass) {
-    List<Restriction> groups = teachclass.getRestrictions();
-    for (Restriction group : groups) {
+    List<ClazzRestriction> groups = teachclass.getRestrictions();
+    for (ClazzRestriction group : groups) {
       if (!group.isPrime()) {
         continue;
       }
-      for (RestrictionItem item : group.getItems()) {
-        if (RestrictionMeta.Gender.equals(item.getMeta()) && item.isIncluded()) {
+      for (ClazzRestrictionItem item : group.getItems()) {
+        if (ClazzRestrictionMeta.Gender.equals(item.getMeta()) && item.isIncluded()) {
           return entityDao.get(Gender.class, Strings.splitToInt(item.getContents()))
               .get(0);
         }
@@ -346,12 +346,12 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   }
 
   @Deprecated
-  public Gender extractGender(Restriction group) {
+  public Gender extractGender(ClazzRestriction group) {
     if (group == null) {
       return null;
     }
-    for (RestrictionItem item : group.getItems()) {
-      if (RestrictionMeta.Gender.equals(item.getMeta()) && item.isIncluded()) {
+    for (ClazzRestrictionItem item : group.getItems()) {
+      if (ClazzRestrictionMeta.Gender.equals(item.getMeta()) && item.isIncluded()) {
         return entityDao.get(Gender.class, Strings.splitToInt(item.getContents()))
             .get(0);
       }
@@ -363,13 +363,13 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return new DefaultRestrictionBuilder();
   }
 
-  private RestrictionBuilder builder(Restriction group) {
+  private RestrictionBuilder builder(ClazzRestriction group) {
     return new DefaultRestrictionBuilder(group);
   }
 
   public RestrictionBuilder builder(Enrollment teachclass) {
     Enrollment clb = (Enrollment) teachclass;
-    Restriction group = clb.getOrCreateDefautRestriction();
+    ClazzRestriction group = clb.getOrCreateDefautRestriction();
     return new DefaultRestrictionBuilder(group);
   }
 
@@ -425,9 +425,9 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   public void limitEnrollment(boolean inclusive, Enrollment teachclass, String... grades) {
     if (grades.length > 0) {
       Enrollment clb = (Enrollment) teachclass;
-      Restriction group = clb.getOrCreateDefautRestriction();
+      ClazzRestriction group = clb.getOrCreateDefautRestriction();
       RestrictionBuilder builder = builder(group);
-      builder.clear(RestrictionMeta.Grade);
+      builder.clear(ClazzRestrictionMeta.Grade);
       if (inclusive) {
         builder.inGrades(grades);
       } else {
@@ -439,26 +439,26 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
   public <T extends Entity<?>> void limitEnrollment(boolean inclusive, Enrollment teachclass, T... entities) {
     if (entities.length > 0) {
       Enrollment clb = (Enrollment) teachclass;
-      Restriction group = clb.getOrCreateDefautRestriction();
+      ClazzRestriction group = clb.getOrCreateDefautRestriction();
       RestrictionBuilder builder = builder(group);
 
       T first = entities[0];
       if (first instanceof Squad) {
-        builder.clear(RestrictionMeta.Squad);
+        builder.clear(ClazzRestrictionMeta.Squad);
       } else if (first instanceof StdType) {
-        builder.clear(RestrictionMeta.StdType);
+        builder.clear(ClazzRestrictionMeta.StdType);
       } else if (first instanceof Major) {
-        builder.clear(RestrictionMeta.Major);
+        builder.clear(ClazzRestrictionMeta.Major);
       } else if (first instanceof Direction) {
-        builder.clear(RestrictionMeta.Direction);
+        builder.clear(ClazzRestrictionMeta.Direction);
       } else if (first instanceof Department) {
-        builder.clear(RestrictionMeta.Department);
+        builder.clear(ClazzRestrictionMeta.Department);
       } else if (first instanceof EducationLevel) {
-        builder.clear(RestrictionMeta.Level);
+        builder.clear(ClazzRestrictionMeta.Level);
       } else if (first instanceof Gender) {
-        builder.clear(RestrictionMeta.Gender);
+        builder.clear(ClazzRestrictionMeta.Gender);
       } else if (first instanceof EducationType) {
-        builder.clear(RestrictionMeta.EduType);
+        builder.clear(ClazzRestrictionMeta.EduType);
       } else {
         throw new RuntimeException("not supported limit meta class " + first.getClass().getName());
       }
@@ -471,60 +471,60 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     }
   }
 
-  private Pair<Boolean, List<?>> xtractLimitDirtyWork(Restriction group, RestrictionMeta limitMeta) {
+  private Pair<Boolean, List<?>> xtractLimitDirtyWork(ClazzRestriction group, ClazzRestrictionMeta limitMeta) {
     if (group == null) {
       return new Pair<Boolean, List<?>>(null, CollectUtils.newArrayList());
     }
-    for (RestrictionItem item : group.getItems()) {
-      if (RestrictionMeta.Level.equals(limitMeta)) {
-        if (RestrictionMeta.Level.equals(item.getMeta())) {
+    for (ClazzRestrictionItem item : group.getItems()) {
+      if (ClazzRestrictionMeta.Level.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Level.equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(EducationLevel.class, Strings.splitToInt(item.getContents())));
         }
-      } else if (RestrictionMeta.Squad.equals(limitMeta)) {
-        if (RestrictionMeta.Squad
+      } else if (ClazzRestrictionMeta.Squad.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Squad
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(Squad.class, Strings.splitToLong(item.getContents())));
         }
-      } else if (RestrictionMeta.Department.equals(limitMeta)) {
-        if (RestrictionMeta.Department
+      } else if (ClazzRestrictionMeta.Department.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Department
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(Department.class, Strings.splitToInt(item.getContents())));
         }
-      } else if (RestrictionMeta.Major.equals(limitMeta)) {
-        if (RestrictionMeta.Major
+      } else if (ClazzRestrictionMeta.Major.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Major
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(Major.class, Strings.splitToLong(item.getContents())));
         }
-      } else if (RestrictionMeta.Direction.equals(limitMeta)) {
-        if (RestrictionMeta.Direction
+      } else if (ClazzRestrictionMeta.Direction.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Direction
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(Direction.class, Strings.splitToLong(item.getContents())));
         }
-      } else if (RestrictionMeta.StdType.equals(limitMeta)) {
-        if (RestrictionMeta.StdType
+      } else if (ClazzRestrictionMeta.StdType.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.StdType
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(StdType.class, Strings.splitToInt(item.getContents())));
         }
-      } else if (RestrictionMeta.Grade.equals(limitMeta)) {
-        if (RestrictionMeta.Grade
+      } else if (ClazzRestrictionMeta.Grade.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Grade
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               Arrays.asList(Strings.split(item.getContents())));
         }
-      } else if (RestrictionMeta.Gender.equals(limitMeta)) {
-        if (RestrictionMeta.Gender
+      } else if (ClazzRestrictionMeta.Gender.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.Gender
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(Gender.class, Strings.splitToInt(item.getContents())));
         }
-      } else if (RestrictionMeta.EduType.equals(limitMeta)) {
-        if (RestrictionMeta.EduType
+      } else if (ClazzRestrictionMeta.EduType.equals(limitMeta)) {
+        if (ClazzRestrictionMeta.EduType
             .equals(item.getMeta())) {
           return new Pair<Boolean, List<?>>(item.isIncluded(),
               entityDao.get(EducationType.class, Strings.splitToInt(item.getContents())));
@@ -534,11 +534,11 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return new Pair<Boolean, List<?>>(Boolean.TRUE, CollectUtils.newArrayList());
   }
 
-  private Map<Restriction, Pair<Boolean, List<?>>> xtractLimitDirtyWork(Enrollment teachclass,
-                                                                        RestrictionMeta limitMeta) {
-    List<Restriction> groups = teachclass.getRestrictions();
-    Map<Restriction, Pair<Boolean, List<?>>> groupDatas = CollectUtils.newHashMap();
-    for (Restriction group : groups) {
+  private Map<ClazzRestriction, Pair<Boolean, List<?>>> xtractLimitDirtyWork(Enrollment teachclass,
+                                                                             ClazzRestrictionMeta limitMeta) {
+    List<ClazzRestriction> groups = teachclass.getRestrictions();
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> groupDatas = CollectUtils.newHashMap();
+    for (ClazzRestriction group : groups) {
       if (!group.isPrime()) {
         continue;
       }
@@ -547,11 +547,11 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return groupDatas;
   }
 
-  public Map<Restriction, Pair<Boolean, List<EducationLevel>>> xtractEducationLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.Level);
-    Map<Restriction, Pair<Boolean, List<EducationLevel>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<EducationLevel>>> xtractEducationLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.Level);
+    Map<ClazzRestriction, Pair<Boolean, List<EducationLevel>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(),
           new Pair<Boolean, List<EducationLevel>>(tmpPair._1, (List<EducationLevel>) tmpPair._2));
@@ -559,32 +559,32 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return results;
   }
 
-  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.Level);
+  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Level);
     return new Pair<Boolean, List<EducationLevel>>(tmpRes._1, (List<EducationLevel>) tmpRes._2);
   }
 
-  public Map<Restriction, Pair<Boolean, List<Squad>>> xtractSquadLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.Squad);
-    Map<Restriction, Pair<Boolean, List<Squad>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<Squad>>> xtractSquadLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.Squad);
+    Map<ClazzRestriction, Pair<Boolean, List<Squad>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(), new Pair<>(tmpPair._1, (List<Squad>) tmpPair._2));
     }
     return results;
   }
 
-  public Pair<Boolean, List<Squad>> xtractSquadLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.Squad);
+  public Pair<Boolean, List<Squad>> xtractSquadLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Squad);
     return new Pair<Boolean, List<Squad>>(tmpRes._1, (List<Squad>) tmpRes._2);
   }
 
-  public Map<Restriction, Pair<Boolean, List<Department>>> xtractAttendDepartLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.Department);
-    Map<Restriction, Pair<Boolean, List<Department>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<Department>>> xtractAttendDepartLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.Department);
+    Map<ClazzRestriction, Pair<Boolean, List<Department>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(),
           new Pair<Boolean, List<Department>>(tmpPair._1, (List<Department>) tmpPair._2));
@@ -592,16 +592,16 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return results;
   }
 
-  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.Department);
+  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Department);
     return new Pair<Boolean, List<Department>>(tmpRes._1, (List<Department>) tmpRes._2);
   }
 
-  public Map<Restriction, Pair<Boolean, List<Direction>>> xtractDirectionLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.Direction);
-    Map<Restriction, Pair<Boolean, List<Direction>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<Direction>>> xtractDirectionLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.Direction);
+    Map<ClazzRestriction, Pair<Boolean, List<Direction>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(),
           new Pair<Boolean, List<Direction>>(tmpPair._1, (List<Direction>) tmpPair._2));
@@ -609,15 +609,15 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return results;
   }
 
-  public Pair<Boolean, List<Direction>> xtractDirectionLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.Direction);
+  public Pair<Boolean, List<Direction>> xtractDirectionLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Direction);
     return new Pair<Boolean, List<Direction>>(tmpRes._1, (List<Direction>) tmpRes._2);
   }
 
-  public Map<Restriction, Pair<Boolean, List<String>>> xtractGradeLimit(Enrollment teachclass) {
-    List<Restriction> groups = teachclass.getRestrictions();
-    Map<Restriction, Pair<Boolean, List<String>>> groupDatas = CollectUtils.newHashMap();
-    for (Restriction group : groups) {
+  public Map<ClazzRestriction, Pair<Boolean, List<String>>> xtractGradeLimit(Enrollment teachclass) {
+    List<ClazzRestriction> groups = teachclass.getRestrictions();
+    Map<ClazzRestriction, Pair<Boolean, List<String>>> groupDatas = CollectUtils.newHashMap();
+    for (ClazzRestriction group : groups) {
       if (!group.isPrime()) {
         continue;
       }
@@ -626,9 +626,9 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return groupDatas;
   }
 
-  public Pair<Boolean, List<String>> xtractGradeLimit(Restriction group) {
-    for (RestrictionItem item : group.getItems()) {
-      if (RestrictionMeta.Grade.equals(item.getMeta())) {
+  public Pair<Boolean, List<String>> xtractGradeLimit(ClazzRestriction group) {
+    for (ClazzRestrictionItem item : group.getItems()) {
+      if (ClazzRestrictionMeta.Grade.equals(item.getMeta())) {
         return new Pair<Boolean, List<String>>(item.isIncluded(),
             CollectUtils.newArrayList(item.getContents()));
       }
@@ -636,27 +636,27 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return new Pair<Boolean, List<String>>(null, new ArrayList<String>());
   }
 
-  public Map<Restriction, Pair<Boolean, List<Major>>> xtractMajorLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.Major);
-    Map<Restriction, Pair<Boolean, List<Major>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<Major>>> xtractMajorLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.Major);
+    Map<ClazzRestriction, Pair<Boolean, List<Major>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(), new Pair<Boolean, List<Major>>(tmpPair._1, (List<Major>) tmpPair._2));
     }
     return results;
   }
 
-  public Pair<Boolean, List<Major>> xtractMajorLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.Major);
+  public Pair<Boolean, List<Major>> xtractMajorLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Major);
     return new Pair<Boolean, List<Major>>(tmpRes._1, (List<Major>) tmpRes._2);
   }
 
-  public Map<Restriction, Pair<Boolean, List<StdType>>> xtractStdTypeLimit(Enrollment teachclass) {
-    Map<Restriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
-        RestrictionMeta.StdType);
-    Map<Restriction, Pair<Boolean, List<StdType>>> results = CollectUtils.newHashMap();
-    for (Map.Entry<Restriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
+  public Map<ClazzRestriction, Pair<Boolean, List<StdType>>> xtractStdTypeLimit(Enrollment teachclass) {
+    Map<ClazzRestriction, Pair<Boolean, List<?>>> tmpRes = xtractLimitDirtyWork(teachclass,
+        ClazzRestrictionMeta.StdType);
+    Map<ClazzRestriction, Pair<Boolean, List<StdType>>> results = CollectUtils.newHashMap();
+    for (Map.Entry<ClazzRestriction, Pair<Boolean, List<?>>> tmpEntrySet : tmpRes.entrySet()) {
       Pair<Boolean, List<?>> tmpPair = tmpEntrySet.getValue();
       results.put(tmpEntrySet.getKey(),
           new Pair<Boolean, List<StdType>>(tmpPair._1, (List<StdType>) tmpPair._2));
@@ -664,8 +664,8 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return results;
   }
 
-  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(Restriction group) {
-    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, RestrictionMeta.StdType);
+  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(ClazzRestriction group) {
+    Pair<Boolean, List<?>> tmpRes = xtractLimitDirtyWork(group, ClazzRestrictionMeta.StdType);
     return new Pair<Boolean, List<StdType>>(tmpRes._1, (List<StdType>) tmpRes._2);
   }
 
@@ -682,33 +682,33 @@ public class CourseLimitServiceImpl extends BaseServiceImpl implements CourseLim
     return isAutoName;
   }
 
-  public RestrictionPair xtractLimitGroup(Restriction group) {
+  public RestrictionPair xtractLimitGroup(ClazzRestriction group) {
     RestrictionPair pair = new RestrictionPair(group);
-    Pair<Boolean, List<?>> gradeLimit = xtractLimitDirtyWork(group, RestrictionMeta.Grade);
+    Pair<Boolean, List<?>> gradeLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Grade);
     if (gradeLimit._1 != null) pair.setGradeLimit(gradeLimit);
 
-    Pair<Boolean, List<?>> stdTypeLimit = xtractLimitDirtyWork(group, RestrictionMeta.StdType);
+    Pair<Boolean, List<?>> stdTypeLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.StdType);
     if (stdTypeLimit._1 != null) pair.setStdTypeLimit(stdTypeLimit);
 
-    Pair<Boolean, List<?>> genderLimit = xtractLimitDirtyWork(group, RestrictionMeta.Gender);
+    Pair<Boolean, List<?>> genderLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Gender);
     if (genderLimit._1 != null) pair.setGenderLimit(genderLimit);
 
-    Pair<Boolean, List<?>> departLimit = xtractLimitDirtyWork(group, RestrictionMeta.Department);
+    Pair<Boolean, List<?>> departLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Department);
     if (departLimit._1 != null) pair.setDepartmentLimit(departLimit);
 
-    Pair<Boolean, List<?>> majorLimit = xtractLimitDirtyWork(group, RestrictionMeta.Major);
+    Pair<Boolean, List<?>> majorLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Major);
     if (majorLimit._1 != null) pair.setMajorLimit(majorLimit);
 
-    Pair<Boolean, List<?>> directionLimit = xtractLimitDirtyWork(group, RestrictionMeta.Direction);
+    Pair<Boolean, List<?>> directionLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Direction);
     if (directionLimit._1 != null) pair.setDirectionLimit(directionLimit);
 
-    Pair<Boolean, List<?>> squadLimit = xtractLimitDirtyWork(group, RestrictionMeta.Squad);
+    Pair<Boolean, List<?>> squadLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Squad);
     if (squadLimit._1 != null) pair.setSquadLimit(squadLimit);
 
-    Pair<Boolean, List<?>> levelLimit = xtractLimitDirtyWork(group, RestrictionMeta.Level);
+    Pair<Boolean, List<?>> levelLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.Level);
     if (levelLimit._1 != null) pair.setLevelLimit(levelLimit);
 
-    Pair<Boolean, List<?>> eduTypeLimit = xtractLimitDirtyWork(group, RestrictionMeta.EduType);
+    Pair<Boolean, List<?>> eduTypeLimit = xtractLimitDirtyWork(group, ClazzRestrictionMeta.EduType);
     if (levelLimit._1 != null) pair.setEduTypeLimit(eduTypeLimit);
 
     return pair;

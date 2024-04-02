@@ -18,8 +18,8 @@
  */
 package org.openurp.edu.clazz.service.limit;
 
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public interface RestrictionMetaFilter {
-  public boolean accept(RestrictionMeta courseLimitMeta);
+  public boolean accept(ClazzRestrictionMeta courseLimitMeta);
 }

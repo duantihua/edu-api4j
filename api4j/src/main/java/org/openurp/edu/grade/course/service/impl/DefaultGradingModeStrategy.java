@@ -18,17 +18,15 @@
  */
 package org.openurp.edu.grade.course.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.beangle.commons.dao.EntityDao;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.code.edu.model.GradingMode;
-
 import org.openurp.edu.grade.course.model.CourseGradeState;
 import org.openurp.edu.grade.course.model.ExamGradeState;
 import org.openurp.edu.grade.course.model.GradeState;
 import org.openurp.edu.grade.course.service.GradingModeStrategy;
+
+import java.util.List;
 
 /**
  * 默认成绩记录方式配置方法
@@ -66,12 +64,7 @@ public class DefaultGradingModeStrategy implements GradingModeStrategy {
    */
   protected GradingMode getDefaultCourseGradeGradingMode(CourseGradeState state) {
     // 默认按照课程的记录方式
-    Collection<GradingMode> modes = state.getClazz().getCourse().getGradingModes();
-    if (modes.isEmpty()) {
-      return entityDao.get(GradingMode.class, GradingMode.Percent);
-    } else {
-      return modes.iterator().next();
-    }
+    return state.getClazz().getCourse().getGradingMode();
   }
 
   /**

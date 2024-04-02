@@ -23,70 +23,70 @@ import java.util.List;
 
 import org.openurp.code.edu.model.CourseType;
 import org.openurp.edu.grade.plan.model.AuditStat;
-import org.openurp.edu.grade.plan.model.CourseAuditResult;
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.model.PlanAuditResult;
+import org.openurp.edu.grade.plan.model.AuditCourseResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.model.AuditPlanResult;
 
-public class GroupResultAdapter extends GroupAuditResult {
+public class GroupResultAdapter extends AuditGroupResult {
 
   private static final long serialVersionUID = 1929862666682635612L;
 
-  private PlanAuditResult result;
+  private AuditPlanResult result;
 
-  private List<GroupAuditResult> topGroups;
+  private List<AuditGroupResult> topGroups;
 
   /**
    * 用于伪装组结果
    *
    * @param result
    */
-  public GroupResultAdapter(PlanAuditResult result) {
+  public GroupResultAdapter(AuditPlanResult result) {
     super();
     this.result = result;
     this.topGroups = result.getTopGroupResults();
   }
 
-  public void removeChild(GroupAuditResult gr) {
+  public void removeChild(AuditGroupResult gr) {
   }
 
-  public void addChild(GroupAuditResult gr) {
+  public void addChild(AuditGroupResult gr) {
   }
 
   public AuditStat getAuditStat() {
     return result.getAuditStat();
   }
 
-  public void attachTo(PlanAuditResult planResult) {
+  public void attachTo(AuditPlanResult planResult) {
   }
 
   public void detach() {
   }
 
   // 课程仅仅在组中,计划中没有
-  public void addCourseResult(CourseAuditResult courseResult) {
+  public void addCourseResult(AuditCourseResult courseResult) {
   }
 
   // 课程仅仅在组中,计划中没有
-  public void updateCourseResult(CourseAuditResult rs) {
+  public void updateCourseResult(AuditCourseResult rs) {
   }
 
-  public List<GroupAuditResult> getChildren() {
+  public List<AuditGroupResult> getChildren() {
     return this.topGroups;
   }
 
   public void checkPassed() {
-    GroupAuditResult.checkPassed(this, false);
+    AuditGroupResult.checkPassed(this, false);
   }
 
   public void checkPassed(boolean isRecursive) {
-    GroupAuditResult.checkPassed(this, isRecursive);
+    AuditGroupResult.checkPassed(this, isRecursive);
   }
 
   public String getName() {
     return "计划";
   }
 
-  public List<CourseAuditResult> getCourseResults() {
+  public List<AuditCourseResult> getCourseResults() {
     return Collections.emptyList();
   }
 
@@ -94,11 +94,11 @@ public class GroupResultAdapter extends GroupAuditResult {
     return null;
   }
 
-  public GroupAuditResult getParent() {
+  public AuditGroupResult getParent() {
     return null;
   }
 
-  public PlanAuditResult getPlanResult() {
+  public AuditPlanResult getPlanResult() {
     return result;
   }
 
@@ -123,19 +123,19 @@ public class GroupResultAdapter extends GroupAuditResult {
   public void setSubCount(short num) {
   }
 
-  public void setChildren(List<GroupAuditResult> children) {
+  public void setChildren(List<AuditGroupResult> children) {
   }
 
-  public void setCourseResults(List<CourseAuditResult> planCourseAuditResults) {
+  public void setCourseResults(List<AuditCourseResult> planCourseAuditResults) {
   }
 
   public void setCourseType(CourseType courseType) {
   }
 
-  public void setParent(GroupAuditResult parent) {
+  public void setParent(AuditGroupResult parent) {
   }
 
-  public void setPlanResult(PlanAuditResult planResult) {
+  public void setPlanResult(AuditPlanResult planResult) {
   }
 
   public void setName(String name) {

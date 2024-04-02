@@ -46,7 +46,7 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
 
   private RestrictionItemContentProviderFactory courseLimitItemContentProviderFactory;
 
-  public String genName(List<Restriction> groups) {
+  public String genName(List<ClazzRestriction> groups) {
     return Strings.abbreviate(buildAll(groups).getLeft(), getNameMaxSize());
   }
 
@@ -82,15 +82,15 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
     }
   }
 
-  private Pair<String, String> buildAll(List<Restriction> groups) {
-    Map<RestrictionMeta, RestrictionItemContentProvider<?>> providers = CollectUtils.newHashMap();
-    List<Map<RestrictionMeta, Pair<Boolean, Set<String>>>> groupContentTitles = CollectUtils.newArrayList();
-    Map<RestrictionMeta, List<Set<String>>> excludeContents = CollectUtils.newHashMap();
-    for (Restriction restriction : groups) {
-      Map<RestrictionMeta, Pair<Boolean, Set<String>>> metaContentTitles = CollectUtils.newHashMap();
-      for (RestrictionItem item : restriction.getItems()) {
+  private Pair<String, String> buildAll(List<ClazzRestriction> groups) {
+    Map<ClazzRestrictionMeta, RestrictionItemContentProvider<?>> providers = CollectUtils.newHashMap();
+    List<Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>>> groupContentTitles = CollectUtils.newArrayList();
+    Map<ClazzRestrictionMeta, List<Set<String>>> excludeContents = CollectUtils.newHashMap();
+    for (ClazzRestriction restriction : groups) {
+      Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> metaContentTitles = CollectUtils.newHashMap();
+      for (ClazzRestrictionItem item : restriction.getItems()) {
         boolean exclude = !item.isIncluded();
-        RestrictionMeta meta = item.getMeta();
+        ClazzRestrictionMeta meta = item.getMeta();
         RestrictionItemContentProvider<?> provider = providers.get(meta);
         if (null == provider) {
           provider = courseLimitItemContentProviderFactory.getProvider(meta);
@@ -110,9 +110,9 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
       }
       groupContentTitles.add(metaContentTitles);
     }
-    for (Map<RestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles : groupContentTitles) {
-      for (Entry<RestrictionMeta, Pair<Boolean, Set<String>>> entry : oneGroupContentTitles.entrySet()) {
-        RestrictionMeta meta = entry.getKey();
+    for (Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles : groupContentTitles) {
+      for (Entry<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> entry : oneGroupContentTitles.entrySet()) {
+        ClazzRestrictionMeta meta = entry.getKey();
         Boolean op = entry.getValue().getLeft();
         if (op) {
           Set<String> contents = entry.getValue().getRight();
@@ -127,28 +127,28 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
     }
     StringBuilder fullNameBuilder = new StringBuilder();
     StringBuilder nameBuilder = new StringBuilder();
-    RestrictionMeta[] enums = RestrictionMeta.values();
-    Map<RestrictionMeta, RestrictionMeta> metasEnums = CollectUtils.newHashMap();
-    for (RestrictionMeta courseLimitMetaEnum : enums) {
+    ClazzRestrictionMeta[] enums = ClazzRestrictionMeta.values();
+    Map<ClazzRestrictionMeta, ClazzRestrictionMeta> metasEnums = CollectUtils.newHashMap();
+    for (ClazzRestrictionMeta courseLimitMetaEnum : enums) {
       metasEnums.put(courseLimitMetaEnum, courseLimitMetaEnum);
     }
-    Map<RestrictionMeta, String> metaTitles = CollectUtils.newHashMap();
-    metaTitles.put(RestrictionMeta.Squad, "班级");
-    metaTitles.put(RestrictionMeta.Department, "院系");
-    metaTitles.put(RestrictionMeta.Direction, "方向");
-    metaTitles.put(RestrictionMeta.Level, "培养层次");
-    metaTitles.put(RestrictionMeta.Gender, "性别");
-    metaTitles.put(RestrictionMeta.Grade, "年级");
-    metaTitles.put(RestrictionMeta.Major, "专业");
-    metaTitles.put(RestrictionMeta.StdType, "学生类别");
+    Map<ClazzRestrictionMeta, String> metaTitles = CollectUtils.newHashMap();
+    metaTitles.put(ClazzRestrictionMeta.Squad, "班级");
+    metaTitles.put(ClazzRestrictionMeta.Department, "院系");
+    metaTitles.put(ClazzRestrictionMeta.Direction, "方向");
+    metaTitles.put(ClazzRestrictionMeta.Level, "培养层次");
+    metaTitles.put(ClazzRestrictionMeta.Gender, "性别");
+    metaTitles.put(ClazzRestrictionMeta.Grade, "年级");
+    metaTitles.put(ClazzRestrictionMeta.Major, "专业");
+    metaTitles.put(ClazzRestrictionMeta.StdType, "学生类别");
 
-    for (Map<RestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles : groupContentTitles) {
+    for (Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles : groupContentTitles) {
       boolean isEmptyGroup = true;
-      for (Entry<RestrictionMeta, Pair<Boolean, Set<String>>> entry : oneGroupContentTitles.entrySet()) {
-        RestrictionMeta meta = entry.getKey();
-        RestrictionMeta metaEnum = metasEnums.get(meta);
+      for (Entry<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> entry : oneGroupContentTitles.entrySet()) {
+        ClazzRestrictionMeta meta = entry.getKey();
+        ClazzRestrictionMeta metaEnum = metasEnums.get(meta);
         int length = fullNameBuilder.length();
-        if (RestrictionMeta.Grade.equals(metaEnum)) {
+        if (ClazzRestrictionMeta.Grade.equals(metaEnum)) {
           appendGradeContents(fullNameBuilder, oneGroupContentTitles);
         } else {
           appendEntityContents(fullNameBuilder, metaEnum, oneGroupContentTitles, metaTitles.get(metaEnum));
@@ -160,20 +160,20 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
       }
       StringBuilder sb = new StringBuilder();
       // 单组中 有行政班 仅显示行政班
-      appendEntityContents(sb, RestrictionMeta.Squad, oneGroupContentTitles, "班级");
+      appendEntityContents(sb, ClazzRestrictionMeta.Squad, oneGroupContentTitles, "班级");
       if (sb.length() == 0) {
         // 添加年级
         appendGradeContents(sb, oneGroupContentTitles);
-        boolean containsMajor = containsMeta(RestrictionMeta.Major, oneGroupContentTitles);
+        boolean containsMajor = containsMeta(ClazzRestrictionMeta.Major, oneGroupContentTitles);
         if (containsMajor) {
           // 添加专业
-          appendEntityContents(sb, RestrictionMeta.Major, oneGroupContentTitles, "专业");
+          appendEntityContents(sb, ClazzRestrictionMeta.Major, oneGroupContentTitles, "专业");
         } else {
           // 添加院系
-          appendEntityContents(sb, RestrictionMeta.Department, oneGroupContentTitles, "院系");
+          appendEntityContents(sb, ClazzRestrictionMeta.Department, oneGroupContentTitles, "院系");
         }
         // 添加方向
-        appendEntityContents(sb, RestrictionMeta.StdType, oneGroupContentTitles, "方向");
+        appendEntityContents(sb, ClazzRestrictionMeta.StdType, oneGroupContentTitles, "方向");
       }
       if (sb.length() > 0) {
         if (nameBuilder.length() > 0) {
@@ -194,8 +194,8 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
     return new Pair<String, String>(name, fullname);
   }
 
-  private boolean containsMeta(RestrictionMeta meta,
-                               Map<RestrictionMeta, Pair<Boolean, Set<String>>> groupContents) {
+  private boolean containsMeta(ClazzRestrictionMeta meta,
+                               Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> groupContents) {
     Pair<Boolean, Set<String>> pair = groupContents.get(meta);
     if (null != pair) {
       return CollectUtils.isNotEmpty(pair.getRight());
@@ -203,8 +203,8 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
     return false;
   }
 
-  private StringBuilder appendEntityContents(StringBuilder sb, RestrictionMeta meta,
-                                             Map<RestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles, String key) {
+  private StringBuilder appendEntityContents(StringBuilder sb, ClazzRestrictionMeta meta,
+                                             Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles, String key) {
     Pair<Boolean, Set<String>> directionPair = oneGroupContentTitles.get(meta);
     if (null != directionPair) {
       Set<String> contents = directionPair.getRight();
@@ -223,8 +223,8 @@ public class DefaultTeachClassNameStrategy implements ClazzNameStrategy {
   }
 
   private StringBuilder appendGradeContents(StringBuilder sb,
-                                            Map<RestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles) {
-    Pair<Boolean, Set<String>> gradePair = oneGroupContentTitles.get(RestrictionMeta.Grade);
+                                            Map<ClazzRestrictionMeta, Pair<Boolean, Set<String>>> oneGroupContentTitles) {
+    Pair<Boolean, Set<String>> gradePair = oneGroupContentTitles.get(ClazzRestrictionMeta.Grade);
     if (null != gradePair) {
       if (CollectUtils.isNotEmpty(gradePair.getRight())) {
         if (sb.length() > 0) {

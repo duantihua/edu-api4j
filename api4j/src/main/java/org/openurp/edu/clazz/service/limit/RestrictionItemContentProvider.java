@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.beangle.commons.collection.page.PageLimit;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public interface RestrictionItemContentProvider<T> {
 
@@ -77,13 +77,13 @@ public interface RestrictionItemContentProvider<T> {
    * @return
    */
   public List<T> getCascadeContents(String content, String term, PageLimit limit,
-      Map<RestrictionMeta, String> cascadeField);
+      Map<ClazzRestrictionMeta, String> cascadeField);
 
   /**
    * 获得本Provider所对应的RestrictionMeta
    *
    * @return
    */
-  public RestrictionMeta getMeta();
+  public ClazzRestrictionMeta getMeta();
 
 }

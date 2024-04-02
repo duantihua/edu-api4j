@@ -21,14 +21,14 @@ package org.openurp.edu.clazz.service;
 import java.util.List;
 
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Restriction;
+import org.openurp.edu.clazz.model.ClazzRestriction;
 
 /**
  * 课程限制项命名策略
  * 主要负责命名限制项和条件组.
  */
 public interface ClazzNameStrategy {
-  public String genName(List<Restriction> groups);
+  public String genName(List<ClazzRestriction> groups);
 
   public String genName(Clazz clazz);
 

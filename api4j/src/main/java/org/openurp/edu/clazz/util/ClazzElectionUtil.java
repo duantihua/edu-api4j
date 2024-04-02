@@ -23,8 +23,8 @@ import java.util.Collection;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.CourseTaker;
 import org.openurp.edu.clazz.model.Enrollment;
-import org.openurp.edu.clazz.model.Restriction;
-import org.openurp.edu.clazz.model.RestrictionItem;
+import org.openurp.edu.clazz.model.ClazzRestriction;
+import org.openurp.edu.clazz.model.ClazzRestrictionItem;
 
 public class ClazzElectionUtil {
 
@@ -40,9 +40,9 @@ public class ClazzElectionUtil {
     // for (ExamTaker taker : clazz.getEnrollment().getExamTakers()) {
     // taker.setClazz(clazz);
     // }
-    for (Restriction group : clazz.getEnrollment().getRestrictions()) {
+    for (ClazzRestriction group : clazz.getEnrollment().getRestrictions()) {
       group.setClazz(clazz);
-      for (RestrictionItem item : group.getItems()) {
+      for (ClazzRestrictionItem item : group.getItems()) {
         item.setRestriction(group);
       }
     }

@@ -19,11 +19,11 @@
 package org.openurp.edu.clazz.service.limit.impl;
 
 import org.openurp.code.std.model.StdType;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public class CourseLimitEducationTypeProvider extends AbstractCourseLimitEntityProvider<StdType> {
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.EduType;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.EduType;
   }
 }

@@ -236,7 +236,7 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
      * 默认导出
      */
     else if ("eduLevel.name".equals(property)) {
-      Map<Restriction, Pair<Boolean, List<EducationLevel>>> tmpRes = courseLimitService
+      Map<ClazzRestriction, Pair<Boolean, List<EducationLevel>>> tmpRes = courseLimitService
               .xtractEducationLimit(clazz.getEnrollment());
       String eduLevelStr = "";
       for (Pair<Boolean, List<EducationLevel>> pair : tmpRes.values()) {

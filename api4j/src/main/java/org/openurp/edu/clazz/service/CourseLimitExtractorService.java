@@ -28,23 +28,23 @@ import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.std.model.Squad;
-import org.openurp.edu.clazz.model.Restriction;
+import org.openurp.edu.clazz.model.ClazzRestriction;
 
 public interface CourseLimitExtractorService {
 
-  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(Restriction restriction);
+  public Pair<Boolean, List<EducationLevel>> xtractEducationLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<Squad>> xtractSquadLimit(Restriction restriction);
+  public Pair<Boolean, List<Squad>> xtractSquadLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<String>> xtractGradeLimit(Restriction restriction);
+  public Pair<Boolean, List<String>> xtractGradeLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(Restriction restriction);
+  public Pair<Boolean, List<StdType>> xtractStdTypeLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(Restriction restriction);
+  public Pair<Boolean, List<Department>> xtractAttendDepartLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<Major>> xtractMajorLimit(Restriction restriction);
+  public Pair<Boolean, List<Major>> xtractMajorLimit(ClazzRestriction restriction);
 
-  public Pair<Boolean, List<Direction>> xtractDirectionLimit(Restriction restriction);
+  public Pair<Boolean, List<Direction>> xtractDirectionLimit(ClazzRestriction restriction);
 
   /**
    * 提取培养层次
@@ -52,7 +52,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<EducationLevel> extractEducations(Restriction restriction);
+  public List<EducationLevel> extractEducations(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的行政班
@@ -60,7 +60,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<Squad> extractSquades(Restriction restriction);
+  public List<Squad> extractSquades(ClazzRestriction restriction);
 
   /**
    * 提交Restriction中的年级
@@ -68,7 +68,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public String extractGrade(Restriction restriction);
+  public String extractGrade(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的学生类别
@@ -76,7 +76,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<StdType> extractStdTypes(Restriction restriction);
+  public List<StdType> extractStdTypes(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的专业
@@ -84,7 +84,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<Major> extractMajors(Restriction restriction);
+  public List<Major> extractMajors(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的方向
@@ -92,7 +92,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<Direction> extractDirections(Restriction restriction);
+  public List<Direction> extractDirections(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的上课院系
@@ -100,7 +100,7 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public List<Department> extractAttendDeparts(Restriction restriction);
+  public List<Department> extractAttendDeparts(ClazzRestriction restriction);
 
   /**
    * 提取Restriction中的性别
@@ -108,6 +108,6 @@ public interface CourseLimitExtractorService {
    * @param restriction
    * @return
    */
-  public Gender extractGender(Restriction restriction);
+  public Gender extractGender(ClazzRestriction restriction);
 
 }

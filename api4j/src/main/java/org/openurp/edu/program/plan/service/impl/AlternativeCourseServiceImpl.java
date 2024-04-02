@@ -33,21 +33,25 @@ public class AlternativeCourseServiceImpl extends BaseServiceImpl implements Alt
   /**
    * 得到个人的替代课程 得到专业的替代课程
    */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({"unchecked", "rawtypes"})
   public List<AlternativeCourse> getAlternativeCourses(Student student) {
     List substituteList = getStdAlternativeCourses(student);
     substituteList.addAll(getMajorAlternativeCourses(student));
     return substituteList;
   }
 
-  /** 得到个人的替代课程* */
+  /**
+   * 得到个人的替代课程*
+   */
   public List<StdAlternativeCourse> getStdAlternativeCourses(Student student) {
     OqlBuilder<StdAlternativeCourse> query = OqlBuilder.from(StdAlternativeCourse.class, "alternative");
     query.where("alternative.std=:std", student);
     return entityDao.search(query);
   }
 
-  /** 得到专业的替代课程* */
+  /**
+   * 得到专业的替代课程*
+   */
   public List<MajorAlternativeCourse> getMajorAlternativeCourses(Student student) {
     OqlBuilder<MajorAlternativeCourse> query = OqlBuilder.from(MajorAlternativeCourse.class,
         "alternative");

@@ -18,7 +18,6 @@
  */
 package org.openurp.edu.clazz.service.limit.impl;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +27,14 @@ import org.beangle.commons.conversion.impl.DefaultConversion;
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.beangle.commons.lang.Arrays;
 import org.beangle.commons.lang.Strings;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.service.limit.RestrictionItemContentProvider;
 
 public abstract class AbstractCourseLimitContentProvider<T> extends BaseServiceImpl
     implements RestrictionItemContentProvider<T> {
   public static final MapConverter converter = new MapConverter(DefaultConversion.Instance);
 
-  private RestrictionMeta metaEnum;
+  private ClazzRestrictionMeta metaEnum;
 
   protected Object[] getContentValues(String content) {
     String[] strValues = Strings.split(content, ",");
@@ -46,12 +45,12 @@ public abstract class AbstractCourseLimitContentProvider<T> extends BaseServiceI
   }
 
   public List<T> getCascadeContents(String content, String term, PageLimit limit,
-      Map<RestrictionMeta, String> cascadeField) {
+      Map<ClazzRestrictionMeta, String> cascadeField) {
     return getCascadeContents(getContentValues(content), term, limit, cascadeField);
   }
 
   protected abstract List<T> getCascadeContents(Object[] content, String term, PageLimit limit,
-      Map<RestrictionMeta, String> cascadeField);
+      Map<ClazzRestrictionMeta, String> cascadeField);
 
   public Map<String, T> getContents(String content) {
     return getContentMap(getContentValues(content));
@@ -65,5 +64,5 @@ public abstract class AbstractCourseLimitContentProvider<T> extends BaseServiceI
 
   protected abstract Map<String, T> getContentMap(Object[] content);
 
-  public abstract RestrictionMeta getMeta();
+  public abstract ClazzRestrictionMeta getMeta();
 }

@@ -20,9 +20,8 @@ package org.openurp.edu.clazz.service.limit;
 
 import java.util.List;
 
-import org.beangle.commons.lang.tuple.Pair;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public interface RestrictionMetaProvider {
-  public List<RestrictionMeta> getRestrictionMetas();
+  public List<ClazzRestrictionMeta> getRestrictionMetas();
 }

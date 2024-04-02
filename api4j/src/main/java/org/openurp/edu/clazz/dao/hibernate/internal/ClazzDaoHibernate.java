@@ -32,7 +32,7 @@ import org.openurp.base.model.AuditStatus;
 import org.openurp.edu.clazz.dao.ClazzCRNGenerator;
 import org.openurp.edu.clazz.dao.ClazzDao;
 import org.openurp.edu.clazz.model.Clazz;
-import org.openurp.edu.clazz.model.Restriction;
+import org.openurp.edu.clazz.model.ClazzRestriction;
 import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.clazz.service.ClazzFilterStrategy;
 import org.openurp.edu.exam.model.ExamActivity;
@@ -217,7 +217,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
 
   public void saveOrUpdate(Clazz clazz) {
     // 清除空的limitGroup
-    Iterator<Restriction> iter = clazz.getEnrollment().getRestrictions().iterator();
+    Iterator<ClazzRestriction> iter = clazz.getEnrollment().getRestrictions().iterator();
     while (iter.hasNext()) {
       if (CollectUtils.isEmpty(iter.next().getItems())) {
         iter.remove();

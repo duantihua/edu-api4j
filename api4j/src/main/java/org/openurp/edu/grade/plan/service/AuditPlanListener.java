@@ -18,14 +18,14 @@
  */
 package org.openurp.edu.grade.plan.service;
 
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.PlanCourse;
 
 /**
  * 审核监听器
  */
-public interface PlanAuditListener {
+public interface AuditPlanListener {
 
   /**
    * 开始审核计划
@@ -33,7 +33,7 @@ public interface PlanAuditListener {
    * @param context
    * @return false 表示不能继续审核
    */
-  public boolean startPlanAudit(PlanAuditContext context);
+  public boolean startPlanAudit(AuditPlanContext context);
 
   /**
    * 开始审核课程组
@@ -44,8 +44,8 @@ public interface PlanAuditListener {
    * @param groupResult
    * @return false 表示不能继续审核
    */
-  public boolean startGroupAudit(PlanAuditContext context, CourseGroup courseGroup,
-      GroupAuditResult groupResult);
+  public boolean startGroupAudit(AuditPlanContext context, CourseGroup courseGroup,
+                                 AuditGroupResult groupResult);
 
   /**
    * 开始审核课程
@@ -54,13 +54,13 @@ public interface PlanAuditListener {
    * @param planCourse TODO
    * @return false 表示不能继续审核
    */
-  public boolean startCourseAudit(PlanAuditContext context, GroupAuditResult groupResult,
-      PlanCourse planCourse);
+  public boolean startCourseAudit(AuditPlanContext context, AuditGroupResult groupResult,
+                                  PlanCourse planCourse);
 
   /**
    * 结束审核计划
    *
    * @param context
    */
-  public void endPlanAudit(PlanAuditContext context);
+  public void endPlanAudit(AuditPlanContext context);
 }

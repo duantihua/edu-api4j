@@ -19,8 +19,8 @@
 package org.openurp.edu.clazz.service;
 
 import org.beangle.commons.entity.Entity;
-import org.openurp.edu.clazz.model.Restriction;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestriction;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 /**
  * 课程限制条件组构建器
@@ -65,12 +65,12 @@ public interface RestrictionBuilder {
    * @param meta
    * @return
    */
-  RestrictionBuilder clear(RestrictionMeta meta);
+  RestrictionBuilder clear(ClazzRestrictionMeta meta);
 
   /**
    * 进行构建
    *
    * @return
    */
-  Restriction build();
+  ClazzRestriction build();
 }

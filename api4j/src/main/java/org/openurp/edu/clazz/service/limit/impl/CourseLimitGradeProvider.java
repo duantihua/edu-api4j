@@ -18,7 +18,6 @@
  */
 package org.openurp.edu.clazz.service.limit.impl;
 
-import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,7 @@ import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Arrays;
 import org.beangle.commons.lang.Strings;
 import org.openurp.base.std.model.Grade;
-import org.openurp.edu.clazz.model.RestrictionMeta;
-import org.openurp.edu.program.model.Program;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 public class CourseLimitGradeProvider extends AbstractCourseLimitContentProvider<String> {
 
@@ -63,12 +61,12 @@ public class CourseLimitGradeProvider extends AbstractCourseLimitContentProvider
 
   @Override
   protected List<String> getCascadeContents(Object[] content, String term, PageLimit limit,
-      Map<RestrictionMeta, String> cascadeField) {
+      Map<ClazzRestrictionMeta, String> cascadeField) {
     return null;
   }
 
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.Grade;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.Grade;
   }
 }

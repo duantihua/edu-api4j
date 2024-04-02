@@ -21,21 +21,21 @@ package org.openurp.edu.clazz.service.limit.impl;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.openurp.base.edu.model.Direction;
-import org.openurp.edu.clazz.model.RestrictionMeta;
+import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 
 import java.util.Date;
 import java.util.Map;
 
 public class CourseLimitDirectionProvider extends AbstractCourseLimitEntityProvider<Direction> {
   @Override
-  protected void addCascadeQuery(OqlBuilder<Direction> builder, Map<RestrictionMeta, String> cascadeField) {
+  protected void addCascadeQuery(OqlBuilder<Direction> builder, Map<ClazzRestrictionMeta, String> cascadeField) {
     builder.where("entity.project = :project", projectContext.getProject());
     if (cascadeField.isEmpty()) {
       return;
     }
-    String majorIds = cascadeField.get(RestrictionMeta.Major);
-    String departIds = cascadeField.get(RestrictionMeta.Department);
-    String levelIds = cascadeField.get(RestrictionMeta.Level);
+    String majorIds = cascadeField.get(ClazzRestrictionMeta.Major);
+    String departIds = cascadeField.get(ClazzRestrictionMeta.Department);
+    String levelIds = cascadeField.get(ClazzRestrictionMeta.Level);
     if (Strings.isNotBlank(majorIds)) {
       builder.where("entity.major.id in (:majorIds)", Strings.splitToLong(majorIds));
     }
@@ -56,8 +56,8 @@ public class CourseLimitDirectionProvider extends AbstractCourseLimitEntityProvi
   }
 
   @Override
-  public RestrictionMeta getMeta() {
-    return RestrictionMeta.Direction;
+  public ClazzRestrictionMeta getMeta() {
+    return ClazzRestrictionMeta.Direction;
   }
 
 }

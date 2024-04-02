@@ -18,11 +18,11 @@
  */
 package org.openurp.edu.grade.plan.service.internal;
 
-import org.openurp.edu.grade.plan.model.GroupAuditResult;
-import org.openurp.edu.grade.plan.service.PlanAuditContext;
+import org.openurp.edu.grade.plan.model.AuditGroupResult;
+import org.openurp.edu.grade.plan.service.AuditPlanContext;
 import org.openurp.edu.program.model.CourseGroup;
 
 public interface GroupResultBuilder {
 
-  public GroupAuditResult buildResult(PlanAuditContext context, CourseGroup group);
+  public AuditGroupResult buildResult(AuditPlanContext context, CourseGroup group);
 }

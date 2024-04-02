@@ -108,7 +108,7 @@ public class Enrollment implements Component, Cloneable, Serializable {
   @OneToMany(mappedBy = "clazz", orphanRemoval = true, cascade = {CascadeType.ALL})
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   @OrderBy("id")
-  private List<Restriction> restrictions = CollectUtils.newArrayList();
+  private List<ClazzRestriction> restrictions = CollectUtils.newArrayList();
 
   public Enrollment() {
     super();
@@ -121,9 +121,9 @@ public class Enrollment implements Component, Cloneable, Serializable {
   public Enrollment clone() {
     try {
       Enrollment clone = (Enrollment) super.clone();
-      clone.setRestrictions(new ArrayList<Restriction>());
-      for (Restriction group : getRestrictions()) {
-        Restriction clone_group = (Restriction) group.clone();
+      clone.setRestrictions(new ArrayList<ClazzRestriction>());
+      for (ClazzRestriction group : getRestrictions()) {
+        ClazzRestriction clone_group = (ClazzRestriction) group.clone();
         clone.getRestrictions().add(clone_group);
       }
 
@@ -164,15 +164,15 @@ public class Enrollment implements Component, Cloneable, Serializable {
     return normalTakers;
   }
 
-  public void addLimitGroups(Clazz clazz, List<Restriction> groups) {
-    for (Restriction group : groups) {
+  public void addLimitGroups(Clazz clazz, List<ClazzRestriction> groups) {
+    for (ClazzRestriction group : groups) {
       group.setClazz(clazz);
       restrictions.add(group);
     }
   }
 
-  public void addLimitGroups(Clazz clazz, Restriction... groups) {
-    for (Restriction group : groups) {
+  public void addLimitGroups(Clazz clazz, ClazzRestriction... groups) {
+    for (ClazzRestriction group : groups) {
       group.setClazz(clazz);
       restrictions.add(group);
     }
@@ -182,13 +182,13 @@ public class Enrollment implements Component, Cloneable, Serializable {
    * 获取或者创建Prime=true的限制组<br>
    * 如果已经有，那么返回第一个Prime=true的限制组
    */
-  public Restriction getOrCreateDefautRestriction() {
-    for (Restriction limitGroup : restrictions) {
+  public ClazzRestriction getOrCreateDefautRestriction() {
+    for (ClazzRestriction limitGroup : restrictions) {
       if (limitGroup.isPrime()) {
         return limitGroup;
       }
     }
-    Restriction forClassGroup = new Restriction();
+    ClazzRestriction forClassGroup = new ClazzRestriction();
     forClassGroup.setPrime(true);
     getRestrictions().add(forClassGroup);
     return forClassGroup;
@@ -230,11 +230,11 @@ public class Enrollment implements Component, Cloneable, Serializable {
     this.depart = depart;
   }
 
-  public List<Restriction> getRestrictions() {
+  public List<ClazzRestriction> getRestrictions() {
     return restrictions;
   }
 
-  public void setRestrictions(List<Restriction> limitGroups) {
+  public void setRestrictions(List<ClazzRestriction> limitGroups) {
     this.restrictions = limitGroups;
   }
 
