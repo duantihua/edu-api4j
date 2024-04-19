@@ -25,9 +25,8 @@ import org.beangle.orm.hibernate.udt.WeekTime;
 import org.beangle.orm.hibernate.udt.WeekTimes;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.resource.model.Classroom;
 import org.openurp.base.hr.model.Teacher;
-import org.openurp.code.edu.model.TeachingMethod;
+import org.openurp.base.resource.model.Classroom;
 import org.openurp.code.edu.model.TeachingNature;
 
 import javax.persistence.*;
@@ -64,7 +63,7 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  @JoinTable(name="clazz_activities_teachers",joinColumns={@JoinColumn(name="activity_id")},inverseJoinColumns={@JoinColumn(name="teacher_id")})
+  @JoinTable(name = "clazz_activities_teachers", joinColumns = {@JoinColumn(name = "activity_id")}, inverseJoinColumns = {@JoinColumn(name = "teacher_id")})
   private Set<Teacher> teachers = CollectUtils.newHashSet();
 
   /**
@@ -72,7 +71,7 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
    */
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-  @JoinTable(name="clazz_activities_rooms",joinColumns={@JoinColumn(name="activity_id")},inverseJoinColumns={@JoinColumn(name="classroom_id")})
+  @JoinTable(name = "clazz_activities_rooms", joinColumns = {@JoinColumn(name = "activity_id")}, inverseJoinColumns = {@JoinColumn(name = "classroom_id")})
   private Set<Classroom> rooms = CollectUtils.newHashSet();
 
   /**
@@ -187,6 +186,8 @@ public class ClazzActivity extends LongIdObject implements Comparable<ClazzActiv
   public void mergeWith(ClazzActivity other) {
     getTeachers().addAll(other.getTeachers());
     getRooms().addAll(other.getRooms());
+    this.beginUnit = (short) Math.min(this.beginUnit, other.beginUnit);
+    this.endUnit = (short) Math.max(this.endUnit, other.endUnit);
     WeekTimes.mergeWith(this.getTime(), other.getTime());
   }
 

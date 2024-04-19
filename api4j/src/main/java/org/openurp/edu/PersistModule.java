@@ -19,6 +19,7 @@
 package org.openurp.edu;
 
 import org.beangle.commons.entity.orm.AbstractPersistModule;
+import org.openurp.base.edu.model.CourseTextbook;
 import org.openurp.base.edu.model.MajorDiscipline;
 import org.openurp.base.edu.model.ProjectProperty;
 import org.openurp.base.edu.model.SchoolLength;
@@ -43,8 +44,6 @@ import org.openurp.code.sin.model.*;
 import org.openurp.code.std.model.*;
 import org.openurp.edu.clazz.config.ScheduleSetting;
 import org.openurp.edu.clazz.model.*;
-import org.openurp.code.edu.model.Certificate;
-import org.openurp.code.edu.model.CertificateCategory;
 import org.openurp.edu.grade.plan.model.AuditCourseResult;
 import org.openurp.edu.grade.plan.model.AuditGroupResult;
 import org.openurp.edu.grade.plan.model.AuditPlanResult;
@@ -94,7 +93,7 @@ public class PersistModule extends AbstractPersistModule {
 
         org.openurp.base.edu.model.Project.class,
         org.openurp.base.edu.model.ProjectCode.class, org.openurp.base.edu.model.Course.class,
-        Classroom.class, org.openurp.base.edu.model.CourseHour.class,
+        Classroom.class, org.openurp.base.edu.model.CourseHour.class, CourseTextbook.class,
         org.openurp.base.edu.model.Textbook.class, org.openurp.edu.clazz.model.StdCourseAbility.class,
         org.openurp.base.edu.model.CourseLevel.class,
 
@@ -133,6 +132,9 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.program.model.StdPlan.class,
         org.openurp.edu.program.model.StdPlanCourse.class,
         org.openurp.edu.program.model.StdCourseGroup.class,
+
+        org.openurp.edu.program.flow.CourseAlternativeApply.class,
+        org.openurp.edu.program.flow.CourseTypeChangeApply.class,
 
         ClazzTag.class,
         ClazzActivity.class,
