@@ -16,6 +16,7 @@
     <java.version>17</java.version>
     <beangle3.version>3.11.2</beangle3.version>
     <quartz.version>2.3.2</quartz.version>
+    <mvn.compiler.version>3.8.1</mvn.compiler.version>
   </properties>
 
   <modules>
@@ -24,10 +25,10 @@
   </modules>
 
   <dependencies>
-   <dependency>
+    <dependency>
       <groupId>org.beangle.commons</groupId>
       <artifactId>beangle-commons-model</artifactId>
-     <version>${beangle3.version}</version>
+      <version>${beangle3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.beangle.commons</groupId>
@@ -80,4 +81,6 @@
       <version>2.3.0</version>
     </dependency>
   </dependencies>
+
+
 </project>
