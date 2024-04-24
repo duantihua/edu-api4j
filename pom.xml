@@ -16,7 +16,8 @@
     <java.version>17</java.version>
     <beangle3.version>3.11.2</beangle3.version>
     <quartz.version>2.3.2</quartz.version>
-    <mvn.compiler.version>3.8.1</mvn.compiler.version>
+    <mvn.compiler.version>3.13.0</mvn.compiler.version>
+    <mvn.javadoc.version>3.6.3</mvn.javadoc.version>
   </properties>
 
   <modules>
@@ -81,6 +82,5 @@
       <version>2.3.0</version>
     </dependency>
   </dependencies>
-
 
 </project>
