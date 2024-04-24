@@ -36,12 +36,12 @@ import org.openurp.base.edu.model.WeekTimeBuilder;
 import org.openurp.base.model.AuditStatus;
 import org.openurp.base.model.Department;
 import org.openurp.base.std.model.Squad;
-import org.openurp.code.edu.model.ExamType;
 import org.openurp.code.edu.model.ClazzTag;
-import org.openurp.edu.clazz.model.ScheduleSuggest;
+import org.openurp.code.edu.model.ExamType;
 import org.openurp.edu.clazz.model.Clazz;
 import org.openurp.edu.clazz.model.ClazzRestrictionMeta;
 import org.openurp.edu.clazz.model.Schedule;
+import org.openurp.edu.clazz.model.ScheduleSuggest;
 import org.openurp.edu.exam.model.ExamTaker;
 import org.openurp.web.helper.SearchHelper;
 
@@ -176,9 +176,14 @@ public class ClazzSearchHelper extends SearchHelper {
       StringBuilder activityQuery = new StringBuilder(
           "exists( from clazz.schedule.activities as courseActivity where 1=1 ");
       if (Strings.isNotBlank(courseUnit)) {
-        activityQuery.append("and courseActivity.time.beginAt <= :beginAt"
-            + " and courseActivity.time.endAt >= :beginAt ");
-        query.param("beginAt", new HourMinute(courseUnit));
+        if (courseUnit.contains(":")) {
+          activityQuery.append("and courseActivity.time.beginAt <= :beginAt"
+              + " and courseActivity.time.endAt >= :beginAt ");
+          query.param("beginAt", new HourMinute(courseUnit));
+        } else {
+          activityQuery.append("and courseActivity.beginUnit <= :beginAt and courseActivity.endUnit >= :beginAt ");
+          query.param("beginAt", Short.valueOf(courseUnit));
+        }
       }
       if (null != weekday) {
         activityQuery.append(" and courseActivity.time.startOn in (:startOn)");

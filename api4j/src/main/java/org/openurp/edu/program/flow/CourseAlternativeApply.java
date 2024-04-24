@@ -16,47 +16,52 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.program.app.model;
-
-import java.util.Date;
-import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+package org.openurp.edu.program.flow;
 
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.base.model.User;
 import org.openurp.base.edu.model.Course;
+import org.openurp.base.model.User;
 import org.openurp.base.std.model.Student;
 
-@Entity(name = "org.openurp.edu.program.app.model.AlternativeApply")
-public class AlternativeApply extends LongIdObject {
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.Set;
 
-  /** 学生 */
+@Entity(name = "org.openurp.edu.program.flow.CourseAlternativeApply")
+public class CourseAlternativeApply extends LongIdObject {
+
+  /**
+   * 学生
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Student std;
 
-  /** 被替代的课程 */
+  /**
+   * 被替代的课程
+   */
   @ManyToMany
-  @JoinColumn(nullable = false)
-  @JoinTable(name = "alternative_applies_olds")
+
+  @JoinTable(name = "edu_course_alt_applies_olds",
+      joinColumns = {@JoinColumn(nullable = false, name = "course_alt_apply_id")}
+  )
   private Set<Course> olds = CollectUtils.newHashSet();
 
-  /** 已替代的课程 */
+  /**
+   * 已替代的课程
+   */
   @ManyToMany
-  @JoinColumn(nullable = false)
-  @JoinTable(name = "alternative_applies_news")
+  @JoinTable(name = "edu_course_alt_applies_news",
+      joinColumns = {@JoinColumn(nullable = false, name = "course_alt_apply_id")}
+  )
   private Set<Course> news = CollectUtils.newHashSet();
 
-  /** 最后修改时间 */
+  /**
+   * 最后修改时间
+   */
   protected Date updatedAt;
 
   private Boolean approved;

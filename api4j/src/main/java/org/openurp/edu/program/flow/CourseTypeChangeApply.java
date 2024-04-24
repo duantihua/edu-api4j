@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.edu.program.app.model;
+package org.openurp.edu.program.flow;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.model.User;
@@ -31,7 +31,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Entity(name = "org.openurp.edu.program.app.model.CourseTypeChangeApply")
+@Entity(name = "org.openurp.edu.program.flow.CourseTypeChangeApply")
 public class CourseTypeChangeApply extends LongIdObject {
   /**
    * 学生

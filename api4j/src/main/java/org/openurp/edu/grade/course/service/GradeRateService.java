@@ -18,12 +18,12 @@
  */
 package org.openurp.edu.grade.course.service;
 
+import org.openurp.base.edu.model.Project;
+import org.openurp.code.edu.model.GradingMode;
+import org.openurp.edu.grade.config.GradeRateItem;
+
 import java.util.List;
 import java.util.Map;
-
-import org.openurp.code.edu.model.GradingMode;
-import org.openurp.base.edu.model.Project;
-import org.openurp.edu.grade.config.GradeRateItem;
 
 /**
  * 绩点规则服务类
@@ -35,9 +35,9 @@ import org.openurp.edu.grade.config.GradeRateItem;
  * <li>查询支持的记录方式</li>
  */
 public interface GradeRateService {
-  public ScoreConverter getConverter(Project project, GradingMode gradingMode);
+  ScoreConverter getConverter(Project project, GradingMode gradingMode);
 
-  public Map<GradingMode, List<GradeRateItem>> getGradeItems(Project project);
+  Map<GradingMode, List<GradeRateItem>> getGradeItems(Project project);
 
   /**
    * 查询该项目对应的记录方式
