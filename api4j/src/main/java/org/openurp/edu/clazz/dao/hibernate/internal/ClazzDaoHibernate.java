@@ -41,7 +41,7 @@ import org.openurp.edu.grade.course.model.CourseGradeState;
 import org.openurp.edu.program.model.ExecutionPlan;
 import org.openurp.edu.room.model.Occupancy;
 import org.openurp.edu.room.model.RoomOccupyApp;
-import org.openurp.edu.textbook.model.Material;
+import org.openurp.edu.textbook.model.ClazzMaterial;
 
 import java.io.Serializable;
 import java.util.*;
@@ -165,7 +165,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
     List<Occupancy> occupancies = getOccupancies(clazz);
     removeEntities.addAll(occupancies);
 
-    List<Material> clazzMaterials = get(Material.class, "clazz", clazz);
+    List<ClazzMaterial> clazzMaterials = get(ClazzMaterial.class, "clazz", clazz);
     removeEntities.addAll(clazzMaterials);
 
     List<ScheduleSuggest> suggests = get(ScheduleSuggest.class, "clazz", clazz);

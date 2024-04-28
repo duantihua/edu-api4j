@@ -42,10 +42,10 @@ import org.openurp.edu.clazz.model.Clazz;
 /**
  * 教学资料
  */
-@Entity(name = "org.openurp.edu.textbook.model.Material")
+@Entity(name = "org.openurp.edu.textbook.model.ClazzMaterial")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
-public class Material extends LongIdObject {
+public class ClazzMaterial extends LongIdObject {
 
   private static final long serialVersionUID = 5112094284404799375L;
 

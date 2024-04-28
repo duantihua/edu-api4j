@@ -36,7 +36,7 @@ import org.openurp.code.edu.model.TeachingNature;
 import org.openurp.edu.clazz.model.*;
 import org.openurp.edu.clazz.service.CourseLimitService;
 import org.openurp.edu.exam.util.ExamActivityDigestor;
-import org.openurp.edu.textbook.model.Material;
+import org.openurp.edu.textbook.model.ClazzMaterial;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -181,9 +181,9 @@ public class TeachTaskPropertyExtractor extends DefaultPropertyExtractor {
     // 教材
     else if ("fake.materials".equals(property)) {
       StringBuilder sb = new StringBuilder();
-      OqlBuilder<Material> query = OqlBuilder.from(Material.class, "book");
+      OqlBuilder<ClazzMaterial> query = OqlBuilder.from(ClazzMaterial.class, "book");
       query.where("book.clazz = :clazz", clazz);
-      Material material = entityDao.uniqueResult(query);
+      ClazzMaterial material = entityDao.uniqueResult(query);
       if (material != null) {
         for (Iterator<Textbook> iter = material.getBooks().iterator(); iter.hasNext(); ) {
           Textbook book = iter.next();
