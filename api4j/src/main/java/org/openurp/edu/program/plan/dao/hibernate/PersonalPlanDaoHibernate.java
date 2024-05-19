@@ -26,15 +26,15 @@ import org.beangle.commons.entity.util.ValidEntityPredicate;
 import org.beangle.commons.lang.Strings;
 import org.openurp.code.std.model.StdType;
 import org.openurp.edu.program.plan.dao.PersonalPlanDao;
-import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.ExecutivePlan;
 
 /**
  *
  *
  */
-public class PersonalPlanDaoHibernate extends ExecutionPlanDaoHibernate implements PersonalPlanDao {
+public class PersonalPlanDaoHibernate extends ExecutivePlanDaoHibernate implements PersonalPlanDao {
 
-  public Float getCreditByTerm(ExecutionPlan plan, int term) {
+  public Float getCreditByTerm(ExecutivePlan plan, int term) {
     Range<Integer> termRange = Range.between(1, plan.getTermsCount());
     if (!termRange.contains(term)) {
       throw new RuntimeException("term out range");

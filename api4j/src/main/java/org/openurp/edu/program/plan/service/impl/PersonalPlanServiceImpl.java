@@ -20,7 +20,7 @@ package org.openurp.edu.program.plan.service.impl;
 
 import org.beangle.commons.dao.impl.BaseServiceImpl;
 import org.openurp.base.std.model.Student;
-import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.ExecutivePlan;
 import org.openurp.edu.program.model.StdPlan;
 import org.openurp.edu.program.plan.service.CoursePlanProvider;
 import org.openurp.edu.program.plan.service.PersonalPlanService;
@@ -31,14 +31,14 @@ public class PersonalPlanServiceImpl extends BaseServiceImpl implements Personal
 
   private CoursePlanProvider coursePlanProvider;
 
-  public ExecutionPlan getExecutionPlanForDiff(Student std) {
-    return coursePlanProvider.getExecutionPlan(std);
+  public ExecutivePlan getExecutivePlanForDiff(Student std) {
+    return coursePlanProvider.getExecutivePlan(std);
   }
 
   public StdPlan genPersonalPlan(Student std) {
     ProgramGenParameter genParameter = new ProgramGenParameter();
     genParameter.setStudent(std);
-    ExecutionPlan executePlan = coursePlanProvider.getExecutionPlan(std);
+    ExecutivePlan executePlan = coursePlanProvider.getExecutivePlan(std);
     if (executePlan == null) {
       // 没有专业培养计划，那么就根据学生自己的属性来设置
       genParameter.setGrade(std.getGrade());

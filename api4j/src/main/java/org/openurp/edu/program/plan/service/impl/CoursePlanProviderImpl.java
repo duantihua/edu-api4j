@@ -33,8 +33,8 @@ import java.util.*;
 
 public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePlanProvider {
 
-  public ExecutionPlan getExecutionPlan(Student student) {
-    OqlBuilder<ExecutionPlan> query = OqlBuilder.from(ExecutionPlan.class, "plan");
+  public ExecutivePlan getExecutivePlan(Student student) {
+    OqlBuilder<ExecutivePlan> query = OqlBuilder.from(ExecutivePlan.class, "plan");
     if (student.getState().getMajor() == null) {
       return null;
     } else {
@@ -52,20 +52,20 @@ public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePla
       } else {
         query.where("plan.program.direction is null or plan.program.direction=:direction", student.getState().getDirection());
       }
-      List<ExecutionPlan> plans = entityDao.search(query);
+      List<ExecutivePlan> plans = entityDao.search(query);
       if (plans.isEmpty()) {
         return null;
       } else {
-        List<ExecutionPlan> suitables = new ArrayList<>();
+        List<ExecutivePlan> suitables = new ArrayList<>();
         if (null == student.getState().getDirection()) {//non direction
-          for (ExecutionPlan plan : plans) {
+          for (ExecutivePlan plan : plans) {
             var program = plan.getProgram();
             if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
               suitables.add(plan);
             }
           }
         } else {// has direction
-          for (ExecutionPlan plan : plans) {//first try
+          for (ExecutivePlan plan : plans) {//first try
             var program = plan.getProgram();
             if (plan.getProgram().getDirection() != null && program.getDirection().equals(student.getState().getDirection())) {
               if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
@@ -74,7 +74,7 @@ public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePla
             }
           }
           if (suitables.isEmpty()) {
-            for (ExecutionPlan plan : plans) {
+            for (ExecutivePlan plan : plans) {
               var program = plan.getProgram();
               if (program.getDirection() == null) {
                 if (program.getStdTypes().isEmpty() || program.getStdTypes().contains(student.getStdType())) {
@@ -110,7 +110,7 @@ public class CoursePlanProviderImpl extends BaseServiceImpl implements CoursePla
     // 专业计划
 
     if (null == plan) {
-      plan = getExecutionPlan(student);
+      plan = getExecutivePlan(student);
     }
     return plan;
   }

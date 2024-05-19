@@ -57,8 +57,8 @@ public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCo
    */
   protected void saveSetting(CoursePlan plan) {
     // EntityUtils.evictEmptyProperty(plan);
-    if (plan instanceof ExecutionPlan) {
-      ExecutionPlan mplan = (ExecutionPlan) plan;
+    if (plan instanceof ExecutivePlan) {
+      ExecutivePlan mplan = (ExecutivePlan) plan;
       if (null == mplan.getProgram().getStatus()) {
         mplan.getProgram().setStatus(AuditStatus.UNSUBMITTED);
       }
@@ -141,7 +141,7 @@ public class PlanCommonDaoHibernate extends HibernateEntityDao implements PlanCo
     return CollectUtils.isNotEmpty(getDuplicatePrograms(program));
   }
 
-  public Float getCreditByTerm(ExecutionPlan plan, int term) {
+  public Float getCreditByTerm(ExecutivePlan plan, int term) {
     Range<Integer> termRange = Range.between(1, plan.getTermsCount());
     if (!termRange.contains(term)) {
       throw new RuntimeException("term out range");

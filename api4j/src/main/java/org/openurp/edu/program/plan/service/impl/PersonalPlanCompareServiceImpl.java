@@ -46,17 +46,17 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
 
   private PlanCompareService planCompareService;
 
-  public Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
-                                                                                    StdPlan stdExecutionPlan) {
-    return planCompareService.diff(executePlan, stdExecutionPlan);
+  public Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutivePlan(ExecutivePlan executePlan,
+                                                                                StdPlan stdPlan) {
+    return planCompareService.diff(executePlan, stdPlan);
   }
 
-  public void copyCourseGroups(ExecutionPlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds)
+  public void copyCourseGroups(ExecutivePlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds)
       throws PersonalPlanSyncException {
     copyCourseGroups(fromPlan, toPlan, courseTypeIds, true);
   }
 
-  public void copyPlanCourses(ExecutionPlan fromPlan, StdPlan toPlan, List<Number[]> courseTypePlanCourseIds)
+  public void copyPlanCourses(ExecutivePlan fromPlan, StdPlan toPlan, List<Number[]> courseTypePlanCourseIds)
       throws PersonalPlanSyncException {
     for (Number[] courseTypePlanCourseId : courseTypePlanCourseIds) {
       Integer courseTypeId = courseTypePlanCourseId[0].intValue();
@@ -69,7 +69,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
       if (toPlan.getGroup(type) == null) {
         copyCourseGroups(fromPlan, toPlan, Collections.singletonList(courseTypeId), false);
       }
-      ExecutionPlanCourse sourcePlanCourse = entityDao.get(ExecutionPlanCourse.class,
+      ExecutivePlanCourse sourcePlanCourse = entityDao.get(ExecutivePlanCourse.class,
           (Long) courseTypePlanCourseId[1]);
       if (sourcePlanCourse == null) {
         throw new PersonalPlanSyncException("Cannot find PlanCourse");
@@ -82,7 +82,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
 
   }
 
-  private void copyCourseGroups(ExecutionPlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds,
+  private void copyCourseGroups(ExecutivePlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds,
                                 boolean copyPlanCourses) throws PersonalPlanSyncException {
     for (Integer typeId : courseTypeIds) {
       CourseType type = entityDao.get(CourseType.class, typeId);
@@ -107,7 +107,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
         copy = planCourseGroupCommonDao.copyCourseGroup(sourceGroup,
             toPlan.getGroup(sourceGroup.getParent().getCourseType()), toPlan, StdCourseGroup.class, StdPlanCourse.class);
       } else {
-        copy = planCourseGroupCommonDao.copyCourseGroup((ExecutionCourseGroup) sourceGroup, null, toPlan, StdCourseGroup.class, StdPlanCourse.class);
+        copy = planCourseGroupCommonDao.copyCourseGroup((ExecutiveCourseGroup) sourceGroup, null, toPlan, StdCourseGroup.class, StdPlanCourse.class);
       }
       if (copy == null) {
         throw new PersonalPlanSyncException("复制课程组失败：" + type.toString());
@@ -130,7 +130,7 @@ public class PersonalPlanCompareServiceImpl extends BaseServiceImpl implements P
       if (group == null) {
         throw new PersonalPlanSyncException("源计划不存在课程类别：" + type.toString());
       }
-      planCourseGroupCommonDao.removeCourseGroup((ExecutionCourseGroup) group);
+      planCourseGroupCommonDao.removeCourseGroup((ExecutiveCourseGroup) group);
       plan.setCredits(planCommonDao.statPlanCredits(plan));
       entityDao.saveOrUpdate(plan);
       entityDao.refresh(plan);

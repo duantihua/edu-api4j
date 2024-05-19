@@ -36,7 +36,7 @@ import javax.validation.constraints.NotNull;
  * 原始计划的计划课程
  */
 @Entity(name = "org.openurp.edu.program.model.MajorPlanCourse")
-public class MajorPlanCourse extends AbstractPlanCourse implements ExecutePlanCourse {
+public class MajorPlanCourse extends AbstractPlanCourse {
 
   private static final long serialVersionUID = -2091355773150181171L;
 

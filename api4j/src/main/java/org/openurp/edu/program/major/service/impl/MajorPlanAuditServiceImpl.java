@@ -38,17 +38,17 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
         plan.setStatus(status);
         entityDao.saveOrUpdate(plan.getProgram(), plan);
         Program program = plan.getProgram();
-        OqlBuilder<ExecutionPlan> q = OqlBuilder.from(ExecutionPlan.class, "ep");
+        OqlBuilder<ExecutivePlan> q = OqlBuilder.from(ExecutivePlan.class, "ep");
         q.where("ep.program=:program", program);
-        List<ExecutionPlan> eps = entityDao.search(q);
-        for (ExecutionPlan ep : eps) {
+        List<ExecutivePlan> eps = entityDao.search(q);
+        for (ExecutivePlan ep : eps) {
           ep.setStatus(status);
         }
         entityDao.saveOrUpdate(eps);
 
         if (status.equals(AuditStatus.ACCEPTED)) {
           if (eps.isEmpty()) {
-            ExecutionPlan ep = new ExecutionPlan();
+            ExecutivePlan ep = new ExecutivePlan();
             ep.setProgram(program);
             ep.setStatus(AuditStatus.ACCEPTED);
             ep.setUpdatedAt(new java.util.Date());
@@ -61,7 +61,7 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
             entityDao.saveOrUpdate(ep);
             for (CourseGroup cg : plan.getGroups()) {
               if (cg.getParent() == null) {
-                planCourseGroupCommonDao.copyCourseGroup(cg, null, ep, ExecutionCourseGroup.class, ExecutionPlanCourse.class);
+                planCourseGroupCommonDao.copyCourseGroup(cg, null, ep, ExecutiveCourseGroup.class, ExecutivePlanCourse.class);
               }
             }
           }

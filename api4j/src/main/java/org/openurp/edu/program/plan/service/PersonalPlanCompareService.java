@@ -21,7 +21,7 @@ package org.openurp.edu.program.plan.service;
 import java.util.List;
 import java.util.Map;
 
-import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.ExecutivePlan;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.model.StdPlan;
 
@@ -35,11 +35,11 @@ public interface PersonalPlanCompareService {
    * 获得两个培养计划之间的差异
    *
    * @param executePlan
-   * @param stdExecutionPlan
+   * @param stdPlan
    * @return List<PlanCourse>[0] 专业培养计划中的课程 List<PlanCourse>[1]培养计划中的课程
    */
-  Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutionPlan(ExecutionPlan executePlan,
-      StdPlan stdExecutionPlan);
+  Map<String, List<? extends PlanCourse>[]> diffPersonalAndExecutivePlan(ExecutivePlan executePlan,
+                                                                         StdPlan stdPlan);
 
   /**
    * 将一个培养计划中的课程，复制到另一个培养计划对应的类别中<br>
@@ -49,7 +49,7 @@ public interface PersonalPlanCompareService {
    * @param courseTypePlanCourseIds
    * @throws PersonalPlanSyncException
    */
-  void copyPlanCourses(ExecutionPlan fromPlan, StdPlan toPlan, List<Number[]> courseTypePlanCourseIds)
+  void copyPlanCourses(ExecutivePlan fromPlan, StdPlan toPlan, List<Number[]> courseTypePlanCourseIds)
       throws PersonalPlanSyncException;
 
   /**
@@ -61,7 +61,7 @@ public interface PersonalPlanCompareService {
    * @param courseTypeIds
    * @throws PersonalPlanSyncException
    */
-  void copyCourseGroups(ExecutionPlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds)
+  void copyCourseGroups(ExecutivePlan fromPlan, StdPlan toPlan, List<Integer> courseTypeIds)
       throws PersonalPlanSyncException;
 
   /**

@@ -20,14 +20,13 @@ package org.openurp.edu.program.plan.util;
 
 import org.openurp.edu.program.model.CourseGroup;
 import org.openurp.edu.program.model.CoursePlan;
-import org.openurp.edu.program.model.ExecutionCourseGroup;
-import org.openurp.edu.program.model.ExecutionPlan;
-import org.openurp.edu.program.model.ExecutionPlanCourse;
+import org.openurp.edu.program.model.ExecutiveCourseGroup;
+import org.openurp.edu.program.model.ExecutivePlan;
+import org.openurp.edu.program.model.ExecutivePlanCourse;
 import org.openurp.edu.program.model.MajorCourseGroup;
 import org.openurp.edu.program.model.MajorPlan;
 import org.openurp.edu.program.model.MajorPlanCourse;
 import org.openurp.edu.program.model.PlanCourse;
-import org.openurp.edu.program.model.ShareCourseGroup;
 import org.openurp.edu.program.model.StdCourseGroup;
 import org.openurp.edu.program.model.StdPlan;
 import org.openurp.edu.program.model.StdPlanCourse;
@@ -41,21 +40,21 @@ public class ProgramHibernateClassGetter {
     if (MajorCourseGroup.class
         .isAssignableFrom(planGroup.getClass())) { return MajorCourseGroup.class; }
     if (StdCourseGroup.class.isAssignableFrom(planGroup.getClass())) { return StdCourseGroup.class; }
-    if (ExecutionCourseGroup.class.isAssignableFrom(planGroup.getClass())) { return ExecutionCourseGroup.class; }
+    if (ExecutiveCourseGroup.class.isAssignableFrom(planGroup.getClass())) { return ExecutiveCourseGroup.class; }
     return null;
   }
 
   public static Class<? extends PlanCourse> hibernateClass(PlanCourse planCourse) {
     if (MajorPlanCourse.class.isAssignableFrom(planCourse.getClass())) { return MajorPlanCourse.class; }
     if (StdPlanCourse.class.isAssignableFrom(planCourse.getClass())) { return StdPlanCourse.class; }
-    if (ExecutionPlanCourse.class.isAssignableFrom(planCourse.getClass())) { return ExecutionPlanCourse.class; }
+    if (ExecutivePlanCourse.class.isAssignableFrom(planCourse.getClass())) { return ExecutivePlanCourse.class; }
     return null;
   }
 
   public static Class<? extends CoursePlan> hibernateClass(CoursePlan plan) {
     if (MajorPlan.class.isAssignableFrom(plan.getClass())) { return MajorPlan.class; }
     if (StdPlan.class.isAssignableFrom(plan.getClass())) { return StdPlan.class; }
-    if (ExecutionPlan.class.isAssignableFrom(plan.getClass())) { return ExecutionPlan.class; }
+    if (ExecutivePlan.class.isAssignableFrom(plan.getClass())) { return ExecutivePlan.class; }
     return null;
   }
 

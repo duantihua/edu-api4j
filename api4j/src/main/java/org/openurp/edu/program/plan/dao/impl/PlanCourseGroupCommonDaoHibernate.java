@@ -90,7 +90,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
       // 需要建立一个临时的children list，否则直接遍历group.getChildren()会出错
       List<CourseGroup> t_children = new ArrayList<CourseGroup>(group.getChildren());
       for (CourseGroup child : t_children) {
-        removeCourseGroup((ExecutionCourseGroup) child);
+        removeCourseGroup((ExecutiveCourseGroup) child);
       }
     }
     // 把父亲的关系断掉
@@ -212,7 +212,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
             "CourseGroup cannot be moved down, because it's already the last one");
       }
       // courseGroup后面一个课程组
-      ExecutionCourseGroup meHindGroup = (ExecutionCourseGroup) plan.getTopCourseGroups().get(meInTopIndex + 1);
+      ExecutiveCourseGroup meHindGroup = (ExecutiveCourseGroup) plan.getTopCourseGroups().get(meInTopIndex + 1);
       int meInPreOrderIndex = plan.getGroups().indexOf(courseGroup);
       int meHindGroupInPreOrderIndex = plan.getGroups().indexOf(meHindGroup);
       swap(plan.getGroups(), meInPreOrderIndex, meHindGroupInPreOrderIndex);
@@ -272,7 +272,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
             "CourseGroup cannot be moved up, because it's already the first one");
       }
       // courseGroup前面一个课程组
-      ExecutionCourseGroup meFrontGroup = (ExecutionCourseGroup) plan.getTopCourseGroups().get(meInTopIndex - 1);
+      ExecutiveCourseGroup meFrontGroup = (ExecutiveCourseGroup) plan.getTopCourseGroups().get(meInTopIndex - 1);
       int meInPreOrderIndex = plan.getGroups().indexOf(courseGroup);
       int meFrontGroupInPreOrderIndex = plan.getGroups().indexOf(meFrontGroup);
       swap(plan.getGroups(), meInPreOrderIndex, meFrontGroupInPreOrderIndex);
@@ -299,19 +299,19 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     anyList.set(index1, o2);
   }
 
-  public ExecutionCourseGroup getCourseGroupByCourseType(CourseGroup planGroup, Long planId,
+  public ExecutiveCourseGroup getCourseGroupByCourseType(CourseGroup planGroup, Long planId,
                                                          Integer courseTypeId) {
     OqlBuilder oql = OqlBuilder.from(ProgramHibernateClassGetter.hibernateClass(planGroup), "cgroup");
     oql.where("cgroup.courseType.id = :typeId", courseTypeId);
     oql.where("cgroup.plan.id = :planId", planId);
-    List<ExecutionCourseGroup> l = search(oql);
+    List<ExecutiveCourseGroup> l = search(oql);
     if (l != null && l.size() > 0) {
       return l.get(0);
     }
     return null;
   }
 
-  public List<Course> extractCourseInCourseGroup(ExecutionCourseGroup group, String terms) {
+  public List<Course> extractCourseInCourseGroup(ExecutiveCourseGroup group, String terms) {
     Set<Course> courses = new HashSet<Course>();
 
     Integer[] findTerm = Strings.splitNumSeq(terms);
@@ -326,12 +326,12 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     return new ArrayList<Course>(courses);
   }
 
-  public List<ExecutionPlanCourse> extractPlanCourseInCourseGroup(ExecutionCourseGroup group, Set<String> terms) {
-    Set<ExecutionPlanCourse> result = CollectUtils.newHashSet();
+  public List<ExecutivePlanCourse> extractPlanCourseInCourseGroup(ExecutiveCourseGroup group, Set<String> terms) {
+    Set<ExecutivePlanCourse> result = CollectUtils.newHashSet();
     for (Object term : terms) {
       result.addAll((List) PlanUtils.getPlanCourses(group, Integer.valueOf((String) term)));
     }
-    return new ArrayList<ExecutionPlanCourse>(result);
+    return new ArrayList<ExecutivePlanCourse>(result);
   }
 
   /**
@@ -426,7 +426,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
       copy.setGroup(null);
       copy.setId(null);
     } catch (Exception e) {
-      throw new RuntimeException("error in clone ExecutionPlanCourse:" + Throwables.getStackTrace(e));
+      throw new RuntimeException("error in clone ExecutivePlanCourse:" + Throwables.getStackTrace(e));
     }
   }
 

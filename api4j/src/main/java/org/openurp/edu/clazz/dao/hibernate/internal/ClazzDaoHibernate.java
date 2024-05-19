@@ -38,7 +38,7 @@ import org.openurp.edu.clazz.service.ClazzFilterStrategy;
 import org.openurp.edu.exam.model.ExamActivity;
 import org.openurp.edu.exam.model.ExamTaker;
 import org.openurp.edu.grade.course.model.CourseGradeState;
-import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.ExecutivePlan;
 import org.openurp.edu.room.model.Occupancy;
 import org.openurp.edu.room.model.RoomOccupyApp;
 import org.openurp.edu.textbook.model.ClazzMaterial;
@@ -191,7 +191,7 @@ public class ClazzDaoHibernate extends HibernateEntityDao implements ClazzDao {
     return search(builder);
   }
 
-  public void saveGenResult(ExecutionPlan plan, Semester semester, List<Clazz> clazzes, boolean removeExists) {
+  public void saveGenResult(ExecutivePlan plan, Semester semester, List<Clazz> clazzes, boolean removeExists) {
     if (removeExists) {
       OqlBuilder<Clazz> query = OqlBuilder.from(Clazz.class, "clazz");
       query.where("clazz.planId = :planId", plan.getId());

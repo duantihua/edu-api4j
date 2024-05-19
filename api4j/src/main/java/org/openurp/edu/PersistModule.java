@@ -47,6 +47,9 @@ import org.openurp.edu.clazz.model.*;
 import org.openurp.edu.grade.plan.model.AuditCourseResult;
 import org.openurp.edu.grade.plan.model.AuditGroupResult;
 import org.openurp.edu.grade.plan.model.AuditPlanResult;
+import org.openurp.edu.program.model.ExecutiveCourseGroup;
+import org.openurp.edu.program.model.ExecutivePlan;
+import org.openurp.edu.program.model.ExecutivePlanCourse;
 import org.openurp.edu.program.model.ExemptCourse;
 import org.openurp.edu.textbook.model.ClazzMaterial;
 import org.openurp.std.award.Punishment;
@@ -126,9 +129,9 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.program.model.MajorPlanCourse.class,
         org.openurp.edu.program.model.MajorCourseGroup.class,
 
-        org.openurp.edu.program.model.ExecutionPlan.class,
-        org.openurp.edu.program.model.ExecutionPlanCourse.class,
-        org.openurp.edu.program.model.ExecutionCourseGroup.class,
+        ExecutivePlan.class,
+        ExecutivePlanCourse.class,
+        ExecutiveCourseGroup.class,
 
         org.openurp.edu.program.model.StdPlan.class,
         org.openurp.edu.program.model.StdPlanCourse.class,

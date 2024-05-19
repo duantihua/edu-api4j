@@ -18,6 +18,6 @@
  */
 package org.openurp.edu.program.plan.dao;
 
-public interface PersonalPlanDao extends ExecutionPlanDao {
+public interface PersonalPlanDao extends ExecutivePlanDao {
 
 }

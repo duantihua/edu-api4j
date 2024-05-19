@@ -21,7 +21,7 @@ package org.openurp.edu.program.plan.service;
 import org.openurp.base.edu.model.Semester;
 import org.openurp.base.std.model.Student;
 import org.openurp.edu.program.model.CoursePlan;
-import org.openurp.edu.program.model.ExecutionPlan;
+import org.openurp.edu.program.model.ExecutivePlan;
 import org.openurp.edu.program.model.PlanCourse;
 import org.openurp.edu.program.model.StdPlan;
 
@@ -40,32 +40,7 @@ public interface CoursePlanProvider {
    * @param student
    * @return
    */
-  public ExecutionPlan getExecutionPlan(Student student);
-//
-//  /**
-//   * 获得专业培养计划
-//   *
-//   * @param program
-//   * @return
-//   */
-//  ExecutionPlan getExecutionPlan(Program program);
-//
-//
-//  /**
-//   * 获得原始培养计划
-//   *
-//   * @param student
-//   * @return
-//   */
-//  public MajorPlan getMajorPlan(Student student);
-//
-//  /**
-//   * 获得原始培养计划
-//   *
-//   * @param program
-//   * @return
-//   */
-//  MajorPlan getMajorPlan(Program program);
+  public ExecutivePlan getExecutivePlan(Student student);
 
   /**
    * 获得单个学生的个人计划

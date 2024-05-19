@@ -22,8 +22,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.openurp.base.std.model.Student;
-import org.openurp.edu.program.model.ExecutionPlan;
-import org.openurp.edu.program.plan.service.ExecutionPlanGenException;
+import org.openurp.edu.program.model.ExecutivePlan;
+import org.openurp.edu.program.plan.service.ExecutivePlanGenException;
 import org.openurp.edu.program.plan.service.ProgramGenParameter;
 
 public class PersonalPlanGenParameter extends ProgramGenParameter {
@@ -42,13 +42,13 @@ public class PersonalPlanGenParameter extends ProgramGenParameter {
    * 从一个专业计划来制作一个复制专业计划的参数
    *
    * @param plan
-   * @throws ExecutionPlanGenException
+   * @throws ExecutivePlanGenException
    */
 
   public PersonalPlanGenParameter() {
   }
 
-  public PersonalPlanGenParameter(ExecutionPlan plan) {
+  public PersonalPlanGenParameter(ExecutivePlan plan) {
     try {
       PropertyUtils.copyProperties(this, plan);
     } catch (IllegalAccessException e) {

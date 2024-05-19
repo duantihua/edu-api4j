@@ -21,9 +21,8 @@ package org.openurp.web.dwr;
 import java.util.Map;
 
 import org.beangle.commons.dao.EntityDao;
-import org.beangle.orm.hibernate.udt.WeekStates;
 import org.openurp.base.time.NumberRangeDigestor;
-import org.openurp.edu.program.model.ExecutionPlanCourse;
+import org.openurp.edu.program.model.ExecutivePlanCourse;
 import org.openurp.edu.program.model.MajorPlanCourse;
 import org.openurp.edu.program.model.StdPlanCourse;
 
@@ -35,8 +34,8 @@ public class PlanCourseServiceDwr {
     return entityDao.get(StdPlanCourse.class, id);
   }
 
-  public Map<String, Object> getExecutionPlanCourse(Long id) {
-    ExecutionPlanCourse pc = entityDao.get(ExecutionPlanCourse.class, id);
+  public Map<String, Object> getExecutivePlanCourse(Long id) {
+    ExecutivePlanCourse pc = entityDao.get(ExecutivePlanCourse.class, id);
     Map<String, Object> datas = new java.util.HashMap<String, Object>();
     datas.put("id", pc.getId().toString());
     datas.put("course", pc.getCourse());

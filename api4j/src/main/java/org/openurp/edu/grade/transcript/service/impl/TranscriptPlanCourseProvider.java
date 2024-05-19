@@ -65,7 +65,7 @@ public class TranscriptPlanCourseProvider extends BaseServiceImpl implements Tra
       }
     }
     if (personalPlan == null) {
-      CoursePlan coursePlan = coursePlanProvider.getExecutionPlan(std);
+      CoursePlan coursePlan = coursePlanProvider.getExecutivePlan(std);
       if (coursePlan != null) {
         for (CourseGroup courseGroup : coursePlan.getGroups()) {
           planCourses.addAll(courseGroup.getPlanCourses());
