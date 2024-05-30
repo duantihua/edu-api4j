@@ -35,27 +35,19 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
     for (MajorPlan plan : plans) {
       if (canTransferTo(plan.getProgram().getStatus(), status)) {
         plan.getProgram().setStatus(status);
-        plan.setStatus(status);
         entityDao.saveOrUpdate(plan.getProgram(), plan);
         Program program = plan.getProgram();
         OqlBuilder<ExecutivePlan> q = OqlBuilder.from(ExecutivePlan.class, "ep");
         q.where("ep.program=:program", program);
         List<ExecutivePlan> eps = entityDao.search(q);
-        for (ExecutivePlan ep : eps) {
-          ep.setStatus(status);
-        }
-        entityDao.saveOrUpdate(eps);
 
         if (status.equals(AuditStatus.ACCEPTED)) {
           if (eps.isEmpty()) {
             ExecutivePlan ep = new ExecutivePlan();
             ep.setProgram(program);
-            ep.setStatus(AuditStatus.ACCEPTED);
             ep.setUpdatedAt(new java.util.Date());
             ep.setBeginOn(plan.getBeginOn());
             ep.setEndOn(plan.getEndOn());
-            ep.setStartTerm(plan.getStartTerm());
-            ep.setEndTerm(plan.getEndTerm());
             ep.setDepartment(program.getDepartment());
             ep.setCredits(plan.getCredits());
             entityDao.saveOrUpdate(ep);
@@ -75,7 +67,6 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
       if (canTransferTo(plan.getProgram().getStatus(), AuditStatus.REJECTED)) {
         if (plan.getProgram().getStatus() == AuditStatus.ACCEPTED) {
           plan.getProgram().setStatus(AuditStatus.REJECTED);
-          plan.setStatus(AuditStatus.REJECTED);
           entityDao.saveOrUpdate(plan);
         }
       }
@@ -86,7 +77,6 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
     for (MajorPlan plan : plans) {
       if (canTransferTo(plan.getProgram().getStatus(), AuditStatus.SUBMITTED)) {
         plan.getProgram().setStatus(AuditStatus.SUBMITTED);
-        plan.setStatus(AuditStatus.SUBMITTED);
       }
     }
     entityDao.saveOrUpdate(plans);

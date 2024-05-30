@@ -61,6 +61,16 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @Size(max = 200)
   private String name;
   /**
+   * 起始学期
+   */
+  private int startTerm;
+
+  /**
+   * 结束学期
+   */
+  private int endTerm;
+
+  /**
    * 年级
    */
   @NotNull
@@ -172,6 +182,26 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
   @ManyToMany
   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
   private Set<Course> degreeCourses = CollectUtils.newHashSet();
+
+  public int getEndTerm() {
+    return endTerm;
+  }
+
+  public void setEndTerm(int endTerm) {
+    this.endTerm = endTerm;
+  }
+
+  public int getStartTerm() {
+    return startTerm;
+  }
+
+  public void setStartTerm(int startTerm) {
+    this.startTerm = startTerm;
+  }
+
+  public int getTermsCount() {
+    return endTerm - startTerm + 1;
+  }
 
   public Program() {
     super();

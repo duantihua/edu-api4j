@@ -35,7 +35,7 @@ import org.openurp.edu.program.model.ExecutivePlan;
 public class PersonalPlanDaoHibernate extends ExecutivePlanDaoHibernate implements PersonalPlanDao {
 
   public Float getCreditByTerm(ExecutivePlan plan, int term) {
-    Range<Integer> termRange = Range.between(1, plan.getTermsCount());
+    Range<Integer> termRange = Range.between(1, plan.getProgram().getTermsCount());
     if (!termRange.contains(term)) {
       throw new RuntimeException("term out range");
     } else {

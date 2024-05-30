@@ -18,24 +18,16 @@
  */
 package org.openurp.edu.program.model;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.collection.CollectUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.openurp.base.model.Department;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 专业计划
@@ -47,14 +39,18 @@ public class ExecutivePlan extends AbstractCoursePlan {
 
   private static final long serialVersionUID = 7084539759992691314L;
 
-  /** 部门 */
+  /**
+   * 部门
+   */
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   private Department department;
 
 
-  /** 课程组 */
-  @OneToMany(orphanRemoval = true, targetEntity = ExecutiveCourseGroup.class, cascade = { CascadeType.ALL })
+  /**
+   * 课程组
+   */
+  @OneToMany(orphanRemoval = true, targetEntity = ExecutiveCourseGroup.class, cascade = {CascadeType.ALL})
   @JoinColumn(name = "plan_id", nullable = false)
   @OrderBy("indexno")
   @Cache(region = "edu.course", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -94,10 +90,10 @@ public class ExecutivePlan extends AbstractCoursePlan {
   public Date getEndOn() {
     return null != program ? program.getEndOn() : null;
   }
+
   @Override
   public String toString() {
-    return "ExecutivePlan [program=" + program + ", startTerm=" + getStartTerm() + ", endTerm=" + getEndTerm()
-        + "]";
+    return "ExecutivePlan [program=" + program + "]";
   }
 
 }

@@ -46,27 +46,10 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
   @OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   protected Program program;
   /**
-   * 审核状态
-   */
-  @NotNull
-  @Type(type = "org.beangle.orm.hibernate.udt.IDEnumType")
-  private AuditStatus status = AuditStatus.UNSUBMITTED;
-
-  /**
    * 要求学分
    */
   @NotNull
   private float credits;
-
-  /**
-   * 起始学期
-   */
-  private int startTerm;
-
-  /**
-   * 结束学期
-   */
-  private int endTerm;
 
   /** 开始日期 */
   @NotNull
@@ -77,26 +60,6 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
   private java.sql.Date endOn;
 
   private java.util.Date updatedAt;
-
-  public int getStartTerm() {
-    return startTerm;
-  }
-
-  public void setStartTerm(int startTerm) {
-    this.startTerm = startTerm;
-  }
-
-  public int getEndTerm() {
-    return endTerm;
-  }
-
-  public void setEndTerm(int endTerm) {
-    this.endTerm = endTerm;
-  }
-
-  public int getTermsCount() {
-    return endTerm - startTerm + 1;
-  }
 
   public float getCredits() {
     return credits;
@@ -143,14 +106,6 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public void setProgram(Program program) {
     this.program = program;
-  }
-
-  public AuditStatus getStatus() {
-    return status;
-  }
-
-  public void setStatus(AuditStatus status) {
-    this.status = status;
   }
 
   @Override

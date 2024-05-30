@@ -56,7 +56,7 @@ public class ExecutivePlanDaoHibernate extends HibernateEntityDao implements Exe
   }
 
   public Float getCreditByTerm(ExecutivePlan plan, int term) {
-    Range<Integer> termRange = Range.between(1, plan.getTermsCount());
+    Range<Integer> termRange = Range.between(1, plan.getProgram().getTermsCount());
     if (!termRange.contains(term)) {
       throw new RuntimeException("term out range");
     } else {

@@ -126,7 +126,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
       int creditHours = 0;
       int courseCount = 0;
       // 学分分布，周课时分布的格式都是这样的：,1,2,3,4,5,6,7,8,。注意前后两个逗号
-      String termCredits = Strings.repeat(",0", group.getPlan().getEndTerm()) + ",";
+      String termCredits = Strings.repeat(",0", group.getPlan().getProgram().getEndTerm()) + ",";
 
       for (CourseGroup child : group.getChildren()) {
         courseCount += child.getCourseCount();
@@ -347,7 +347,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     CourseGroup cloneGroup = (CourseGroup) Reflections.newInstance(groupClazz);
 
     commonSetting(cloneGroup, sourceCourseGroup);
-    normalizeTerms(cloneGroup, planAttachTo.getEndTerm());
+    normalizeTerms(cloneGroup, planAttachTo.getProgram().getEndTerm());
 
     if (parentAttachTo == null) {
       addCourseGroupToPlan(cloneGroup, planAttachTo);
@@ -409,8 +409,8 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     PlanCourse clonePlanCourse = (PlanCourse) Reflections.newInstance(pcClazz);
     commonSetting(clonePlanCourse, sourcePlanCourse);
     courseGroupAttachTo.addPlanCourse(clonePlanCourse);
-    normalizeTerm(clonePlanCourse, sourcePlanCourse.getGroup().getPlan().getTermsCount(),
-        courseGroupAttachTo.getPlan().getTermsCount());
+    normalizeTerm(clonePlanCourse, sourcePlanCourse.getGroup().getPlan().getProgram().getTermsCount(),
+        courseGroupAttachTo.getPlan().getProgram().getTermsCount());
     saveOrUpdate(courseGroupAttachTo);
     return clonePlanCourse;
   }
