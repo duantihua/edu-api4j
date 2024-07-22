@@ -50,27 +50,10 @@ public class ExecutivePlanCourse extends AbstractPlanCourse {
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseGroup group;
 
-  /**
-   * <pre>
-   * 建议修读学期，该字段只在培养计划是完全学分制时才有用。
-   * 和{@link #getTerms()}不同，{@link #getTerms()}指导开课，本字段指导学生修读
-   * </pre>
-   */
-  @NotNull
-  @Type(type = "org.openurp.base.time.hibernate.TermsType")
-  protected Terms suggestTerms = Terms.Empty;
 
   @NotNull
   @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
-
-  public Terms getSuggestTerms() {
-    return suggestTerms;
-  }
-
-  public void setSuggestTerms(Terms suggestTerms) {
-    this.suggestTerms = suggestTerms;
-  }
 
   public WeekState getWeekstate() {
     return weekstate;

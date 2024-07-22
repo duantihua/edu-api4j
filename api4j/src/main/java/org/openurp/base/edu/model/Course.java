@@ -115,11 +115,6 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
    */
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseNature nature;
-  /**
-   * 课程分类
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CourseCategory category;
 
   /**
    * 考试方式
@@ -396,14 +391,6 @@ public class Course extends ProjectBasedObject<Long> implements Comparable<Cours
     } else {
       endOn = new java.sql.Date(System.currentTimeMillis());
     }
-  }
-
-  public CourseCategory getCategory() {
-    return category;
-  }
-
-  public void setCategory(CourseCategory category) {
-    this.category = category;
   }
 
   public boolean isCalgp() {

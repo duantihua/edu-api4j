@@ -82,7 +82,7 @@ public class DegreeResult extends LongIdObject {
    * 毕业备注
    */
   @Size(max = 500)
-  @Column(name="degree_comments")
+  @Column(name="remark")
   private String comments;
 
   /**
