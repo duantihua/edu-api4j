@@ -63,7 +63,6 @@ public class ExecutivePlanCourseModifyAuditDaoHibernate extends HibernateEntityD
       if (mg == null) { throw new ExecutivePlanAuditException(
           "课程组不存在：" + after.getFakeCourseGroup().getCourseType().getName()); }
       planCourse.setGroup(mg);
-      planCourse.setDepartment(after.getDepartment());
       planCourseCommonDao.addPlanCourse(planCourse, plan);
     } else if (ExecutivePlanCourseModify.DELETE.equals(apply.getRequisitionType())) {
       ExecutivePlanCourseModifyDetail before = apply.getOldPlanCourse();
@@ -90,7 +89,6 @@ public class ExecutivePlanCourseModifyAuditDaoHibernate extends HibernateEntityD
           "课程组不存在：" + after.getFakeCourseGroup().getCourseType().getName()); }
 
       planCourse.setGroup(mg);
-      planCourse.setDepartment(after.getDepartment());
       planCourseCommonDao.updatePlanCourse(planCourse, plan);
       planCourseGroupCommonDao.saveOrUpdateCourseGroup(oldGroup);
     } else {

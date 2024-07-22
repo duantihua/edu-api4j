@@ -28,8 +28,6 @@ import org.openurp.code.edu.model.CourseType;
 
 /**
  * 专业计划课程组修改明细
- *
- *
  */
 @MappedSuperclass
 public abstract class ExecutiveCourseGroupModifyDetail extends LongIdObject {
@@ -45,9 +43,6 @@ public abstract class ExecutiveCourseGroupModifyDetail extends LongIdObject {
 
   /** 总学分 */
   protected float credits;
-
-  /** 要求门数 */
-  protected short courseCount;
 
   /** 课程组每学期对应学分 */
   @Column(length = 50)
@@ -74,14 +69,6 @@ public abstract class ExecutiveCourseGroupModifyDetail extends LongIdObject {
 
   public void setCredits(float credits) {
     this.credits = credits;
-  }
-
-  public short getCourseCount() {
-    return courseCount;
-  }
-
-  public void setCourseCount(short courseCount) {
-    this.courseCount = courseCount;
   }
 
   public String getTermCredits() {

@@ -46,8 +46,6 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
             ExecutivePlan ep = new ExecutivePlan();
             ep.setProgram(program);
             ep.setUpdatedAt(new java.util.Date());
-            ep.setBeginOn(plan.getBeginOn());
-            ep.setEndOn(plan.getEndOn());
             ep.setDepartment(program.getDepartment());
             ep.setCredits(plan.getCredits());
             entityDao.saveOrUpdate(ep);

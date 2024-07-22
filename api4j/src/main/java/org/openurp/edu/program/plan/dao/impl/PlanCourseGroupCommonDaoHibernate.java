@@ -90,7 +90,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
       // 需要建立一个临时的children list，否则直接遍历group.getChildren()会出错
       List<CourseGroup> t_children = new ArrayList<CourseGroup>(group.getChildren());
       for (CourseGroup child : t_children) {
-        removeCourseGroup((ExecutiveCourseGroup) child);
+        removeCourseGroup(child);
       }
     }
     // 把父亲的关系断掉
@@ -124,18 +124,15 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
         || CollectUtils.isNotEmpty(group.getPlanCourses()))) {
       float credits = 0f;
       int creditHours = 0;
-      int courseCount = 0;
       // 学分分布，周课时分布的格式都是这样的：,1,2,3,4,5,6,7,8,。注意前后两个逗号
       String termCredits = Strings.repeat(",0", group.getPlan().getProgram().getEndTerm()) + ",";
 
       for (CourseGroup child : group.getChildren()) {
-        courseCount += child.getCourseCount();
         credits += child.getCredits();
         creditHours += child.getCreditHours();
         termCredits = PlanTermCreditTool.mergeTermCredits(termCredits, child.getTermCredits());
       }
       for (PlanCourse pcourse : group.getPlanCourses()) {
-        courseCount++;
         creditHours += pcourse.getCourse().getCreditHours();
         credits += pcourse.getCourse().getCredits(group.getPlan().getProgram().getLevel());
         termCredits = addCreditsInTerms(termCredits, pcourse);
@@ -148,7 +145,6 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
         }
       }
       Terms terms = new Terms(t);
-      group.setCourseCount((short) courseCount);
       group.setTermCredits(termCredits);
       group.setTerms(terms);
       group.setCredits(credits);
@@ -381,7 +377,6 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
   private void commonSetting(CourseGroup newGroup, CourseGroup src) {
     newGroup.setSubCount(src.getSubCount());
     newGroup.setCreditHours(src.getCreditHours());
-    newGroup.setCourseCount(src.getCourseCount());
     newGroup.setCourseType(src.getCourseType());
     newGroup.setCredits(src.getCredits());
     newGroup.setTermCredits(src.getTermCredits());
@@ -389,7 +384,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     newGroup.setIndexno(src.getIndexno());
     if (newGroup instanceof AbstractCourseGroup) {
       AbstractCourseGroup acg = (AbstractCourseGroup) newGroup;
-      acg.setAutoAddup(src.isAutoAddup());
+      acg.setRank(((AbstractCourseGroup) src).getRank());
       acg.setGivenName(((AbstractCourseGroup) src).getGivenName());
     }
   }

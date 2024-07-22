@@ -79,7 +79,6 @@ public abstract class ExecutivePlanCourseModifyDetail extends LongIdObject imple
     return Objects.equalsBuilder()
         // .add(getHskLevel(), rhs.getHskLevel())
         .add(getTerms(), rhs.getTerms()).add(getRemark(), rhs.getRemark())
-        .add(getDepartment().getId(), rhs.getDepartment().getId())
         .add(getCourse().getId(), rhs.getCourse().getId()).add(getId(), rhs.getId()).isEquals();
   }
 

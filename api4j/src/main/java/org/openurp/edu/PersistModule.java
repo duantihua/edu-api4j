@@ -74,7 +74,8 @@ public class PersistModule extends AbstractPersistModule {
         EduCategory.class, EducationType.class).cache("openurp.base");
 
     add(UserCategory.class, DayPart.class, BookType.class, BookAwardType.class, CourseAbilityRate.class,
-        TeachingNature.class, CourseType.class, CourseCategory.class, CourseNature.class, TeachingMethod.class,
+        TeachingNature.class, CourseType.class, CourseRank.class, CourseCategory.class, CourseNature.class,
+        TeachingMethod.class,CourseModule.class,
         CourseTakeType.class, EducationLevel.class, ExamMode.class, ExamForm.class, ExamStatus.class,
         ElectionMode.class, ExamType.class, GradeType.class, GradingMode.class, StdLabel.class,
         StdLabelType.class, StdType.class, TeachLangType.class, ExamDeferReason.class)

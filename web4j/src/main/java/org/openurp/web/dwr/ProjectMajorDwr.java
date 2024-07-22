@@ -26,14 +26,14 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.EntityDao;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.security.core.userdetail.Profile;
-import org.openurp.base.model.Department;
-import org.openurp.code.edu.model.EducationLevel;
-import org.openurp.code.std.model.StdType;
 import org.openurp.base.edu.model.Direction;
 import org.openurp.base.edu.model.Major;
 import org.openurp.base.edu.model.Project;
-import org.openurp.base.std.model.Squad;
+import org.openurp.base.model.Department;
 import org.openurp.base.service.ProjectContext;
+import org.openurp.base.std.model.Squad;
+import org.openurp.code.edu.model.EducationLevel;
+import org.openurp.code.std.model.StdType;
 
 import java.util.Collections;
 import java.util.Date;
@@ -101,7 +101,7 @@ public class ProjectMajorDwr extends AbstractDwr {
   }
 
   // FIXME 没有把院系的条件加入进来
-  public List<Object[]> directions(Long majorId) {
+  public List<Object[]> directions(Integer levelId, Integer departId, Long majorId) {
     if (null == majorId) {
       return Collections.emptyList();
     }
@@ -109,6 +109,12 @@ public class ProjectMajorDwr extends AbstractDwr {
     OqlBuilder query = OqlBuilder.from(Direction.class, "s");
     query.select("str(s.id),s.code, s.name, s.enName").where("s.beginOn<=:now", now)
         .where("(s.endOn is null or s.endOn >= :now)", now).where("s.major.id = :majorId", majorId);
+    if (null != levelId) {
+      query.where("exists(from s.journals as j where j.level.id=:levelId)", levelId);
+    }
+    if (null != departId) {
+      query.where("exists(from s.journals as j where j.depart.id=:departId)", departId);
+    }
     query.orderBy("s.name");
     return entityDao.search(query);
   }

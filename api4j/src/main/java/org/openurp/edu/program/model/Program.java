@@ -69,7 +69,11 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
    * 结束学期
    */
   private int endTerm;
-
+  /**
+   * 要求学分
+   */
+  @NotNull
+  private float credits;
   /**
    * 年级
    */
@@ -379,6 +383,14 @@ public class Program extends NumberIdTimeObject<Long> implements Cloneable {
 
   public void setEduType(EducationType eduType) {
     this.eduType = eduType;
+  }
+
+  public float getCredits() {
+    return credits;
+  }
+
+  public void setCredits(float credits) {
+    this.credits = credits;
   }
 
   public StdType getStdType() {

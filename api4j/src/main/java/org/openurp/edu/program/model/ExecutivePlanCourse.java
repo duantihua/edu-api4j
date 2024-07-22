@@ -18,22 +18,19 @@
  */
 package org.openurp.edu.program.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 import org.beangle.commons.lang.Objects;
 import org.beangle.orm.hibernate.udt.WeekState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Target;
 import org.hibernate.annotations.Type;
-import org.openurp.base.model.Department;
 import org.openurp.base.time.Terms;
-import org.openurp.code.edu.model.ExamMode;
-import org.openurp.base.edu.model.CalendarStage;
+
+import javax.persistence.Cacheable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  * 专业计划课程
@@ -45,7 +42,9 @@ public class ExecutivePlanCourse extends AbstractPlanCourse {
 
   private static final long serialVersionUID = 6223259360999867620L;
 
-  /** 课程组 */
+  /**
+   * 课程组
+   */
   @Target(ExecutiveCourseGroup.class)
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
@@ -61,36 +60,9 @@ public class ExecutivePlanCourse extends AbstractPlanCourse {
   @Type(type = "org.openurp.base.time.hibernate.TermsType")
   protected Terms suggestTerms = Terms.Empty;
 
-  /** 开课部门 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Department department;
-
-  /** 考核方式 */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private ExamMode examMode;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CalendarStage stage;
-
   @NotNull
   @Type(type = "org.beangle.orm.hibernate.udt.WeekStateType")
   private WeekState weekstate = WeekState.Zero;
-
-  public Department getDepartment() {
-    return department;
-  }
-
-  public void setDepartment(Department department) {
-    this.department = department;
-  }
-
-  public ExamMode getExamMode() {
-    return examMode;
-  }
-
-  public void setExamMode(ExamMode examMode) {
-    this.examMode = examMode;
-  }
 
   public Terms getSuggestTerms() {
     return suggestTerms;
@@ -117,24 +89,18 @@ public class ExecutivePlanCourse extends AbstractPlanCourse {
   }
 
   public boolean isSame(Object object) {
-    if (!(object instanceof ExecutivePlanCourse)) { return false; }
+    if (!(object instanceof ExecutivePlanCourse)) {
+      return false;
+    }
     ExecutivePlanCourse rhs = (ExecutivePlanCourse) object;
     return Objects.equalsBuilder().add(terms, rhs.terms).add(remark, rhs.remark)
-        .add(department.getId(), rhs.department.getId()).add(course.getId(), rhs.course.getId())
+        .add(course.getId(), rhs.course.getId())
         .add(id, rhs.id).isEquals();
   }
 
   @Override
   public String toString() {
     return "ExecutivePlanCourse [group=" + group + ", course=" + course + ", terms=" + terms + ", compulsory="
-        + compulsory + ", department=" + department + ", examMode=" + examMode + "]";
-  }
-
-  public CalendarStage getStage() {
-    return stage;
-  }
-
-  public void setStage(CalendarStage stage) {
-    this.stage = stage;
+        + compulsory + "]";
   }
 }

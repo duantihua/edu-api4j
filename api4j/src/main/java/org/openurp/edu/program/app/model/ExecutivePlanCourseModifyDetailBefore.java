@@ -46,9 +46,7 @@ public class ExecutivePlanCourseModifyDetailBefore extends ExecutivePlanCourseMo
     super();
     setCourse(planCourse.getCourse());
     setFakeCourseGroupByReal((ExecutiveCourseGroup) planCourse.getGroup());
-    // getCourseHours().putAll(planCourse.getCourseHours());
     setRemark(planCourse.getRemark());
-    setDepartment(planCourse.getDepartment());
     setTerms(planCourse.getTerms());
     setCompulsory(planCourse.isCompulsory());
   }

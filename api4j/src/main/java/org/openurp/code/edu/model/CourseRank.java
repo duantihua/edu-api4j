@@ -25,79 +25,21 @@ import org.openurp.code.school;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 
 /**
- * 课程类别
+ * 课程属性
  *
  * @since 2005-9-7
  */
-@Entity(name = "org.openurp.code.edu.model.CourseType")
+@Entity(name = "org.openurp.code.edu.model.CourseRank")
 @Cacheable
 @Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @school
-public class CourseType extends Code<Integer> {
+public class CourseRank extends Code<Integer> {
 
   private static final long serialVersionUID = 8232522018765348618L;
-  /**
-   * 上级类别
-   */
-  @ManyToOne(fetch = FetchType.LAZY)
-  private CourseType parent;
 
-  private boolean major;
-
-  private boolean optional;
-
-  private boolean practical;
-
-  /**
-   * @return
-   */
-  @Deprecated
-  public boolean isMajor() {
-    return major;
-  }
-
-  @Deprecated
-  public void setMajor(boolean major) {
-    this.major = major;
-  }
-
-  @Deprecated
-  public boolean isOptional() {
-    return optional;
-  }
-
-  @Deprecated
-  public void setOptional(boolean optional) {
-    this.optional = optional;
-  }
-
-  @Deprecated
-  public boolean isPractical() {
-    return practical;
-  }
-
-  @Deprecated
-  public void setPractical(boolean practical) {
-    this.practical = practical;
-  }
-
-  public CourseType() {
-    super();
-  }
-
-  public CourseType(Integer id) {
-    super(id);
-  }
-
-  public CourseType getParent() {
-    return parent;
-  }
-
-  public void setParent(CourseType parent) {
-    this.parent = parent;
+  public boolean isCompulsory() {
+    return this.id.toString().equals("1");
   }
 }

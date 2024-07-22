@@ -56,7 +56,6 @@ public class ExecutivePlanCourseModifyDetailAfter extends ExecutivePlanCourseMod
     // setHskLevel(planCourse.getHskLevel());
     // getPreCourses().addAll(planCourse.getPreCourses());
     setRemark(planCourse.getRemark());
-    setDepartment(planCourse.getDepartment());
     setTerms(planCourse.getTerms());
   }
 

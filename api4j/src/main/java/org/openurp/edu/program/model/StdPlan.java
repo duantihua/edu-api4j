@@ -52,10 +52,6 @@ public class StdPlan extends AbstractCoursePlan {
   @JoinColumn(name = "plan_id", nullable = false)
   private List<CourseGroup> groups = CollectUtils.newArrayList();
 
-  /** 备注 */
-  @Size(max = 800)
-  private String remark;
-
   public List<CourseGroup> getGroups() {
     return groups;
   }
@@ -85,11 +81,4 @@ public class StdPlan extends AbstractCoursePlan {
     this.std = std;
   }
 
-  public String getRemark() {
-    return remark;
-  }
-
-  public void setRemark(String remark) {
-    this.remark = remark;
-  }
 }

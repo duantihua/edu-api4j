@@ -88,7 +88,6 @@ public class ExecutivePlanCourseGroupModifyApplyServiceImpl extends BaseServiceI
       before.setApply(modifyBean);
       before.setSubCount(courseGroup.getSubCount());
       before.setCourseType(courseGroup.getCourseType());
-      before.setCourseCount(courseGroup.getCourseCount());
       before.setCredits(courseGroup.getCredits());
       before.setParent(new FakeCourseGroup((ExecutiveCourseGroup) courseGroup.getParent()));
       before.setRemark(courseGroup.getRemark());

@@ -73,7 +73,6 @@ public class ExecutivePlanCourseGroupModifyAuditDaoHibernate extends HibernateEn
       group = new ExecutiveCourseGroup();
       group.setPlan(plan);
       group.setCourseType(apply.getNewPlanCourseGroup().getCourseType());
-      group.setCourseCount(apply.getNewPlanCourseGroup().getCourseCount());
       group.setTermCredits(apply.getNewPlanCourseGroup().getTermCredits());
       group.setCredits(apply.getNewPlanCourseGroup().getCredits());
       group.setSubCount(apply.getNewPlanCourseGroup().getSubCount());
@@ -93,7 +92,6 @@ public class ExecutivePlanCourseGroupModifyAuditDaoHibernate extends HibernateEn
       planCourseGroupCommonDao.updateCourseGroupParent(oldGroup, parent, plan);
 
       oldGroup.setCourseType(apply.getNewPlanCourseGroup().getCourseType());
-      oldGroup.setCourseCount(apply.getNewPlanCourseGroup().getCourseCount());
       oldGroup.setTermCredits(apply.getNewPlanCourseGroup().getTermCredits());
       oldGroup.setCredits(apply.getNewPlanCourseGroup().getCredits());
       oldGroup.setSubCount(apply.getNewPlanCourseGroup().getSubCount());

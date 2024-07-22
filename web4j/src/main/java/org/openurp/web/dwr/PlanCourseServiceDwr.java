@@ -39,7 +39,7 @@ public class PlanCourseServiceDwr {
     Map<String, Object> datas = new java.util.HashMap<String, Object>();
     datas.put("id", pc.getId().toString());
     datas.put("course", pc.getCourse());
-    datas.put("department", pc.getDepartment());
+    datas.put("department", pc.getCourse().getDepartment());
     datas.put("terms", pc.getTerms().toString());
     if (pc.getWeekstate() != null) datas.put("weekstate", NumberRangeDigestor.digest(pc.getWeekstate()));
     datas.put("compulsory", pc.isCompulsory());
@@ -51,7 +51,7 @@ public class PlanCourseServiceDwr {
     Map<String, Object> datas = new java.util.HashMap<String, Object>();
     datas.put("id", pc.getId().toString());
     datas.put("course", pc.getCourse());
-    datas.put("department", pc.getDepartment());
+    datas.put("department", pc.getCourse().getDepartment());
     datas.put("terms", pc.getTerms().toString());
     if (pc.getWeekstate() != null) datas.put("weekstate", NumberRangeDigestor.digest(pc.getWeekstate()));
     datas.put("compulsory", pc.isCompulsory());
