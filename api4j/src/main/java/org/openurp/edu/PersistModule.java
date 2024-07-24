@@ -223,8 +223,6 @@ public class PersistModule extends AbstractPersistModule {
         org.openurp.edu.clazz.app.model.CourseMailSetting.class,
         ScheduleSetting.class,
 
-        org.openurp.std.graduation.model.DegreeAuditItem.class,
-        org.openurp.std.graduation.model.GraduateAuditItem.class,
         org.openurp.std.graduation.model.GraduateResult.class, DegreeResult.class,
         org.openurp.std.graduation.model.GraduateBatch.class,
         GraduateAuditLog.class,

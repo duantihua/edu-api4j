@@ -48,13 +48,6 @@ public class GraduateResult extends LongIdObject {
   private java.util.Date updatedAt;
 
   /**
-   * 毕业审核详细结果
-   */
-  @OneToMany(mappedBy = "result", orphanRemoval = true, targetEntity = GraduateAuditItem.class, cascade = {
-      CascadeType.ALL})
-  private List<GraduateAuditItem> items = CollectUtils.newArrayList();
-
-  /**
    * 是否通过毕业审核
    * 可以为空，空代表还没有审核过
    */
@@ -85,19 +78,9 @@ public class GraduateResult extends LongIdObject {
   @ManyToOne(fetch = FetchType.LAZY)
   private EducationResult educationResult;
 
-  /**
-   * @return the items
-   */
-  public List<GraduateAuditItem> getItems() {
-    return items;
-  }
+  private String passedItems;
 
-  /**
-   * @param items the items to set
-   */
-  public void setItems(List<GraduateAuditItem> items) {
-    this.items = items;
-  }
+  private String failedItems;
 
   /**
    * @return the passed
@@ -205,5 +188,21 @@ public class GraduateResult extends LongIdObject {
 
   public void setBatchNo(int batchNo) {
     this.batchNo = batchNo;
+  }
+
+  public String getPassedItems() {
+    return passedItems;
+  }
+
+  public void setPassedItems(String passedItems) {
+    this.passedItems = passedItems;
+  }
+
+  public String getFailedItems() {
+    return failedItems;
+  }
+
+  public void setFailedItems(String failedItems) {
+    this.failedItems = failedItems;
   }
 }
