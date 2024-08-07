@@ -16,41 +16,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.openurp.base.std.model;
+package org.openurp.base.edu.model;
 
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.openurp.base.edu.model.Project;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
-@Entity(name = "org.openurp.base.std.model.GraduateSeason")
+@Entity(name = "org.openurp.base.edu.model.CourseJournal")
 @Cacheable
-@Cache(region = "openurp.base", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class GraduateSeason extends LongIdObject {
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "edu.course")
+public class CourseJournal extends LongIdObject {
+  String name;
+  String enName;
 
-  private String code;
+  private java.sql.Date beginOn;
 
-  private String name;
+  private java.sql.Date endOn;
 
-  @NotNull
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Project project;
+  public CourseJournal() {
 
-  private java.sql.Date graduateOn;
-
-  public String getCode() {
-    return code;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public CourseJournal(Course c) {
+    this.name = c.name;
+    this.enName = c.enName;
+    this.beginOn = c.getBeginOn();
+    this.endOn = c.getEndOn();
   }
 
   public String getName() {
@@ -61,19 +56,27 @@ public class GraduateSeason extends LongIdObject {
     this.name = name;
   }
 
-  public Project getProject() {
-    return project;
+  public String getEnName() {
+    return enName;
   }
 
-  public void setProject(Project project) {
-    this.project = project;
+  public void setEnName(String enName) {
+    this.enName = enName;
   }
 
-  public Date getGraduateOn() {
-    return graduateOn;
+  public Date getBeginOn() {
+    return beginOn;
   }
 
-  public void setGraduateOn(Date graduateOn) {
-    this.graduateOn = graduateOn;
+  public void setBeginOn(Date beginOn) {
+    this.beginOn = beginOn;
+  }
+
+  public Date getEndOn() {
+    return endOn;
+  }
+
+  public void setEndOn(Date endOn) {
+    this.endOn = endOn;
   }
 }

@@ -237,4 +237,14 @@ public class DegreeResult extends LongIdObject {
   public void setFailedItems(String failedItems) {
     this.failedItems = failedItems;
   }
+
+  public void add(boolean passed, String item) {
+    if (passed) {
+      if (passedItems == null) passedItems = item;
+      else passedItems += ("," + item);
+    } else {
+      if (failedItems == null) failedItems = item;
+      else failedItems += ("," + item);
+    }
+  }
 }

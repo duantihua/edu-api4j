@@ -75,7 +75,7 @@ public class PersistModule extends AbstractPersistModule {
 
     add(UserCategory.class, DayPart.class, BookType.class, BookAwardType.class, CourseAbilityRate.class,
         TeachingNature.class, CourseType.class, CourseRank.class, CourseCategory.class, CourseNature.class,
-        TeachingMethod.class,CourseModule.class,
+        TeachingMethod.class, CourseModule.class,
         CourseTakeType.class, EducationLevel.class, ExamMode.class, ExamForm.class, ExamStatus.class,
         ElectionMode.class, ExamType.class, GradeType.class, GradingMode.class, StdLabel.class,
         StdLabelType.class, StdType.class, TeachLangType.class, ExamDeferReason.class)
@@ -98,6 +98,7 @@ public class PersistModule extends AbstractPersistModule {
 
         org.openurp.base.edu.model.Project.class,
         org.openurp.base.edu.model.ProjectCode.class, org.openurp.base.edu.model.Course.class,
+        org.openurp.base.edu.model.CourseJournal.class,
         Classroom.class, org.openurp.base.edu.model.CourseHour.class, CourseTextbook.class,
         org.openurp.base.edu.model.Textbook.class, org.openurp.edu.clazz.model.StdCourseAbility.class,
         org.openurp.base.edu.model.CourseLevel.class,

@@ -18,15 +18,16 @@
  */
 package org.openurp.std.graduation.model;
 
-import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.entity.pojo.LongIdObject;
 import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.EducationResult;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "org.openurp.std.graduation.model.GraduateResult")
 public class GraduateResult extends LongIdObject {
@@ -188,6 +189,16 @@ public class GraduateResult extends LongIdObject {
 
   public void setBatchNo(int batchNo) {
     this.batchNo = batchNo;
+  }
+
+  public void add(boolean passed, String item) {
+    if (passed) {
+      if (passedItems == null) passedItems = item;
+      else passedItems += ("," + item);
+    }else{
+      if (failedItems == null) failedItems = item;
+      else failedItems += ("," + item);
+    }
   }
 
   public String getPassedItems() {
