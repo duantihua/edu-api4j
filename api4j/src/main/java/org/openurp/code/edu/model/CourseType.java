@@ -46,43 +46,32 @@ public class CourseType extends Code<Integer> {
   @ManyToOne(fetch = FetchType.LAZY)
   private CourseType parent;
 
-  private boolean major;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseModule module;
 
-  private boolean optional;
-
-  private boolean practical;
+  @ManyToOne(fetch = FetchType.LAZY)
+  private CourseRank rank;
 
   /**
    * @return
    */
   @Deprecated
   public boolean isMajor() {
-    return major;
-  }
-
-  @Deprecated
-  public void setMajor(boolean major) {
-    this.major = major;
+    if (null == module) return false;
+    return module.isMajor();
   }
 
   @Deprecated
   public boolean isOptional() {
-    return optional;
+    if (null == rank) return false;
+    return !rank.isCompulsory();
   }
 
-  @Deprecated
-  public void setOptional(boolean optional) {
-    this.optional = optional;
-  }
 
   @Deprecated
   public boolean isPractical() {
-    return practical;
-  }
-
-  @Deprecated
-  public void setPractical(boolean practical) {
-    this.practical = practical;
+    if (null == module) return false;
+    return module.isPractical();
   }
 
   public CourseType() {
@@ -99,5 +88,21 @@ public class CourseType extends Code<Integer> {
 
   public void setParent(CourseType parent) {
     this.parent = parent;
+  }
+
+  public CourseModule getModule() {
+    return module;
+  }
+
+  public void setModule(CourseModule module) {
+    this.module = module;
+  }
+
+  public CourseRank getRank() {
+    return rank;
+  }
+
+  public void setRank(CourseRank rank) {
+    this.rank = rank;
   }
 }

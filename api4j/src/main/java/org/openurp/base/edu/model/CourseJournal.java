@@ -24,6 +24,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Entity(name = "org.openurp.base.edu.model.CourseJournal")
@@ -32,6 +34,9 @@ import java.sql.Date;
 public class CourseJournal extends LongIdObject {
   String name;
   String enName;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Course course;
 
   private java.sql.Date beginOn;
 
@@ -78,5 +83,13 @@ public class CourseJournal extends LongIdObject {
 
   public void setEndOn(Date endOn) {
     this.endOn = endOn;
+  }
+
+  public Course getCourse() {
+    return course;
+  }
+
+  public void setCourse(Course course) {
+    this.course = course;
   }
 }
