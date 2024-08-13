@@ -379,6 +379,7 @@ public class PlanCourseGroupCommonDaoHibernate extends HibernateEntityDao
     newGroup.setCreditHours(src.getCreditHours());
     newGroup.setCourseType(src.getCourseType());
     newGroup.setCredits(src.getCredits());
+    newGroup.setHourRatios(src.getHourRatios());
     newGroup.setTermCredits(src.getTermCredits());
     newGroup.setRemark(src.getRemark());
     newGroup.setIndexno(src.getIndexno());

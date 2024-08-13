@@ -71,7 +71,7 @@ public class PersistModule extends AbstractPersistModule {
         PoliticalStatus.class, IdType.class, FamilyRelationship.class, PassportType.class,
         HouseholdType.class, VisaType.class, Country.class, Division.class, RailwayStation.class,
         ProfessionalTitle.class, ProfessionalGrade.class, TutorType.class, WorkStatus.class,
-        EduCategory.class, EducationType.class).cache("openurp.base");
+        EduCategory.class, EducationType.class, EducationDegree.class).cache("openurp.base");
 
     add(UserCategory.class, DayPart.class, BookType.class, BookAwardType.class, CourseAbilityRate.class,
         TeachingNature.class, CourseType.class, CourseRank.class, CourseCategory.class, CourseNature.class,

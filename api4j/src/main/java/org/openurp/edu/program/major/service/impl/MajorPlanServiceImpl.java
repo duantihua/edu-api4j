@@ -57,6 +57,8 @@ public class MajorPlanServiceImpl extends BaseServiceImpl implements MajorPlanSe
     MajorPlan newPlan = (MajorPlan) sourcePlan.clone();
     newPlan.setId(null);
     newPlan.setCredits(sourcePlan.getCredits());
+    newPlan.setCreditHours(sourcePlan.getCreditHours());
+    newPlan.setHourRatios(sourcePlan.getHourRatios());
     newPlan.setUpdatedAt(new java.util.Date());
 
     if (genParameter != null) {

@@ -50,6 +50,14 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
    */
   @NotNull
   private float credits;
+  /**
+   * 课时
+   */
+  private int creditHours;
+  /**
+   * 课时比例
+   */
+  private String hourRatios;
 
   private java.util.Date updatedAt;
 
@@ -128,5 +136,21 @@ public abstract class AbstractCoursePlan extends LongIdObject implements CourseP
 
   public void setUpdatedAt(java.util.Date updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  public int getCreditHours() {
+    return creditHours;
+  }
+
+  public void setCreditHours(int creditHours) {
+    this.creditHours = creditHours;
+  }
+
+  public String getHourRatios() {
+    return hourRatios;
+  }
+
+  public void setHourRatios(String hourRatios) {
+    this.hourRatios = hourRatios;
   }
 }
