@@ -48,6 +48,8 @@ public class MajorPlanAuditServiceImpl extends BaseServiceImpl implements MajorP
             ep.setUpdatedAt(new java.util.Date());
             ep.setDepartment(program.getDepartment());
             ep.setCredits(plan.getCredits());
+            ep.setHourRatios(plan.getHourRatios());
+            ep.setCreditHours(plan.getCreditHours());
             entityDao.saveOrUpdate(ep);
             for (CourseGroup cg : plan.getGroups()) {
               if (cg.getParent() == null) {

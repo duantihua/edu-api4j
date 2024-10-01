@@ -41,7 +41,7 @@ public class CourseLimitDirectionProvider extends AbstractCourseLimitEntityProvi
     }
     if (Strings.isNotBlank(departIds) || Strings.isNotBlank(levelIds)) {
       StringBuilder sb = new StringBuilder(
-          "exists(from entity.departs journal where journal.beginOn <= :now and (journal.endOn is null or journal.endOn >= :now)");
+          "exists(from entity.journals journal where journal.beginOn <= :now and (journal.endOn is null or journal.endOn >= :now)");
       if (Strings.isNotBlank(departIds)) {
         sb.append(" and journal.depart.id in (:departIds)");
       }
